@@ -1,0 +1,111 @@
+{
+  "Header": {
+    "language_switcher": {
+      "title": "Switch the language",
+      "languages": {
+        "ru": "Russian",
+        "es": "Spanish",
+        "en": "English"
+      }
+    },
+    "buttons": {
+      "log_in": "Log In",
+      "sign_up": "Sign Up",
+      "logout": "Logout",
+      "account_management": "Account management"
+    },
+    "account_management_menu": {
+      "profile": "Edit a profile",
+      "logout": "Log out of your account"
+    }
+  },
+  "LogInForm": {
+    "title": "Log In to Home Service",
+    "email_input": {
+      "placeholder": "Email"
+    },
+    "password_input": {
+      "placeholder": "Password"
+    },
+    "button": {
+      "text": "Continue"
+    },
+    "tip": {
+      "link_description": "Forgot your password?",
+      "link": "Reset password"
+    },
+    "validation_errors": {
+      "invalid_email_or_password": "Invalid email or password"
+    }
+  },
+  "ResetPasswordForm": {
+    "title": "Reset your account password",
+    "email_input": {
+      "placeholder": "Email"
+    },
+    "button": {
+      "to_send": "Send a link to the email",
+      "sent": "The link was sent to the email"
+    },
+    "tip": {
+      "text": "Enter your email address to receive a password reset link"
+    }
+  },
+  "SignUpForm": {
+    "title": "Sign Up for Home Service",
+    "email_input": {
+      "placeholder": "Email"
+    },
+    "password_input": {
+      "placeholder": "Password"
+    },
+    "repeat_password_input": {
+      "placeholder": "Repeat password"
+    },
+    "select": {
+      "options": {
+        "user": "User",
+        "specialist": "Specialist"
+      }
+    },
+    "button": {
+      "text": "Continue"
+    },
+    "tip": {
+      "input": "Choose who you want to become in our specialist recruitment service",
+      "link_description": "Do you have an account?",
+      "link": "Log In"
+    },
+    "validation_errors": {
+      "user_already_exist": "The user with this email already exists"
+    }
+  },
+  "Footer": {
+    "text": "Copyright 2024 - 2024 HomeService, Inc. All Rights Reserved"
+  },
+  "validations": {
+    "email": "Enter a valid email address",
+    "required": "The field must be filled in",
+    "password": {
+      "min": "Password must be at least 6 characters",
+      "matches": "Password must contain at least one uppercase letter",
+      "second_matches": "Password must contain at least one digit",
+      "one_of": "Passwords must match"
+    }
+  },
+  "privacy_policy": {
+    "description": "By registering, you agree to",
+    "link": "Privacy policy"
+  },
+  "slogan": {
+    "title": "Things are done",
+    "second_title": "with Home Service",
+    "subtitle": "{numberOfUsers, plural, =1 {the client trusted} other {# customers trusted}} our service",
+    "button": "Find a specialist"
+  },
+  "categories": {
+    "electrics": "Electrics",
+    "plumbing": "Plumbing",
+    "cleaning": "Cleaning"
+  }
+}

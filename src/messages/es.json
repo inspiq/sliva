@@ -1,0 +1,111 @@
+{
+  "Header": {
+    "language_switcher": {
+      "title": "Cambiar idioma",
+      "languages": {
+        "ru": "Ruso",
+        "es": "Español",
+        "en": "Inglés"
+      }
+    },
+    "buttons": {
+      "log_in": "Iniciar sesión",
+      "sign_up": "Regístrate ahora",
+      "logout": "Cerrar sesión",
+      "account_management": "Gestión de cuentas"
+    },
+    "account_management_menu": {
+      "profile": "Editar perfil",
+      "logout": "Cerrar sesión"
+    }
+  },
+  "LogInForm": {
+    "title": "Iniciar sesión en Home Service",
+    "email_input": {
+      "placeholder": "Correo electrónico"
+    },
+    "password_input": {
+      "placeholder": "Contraseña"
+    },
+    "button": {
+      "text": "Continuar"
+    },
+    "tip": {
+      "link_description": "Recuperar contraseña?",
+      "link": "Restablecer contraseña"
+    },
+    "validation_errors": {
+      "invalid_email_or_password": "Correo electrónico o contraseña incorrectos"
+    }
+  },
+  "ResetPasswordForm": {
+    "title": "Restablecer la contraseña de tu cuenta",
+    "email_input": {
+      "placeholder": "Correo electrónico"
+    },
+    "button": {
+      "to_send": "Enviar enlace al correo",
+      "sent": "El enlace fue enviado al correo"
+    },
+    "tip": {
+      "text": "Ingresa tu dirección de correo electrónico para recibir un enlace de restablecimiento de contraseña"
+    }
+  },
+  "SignUpForm": {
+    "title": "Regístrate para el Servicio de Hogar",
+    "email_input": {
+      "placeholder": "Correo electrónico"
+    },
+    "password_input": {
+      "placeholder": "Contraseña"
+    },
+    "repeat_password_input": {
+      "placeholder": "Repetir contraseña"
+    },
+    "select": {
+      "options": {
+        "user": "Usuario",
+        "specialist": "Especialista"
+      }
+    },
+    "button": {
+      "text": "Continuar"
+    },
+    "tip": {
+      "input": "Elige a quién deseas convertirte en nuestro servicio de reclutamiento de especialistas",
+      "link_description": "¿Ya tienes una cuenta?",
+      "link": "Iniciar sesión"
+    },
+    "validation_errors": {
+      "user_already_exist": "El usuario con este correo ya existe"
+    }
+  },
+  "Footer": {
+    "text": "Derechos de autor 2024-2024 Home Service, Inc. Todos los Derechos Reservados"
+  },
+  "validations": {
+    "email": "Ingrese una dirección de correo electrónico válida",
+    "required": "El campo debe ser completado",
+    "password": {
+      "min": "La contraseña debe tener al menos 6 caracteres",
+      "matches": "La contraseña debe contener al menos una letra mayúscula",
+      "second_matches": "La contraseña debe contener al menos un dígito",
+      "one_of": "Las contraseñas deben coincidir"
+    }
+  },
+  "privacy_policy": {
+    "description": "Al registrarse, usted acepta",
+    "link": "Política de privacidad"
+  },
+  "slogan": {
+    "title": "Las cosas se hacen",
+    "second_title": "con el Servicio de Hogar",
+    "subtitle": "{numberOfUsers, plural, =1 {el cliente confía} other {# clientes confiados}} nuestro Servicio",
+    "button": "Encontrar un especialista"
+  },
+  "categories": {
+    "electrics": "Electricidad",
+    "plumbing": "Fontanería",
+    "cleaning": "Limpieza"
+  }
+}

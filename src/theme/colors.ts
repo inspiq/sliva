@@ -1,0 +1,18 @@
+export const colors = {
+  primary: '#fa6104',
+  slogan: '#333',
+  white: '#fff',
+  black: '#000',
+  light: '#f3f3f3',
+  border: '#ebebeb',
+  footer: '#eeeeee',
+  grey: '#a6a6a6',
+  error: '#fa6104',
+  hover_button_primary: '#e25d0b',
+  hover_button_outline: '#f3f3f3',
+  border_button: '#c8c9ca',
+  disabled_button: '#c8c9ca',
+  border_input: '#d9d9d9',
+  placeholder: '#a6a6a6',
+  shadow: 'rgba(0, 0, 0, 0.08)',
+};

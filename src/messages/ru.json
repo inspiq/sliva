@@ -1,0 +1,111 @@
+{
+  "Header": {
+    "language_switcher": {
+      "title": "Переключить язык",
+      "languages": {
+        "ru": "Русский",
+        "es": "Испанский",
+        "en": "Английский"
+      }
+    },
+    "buttons": {
+      "log_in": "Войти",
+      "sign_up": "Регистрация",
+      "logout": "Выйти",
+      "account_management": "Управление аккаунтом"
+    },
+    "account_management_menu": {
+      "profile": "Редактировать профиль",
+      "logout": "Выйти из аккаунта"
+    }
+  },
+  "LogInForm": {
+    "title": "Вход в Home Service",
+    "email_input": {
+      "placeholder": "Электронная почта"
+    },
+    "password_input": {
+      "placeholder": "Пароль"
+    },
+    "button": {
+      "text": "Продолжить"
+    },
+    "tip": {
+      "link_description": "Забыли пароль?",
+      "link": "Сбросить пароль"
+    },
+    "validation_errors": {
+      "invalid_email_or_password": "Некорректная почта или пароль"
+    }
+  },
+  "ResetPasswordForm": {
+    "title": "Сброс пароля вашей учетной записи",
+    "email_input": {
+      "placeholder": "Электронная почта"
+    },
+    "button": {
+      "to_send": "Отправить ссылку на почту",
+      "sent": "Ссылка была отправлена на почту"
+    },
+    "tip": {
+      "text": "Введите свой адрес электронной почты, чтобы на него была отправлена ссылка для сброса пароля"
+    }
+  },
+  "SignUpForm": {
+    "title": "Регистрация в Home Service",
+    "email_input": {
+      "placeholder": "Электронная почта"
+    },
+    "password_input": {
+      "placeholder": "Пароль"
+    },
+    "repeat_password_input": {
+      "placeholder": "Повторите пароль"
+    },
+    "select": {
+      "options": {
+        "user": "Пользователь",
+        "specialist": "Специалист"
+      }
+    },
+    "button": {
+      "text": "Продолжить"
+    },
+    "tip": {
+      "input": "Выберите, кем вы хотите стать в нашем сервисе по найму специалистов",
+      "link_description": "У вас уже есть аккаунт?",
+      "link": "Войти"
+    },
+    "validation_errors": {
+      "user_already_exist": "Пользователь с данной почтой уже существует"
+    }
+  },
+  "Footer": {
+    "text": "Copyright 2024 - 2024 HomeService, Inc. All Rights Reserved"
+  },
+  "validations": {
+    "email": "Введите действительный адрес электронной почты",
+    "required": "Поле должно быть заполнено",
+    "password": {
+      "min": "Пароль должен содержать не менее 6 символов",
+      "matches": "Пароль должен содержать, как минимум одну заглавную букву",
+      "second_matches": "Пароль должен содержать, как минимум одну цифру",
+      "one_of": "Пароли должны совпадать"
+    }
+  },
+  "privacy_policy": {
+    "description": "Регистрируясь, вы соглашаетесь с",
+    "link": "Политикой кофиденциальности"
+  },
+  "slogan": {
+    "title": "Дела выполняются",
+    "second_title": "с Home Service",
+    "subtitle": "{numberOfUsers, plural, =1 {клиент доверился} other {# клиентов доверились}} нашему сервису",
+    "button": "Найти специалиста"
+  },
+  "categories": {
+    "electrics": "Электрика",
+    "plumbing": "Сантехника",
+    "cleaning": "Уборка"
+  }
+}
