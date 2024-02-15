@@ -80,7 +80,6 @@ const MenuItemLayout = styled.div`
     padding: 0;
     height: auto;
     justify-content: flex-end;
-    width: 100%;
 
     &:hover {
       background-color: transparent;

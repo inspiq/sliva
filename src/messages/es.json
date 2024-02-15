@@ -20,7 +20,7 @@
     }
   },
   "LogInForm": {
-    "title": "Iniciar sesión en Home Service",
+    "title": "Iniciar sesión en Sliva",
     "email_input": {
       "placeholder": "Correo electrónico"
     },
@@ -81,7 +81,7 @@
     }
   },
   "Footer": {
-    "text": "Derechos de autor 2024-2024 Home Service, Inc. Todos los Derechos Reservados"
+    "text": "Derechos de autor 2024-2024 Sliva, Inc. Todos los Derechos Reservados"
   },
   "validations": {
     "email": "Ingrese una dirección de correo electrónico válida",

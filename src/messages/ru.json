@@ -20,7 +20,7 @@
     }
   },
   "LogInForm": {
-    "title": "Вход в Home Service",
+    "title": "Вход в Sliva",
     "email_input": {
       "placeholder": "Электронная почта"
     },
@@ -52,7 +52,7 @@
     }
   },
   "SignUpForm": {
-    "title": "Регистрация в Home Service",
+    "title": "Регистрация в Sliva",
     "email_input": {
       "placeholder": "Электронная почта"
     },
@@ -81,7 +81,7 @@
     }
   },
   "Footer": {
-    "text": "Copyright 2024 - 2024 HomeService, Inc. All Rights Reserved"
+    "text": "Copyright 2024 - 2024 Sliva, Inc. All Rights Reserved"
   },
   "validations": {
     "email": "Введите действительный адрес электронной почты",
@@ -99,7 +99,7 @@
   },
   "slogan": {
     "title": "Дела выполняются",
-    "second_title": "с Home Service",
+    "second_title": "с Sliva",
     "subtitle": "{numberOfUsers, plural, =1 {клиент доверился} other {# клиентов доверились}} нашему сервису",
     "button": "Найти специалиста"
   },
