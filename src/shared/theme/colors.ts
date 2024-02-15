@@ -9,10 +9,9 @@ export const colors = {
   grey: '#a6a6a6',
   error: '#fa6104',
   hover_button_primary: '#e25d0b',
-  hover_button_outline: '#f3f3f3',
-  border_button: '#c8c9ca',
+  border_ui_hover: 'rgba(0, 0, 0, 0.28)',
+  border_ui: 'rgba(0, 0, 0, 0.14)',
   disabled_button: '#c8c9ca',
-  border_input: '#d9d9d9',
   placeholder: '#a6a6a6',
   shadow: 'rgba(0, 0, 0, 0.08)',
 };

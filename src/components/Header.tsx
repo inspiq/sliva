@@ -38,7 +38,7 @@ const StyledContainer = styled(Container)`
 
   @media ${devices.mobileL} {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: flex-end;
     gap: 15px;
   }
 `;
