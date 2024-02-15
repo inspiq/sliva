@@ -5,3 +5,4 @@ export * from './firebase';
 export * from './enums';
 export * from './theme';
 export * from './utils';
+export * from './types';

@@ -54,14 +54,14 @@ const CategoryInfoLayout = styled.div`
 
 export const Categories = () => {
   const CATEGORIES = [
-    { title: 'Мастер по ремонту', imgPath: '/images/plumbing.jpg' },
-    { title: 'Автомеханик', imgPath: '/images/car-mechanic.jpg' },
-    { title: 'Кулинария', imgPath: '/images/cooking.jpg' },
-    { title: 'Мувинг', imgPath: '/images/transportation.jpg' },
-    { title: 'Мастер красоты', imgPath: '/images/beautiful.jpeg' },
-    { title: 'Фитнес', imgPath: '/images/fitness.jpeg' },
-    { title: 'Домашние животные', imgPath: '/images/home-pets.jpg' },
-    { title: 'Домашний персонал', imgPath: '/images/cleaning.jpg' },
+    { title: 'Мастер по ремонту', imgPath: '/files/images/plumbing.jpg' },
+    { title: 'Автомеханик', imgPath: '/files/images/car-mechanic.jpg' },
+    { title: 'Кулинария', imgPath: '/files/images/cooking.jpg' },
+    { title: 'Мувинг', imgPath: '/files/images/transportation.jpg' },
+    { title: 'Мастер красоты', imgPath: '/files/images/beautiful.jpeg' },
+    { title: 'Фитнес', imgPath: '/files/images/fitness.jpeg' },
+    { title: 'Домашние животные', imgPath: '/files/images/home-pets.jpg' },
+    { title: 'Домашний персонал', imgPath: '/files/images/cleaning.jpg' },
   ];
 
   return (
