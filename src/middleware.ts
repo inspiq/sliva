@@ -5,8 +5,9 @@ import { localePrefix, locales } from 'src/navigation';
 
 const nextIntlMiddleware = createMiddleware({
   locales,
-  defaultLocale: 'en',
   localePrefix,
+  defaultLocale: 'en',
+  localeDetection: false,
 });
 
 // eslint-disable-next-line import/no-anonymous-default-export
