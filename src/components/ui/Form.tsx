@@ -1,4 +1,4 @@
-import { FormEventHandler, PropsWithChildren } from 'react';
+import { FormHTMLAttributes, PropsWithChildren, ReactElement } from 'react';
 import styled from 'styled-components';
 
 const Form = styled.form`
@@ -11,12 +11,16 @@ const Form = styled.form`
   height: 100%;
 `;
 
-interface Props {
-  onSubmit: FormEventHandler<HTMLFormElement>;
-}
+interface Props extends FormHTMLAttributes<HTMLFormElement> {}
 
-export const UiForm = (props: PropsWithChildren<Props>) => {
-  const { children, onSubmit } = props;
+const UiFormElement = (props: PropsWithChildren<Props>): ReactElement => {
+  const { children, onSubmit, ...rest } = props;
 
-  return <Form onSubmit={onSubmit}>{children}</Form>;
+  return (
+    <Form onSubmit={onSubmit} {...rest}>
+      {children}
+    </Form>
+  );
 };
+
+export const UiForm = UiFormElement;

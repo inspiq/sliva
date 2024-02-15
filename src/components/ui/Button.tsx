@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import { ButtonHTMLAttributes, PropsWithChildren, ReactElement } from 'react';
 import { PulseLoader } from 'react-spinners';
 import styled, { css, useTheme } from 'styled-components';
 import { switchProp } from 'styled-tools';
@@ -6,8 +6,8 @@ import { switchProp } from 'styled-tools';
 const StyledButton = styled.button<{
   $variant?: Variant;
   $size?: Size;
-  disabled?: boolean;
   $isStretching?: boolean;
+  disabled?: boolean;
 }>`
   ${({ theme, disabled }) =>
     disabled
@@ -57,39 +57,36 @@ const StyledButton = styled.button<{
   white-space: nowrap;
 `;
 
-type Type = 'submit' | 'button';
 type Variant = 'primary' | 'outline';
 type Size = 'big' | 'medium' | 'small';
 
-interface Props {
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant;
-  type?: Type;
   size?: Size;
-  isDisabled?: boolean;
   isSubmitting?: boolean;
   isStretching?: boolean;
 }
 
-export const UiButton = (props: PropsWithChildren<Props>) => {
+const UiButtonElement = (props: PropsWithChildren<Props>): ReactElement => {
   const {
     children,
     variant = 'primary',
     type = 'button',
     size = 'medium',
-    isDisabled,
     isSubmitting,
     isStretching = true,
+    ...rest
   } = props;
 
   const { loader } = useTheme();
 
   return (
     <StyledButton
-      type={type}
-      disabled={isDisabled}
       $size={size}
       $variant={variant}
       $isStretching={isStretching}
+      type={type}
+      {...rest}
     >
       {isSubmitting ? (
         <PulseLoader size={10} color={loader.secondary} />
@@ -99,3 +96,5 @@ export const UiButton = (props: PropsWithChildren<Props>) => {
     </StyledButton>
   );
 };
+
+export const UiButton = UiButtonElement;

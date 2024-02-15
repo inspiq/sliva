@@ -1,4 +1,4 @@
-import { FocusEventHandler, FormEvent } from 'react';
+import { InputHTMLAttributes, ReactElement } from 'react';
 import styled from 'styled-components';
 
 import { Error } from 'src/components/forms/Error';
@@ -81,35 +81,16 @@ const PlusIconLayout = styled.div`
   }
 `;
 
-type TypeVariant = 'text' | 'password' | 'email' | 'file' | 'date' | 'number';
-
-interface Props {
-  placeholder?: string;
-  onChange: (e: FormEvent<HTMLInputElement>) => void;
-  value?: string;
-  name?: string;
-  type?: TypeVariant;
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
   Icon?: JSX.Element;
-  onBlur?: FocusEventHandler<HTMLInputElement>;
   hasError?: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   textError?: any;
-  isDisabled?: boolean;
+  disabled?: boolean;
 }
 
-export const UiInput = (props: Props) => {
-  const {
-    placeholder,
-    onChange,
-    value,
-    name,
-    type = 'text',
-    Icon,
-    onBlur,
-    hasError,
-    textError,
-    isDisabled = false,
-  } = props;
+const UiInputElement = (props: Props): ReactElement => {
+  const { Icon, hasError, textError, type, ...rest } = props;
 
   const { visible: passVisible, toggle } = useToggle();
 
@@ -126,29 +107,20 @@ export const UiInput = (props: Props) => {
             <PlusIcon />
           </PlusIconLayout>
           <Input
-            placeholder={placeholder}
-            onChange={onChange}
-            value={value}
-            name={name}
-            type={hasTypePassword ? currentTypePasswordField : type}
-            onBlur={onBlur}
             $hasError={hasError}
             $hasIcon={hasIcon}
+            type={hasTypePassword ? currentTypePasswordField : type}
             id="file"
+            {...rest}
           />
         </StyledLabel>
       )}
       {type !== 'file' && (
         <Input
-          placeholder={placeholder}
-          onChange={onChange}
-          value={value}
-          name={name}
-          type={hasTypePassword ? currentTypePasswordField : type}
-          onBlur={onBlur}
           $hasError={hasError}
           $hasIcon={hasIcon}
-          disabled={isDisabled}
+          type={hasTypePassword ? currentTypePasswordField : type}
+          {...rest}
         />
       )}
       {hasTypePassword && (
@@ -164,3 +136,5 @@ export const UiInput = (props: Props) => {
     </MainLayout>
   );
 };
+
+export const UiInput = UiInputElement;

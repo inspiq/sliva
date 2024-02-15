@@ -64,7 +64,7 @@ export const ResetPasswordForm = () => {
         <UiButton
           type="submit"
           size="big"
-          isDisabled={isSentLinkResetPassword || isSubmitting}
+          disabled={isSentLinkResetPassword || isSubmitting}
           isSubmitting={isSubmitting}
         >
           {buttonText}

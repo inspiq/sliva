@@ -198,7 +198,7 @@ export const UserInfoForm = (props: {
           onBlur={handleBlur}
           hasError={!!errors.email && !!touched.email}
           textError={errors.email}
-          isDisabled={true}
+          disabled={true}
         />
       </Row>
       <TextAreaRow>
@@ -208,7 +208,7 @@ export const UserInfoForm = (props: {
         <UiButton
           type="submit"
           size="big"
-          isDisabled={isSubmitting}
+          disabled={isSubmitting}
           isStretching={false}
         >
           Сохранить

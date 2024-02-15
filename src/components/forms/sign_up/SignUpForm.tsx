@@ -146,7 +146,7 @@ export const SignUpForm = () => {
         </DownloadLink>
       </Tip>
       <UiButtonLayout>
-        <UiButton type="submit" size="big" isDisabled={isSubmitting}>
+        <UiButton type="submit" size="big" disabled={isSubmitting}>
           {t('SignUpForm.button.text')}
         </UiButton>
       </UiButtonLayout>

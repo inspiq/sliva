@@ -80,7 +80,7 @@ export const LogInForm = () => {
       />
       {isRequestError && <Error>Invalid email or password</Error>}
       <UiButtonLayout>
-        <UiButton type="submit" size="big" isDisabled={isSubmitting}>
+        <UiButton type="submit" size="big" disabled={isSubmitting}>
           {t('LogInForm.button.text')}
         </UiButton>
       </UiButtonLayout>
