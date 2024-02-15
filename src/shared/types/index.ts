@@ -28,5 +28,3 @@ export interface Specialist extends User {
   telegram: string;
   whatsApp: string;
 }
-
-export type UserSystem = Specialist | User;

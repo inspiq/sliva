@@ -7,7 +7,7 @@ import { Loader } from 'src/components';
 import { UploadAvatar } from 'src/components/user_profile/UploadAvatar';
 import { UserInfoForm } from 'src/components/user_profile/UserInfoForm';
 import { useAuthContext } from 'src/context';
-import { db, devices, Specialist, storage, UserSystem } from 'src/shared';
+import { db, devices, Specialist, storage } from 'src/shared';
 
 const Title = styled.h6`
   font-size: 24px;
