@@ -7,9 +7,8 @@ import * as yup from 'yup';
 import { UiButtonLayout } from 'src/components/forms/ButtonLayout';
 import { FormLayout } from 'src/components/forms/FormLayout';
 import { Tip } from 'src/components/forms/Tip';
-import { auth } from 'src/firebase';
-import { UiButton, UiInput } from 'src/shared';
-import { EmailIcon } from 'src/shared/icons';
+import { EmailIcon, UiButton, UiInput } from 'src/shared';
+import { auth } from 'src/shared/firebase';
 
 export const ResetPasswordForm = () => {
   const [isSentLinkResetPassword, setIsSentLinkResetPassword] = useState(false);

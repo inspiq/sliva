@@ -12,9 +12,8 @@ import { Error } from 'src/components/forms/Error';
 import { FormLayout } from 'src/components/forms/FormLayout';
 import { StyledLink } from 'src/components/forms/Link';
 import { TextTip, TextTipLayout, Tip } from 'src/components/forms/Tip';
-import { auth, db } from 'src/firebase';
 import { useRouter } from 'src/navigation';
-import { UiButton, UiInput, UiSelect } from 'src/shared';
+import { auth, db, UiButton, UiInput, UiSelect } from 'src/shared';
 import { EmailIcon, PasswordIcon } from 'src/shared/icons';
 
 const DownloadLink = styled.a`

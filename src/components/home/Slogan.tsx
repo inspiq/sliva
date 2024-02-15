@@ -4,9 +4,7 @@ import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
 import { Loader } from 'src/components';
-import { db } from 'src/firebase';
-import { UiButton } from 'src/shared';
-import { devices } from 'src/utils';
+import { db, devices, UiButton } from 'src/shared';
 
 const MainLayout = styled.div`
   margin: 80px 0;

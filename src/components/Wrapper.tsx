@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { devices } from 'src/utils';
+import { devices } from 'src/shared';
 
 export const Wrapper = styled.div`
   display: flex;

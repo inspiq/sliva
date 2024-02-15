@@ -10,9 +10,8 @@ import { Error } from 'src/components/forms/Error';
 import { FormLayout } from 'src/components/forms/FormLayout';
 import { StyledLink } from 'src/components/forms/Link';
 import { TextTip, TextTipLayout } from 'src/components/forms/Tip';
-import { auth } from 'src/firebase';
 import { useRouter } from 'src/navigation';
-import { UiButton, UiInput } from 'src/shared';
+import { auth, UiButton, UiInput } from 'src/shared';
 import { EmailIcon, PasswordIcon } from 'src/shared/icons';
 
 export const LogInForm = () => {

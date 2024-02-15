@@ -5,11 +5,10 @@ import styled from 'styled-components';
 
 import { Container, Logo } from 'src/components';
 import { useAuthContext } from 'src/context';
-import { auth } from 'src/firebase';
 import { Link, locales, usePathname } from 'src/navigation';
 import { UiButton } from 'src/shared';
+import { auth, devices } from 'src/shared';
 import { ArrowIcon } from 'src/shared/icons';
-import { devices } from 'src/utils';
 
 const MainLayout = styled.div`
   height: 70px;

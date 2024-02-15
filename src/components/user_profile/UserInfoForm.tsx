@@ -5,9 +5,9 @@ import styled from 'styled-components';
 import * as yup from 'yup';
 
 import { useAuthContext } from 'src/context';
-import { db } from 'src/firebase';
+import { db } from 'src/shared/firebase';
 import { UiButton, UiForm, UiInput } from 'src/shared';
-import { devices } from 'src/utils';
+import { devices } from 'src/shared/utils';
 
 const Row = styled.div`
   display: grid;

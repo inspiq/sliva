@@ -9,7 +9,7 @@ import {
 } from 'react';
 import { onAuthStateChanged, User } from 'firebase/auth';
 
-import { auth } from 'src/firebase';
+import { auth } from 'src/shared';
 
 interface Values {
   currentUser: User | null;

@@ -5,9 +5,7 @@ import styled from 'styled-components';
 
 import { Loader } from 'src/components';
 import { useAuthContext } from 'src/context';
-import { UserType } from 'src/enums';
-import { db, storage } from 'src/firebase';
-import { devices } from 'src/utils';
+import { db, devices, storage, UserType } from 'src/shared';
 
 import { UploadAvatar } from './UploadAvatar';
 import { UserInfoForm } from './UserInfoForm';
