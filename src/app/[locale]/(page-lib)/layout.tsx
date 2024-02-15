@@ -14,8 +14,8 @@ interface Props {
 export const montserrat = Montserrat({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Home Service USA',
-  description: 'Home Service USA — specialist search service',
+  title: 'Sliva',
+  description: 'Sliva — specialist search service',
 };
 
 const RootLayout = (props: PropsWithChildren<Props>) => {

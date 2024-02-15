@@ -5,11 +5,8 @@ import { devices } from 'src/utils';
 const MainLayout = styled.div`
   font-size: 22px;
   font-weight: ${({ theme }) => theme.w600};
-  color: ${({ theme }) => theme.logo.secondary};
-
-  & > span {
-    color: ${({ theme }) => theme.logo.primary};
-  }
+  color: ${({ theme }) => theme.logo.primary};
+  text-transform: uppercase;
 
   @media ${devices.mobileL} {
     font-size: 20px;
@@ -17,10 +14,5 @@ const MainLayout = styled.div`
 `;
 
 export const Logo = () => {
-  return (
-    <MainLayout>
-      Home
-      <span>Service</span>
-    </MainLayout>
-  );
+  return <MainLayout>Sliva</MainLayout>;
 };
