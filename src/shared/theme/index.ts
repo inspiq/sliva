@@ -1,5 +1,5 @@
-import { colors } from 'src/theme/colors';
-import { fonts } from 'src/theme/fonts';
+import { colors } from 'src/shared/theme/colors';
+import { fonts } from 'src/shared/theme/fonts';
 
 export const theme = {
   ...fonts,

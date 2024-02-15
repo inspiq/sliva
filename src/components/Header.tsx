@@ -3,12 +3,12 @@ import { signOut } from 'firebase/auth';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
-import { Container, Logo, UiButton } from 'src/components';
-import { auth } from 'src/firebase';
-import { useAuthContext } from 'src/hooks';
-import { ArrowIcon } from 'src/icons';
+import { Container, Logo } from 'src/components';
+import { useAuthContext } from 'src/context';
 import { Link, locales, usePathname } from 'src/navigation';
-import { devices } from 'src/utils';
+import { UiButton } from 'src/shared';
+import { auth, devices } from 'src/shared';
+import { ArrowIcon } from 'src/shared/icons';
 
 const MainLayout = styled.div`
   height: 70px;

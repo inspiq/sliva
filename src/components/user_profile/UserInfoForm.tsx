@@ -4,10 +4,10 @@ import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 import * as yup from 'yup';
 
-import { UiButton, UiForm, UiInput } from 'src/components';
-import { db } from 'src/firebase';
-import { useAuthContext } from 'src/hooks';
-import { devices } from 'src/utils';
+import { useAuthContext } from 'src/context';
+import { db } from 'src/shared/firebase';
+import { UiButton, UiForm, UiInput } from 'src/shared';
+import { devices } from 'src/shared/utils';
 
 const Row = styled.div`
   display: grid;

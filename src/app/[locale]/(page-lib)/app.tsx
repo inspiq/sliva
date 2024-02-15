@@ -6,7 +6,7 @@ import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
 import StyledComponentsRegistry from 'src/app/[locale]/(page-lib)/registry';
 import { AuthContextProvider } from 'src/context';
-import { theme } from 'src/theme';
+import { theme } from 'src/shared';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 const GlobalStyle = createGlobalStyle`

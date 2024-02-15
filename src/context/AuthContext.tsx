@@ -3,12 +3,13 @@ import {
   Dispatch,
   PropsWithChildren,
   SetStateAction,
+  useContext,
   useEffect,
   useState,
 } from 'react';
 import { onAuthStateChanged, User } from 'firebase/auth';
 
-import { auth } from 'src/firebase';
+import { auth } from 'src/shared';
 
 interface Values {
   currentUser: User | null;
@@ -40,3 +41,5 @@ export const AuthContextProvider = (props: PropsWithChildren) => {
     </AuthContext.Provider>
   );
 };
+
+export const useAuthContext = () => useContext(AuthContext);

@@ -4,10 +4,8 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import styled from 'styled-components';
 
 import { Loader } from 'src/components';
-import { UserType } from 'src/enums';
-import { db, storage } from 'src/firebase';
-import { useAuthContext } from 'src/hooks';
-import { devices } from 'src/utils';
+import { useAuthContext } from 'src/context';
+import { db, devices, storage, UserType } from 'src/shared';
 
 import { UploadAvatar } from './UploadAvatar';
 import { UserInfoForm } from './UserInfoForm';

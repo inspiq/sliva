@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import { devices } from 'src/utils';
+import { devices } from 'src/shared';
 
 const MainLayout = styled.div`
   margin: 20px 0 100px 0;
