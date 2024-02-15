@@ -26,14 +26,14 @@ export const SignUpForm = () => {
   const t = useTranslations();
 
   const defaultOption = {
-    value: 'user',
-    label: t('SignUpForm.select.options.user'),
+    value: 'client',
+    label: t('SignUpForm.select.options.client'),
   };
 
   const [selectedOption, setSelectedOption] = useState(defaultOption);
 
   const options = [
-    { value: 'user', label: t('SignUpForm.select.options.user') },
+    { value: 'client', label: t('SignUpForm.select.options.client') },
     { value: 'specialist', label: t('SignUpForm.select.options.specialist') },
   ];
 

@@ -64,7 +64,7 @@
     },
     "select": {
       "options": {
-        "user": "User",
+        "client": "Client",
         "specialist": "Specialist"
       }
     },
