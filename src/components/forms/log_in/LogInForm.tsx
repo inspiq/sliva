@@ -4,15 +4,16 @@ import { useFormik } from 'formik';
 import { useTranslations } from 'next-intl';
 import * as yup from 'yup';
 
-import { Line, Loader, UiButton, UiInput } from 'src/components';
+import { Line, Loader } from 'src/components';
 import { UiButtonLayout } from 'src/components/forms/ButtonLayout';
 import { Error } from 'src/components/forms/Error';
 import { FormLayout } from 'src/components/forms/FormLayout';
 import { StyledLink } from 'src/components/forms/Link';
 import { TextTip, TextTipLayout } from 'src/components/forms/Tip';
 import { auth } from 'src/firebase';
-import { EmailIcon, PasswordIcon } from 'src/icons';
 import { useRouter } from 'src/navigation';
+import { UiButton, UiInput } from 'src/shared';
+import { EmailIcon, PasswordIcon } from 'src/shared/icons';
 
 export const LogInForm = () => {
   const [isRequestError, setIsRequestError] = useState(false);

@@ -6,15 +6,16 @@ import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 import * as yup from 'yup';
 
-import { Line, Loader, UiButton, UiInput, UiSelect } from 'src/components';
+import { Line, Loader } from 'src/components';
 import { UiButtonLayout } from 'src/components/forms/ButtonLayout';
 import { Error } from 'src/components/forms/Error';
 import { FormLayout } from 'src/components/forms/FormLayout';
 import { StyledLink } from 'src/components/forms/Link';
 import { TextTip, TextTipLayout, Tip } from 'src/components/forms/Tip';
 import { auth, db } from 'src/firebase';
-import { EmailIcon, PasswordIcon } from 'src/icons';
 import { useRouter } from 'src/navigation';
+import { UiButton, UiInput, UiSelect } from 'src/shared';
+import { EmailIcon, PasswordIcon } from 'src/shared/icons';
 
 const DownloadLink = styled.a`
   color: ${({ theme }) => theme.primary};

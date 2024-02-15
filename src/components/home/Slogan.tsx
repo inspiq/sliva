@@ -3,8 +3,9 @@ import { collection, getDocs } from 'firebase/firestore';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
-import { Loader, UiButton } from 'src/components';
+import { Loader } from 'src/components';
 import { db } from 'src/firebase';
+import { UiButton } from 'src/shared';
 import { devices } from 'src/utils';
 
 const MainLayout = styled.div`

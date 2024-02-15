@@ -1,7 +1,7 @@
 import { FormEventHandler, PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
-import { UiForm } from 'src/components';
+import { UiForm } from 'src/shared';
 
 const MainLayout = styled.div`
   max-width: 480px;

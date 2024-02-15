@@ -4,9 +4,9 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import styled from 'styled-components';
 
 import { Loader } from 'src/components';
+import { useAuthContext } from 'src/context';
 import { UserType } from 'src/enums';
 import { db, storage } from 'src/firebase';
-import { useAuthContext } from 'src/hooks';
 import { devices } from 'src/utils';
 
 import { UploadAvatar } from './UploadAvatar';

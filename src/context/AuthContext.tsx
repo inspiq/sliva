@@ -3,6 +3,7 @@ import {
   Dispatch,
   PropsWithChildren,
   SetStateAction,
+  useContext,
   useEffect,
   useState,
 } from 'react';
@@ -40,3 +41,5 @@ export const AuthContextProvider = (props: PropsWithChildren) => {
     </AuthContext.Provider>
   );
 };
+
+export const useAuthContext = () => useContext(AuthContext);

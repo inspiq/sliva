@@ -2,8 +2,8 @@ import { InputHTMLAttributes, ReactElement } from 'react';
 import styled from 'styled-components';
 
 import { Error } from 'src/components/forms/Error';
-import { useToggle } from 'src/hooks';
-import { CloseEyeIcon, EyeIcon, PlusIcon } from 'src/icons';
+import { useToggle } from 'src/shared/hooks';
+import { CloseEyeIcon, EyeIcon, PlusIcon } from 'src/shared/icons';
 
 const Input = styled.input<{ $hasError?: boolean; $hasIcon: boolean }>`
   height: 50px;

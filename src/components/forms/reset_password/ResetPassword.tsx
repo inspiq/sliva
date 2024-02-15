@@ -4,12 +4,12 @@ import { useFormik } from 'formik';
 import { useTranslations } from 'next-intl';
 import * as yup from 'yup';
 
-import { UiButton, UiInput } from 'src/components';
 import { UiButtonLayout } from 'src/components/forms/ButtonLayout';
 import { FormLayout } from 'src/components/forms/FormLayout';
 import { Tip } from 'src/components/forms/Tip';
 import { auth } from 'src/firebase';
-import { EmailIcon } from 'src/icons';
+import { UiButton, UiInput } from 'src/shared';
+import { EmailIcon } from 'src/shared/icons';
 
 export const ResetPasswordForm = () => {
   const [isSentLinkResetPassword, setIsSentLinkResetPassword] = useState(false);

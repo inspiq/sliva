@@ -3,7 +3,7 @@ import { DocumentData } from 'firebase/firestore';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import { UiInput } from 'src/components';
+import { UiInput } from 'src/shared';
 
 const MainLayout = styled.div`
   width: 200px;
