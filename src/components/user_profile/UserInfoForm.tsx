@@ -1,13 +1,11 @@
-import { doc, DocumentData, updateDoc } from 'firebase/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
 import { useFormik } from 'formik';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 import * as yup from 'yup';
 
 import { useAuthContext } from 'src/context';
-import { db } from 'src/shared/firebase';
-import { UiButton, UiForm, UiInput } from 'src/shared';
-import { devices } from 'src/shared/utils';
+import { db, devices, Specialist, UiButton, UiForm, UiInput } from 'src/shared';
 
 const Row = styled.div`
   display: grid;
@@ -60,11 +58,13 @@ const StyledTextArea = styled.textarea`
   }
 `;
 
-export const UserInfoForm = (props: {
-  userMetaData: DocumentData;
+interface Props {
+  userMetaData: Specialist;
   uploadFile: (fileUpload: File) => Promise<void>;
   fileUpload?: File;
-}) => {
+}
+
+export const UserInfoForm = (props: Props) => {
   const { userMetaData, uploadFile, fileUpload } = props;
 
   const t = useTranslations();

@@ -100,7 +100,7 @@
   "slogan": {
     "title": "Las cosas se hacen",
     "second_title": "con el Servicio de Hogar",
-    "subtitle": "{numberOfUsers, plural, =1 {el cliente confía} other {# clientes confiados}} nuestro Servicio",
+    "subtitle": "{numberOfUsers, plural, =1 {# el cliente confía} other {# clientes confiados}} nuestro Servicio",
     "button": "Encontrar un especialista"
   },
   "categories": {

@@ -41,7 +41,7 @@ const UiButtonLayout = styled.div`
 `;
 
 export const Slogan = () => {
-  const [numberOfUsers, setNumberOfUsers] = useState<null | number>(null);
+  const [numberOfUsers, setNumberOfUsers] = useState(0);
   const t = useTranslations('slogan');
 
   const getUserData = useCallback(async () => {

@@ -30,7 +30,7 @@ const StyledButton = styled.button<{
             border: 1px solid ${theme.button.outline.border};
 
             &:hover {
-              background-color: ${theme.button.outline.hover};
+              border: 1px solid ${theme.button.outline.hover};
             }
           `,
         })}
@@ -53,7 +53,7 @@ const StyledButton = styled.button<{
   font-weight: ${({ theme }) => theme.w400};
   border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s;
   white-space: nowrap;
 `;
 

@@ -100,7 +100,7 @@
   "slogan": {
     "title": "Дела выполняются",
     "second_title": "с Sliva",
-    "subtitle": "{numberOfUsers, plural, =1 {клиент доверился} other {# клиентов доверились}} нашему сервису",
+    "subtitle": "{numberOfUsers, plural, =1 {# клиент доверился} other {# клиентов доверились}} нашему сервису",
     "button": "Найти специалиста"
   },
   "categories": {

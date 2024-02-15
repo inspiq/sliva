@@ -44,11 +44,11 @@ export const UploadAvatar = (props: {
       return URL.createObjectURL(fileUpload);
     }
 
-    if (userMetaData) {
+    if (userMetaData && userMetaData.avatarUrl) {
       return userMetaData.avatarUrl;
     }
 
-    return '/images/avatar.png';
+    return '/files/images/avatar.png';
   }, [fileUpload, userMetaData]);
 
   return (

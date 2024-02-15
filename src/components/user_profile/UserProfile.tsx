@@ -1,20 +1,13 @@
 import { useCallback, useEffect, useState } from 'react';
-import { doc, DocumentData, getDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import styled from 'styled-components';
 
 import { Loader } from 'src/components';
+import { UploadAvatar } from 'src/components/user_profile/UploadAvatar';
+import { UserInfoForm } from 'src/components/user_profile/UserInfoForm';
 import { useAuthContext } from 'src/context';
-import { db, devices, storage, UserType } from 'src/shared';
-
-import { UploadAvatar } from './UploadAvatar';
-import { UserInfoForm } from './UserInfoForm';
-
-export interface UserMetaData {
-  avatarUrl: string;
-  type: UserType;
-  userId: string;
-}
+import { db, devices, Specialist, storage } from 'src/shared';
 
 const Title = styled.h6`
   font-size: 24px;
@@ -34,7 +27,7 @@ const MainLayout = styled.div`
 
 export const UserProfile = () => {
   const { currentUser } = useAuthContext();
-  const [userMetaData, setUserMetaData] = useState<DocumentData>();
+  const [userMetaData, setUserMetaData] = useState<Specialist>();
   const [fileUpload, setFileUpload] = useState<File>();
 
   const getUserData = useCallback(async () => {
@@ -45,7 +38,7 @@ export const UserProfile = () => {
       const snapshot = await getDoc(docRef);
 
       if (snapshot.exists()) {
-        setUserMetaData(snapshot.data());
+        setUserMetaData(snapshot.data() as Specialist);
       }
     } catch {
       /* empty */

@@ -100,7 +100,7 @@
   "slogan": {
     "title": "Things are done",
     "second_title": "with Sliva",
-    "subtitle": "{numberOfUsers, plural, =1 {the client trusted} other {# customers trusted}} our service",
+    "subtitle": "{numberOfUsers, plural, =1 {# the client trusted} other {# customers trusted}} our service",
     "button": "Find a specialist"
   },
   "categories": {
