@@ -1,13 +1,12 @@
-import styled from 'styled-components';
-
-const MainLayout = styled.div`
-  font-size: 24px;
-  font-weight: ${({ theme }) => theme.w700};
-  color: ${({ theme }) => theme.logo.primary};
-  letter-spacing: 1px;
-  text-transform: uppercase;
-`;
+import Image from 'next/image';
 
 export const Logo = () => {
-  return <MainLayout>Sliva</MainLayout>;
+  return (
+    <Image
+      src={'/files/images/logo.png'}
+      alt={'Logotype'}
+      width={85}
+      height={32}
+    />
+  );
 };

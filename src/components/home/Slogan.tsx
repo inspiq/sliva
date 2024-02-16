@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
 import { Loader } from 'src/components';
+import { useRouter } from 'src/navigation';
 import { db, devices, UiButton } from 'src/shared';
 
 const MainLayout = styled.div`
@@ -16,7 +17,7 @@ const MainLayout = styled.div`
 
 const Title = styled.h1`
   font-size: 64px;
-  color: ${({ theme }) => theme.slogan};
+  color: ${({ theme }) => theme.text};
   margin-bottom: 20px;
   font-weight: 600;
   line-height: 72px;
@@ -29,6 +30,7 @@ const Title = styled.h1`
 
 const SubTitle = styled.p`
   font-size: 18px;
+  color: ${({ theme }) => theme.secondary};
 
   @media ${devices.mobileL} {
     font-size: 15px;
@@ -43,6 +45,7 @@ const UiButtonLayout = styled.div`
 export const Slogan = () => {
   const [numberOfUsers, setNumberOfUsers] = useState(0);
   const t = useTranslations('slogan');
+  const router = useRouter();
 
   const getUserData = useCallback(async () => {
     try {
@@ -68,7 +71,11 @@ export const Slogan = () => {
       </Title>
       <SubTitle>{t('subtitle', { numberOfUsers })}</SubTitle>
       <UiButtonLayout>
-        <UiButton size="big" isStretching={false}>
+        <UiButton
+          size="big"
+          isStretching={false}
+          onClick={() => router.push('/specialists')}
+        >
           {t('button')}
         </UiButton>
       </UiButtonLayout>

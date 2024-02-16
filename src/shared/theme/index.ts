@@ -4,10 +4,7 @@ import { fonts } from 'src/shared/theme/fonts';
 export const theme = {
   ...fonts,
   ...colors,
-  logo: {
-    primary: colors.primary,
-    secondary: colors.black,
-  },
+  text: colors.secondary,
   button: {
     primary: {
       text: colors.white,
@@ -15,7 +12,7 @@ export const theme = {
       hover: colors.hover_button_primary,
     },
     outline: {
-      text: colors.black,
+      text: colors.secondary,
       border: colors.border_ui,
       bg: colors.white,
       hover: colors.border_ui_hover,
@@ -24,7 +21,7 @@ export const theme = {
   },
   input: {
     placeholder: colors.placeholder,
-    value: colors.black,
+    value: colors.secondary,
     border: colors.border_ui,
     focus: colors.primary,
     active: colors.border_ui_hover,
