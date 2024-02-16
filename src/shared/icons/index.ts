@@ -4,3 +4,8 @@ export { PasswordIcon } from 'src/shared/icons/PasswordIcon';
 export { CloseEyeIcon } from 'src/shared/icons/CloseEyeIcon';
 export { ArrowIcon } from 'src/shared/icons/ArrowIcon';
 export { PlusIcon } from 'src/shared/icons/PlusIcon';
+export { WhatsAppIcon } from 'src/shared/icons/WhatsAppIcon';
+export { ViberIcon } from 'src/shared/icons/ViberIcon';
+export { TelegramIcon } from 'src/shared/icons/TelegramIcon';
+export { ChatIcon } from 'src/shared/icons/ChatIcon';
+export { StarIcon } from 'src/shared/icons/StarIcon';

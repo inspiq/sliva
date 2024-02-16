@@ -28,7 +28,5 @@ export const SpecialistInfo = (props: Props) => {
     getSpecialist();
   }, [getSpecialist]);
 
-  console.log(userMetaData);
-
   return <div>Specialist</div>;
 };
