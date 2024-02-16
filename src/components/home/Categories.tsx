@@ -22,7 +22,7 @@ const MainLayout = styled.div`
 
 const Title = styled.h6`
   font-size: 18px;
-  color: ${({ theme }) => theme.black};
+  color: ${({ theme }) => theme.text};
   font-weight: ${({ theme }) => theme.w600};
   margin-top: 10px;
   padding-left: 10px;

@@ -28,7 +28,7 @@ const GlobalStyle = createGlobalStyle`
   a {
     outline: none;
     text-decoration: none;
-    color: ${({ theme }) => theme.black}
+    color: ${({ theme }) => theme.text}
   }
 
   input {

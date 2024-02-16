@@ -3,7 +3,7 @@ export const colors = {
   secondary: '#09004d',
   slogan: '#333',
   white: '#fff',
-  black: '#09004d',
+  black: '#000',
   light: '#f3f3f3',
   border: '#ebebeb',
   footer: '#eeeeee',

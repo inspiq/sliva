@@ -17,7 +17,7 @@ const MainLayout = styled.div`
 
 const Title = styled.h1`
   font-size: 64px;
-  color: ${({ theme }) => theme.black};
+  color: ${({ theme }) => theme.text};
   margin-bottom: 20px;
   font-weight: 600;
   line-height: 72px;
@@ -30,6 +30,7 @@ const Title = styled.h1`
 
 const SubTitle = styled.p`
   font-size: 18px;
+  color: ${({ theme }) => theme.secondary};
 
   @media ${devices.mobileL} {
     font-size: 15px;

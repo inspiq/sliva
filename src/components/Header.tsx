@@ -25,7 +25,7 @@ const MainLayout = styled.div`
 
   @media ${devices.mobileL} {
     height: auto;
-    padding: 20px 0;
+    padding: 15px 0;
   }
 `;
 
@@ -39,7 +39,7 @@ const StyledContainer = styled(Container)`
   @media ${devices.mobileL} {
     flex-direction: column;
     align-items: flex-end;
-    gap: 15px;
+    gap: 10px;
   }
 `;
 
@@ -99,7 +99,7 @@ const PopupMenuLayout = styled.div`
 const StyledLink = styled(Link)`
   font-size: 15px;
   font-weight: ${({ theme }) => theme.w400};
-  color: ${({ theme }) => theme.black};
+  color: ${({ theme }) => theme.text};
   transition: background-color 0.3s;
   border-radius: 10px;
   padding: 10px 20px;
