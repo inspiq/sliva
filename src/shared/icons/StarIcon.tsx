@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { SVGProps } from 'react';
-import { useTheme } from 'styled-components';
 
 export const StarIcon = (props: SVGProps<SVGSVGElement>) => {
-  const { width, height } = props;
-  const { secondary } = useTheme();
+  const { width, height, color } = props;
 
   return (
     <svg
@@ -15,7 +13,7 @@ export const StarIcon = (props: SVGProps<SVGSVGElement>) => {
       {...props}
     >
       <path
-        stroke={secondary}
+        stroke={color}
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={2}

@@ -1,19 +1,11 @@
 import { Fragment, useCallback, useEffect, useState } from 'react';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import Image from 'next/image';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 
 import { Line, Loader } from 'src/components';
 import { Link } from 'src/navigation';
-import {
-  ChatIcon,
-  db,
-  devices,
-  StarIcon,
-  TelegramIcon,
-  ViberIcon,
-  WhatsAppIcon,
-} from 'src/shared';
+import { ChatIcon, db, devices, StarIcon } from 'src/shared';
 import { Specialist } from 'src/shared';
 
 const MainLayout = styled.div`
@@ -85,14 +77,9 @@ const Row = styled.div`
   }
 `;
 
-const RowIcons = styled.div`
-  display: flex;
-  gap: 10px;
-  margin-top: 5px;
-`;
-
 export const SpecialistsList = () => {
   const [specialists, setSpecialists] = useState<Specialist[]>([]);
+  const { primary } = useTheme();
 
   const getSpecialists = useCallback(async () => {
     try {
@@ -143,19 +130,14 @@ export const SpecialistsList = () => {
               <Experience>Стаж: {specialist.experience} года</Experience>
               <Row>
                 <Rating>
-                  <StarIcon width={20} />
-                  Рейтинг: 4,5
+                  <StarIcon width={20} color={primary} />
+                  4,5
                 </Rating>
                 <ReviewsCount>
                   <ChatIcon width={20} />
                   590 отзывов
                 </ReviewsCount>
               </Row>
-              <RowIcons>
-                <ViberIcon width={24} />
-                <WhatsAppIcon width={24} />
-                <TelegramIcon width={25} />
-              </RowIcons>
             </SpecialistInfo>
           </SpecialistCardLayout>
           <LineLayout>
