@@ -5,8 +5,8 @@ export const Logo = () => {
     <Image
       src={'/files/images/logo.png'}
       alt={'Logotype'}
-      width={90}
-      height={34}
+      width={85}
+      height={32}
     />
   );
 };
