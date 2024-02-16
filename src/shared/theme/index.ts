@@ -4,10 +4,6 @@ import { fonts } from 'src/shared/theme/fonts';
 export const theme = {
   ...fonts,
   ...colors,
-  logo: {
-    primary: colors.primary,
-    secondary: colors.black,
-  },
   button: {
     primary: {
       text: colors.white,

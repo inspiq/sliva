@@ -1,8 +1,9 @@
 export const colors = {
   primary: '#fa6104',
+  secondary: '#09004d',
   slogan: '#333',
   white: '#fff',
-  black: '#000',
+  black: '#09004d',
   light: '#f3f3f3',
   border: '#ebebeb',
   footer: '#eeeeee',

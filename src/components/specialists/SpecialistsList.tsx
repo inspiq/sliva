@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 
+import { Link } from 'src/navigation';
 import { db } from 'src/shared';
 import { Specialist } from 'src/shared';
 
@@ -33,7 +34,9 @@ export const SpecialistsList = () => {
     getSpecialists();
   }, [getSpecialists]);
 
-  console.log(specialists);
-
-  return <></>;
+  return specialists.map((specialist) => (
+    <Link key={specialist.userId} href={`/specialists/${specialist.userId}`}>
+      {specialist.userId}
+    </Link>
+  ));
 };
