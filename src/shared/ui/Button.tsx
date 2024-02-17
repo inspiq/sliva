@@ -16,7 +16,7 @@ const StyledButton = styled.button<{
           color: ${theme.button.primary.text};
         `
       : switchProp('$variant', {
-        ['primary']: css`
+          ['primary']: css`
             background-color: ${theme.button.primary.bg};
             color: ${theme.button.primary.text};
 
@@ -24,7 +24,7 @@ const StyledButton = styled.button<{
               background-color: ${theme.button.primary.hover};
             }
           `,
-        ['outline']: css`
+          ['outline']: css`
             background: ${theme.button.outline.bg};
             color: ${theme.button.outline.text};
             border: 1px solid ${theme.button.outline.border};
@@ -33,17 +33,17 @@ const StyledButton = styled.button<{
               border: 1px solid ${theme.button.outline.hover};
             }
           `,
-      })}
+        })}
   ${switchProp('$size', {
-        ['big']: css`
+    ['big']: css`
       height: 50px;
       font-size: 16px;
     `,
-        ['medium']: css`
+    ['medium']: css`
       height: 40px;
       font-size: 15px;
     `,
-      })}
+  })}
   ${({ $isStretching }) =>
     $isStretching &&
     css`

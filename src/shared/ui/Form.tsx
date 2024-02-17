@@ -11,7 +11,7 @@ const Form = styled.form`
   height: 100%;
 `;
 
-interface Props extends FormHTMLAttributes<HTMLFormElement> { }
+interface Props extends FormHTMLAttributes<HTMLFormElement> {}
 
 const UiFormElement = (props: PropsWithChildren<Props>): ReactElement => {
   const { children, onSubmit, ...rest } = props;
