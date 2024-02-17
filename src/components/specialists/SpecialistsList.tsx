@@ -4,7 +4,7 @@ import Image from 'next/image';
 import styled, { useTheme } from 'styled-components';
 
 import { Line, Loader } from 'src/components';
-import { Filter } from 'src/components/specialists/specialist_filters/Filter';
+import { Filter } from 'src/components/specialists/specialist_filters/Filters';
 import { Link } from 'src/navigation';
 import { ChatIcon, db, devices, StarIcon } from 'src/shared';
 import { Specialist } from 'src/shared';
