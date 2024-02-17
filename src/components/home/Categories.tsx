@@ -66,8 +66,8 @@ export const Categories = () => {
     },
     { title: t('categories.kitchen'), imgPath: '/files/images/kitchen.jpg' },
     {
-      title: t('categories.transportationSbeautyServices'),
-      imgPath: '/files/images/transportationSbeautyServiceservices.jpg',
+      title: t('categories.transportationServices'),
+      imgPath: '/files/images/transportationServices.jpg',
     },
     {
       title: t('categories.beautyServices'),

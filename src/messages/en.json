@@ -119,9 +119,9 @@
     "link": "Privacy policy"
   },
   "slogan": {
-    "title": "Things are done",
-    "second_title": "with Sliva",
-    "subtitle": "{numberOfUsers, plural, =1 {# the client trusted} other {# customers trusted}} our service",
+    "title": "Sliva – a reliable partner",
+    "second_title": "for service",
+    "subtitle": "{numberOfUsers, plural, =1 {# client trusted} other {# clients trusted}} our service",
     "button": "Find a specialist"
   },
   "categories": {
@@ -129,13 +129,13 @@
     "plumbing": "Plumbing",
     "cleaning": "Cleaning",
     "tutoring": "Tutoring",
-    "auto": "Automotive",
+    "auto": "Auto Services",
     "kitchen": "Kitchen",
     "transportationServices": "Transportation Services",
-    "beautyServices": "Beauty and Cosmetic Services",
+    "beautyServices": "Beauty and Health",
     "fitness": "Fitness and Sports",
     "animalServices": "Animal Services",
-    "homeService": "Household Services"
+    "homeService": "Domestic Staff"
   },
   "user_profile": {
     "name_input": "Name",

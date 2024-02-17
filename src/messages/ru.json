@@ -119,8 +119,8 @@
     "link": "Политикой кофиденциальности"
   },
   "slogan": {
-    "title": "Дела выполняются",
-    "second_title": "с Sliva",
+    "title": "Sliva – надежный партнер",
+    "second_title": "по обслуживанию",
     "subtitle": "{numberOfUsers, plural, =1 {# клиент доверился} other {# клиентов доверились}} нашему сервису",
     "button": "Найти специалиста"
   },
@@ -129,10 +129,10 @@
     "plumbing": "Сантехника",
     "cleaning": "Уборка",
     "tutoring": "Репетиторство",
-    "auto": "Авто",
+    "auto": "Авто услуги",
     "kitchen": "Кухня",
-    "transportationSbeautyServices": "Транспортные услуги",
-    "beautyServices": "Оздоровительные и косметические услуги",
+    "transportationServices": "Транспортные услуги",
+    "beautyServices": "Красота и здоровье",
     "fitness": "Фитнес и спорт",
     "animalServices": "Услуги для животных",
     "homeService": "Домашний персонал"

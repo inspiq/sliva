@@ -130,20 +130,20 @@ export const SignUpForm = () => {
         <UiInput
           name="name"
           onChange={handleChange}
-          value={values.name}
-          placeholder={t('SignUpForm.name_input.placeholder')}
-          onBlur={handleBlur}
-          hasError={!!errors.name && !!touched.name}
-          textError={errors.name}
-        />
-        <UiInput
-          name="lastName"
-          onChange={handleChange}
           value={values.lastName}
           placeholder={t('SignUpForm.lastName_input.placeholder')}
           onBlur={handleBlur}
           hasError={!!errors.lastName && !!touched.lastName}
           textError={errors.lastName}
+        />
+        <UiInput
+          name="lastName"
+          onChange={handleChange}
+          value={values.name}
+          placeholder={t('SignUpForm.name_input.placeholder')}
+          onBlur={handleBlur}
+          hasError={!!errors.name && !!touched.name}
+          textError={errors.name}
         />
         <UiInput
           name="surname"

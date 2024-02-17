@@ -119,23 +119,23 @@
     "link": "Política de privacidad"
   },
   "slogan": {
-    "title": "Las cosas se hacen",
-    "second_title": "con el Servicio de Hogar",
-    "subtitle": "{numberOfUsers, plural, =1 {# el cliente confía} other {# clientes confiados}} nuestro Servicio",
+    "title": "Sliva – un socio confiable",
+    "second_title": "para servicio",
+    "subtitle": "{numberOfUsers, plural, =1 {# cliente confió} other {# clientes confiaron}} en nuestro servicio",
     "button": "Encontrar un especialista"
   },
   "categories": {
-    "renovation": "Renovación y Construcción",
+    "renovation": "Renovación y construcción",
     "plumbing": "Fontanería",
     "cleaning": "Limpieza",
-    "tutoring": "Clases Particulares",
-    "auto": "Automóviles",
+    "tutoring": "Tutoría",
+    "auto": "Servicios de automóviles",
     "kitchen": "Cocina",
-    "transportationServices": "Servicios de Transporte",
-    "beautyServices": "Servicios de Belleza y Cosmética",
-    "fitness": "Fitness y Deportes",
-    "animalServices": "Servicios para Animales",
-    "homeService": "Servicios Domésticos"
+    "transportationServices": "Servicios de transporte",
+    "beautyServices": "Belleza y salud",
+    "fitness": "Fitness y deportes",
+    "animalServices": "Servicios para animales",
+    "homeService": "Servicio doméstico"
   },
   "user_profile": {
     "name_input": "Nombre",
