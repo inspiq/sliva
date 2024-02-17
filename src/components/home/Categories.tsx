@@ -43,6 +43,10 @@ const StyledImage = styled(Image)`
   object-fit: cover;
   width: 100%;
   height: 220px;
+
+  @media ${devices.mobileL} {
+    height: 200px;
+  }
 `;
 
 const CategoryInfoLayout = styled.div`
