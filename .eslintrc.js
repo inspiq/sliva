@@ -80,7 +80,7 @@ module.exports = {
     'prettier/prettier': [
       'error',
       {
-        endOfLine: "auto",
+        endOfLine: 'auto',
         tabWidth: 2,
         trailingComma: 'all',
         arrowParens: 'always',

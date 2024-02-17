@@ -19,7 +19,7 @@ import { EmailIcon, PasswordIcon } from 'src/shared/icons';
 const DownloadLink = styled.a`
   color: ${({ theme }) => theme.primary};
 `;
-const FNPFormLayout = styled.div`
+const Row = styled.div`
   display: flex;
   gap: 10px;
 `;
@@ -126,7 +126,7 @@ export const SignUpForm = () => {
 
   return (
     <FormLayout title={t('SignUpForm.title')} onSubmit={handleSubmit}>
-      <FNPFormLayout>
+      <Row>
         <UiInput
           name="name"
           onChange={handleChange}
@@ -154,7 +154,7 @@ export const SignUpForm = () => {
           hasError={!!errors.surname && !!touched.surname}
           textError={errors.surname}
         />
-      </FNPFormLayout>
+      </Row>
       <UiInput
         name="email"
         onChange={handleChange}
