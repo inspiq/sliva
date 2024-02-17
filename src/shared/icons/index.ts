@@ -4,3 +4,4 @@ export { PasswordIcon } from 'src/shared/icons/PasswordIcon';
 export { CloseEyeIcon } from 'src/shared/icons/CloseEyeIcon';
 export { ArrowIcon } from 'src/shared/icons/ArrowIcon';
 export { PlusIcon } from 'src/shared/icons/PlusIcon';
+export { StarIcon } from 'src/shared/icons/StarIcon';

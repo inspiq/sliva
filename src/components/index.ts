@@ -13,3 +13,4 @@ export { Loader } from 'src/components/Loader';
 export * from 'src/components/home';
 export * from 'src/components/user_profile';
 export * from 'src/components/specialists';
+export { UiRate } from 'src/components/chips/Rate';
