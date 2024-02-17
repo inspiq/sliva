@@ -53,6 +53,15 @@
   },
   "SignUpForm": {
     "title": "Regístrate para el Servicio de Hogar",
+    "name_input": {
+      "placeholder": "Nombre"
+    },
+    "lastName_input": {
+      "placeholder": "Apellido"
+    },
+    "surname_input": {
+      "placeholder": "Segundo nombre"
+    },
     "email_input": {
       "placeholder": "Correo electrónico"
     },
@@ -84,6 +93,18 @@
     "text": "Derechos de autor 2024-2024 Sliva, Inc. Todos los Derechos Reservados"
   },
   "validations": {
+    "name": {
+      "min": "El nombre debe contener al menos 2 caracteres",
+      "matches": "El nombre solo debe contener letras, espacios y guiones"
+    },
+    "lastName": {
+      "min": "El apellido debe contener al menos 2 caracteres",
+      "matches": "El apellido solo debe contener letras, espacios y guiones"
+    },
+    "surname": {
+      "min": "El segundo nombre debe contener al menos 2 caracteres",
+      "matches": "El segundo nombre solo debe contener letras, espacios y guiones"
+    },
     "email": "Ingrese una dirección de correo electrónico válida",
     "required": "El campo debe ser completado",
     "password": {
@@ -104,8 +125,28 @@
     "button": "Encontrar un especialista"
   },
   "categories": {
-    "electrics": "Electricidad",
+    "renovation": "Renovación y Construcción",
     "plumbing": "Fontanería",
-    "cleaning": "Limpieza"
+    "cleaning": "Limpieza",
+    "tutoring": "Clases Particulares",
+    "auto": "Automóviles",
+    "kitchen": "Cocina",
+    "transportationServices": "Servicios de Transporte",
+    "beautyServices": "Servicios de Belleza y Cosmética",
+    "fitness": "Fitness y Deportes",
+    "animalServices": "Servicios para Animales",
+    "homeService": "Servicios Domésticos"
+  },
+  "user_profile": {
+    "name_input": "Nombre",
+    "lastName_input": "Apellido",
+    "surname_input": "Segundo nombre",
+    "work_input": "Experiencia laboral",
+    "city_input": "Ciudad",
+    "telegram_input": "Telegrama",
+    "watsup_input": "Wats Up",
+    "birthday_input": "Fecha de nacimiento",
+    "additionalInformation_input": "Información adicional",
+    "submitBut_input": "Guardar"
   }
 }

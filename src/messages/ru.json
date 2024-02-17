@@ -53,6 +53,15 @@
   },
   "SignUpForm": {
     "title": "Регистрация в Sliva",
+    "name_input": {
+      "placeholder": "Имя"
+    },
+    "lastName_input": {
+      "placeholder": "Фамилия"
+    },
+    "surname_input": {
+      "placeholder": "Отчество"
+    },
     "email_input": {
       "placeholder": "Электронная почта"
     },
@@ -84,6 +93,18 @@
     "text": "Copyright 2024 - 2024 Sliva, Inc. All Rights Reserved"
   },
   "validations": {
+    "name": {
+      "min": "Имя должно содержать не менее 2 символов",
+      "matches": "Имя должно содержать только буквы, пробелы и дефисы"
+    },
+    "lastName": {
+      "min": "Фамилия должна содержать не менее 2 символов",
+      "matches": "Фамилия должно содержать только буквы, пробелы и дефисы"
+    },
+    "surname": {
+      "min": "Отчество должно содержать не менее 2 символов",
+      "matches": "Отчество должно содержать только буквы, пробелы и дефисы"
+    },
     "email": "Введите действительный адрес электронной почты",
     "required": "Поле должно быть заполнено",
     "password": {
@@ -104,8 +125,29 @@
     "button": "Найти специалиста"
   },
   "categories": {
-    "electrics": "Электрика",
+    "renovation": "Ремонт и строительство",
     "plumbing": "Сантехника",
-    "cleaning": "Уборка"
+    "cleaning": "Уборка",
+    "tutoring": "Репетиторство",
+    "auto": "Авто",
+    "kitchen": "Кухня",
+    "transportationSbeautyServices": "Транспортные услуги",
+    "beautyServices": "Оздоровительные и косметические услуги",
+    "fitness": "Фитнес и спорт",
+    "animalServices": "Услуги для животных",
+    "homeService": "Домашний персонал"
+  },
+  "user_profile": {
+    "name_input": "Имя",
+    "lastName_input": "Фамилия",
+    "surname_input": "Отчество",
+    "work_input": "Опыт работы",
+    "city_input": "Город",
+    "telegram_input": "Телеграм",
+    "watsup_input": "Вотсап",
+    "birthday_input": "Дата рождения",
+    "additionalInformation_input": "Дополнительная информация",
+    "submitBut_input": "Сохранить",
+    "freelance": "Фриланс и креативные услуги"
   }
 }

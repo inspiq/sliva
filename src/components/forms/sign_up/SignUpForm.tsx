@@ -19,6 +19,10 @@ import { EmailIcon, PasswordIcon } from 'src/shared/icons';
 const DownloadLink = styled.a`
   color: ${({ theme }) => theme.primary};
 `;
+const FNPFormLayout = styled.div`
+  display: flex;
+  gap: 10px;
+`;
 
 export const SignUpForm = () => {
   const [isRequestError, setIsRequestError] = useState(false);
@@ -47,6 +51,9 @@ export const SignUpForm = () => {
     isSubmitting,
   } = useFormik({
     initialValues: {
+      name: '',
+      lastName: '',
+      surname: '',
       email: '',
       password: '',
       repeat_password: '',
@@ -54,6 +61,21 @@ export const SignUpForm = () => {
       country: selectedOption.value,
     },
     validationSchema: yup.object().shape({
+      name: yup
+        .string()
+        .required(t('validations.required'))
+        .min(2, t('validations.name.min'))
+        .matches(/^[A-Za-zА-Яа-яЁё\s-]+$/, t('validations.name.matches')),
+      lastName: yup
+        .string()
+        .required(t('validations.required'))
+        .min(2, t('validations.lastName.min'))
+        .matches(/^[A-Za-zА-Яа-яЁё\s-]+$/, t('validations.lastName.matches')),
+      surname: yup
+        .string()
+        .required(t('validations.required'))
+        .min(2, t('validations.surname.min'))
+        .matches(/^[A-Za-zА-Яа-яЁё\s-]+$/, t('validations.surname.matches')),
       email: yup
         .string()
         .email(t('validations.email'))
@@ -70,7 +92,9 @@ export const SignUpForm = () => {
         .oneOf([yup.ref('password')], t('validations.password.one_of')),
     }),
     validateOnMount: true,
-    onSubmit: async ({ email, password }) => {
+    onSubmit: async (options) => {
+      const { name, lastName, surname, email, password } = options;
+
       try {
         const { user } = await createUserWithEmailAndPassword(
           auth,
@@ -81,6 +105,9 @@ export const SignUpForm = () => {
         const userDocRef = doc(usersCollection, user.uid);
 
         await setDoc(userDocRef, {
+          name,
+          lastName,
+          surname,
           userId: user.uid,
           type: values.userType,
         });
@@ -99,6 +126,35 @@ export const SignUpForm = () => {
 
   return (
     <FormLayout title={t('SignUpForm.title')} onSubmit={handleSubmit}>
+      <FNPFormLayout>
+        <UiInput
+          name="name"
+          onChange={handleChange}
+          value={values.name}
+          placeholder={t('SignUpForm.name_input.placeholder')}
+          onBlur={handleBlur}
+          hasError={!!errors.name && !!touched.name}
+          textError={errors.name}
+        />
+        <UiInput
+          name="lastName"
+          onChange={handleChange}
+          value={values.lastName}
+          placeholder={t('SignUpForm.lastName_input.placeholder')}
+          onBlur={handleBlur}
+          hasError={!!errors.lastName && !!touched.lastName}
+          textError={errors.lastName}
+        />
+        <UiInput
+          name="surname"
+          onChange={handleChange}
+          value={values.surname}
+          placeholder={t('SignUpForm.surname_input.placeholder')}
+          onBlur={handleBlur}
+          hasError={!!errors.surname && !!touched.surname}
+          textError={errors.surname}
+        />
+      </FNPFormLayout>
       <UiInput
         name="email"
         onChange={handleChange}

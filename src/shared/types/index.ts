@@ -1,20 +1,20 @@
 import { UserType } from 'src/shared';
 
-export interface User {
+export interface Client {
   avatarUrl: string;
   type: UserType;
   userId: string;
   email: string;
   city: string;
   dayOfBirth: string;
-  lastName: string;
   name: string;
-  surname: string;
+  lastName: string;
+  suraname: string;
   telegram: string;
   whatsApp: string;
 }
 
-export interface Specialist extends User {
+export interface Specialist extends Client {
   avatarUrl: string;
   type: UserType;
   userId: string;
