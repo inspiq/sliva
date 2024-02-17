@@ -10,6 +10,7 @@ import { UiButton } from 'src/shared';
 import { auth, devices } from 'src/shared';
 import {
   ArrowIcon,
+  EditIcon,
   EnglishIcon,
   ExitIcon,
   RussiaIcon,
@@ -207,6 +208,7 @@ export const Header = () => {
           >
             <PopupMenuLayout>
               <StyledLink href="/profile">
+                <EditIcon width={18} />
                 {t('account_management_menu.profile')}
               </StyledLink>
               <StyledLink href="/" onClick={onLogout}>

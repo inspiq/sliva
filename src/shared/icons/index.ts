@@ -13,3 +13,4 @@ export { RussiaIcon } from 'src/shared/icons/RussiaIcon';
 export { SpanishIcon } from 'src/shared/icons/SpanishIcon';
 export { EnglishIcon } from 'src/shared/icons/EnglishIcon';
 export { ExitIcon } from 'src/shared/icons/ExitIcon';
+export { EditIcon } from 'src/shared/icons/EditIcon';
