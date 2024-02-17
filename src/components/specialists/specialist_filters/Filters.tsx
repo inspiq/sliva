@@ -90,8 +90,10 @@ const StyledAccordionItem = styled(ItemWithChevron)`
 `;
 
 export const Filter = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const onChangeFilter = (filter: string) => {
     setSelectedFilters((prev) => {
       const findIndex = prev.findIndex((item) => item === filter);
