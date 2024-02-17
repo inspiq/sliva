@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { ReactElement, useCallback, useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
@@ -42,7 +42,7 @@ const UiButtonLayout = styled.div`
   display: flex;
 `;
 
-export const Slogan = () => {
+const SloganElement = (): ReactElement => {
   const [numberOfUsers, setNumberOfUsers] = useState(0);
   const t = useTranslations('slogan');
   const router = useRouter();
@@ -61,7 +61,7 @@ export const Slogan = () => {
   }, [getUserData]);
 
   if (!numberOfUsers) {
-    return <Loader size={60} />;
+    return <Loader />;
   }
 
   return (
@@ -82,3 +82,5 @@ export const Slogan = () => {
     </MainLayout>
   );
 };
+
+export const Slogan = SloganElement;

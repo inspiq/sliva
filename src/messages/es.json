@@ -56,7 +56,7 @@
     "name_input": {
       "placeholder": "Nombre"
     },
-    "lastName_input": {
+    "last_name_input": {
       "placeholder": "Apellido"
     },
     "surname_input": {
@@ -131,22 +131,22 @@
     "tutoring": "Tutoría",
     "auto": "Servicios de automóviles",
     "kitchen": "Cocina",
-    "transportationServices": "Servicios de transporte",
-    "beautyServices": "Belleza y salud",
+    "transportation_services": "Servicios de transporte",
+    "beauty_services": "Belleza y salud",
     "fitness": "Fitness y deportes",
-    "animalServices": "Servicios para animales",
-    "homeService": "Servicio doméstico"
+    "animal_services": "Servicios para animales",
+    "home_staff": "Servicio doméstico"
   },
   "user_profile": {
     "name_input": "Nombre",
-    "lastName_input": "Apellido",
+    "last_name_input": "Apellido",
     "surname_input": "Segundo nombre",
     "work_input": "Experiencia laboral",
     "city_input": "Ciudad",
     "telegram_input": "Telegrama",
-    "watsup_input": "Wats Up",
+    "whats_app_input": "Whats App",
     "birthday_input": "Fecha de nacimiento",
-    "additionalInformation_input": "Información adicional",
-    "submitBut_input": "Guardar"
+    "additional_information_input": "Información adicional",
+    "button": "Guardar"
   }
 }

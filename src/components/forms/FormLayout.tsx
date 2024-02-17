@@ -1,10 +1,10 @@
-import { FormEventHandler, PropsWithChildren } from 'react';
+import { FormEventHandler, PropsWithChildren, ReactElement } from 'react';
 import styled from 'styled-components';
 
 import { UiForm } from 'src/shared';
 
 const MainLayout = styled.div`
-  max-width: 550px;
+  max-width: 450px;
   width: 100%;
   box-shadow: 0px 5px 30px ${({ theme }) => theme.shadow};
   display: flex;
@@ -36,7 +36,7 @@ interface Props {
   onSubmit: FormEventHandler<HTMLFormElement>;
 }
 
-export const FormLayout = (props: PropsWithChildren<Props>) => {
+const FormLayoutElement = (props: PropsWithChildren<Props>): ReactElement => {
   const { title, children, onSubmit } = props;
 
   return (
@@ -48,3 +48,5 @@ export const FormLayout = (props: PropsWithChildren<Props>) => {
     </MainLayout>
   );
 };
+
+export const FormLayout = FormLayoutElement;

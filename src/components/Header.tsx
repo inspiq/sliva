@@ -1,3 +1,4 @@
+import { ReactElement } from 'react';
 import Popup from 'reactjs-popup';
 import { signOut } from 'firebase/auth';
 import { useTranslations } from 'next-intl';
@@ -159,7 +160,7 @@ const Profile = () => {
   );
 };
 
-export const Header = () => {
+const HeaderElement = (): ReactElement => {
   const { currentUser } = useAuthContext();
   const t = useTranslations('Header');
   const currentPath = usePathname();
@@ -231,3 +232,5 @@ export const Header = () => {
     </MainLayout>
   );
 };
+
+export const Header = HeaderElement;

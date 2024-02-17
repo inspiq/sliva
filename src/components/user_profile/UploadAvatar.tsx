@@ -28,7 +28,7 @@ const StyledImage = styled(Image)`
   object-fit: cover;
 `;
 
-export const UploadAvatar = (props: {
+const UploadAvatarElement = (props: {
   userMetaData?: DocumentData;
   setFileUpload: Dispatch<SetStateAction<File | undefined>>;
   fileUpload?: File;
@@ -61,3 +61,5 @@ export const UploadAvatar = (props: {
     </MainLayout>
   );
 };
+
+export const UploadAvatar = UploadAvatarElement;

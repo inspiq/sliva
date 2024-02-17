@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ReactElement, useState } from 'react';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { useFormik } from 'formik';
 import { useTranslations } from 'next-intl';
@@ -10,7 +10,7 @@ import { Tip } from 'src/components/forms/Tip';
 import { EmailIcon, UiButton, UiInput } from 'src/shared';
 import { auth } from 'src/shared/firebase';
 
-export const ResetPasswordForm = () => {
+const ResetPasswordFormElement = (): ReactElement => {
   const [isSentLinkResetPassword, setIsSentLinkResetPassword] = useState(false);
   const t = useTranslations();
   const {
@@ -72,3 +72,5 @@ export const ResetPasswordForm = () => {
     </FormLayout>
   );
 };
+
+export const ResetPasswordForm = ResetPasswordFormElement;

@@ -1,3 +1,4 @@
+import { ReactElement } from 'react';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
@@ -13,7 +14,7 @@ const MainLayout = styled.div`
   text-align: center;
 `;
 
-export const Footer = () => {
+const FooterElement = (): ReactElement => {
   const t = useTranslations('Footer');
 
   return (
@@ -22,3 +23,5 @@ export const Footer = () => {
     </MainLayout>
   );
 };
+
+export const Footer = FooterElement;

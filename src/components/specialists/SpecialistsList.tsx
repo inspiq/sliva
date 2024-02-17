@@ -1,4 +1,10 @@
-import { Fragment, useCallback, useEffect, useState } from 'react';
+import {
+  Fragment,
+  ReactElement,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import Image from 'next/image';
 import styled, { useTheme } from 'styled-components';
@@ -84,7 +90,7 @@ const Row = styled.div`
   }
 `;
 
-export const SpecialistsList = () => {
+const SpecialistsListElement = (): ReactElement => {
   const [specialists, setSpecialists] = useState<Specialist[]>([]);
   const { primary } = useTheme();
 
@@ -115,7 +121,7 @@ export const SpecialistsList = () => {
   }, [getSpecialists]);
 
   if (!specialists.length) {
-    return <Loader size={60} />;
+    return <Loader />;
   }
 
   return (
@@ -158,3 +164,5 @@ export const SpecialistsList = () => {
     </MainLayout>
   );
 };
+
+export const SpecialistsList = SpecialistsListElement;

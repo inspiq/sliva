@@ -1,4 +1,10 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import {
+  Dispatch,
+  ReactElement,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 import Select from 'react-select';
 import styled from 'styled-components';
 
@@ -19,7 +25,7 @@ interface Props {
   isSearchable?: boolean;
 }
 
-export const UiSelect = (props: Props) => {
+const UiSelectElement = (props: Props): ReactElement => {
   const {
     value,
     onChange,
@@ -33,14 +39,18 @@ export const UiSelect = (props: Props) => {
   useEffect(() => setIsMounted(true), []);
 
   return (
-    isMounted && (
-      <StyledSelect
-        value={value}
-        onChange={onChange as () => Option}
-        options={options}
-        defaultValue={defaultValue}
-        isSearchable={isSearchable}
-      />
-    )
+    <>
+      {isMounted && (
+        <StyledSelect
+          value={value}
+          onChange={onChange as () => Option}
+          options={options}
+          defaultValue={defaultValue}
+          isSearchable={isSearchable}
+        />
+      )}
+    </>
   );
 };
+
+export const UiSelect = UiSelectElement;

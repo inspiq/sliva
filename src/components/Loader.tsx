@@ -1,3 +1,4 @@
+import { ReactElement } from 'react';
 import { PuffLoader } from 'react-spinners';
 import styled, { useTheme } from 'styled-components';
 
@@ -15,11 +16,11 @@ const MainLayout = styled.div`
 `;
 
 interface Props {
-  size: number;
+  size?: number;
 }
 
-export const Loader = (props: Props) => {
-  const { size } = props;
+const LoaderElement = (props: Props): ReactElement => {
+  const { size = 60 } = props;
   const { loader } = useTheme();
 
   return (
@@ -28,3 +29,5 @@ export const Loader = (props: Props) => {
     </MainLayout>
   );
 };
+
+export const Loader = LoaderElement;

@@ -1,3 +1,4 @@
+import { ReactElement } from 'react';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useFormik } from 'formik';
 import { useTranslations } from 'next-intl';
@@ -64,7 +65,7 @@ interface Props {
   fileUpload?: File;
 }
 
-export const UserInfoForm = (props: Props) => {
+const UserInfoFormElement = (props: Props): ReactElement => {
   const { userMetaData, uploadFile, fileUpload } = props;
 
   const t = useTranslations();
@@ -131,7 +132,7 @@ export const UserInfoForm = (props: Props) => {
           textError={errors.name}
         />
         <UiInput
-          placeholder={t('user_profile.lastName_input')}
+          placeholder={t('user_profile.last_name_input')}
           value={values.lastName}
           name="lastName"
           onChange={handleChange}
@@ -180,7 +181,7 @@ export const UserInfoForm = (props: Props) => {
           textError={errors.telegram}
         />
         <UiInput
-          placeholder={t('user_profile.watsup_input')}
+          placeholder={t('user_profile.whats_app_input')}
           value={values.whatsApp}
           name="whatsApp"
           onChange={handleChange}
@@ -203,7 +204,7 @@ export const UserInfoForm = (props: Props) => {
       </Row>
       <TextAreaRow>
         <StyledTextArea
-          placeholder={t('user_profile.additionalInformation_input')}
+          placeholder={t('user_profile.additional_information_input')}
         />
       </TextAreaRow>
       <UiButtonLayout>
@@ -213,9 +214,11 @@ export const UserInfoForm = (props: Props) => {
           disabled={isSubmitting}
           isStretching={false}
         >
-          {t('user_profile.submitBut_input')}
+          {t('user_profile.button')}
         </UiButton>
       </UiButtonLayout>
     </StyledUiForm>
   );
 };
+
+export const UserInfoForm = UserInfoFormElement;

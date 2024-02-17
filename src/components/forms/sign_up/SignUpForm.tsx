@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ReactElement, useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import { useFormik } from 'formik';
@@ -21,10 +21,11 @@ const DownloadLink = styled.a`
 `;
 const Row = styled.div`
   display: flex;
+  width: 100%;
   gap: 10px;
 `;
 
-export const SignUpForm = () => {
+const SignUpFormElement = (): ReactElement => {
   const [isRequestError, setIsRequestError] = useState(false);
   const router = useRouter();
   const t = useTranslations();
@@ -53,7 +54,6 @@ export const SignUpForm = () => {
     initialValues: {
       name: '',
       lastName: '',
-      surname: '',
       email: '',
       password: '',
       repeat_password: '',
@@ -71,11 +71,6 @@ export const SignUpForm = () => {
         .required(t('validations.required'))
         .min(2, t('validations.lastName.min'))
         .matches(/^[A-Za-zА-Яа-яЁё\s-]+$/, t('validations.lastName.matches')),
-      surname: yup
-        .string()
-        .required(t('validations.required'))
-        .min(2, t('validations.surname.min'))
-        .matches(/^[A-Za-zА-Яа-яЁё\s-]+$/, t('validations.surname.matches')),
       email: yup
         .string()
         .email(t('validations.email'))
@@ -93,7 +88,7 @@ export const SignUpForm = () => {
     }),
     validateOnMount: true,
     onSubmit: async (options) => {
-      const { name, lastName, surname, email, password } = options;
+      const { name, lastName, email, password } = options;
 
       try {
         const { user } = await createUserWithEmailAndPassword(
@@ -107,7 +102,7 @@ export const SignUpForm = () => {
         await setDoc(userDocRef, {
           name,
           lastName,
-          surname,
+          surname: '',
           userId: user.uid,
           type: values.userType,
         });
@@ -121,7 +116,7 @@ export const SignUpForm = () => {
   });
 
   if (isSubmitting) {
-    return <Loader size={60} />;
+    return <Loader />;
   }
 
   return (
@@ -131,7 +126,7 @@ export const SignUpForm = () => {
           name="name"
           onChange={handleChange}
           value={values.lastName}
-          placeholder={t('SignUpForm.lastName_input.placeholder')}
+          placeholder={t('SignUpForm.last_name_input.placeholder')}
           onBlur={handleBlur}
           hasError={!!errors.lastName && !!touched.lastName}
           textError={errors.lastName}
@@ -144,15 +139,6 @@ export const SignUpForm = () => {
           onBlur={handleBlur}
           hasError={!!errors.name && !!touched.name}
           textError={errors.name}
-        />
-        <UiInput
-          name="surname"
-          onChange={handleChange}
-          value={values.surname}
-          placeholder={t('SignUpForm.surname_input.placeholder')}
-          onBlur={handleBlur}
-          hasError={!!errors.surname && !!touched.surname}
-          textError={errors.surname}
         />
       </Row>
       <UiInput
@@ -216,3 +202,5 @@ export const SignUpForm = () => {
     </FormLayout>
   );
 };
+
+export const SignUpForm = SignUpFormElement;

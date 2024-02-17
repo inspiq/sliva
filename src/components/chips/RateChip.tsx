@@ -13,14 +13,12 @@ const Star = styled.input`
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   Icon?: JSX.Element;
-  disabled?: boolean;
   title?: string;
   hover?: boolean;
   currentRating?: number;
 }
 
-const StartRate = (props: Props): ReactElement => {
-  const { ...rest } = props;
+const RateChip = (props: Props): ReactElement => {
   const [hover, setHover] = useState(0);
   const [rating, setRating] = useState(0);
 
@@ -34,13 +32,13 @@ const StartRate = (props: Props): ReactElement => {
 
   return (
     <Container>
-      {[...Array(5)].map((star, index) => (
+      {[...Array(5)].map((_, index) => (
         <label key={index}>
           <Star
             type="radio"
             value={index}
             onClick={() => handleClick(index)}
-            {...rest}
+            {...props}
           />
           <StarIcon
             color={(hover || rating) >= index ? 'orange' : 'gray'}
@@ -52,4 +50,5 @@ const StartRate = (props: Props): ReactElement => {
     </Container>
   );
 };
-export const UiRate = StartRate;
+
+export const Rate = RateChip;

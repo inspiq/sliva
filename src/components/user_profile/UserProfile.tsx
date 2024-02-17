@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { ReactElement, useCallback, useEffect, useState } from 'react';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { useTranslations } from 'next-intl';
@@ -29,7 +29,7 @@ const MainLayout = styled.div`
   }
 `;
 
-export const UserProfile = () => {
+const UserProfileElement = (): ReactElement => {
   const { currentUser } = useAuthContext();
   const [userMetaData, setUserMetaData] = useState<Specialist>();
   const [fileUpload, setFileUpload] = useState<File>();
@@ -73,12 +73,12 @@ export const UserProfile = () => {
   };
 
   if (!userMetaData) {
-    return <Loader size={60} />;
+    return <Loader />;
   }
 
   return (
     <>
-      <Title>{t('user_profile.additionalInformation_input')}</Title>
+      <Title>{t('user_profile.additional_information_input')}</Title>
       <MainLayout>
         <UploadAvatar
           userMetaData={userMetaData}
@@ -94,3 +94,5 @@ export const UserProfile = () => {
     </>
   );
 };
+
+export const UserProfile = UserProfileElement;

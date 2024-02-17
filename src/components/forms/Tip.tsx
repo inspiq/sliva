@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, ReactElement } from 'react';
 import styled from 'styled-components';
 
 export const TextTipLayout = styled.div`
@@ -17,7 +17,7 @@ const TipLayout = styled.div`
   width: 100%;
 `;
 
-export const Tip = (props: PropsWithChildren) => {
+const TipElement = (props: PropsWithChildren): ReactElement => {
   const { children } = props;
 
   return (
@@ -26,3 +26,5 @@ export const Tip = (props: PropsWithChildren) => {
     </TipLayout>
   );
 };
+
+export const Tip = TipElement;

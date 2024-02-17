@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ReactElement, useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useFormik } from 'formik';
 import { useTranslations } from 'next-intl';
@@ -14,7 +14,7 @@ import { useRouter } from 'src/navigation';
 import { auth, UiButton, UiInput } from 'src/shared';
 import { EmailIcon, PasswordIcon } from 'src/shared/icons';
 
-export const LogInForm = () => {
+const LogInFormElement = (): ReactElement => {
   const [isRequestError, setIsRequestError] = useState(false);
   const router = useRouter();
   const t = useTranslations();
@@ -51,7 +51,7 @@ export const LogInForm = () => {
   });
 
   if (isSubmitting) {
-    return <Loader size={60} />;
+    return <Loader />;
   }
 
   return (
@@ -97,3 +97,5 @@ export const LogInForm = () => {
     </FormLayout>
   );
 };
+
+export const LogInForm = LogInFormElement;

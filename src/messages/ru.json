@@ -56,7 +56,7 @@
     "name_input": {
       "placeholder": "Имя"
     },
-    "lastName_input": {
+    "last_name_input": {
       "placeholder": "Фамилия"
     },
     "surname_input": {
@@ -131,23 +131,22 @@
     "tutoring": "Репетиторство",
     "auto": "Авто услуги",
     "kitchen": "Кухня",
-    "transportationServices": "Транспортные услуги",
-    "beautyServices": "Красота и здоровье",
+    "transportation_services": "Транспортные услуги",
+    "beauty_services": "Красота и здоровье",
     "fitness": "Фитнес и спорт",
-    "animalServices": "Услуги для животных",
-    "homeService": "Домашний персонал"
+    "animal_services": "Услуги для животных",
+    "home_staff": "Домашний персонал"
   },
   "user_profile": {
     "name_input": "Имя",
-    "lastName_input": "Фамилия",
+    "last_name_input": "Фамилия",
     "surname_input": "Отчество",
     "work_input": "Опыт работы",
     "city_input": "Город",
     "telegram_input": "Телеграм",
-    "watsup_input": "Вотсап",
+    "whats_app_input": "Вотсап",
     "birthday_input": "Дата рождения",
-    "additionalInformation_input": "Дополнительная информация",
-    "submitBut_input": "Сохранить",
-    "freelance": "Фриланс и креативные услуги"
+    "additional_information_input": "Дополнительная информация",
+    "button": "Сохранить"
   }
 }

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { ReactElement, useCallback, useEffect, useState } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 
 import { db, Specialist } from 'src/shared';
@@ -7,7 +7,7 @@ interface Props {
   specialistId: string;
 }
 
-export const SpecialistInfo = (props: Props) => {
+const SpecialistAccountElement = (props: Props): ReactElement => {
   const { specialistId } = props;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [userMetaData, setUserMetaData] = useState<Specialist>();
@@ -31,3 +31,5 @@ export const SpecialistInfo = (props: Props) => {
 
   return <div>Specialist</div>;
 };
+
+export const SpecialistAccount = SpecialistAccountElement;

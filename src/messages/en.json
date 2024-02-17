@@ -56,7 +56,7 @@
     "name_input": {
       "placeholder": "First Name"
     },
-    "lastName_input": {
+    "last_name_input": {
       "placeholder": "Last Name"
     },
     "surname_input": {
@@ -131,22 +131,22 @@
     "tutoring": "Tutoring",
     "auto": "Auto Services",
     "kitchen": "Kitchen",
-    "transportationServices": "Transportation Services",
-    "beautyServices": "Beauty and Health",
+    "transportation_services": "Transportation Services",
+    "beauty_services": "Beauty and Health",
     "fitness": "Fitness and Sports",
-    "animalServices": "Animal Services",
-    "homeService": "Domestic Staff"
+    "animal_services": "Animal Services",
+    "home_staff": "Domestic Staff"
   },
   "user_profile": {
     "name_input": "Name",
-    "lastName_input": "Last name",
+    "last_name_input": "Last name",
     "surname_input": "Surname",
     "work_input": "Work experience",
     "city_input": "City",
     "telegram_input": "Telegram",
-    "watsup_input": "Wats Up",
+    "whats_app_input": "Whats App",
     "birthday_input": "Birthday",
-    "additionalInformation_input": "Additional information",
-    "submitBut_input": "Save"
+    "additional_information_input": "Additional information",
+    "button": "Save"
   }
 }

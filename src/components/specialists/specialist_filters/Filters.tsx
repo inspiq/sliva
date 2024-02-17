@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react';
+import { Fragment, ReactElement, useState } from 'react';
 import { Accordion, AccordionItem } from '@szhsin/react-accordion';
 import styled from 'styled-components';
 
@@ -89,7 +89,7 @@ const StyledAccordionItem = styled(ItemWithChevron)`
   }
 `;
 
-export const Filter = () => {
+const FilterElement = (): ReactElement => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
 
@@ -165,3 +165,5 @@ export const Filter = () => {
     </MainLayout>
   );
 };
+
+export const Filter = FilterElement;

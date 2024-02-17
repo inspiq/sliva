@@ -1,3 +1,4 @@
+import { ReactElement } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
@@ -53,33 +54,40 @@ const CategoryInfoLayout = styled.div`
   }
 `;
 
-export const Categories = () => {
+const CategoriesElement = (): ReactElement => {
   const t = useTranslations();
   const CATEGORIES = [
     {
       title: t('categories.renovation'),
-      imgPath: '/files/images/renovation.jpg',
+      imgPath: '/files/images/categories/renovation.jpg',
     },
     {
       title: t('categories.auto'),
-      imgPath: '/files/images/auto.jpg',
-    },
-    { title: t('categories.kitchen'), imgPath: '/files/images/kitchen.jpg' },
-    {
-      title: t('categories.transportationServices'),
-      imgPath: '/files/images/transportationServices.jpg',
+      imgPath: '/files/images/categories/auto.jpg',
     },
     {
-      title: t('categories.beautyServices'),
-      imgPath: '/files/images/beautyServices.jpg',
+      title: t('categories.kitchen'),
+      imgPath: '/files/images/categories/kitchen.jpg',
     },
     {
-      title: t('categories.animalServices'),
-      imgPath: '/files/images/animalServices.jpg',
+      title: t('categories.transportation_services'),
+      imgPath: '/files/images/categories/transportation_services.jpg',
+    },
+    {
+      title: t('categories.beauty_services'),
+      imgPath: '/files/images/categories/beauty_services.jpg',
+    },
+    {
+      title: t('categories.animal_services'),
+      imgPath: '/files/images/categories/animal_services.jpg',
     },
     {
       title: t('categories.fitness'),
-      imgPath: '/files/images/fitness.jpg',
+      imgPath: '/files/images/categories/fitness.jpg',
+    },
+    {
+      title: t('categories.home_staff'),
+      imgPath: '/files/images/categories/home_staff.jpg',
     },
   ];
 
@@ -99,3 +107,5 @@ export const Categories = () => {
     </MainLayout>
   );
 };
+
+export const Categories = CategoriesElement;
