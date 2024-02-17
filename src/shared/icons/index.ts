@@ -9,3 +9,7 @@ export { ViberIcon } from 'src/shared/icons/ViberIcon';
 export { TelegramIcon } from 'src/shared/icons/TelegramIcon';
 export { ChatIcon } from 'src/shared/icons/ChatIcon';
 export { StarIcon } from 'src/shared/icons/StarIcon';
+export { RussiaIcon } from 'src/shared/icons/RussiaIcon';
+export { SpanishIcon } from 'src/shared/icons/SpanishIcon';
+export { EnglishIcon } from 'src/shared/icons/EnglishIcon';
+export { ExitIcon } from 'src/shared/icons/ExitIcon';

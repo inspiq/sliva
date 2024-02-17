@@ -4,13 +4,15 @@ import Image from 'next/image';
 import styled, { useTheme } from 'styled-components';
 
 import { Line, Loader } from 'src/components';
+import { Filter } from 'src/components/specialists/specialist_filters/Filter';
 import { Link } from 'src/navigation';
 import { ChatIcon, db, devices, StarIcon } from 'src/shared';
 import { Specialist } from 'src/shared';
 
 const MainLayout = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 300px auto;
+  gap: 50px;
   margin: 50px 0;
 `;
 
@@ -67,6 +69,11 @@ const ReviewsCount = styled.div`
   gap: 5px;
 `;
 
+const SpecialistsLayout = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const Row = styled.div`
   display: flex;
   gap: 20px;
@@ -113,38 +120,41 @@ export const SpecialistsList = () => {
 
   return (
     <MainLayout>
-      {specialists.map((specialist) => (
-        <Fragment key={specialist.userId}>
-          <SpecialistCardLayout href={`/specialists/${specialist.userId}`}>
-            <Avatar
-              src={specialist.avatarUrl}
-              width={100}
-              height={100}
-              alt="Avatar"
-            />
-            <SpecialistInfo>
-              <FullName>
-                {specialist.name} {specialist.surname}
-              </FullName>
-              <City>Область: {specialist.city}</City>
-              <Experience>Стаж: {specialist.experience} года</Experience>
-              <Row>
-                <Rating>
-                  <StarIcon width={20} color={primary} />
-                  4,5
-                </Rating>
-                <ReviewsCount>
-                  <ChatIcon width={20} />
-                  590 отзывов
-                </ReviewsCount>
-              </Row>
-            </SpecialistInfo>
-          </SpecialistCardLayout>
-          <LineLayout>
-            <Line />
-          </LineLayout>
-        </Fragment>
-      ))}
+      <Filter />
+      <SpecialistsLayout>
+        {specialists.map((specialist) => (
+          <Fragment key={specialist.userId}>
+            <SpecialistCardLayout href={`/specialists/${specialist.userId}`}>
+              <Avatar
+                src={specialist.avatarUrl}
+                width={100}
+                height={100}
+                alt="Avatar"
+              />
+              <SpecialistInfo>
+                <FullName>
+                  {specialist.name} {specialist.surname}
+                </FullName>
+                <City>Область: {specialist.city}</City>
+                <Experience>Стаж: {specialist.experience} года</Experience>
+                <Row>
+                  <Rating>
+                    <StarIcon width={20} color={primary} />
+                    4,5
+                  </Rating>
+                  <ReviewsCount>
+                    <ChatIcon width={20} />
+                    590 отзывов
+                  </ReviewsCount>
+                </Row>
+              </SpecialistInfo>
+            </SpecialistCardLayout>
+            <LineLayout>
+              <Line />
+            </LineLayout>
+          </Fragment>
+        ))}
+      </SpecialistsLayout>
     </MainLayout>
   );
 };
