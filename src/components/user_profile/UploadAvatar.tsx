@@ -14,6 +14,7 @@ const MainLayout = styled.div`
   align-items: center;
   position: relative;
   border-radius: 60px;
+  background-color: ${({ theme }) => theme.light};
 `;
 
 const UiInputLayout = styled.div`

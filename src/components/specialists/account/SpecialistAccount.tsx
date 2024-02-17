@@ -9,6 +9,7 @@ interface Props {
 
 export const SpecialistInfo = (props: Props) => {
   const { specialistId } = props;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [userMetaData, setUserMetaData] = useState<Specialist>();
 
   const getSpecialist = useCallback(async () => {
@@ -27,8 +28,6 @@ export const SpecialistInfo = (props: Props) => {
   useEffect(() => {
     getSpecialist();
   }, [getSpecialist]);
-
-  console.log(userMetaData);
 
   return <div>Specialist</div>;
 };
