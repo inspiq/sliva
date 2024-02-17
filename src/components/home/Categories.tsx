@@ -42,7 +42,7 @@ const StyledImage = styled(Image)`
   cursor: pointer;
   object-fit: cover;
   width: 100%;
-  height: 100%;
+  height: 220px;
 `;
 
 const CategoryInfoLayout = styled.div`
@@ -99,7 +99,7 @@ const CategoriesElement = (): ReactElement => {
             src={category.imgPath}
             alt={category.title}
             width="290"
-            height="218"
+            height="225"
           />
           <Title>{category.title}</Title>
         </CategoryInfoLayout>

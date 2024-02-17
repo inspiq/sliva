@@ -23,7 +23,7 @@ const Title = styled.h1`
   line-height: 72px;
 
   @media ${devices.mobileL} {
-    font-size: 42px;
+    font-size: 36px;
     line-height: 48px;
   }
 `;
