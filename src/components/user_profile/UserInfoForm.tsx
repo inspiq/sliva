@@ -113,7 +113,7 @@ export const UserInfoForm = (props: Props) => {
     <StyledUiForm onSubmit={handleSubmit}>
       <Row>
         <UiInput
-          placeholder="Фамилия"
+          placeholder={t('user_profile.surname_input')}
           value={values.surname}
           name="surname"
           onChange={handleChange}
@@ -122,7 +122,7 @@ export const UserInfoForm = (props: Props) => {
           textError={errors.surname}
         />
         <UiInput
-          placeholder="Имя"
+          placeholder={t('user_profile.name_input')}
           value={values.name}
           name="name"
           onChange={handleChange}
@@ -131,7 +131,7 @@ export const UserInfoForm = (props: Props) => {
           textError={errors.name}
         />
         <UiInput
-          placeholder="Отчество"
+          placeholder={t('user_profile.lastName_input')}
           value={values.lastName}
           name="lastName"
           onChange={handleChange}
@@ -140,7 +140,7 @@ export const UserInfoForm = (props: Props) => {
           textError={errors.lastName}
         />
         <UiInput
-          placeholder="Дата рождения"
+          placeholder={t('user_profile.birthday_input')}
           value={values.dayOfBirth}
           name="dayOfBirth"
           type="date"
@@ -152,7 +152,7 @@ export const UserInfoForm = (props: Props) => {
       </Row>
       <Row>
         <UiInput
-          placeholder="Рабочий стаж"
+          placeholder={t('user_profile.work_input')}
           value={values.experience}
           name="experience"
           onChange={handleChange}
@@ -162,7 +162,7 @@ export const UserInfoForm = (props: Props) => {
           type="number"
         />
         <UiInput
-          placeholder="Город"
+          placeholder={t('user_profile.city_input')}
           value={values.city}
           name="city"
           onChange={handleChange}
@@ -171,7 +171,7 @@ export const UserInfoForm = (props: Props) => {
           textError={errors.city}
         />
         <UiInput
-          placeholder="Телеграм"
+          placeholder={t('user_profile.telegram_input')}
           value={values.telegram}
           name="telegram"
           onChange={handleChange}
@@ -180,7 +180,7 @@ export const UserInfoForm = (props: Props) => {
           textError={errors.telegram}
         />
         <UiInput
-          placeholder="Вацап"
+          placeholder={t('user_profile.watsup_input')}
           value={values.whatsApp}
           name="whatsApp"
           onChange={handleChange}
@@ -202,7 +202,9 @@ export const UserInfoForm = (props: Props) => {
         />
       </Row>
       <TextAreaRow>
-        <StyledTextArea placeholder="Дополнительная информация" />
+        <StyledTextArea
+          placeholder={t('user_profile.additionalInformation_input')}
+        />
       </TextAreaRow>
       <UiButtonLayout>
         <UiButton
@@ -211,7 +213,7 @@ export const UserInfoForm = (props: Props) => {
           disabled={isSubmitting}
           isStretching={false}
         >
-          Сохранить
+          {t('user_profile.submitBut_input')}
         </UiButton>
       </UiButtonLayout>
     </StyledUiForm>

@@ -16,7 +16,7 @@ const MainLayout = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 64px;
+  font-size: 56px;
   color: ${({ theme }) => theme.text};
   margin-bottom: 20px;
   font-weight: 600;

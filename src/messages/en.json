@@ -53,6 +53,15 @@
   },
   "SignUpForm": {
     "title": "Sign Up for Sliva",
+    "name_input": {
+      "placeholder": "First Name"
+    },
+    "lastName_input": {
+      "placeholder": "Last Name"
+    },
+    "surname_input": {
+      "placeholder": "Middle Name"
+    },
     "email_input": {
       "placeholder": "Email"
     },
@@ -84,6 +93,18 @@
     "text": "Copyright 2024 - 2024 Sliva, Inc. All Rights Reserved"
   },
   "validations": {
+    "name": {
+      "min": "Name must contain at least 2 characters",
+      "matches": "Name should only contain letters, spaces, and hyphens"
+    },
+    "lastName": {
+      "min": "Last name must contain at least 2 characters",
+      "matches": "Last name should only contain letters, spaces, and hyphens"
+    },
+    "surname": {
+      "min": "Surname must contain at least 2 characters",
+      "matches": "Surname should only contain letters, spaces, and hyphens"
+    },
     "email": "Enter a valid email address",
     "required": "The field must be filled in",
     "password": {
@@ -98,14 +119,34 @@
     "link": "Privacy policy"
   },
   "slogan": {
-    "title": "Things are done",
-    "second_title": "with Sliva",
-    "subtitle": "{numberOfUsers, plural, =1 {# the client trusted} other {# customers trusted}} our service",
+    "title": "Sliva – a reliable partner",
+    "second_title": "for service",
+    "subtitle": "{numberOfUsers, plural, =1 {# client trusted} other {# clients trusted}} our service",
     "button": "Find a specialist"
   },
   "categories": {
-    "electrics": "Electrics",
+    "renovation": "Renovation and Construction",
     "plumbing": "Plumbing",
-    "cleaning": "Cleaning"
+    "cleaning": "Cleaning",
+    "tutoring": "Tutoring",
+    "auto": "Auto Services",
+    "kitchen": "Kitchen",
+    "transportationServices": "Transportation Services",
+    "beautyServices": "Beauty and Health",
+    "fitness": "Fitness and Sports",
+    "animalServices": "Animal Services",
+    "homeService": "Domestic Staff"
+  },
+  "user_profile": {
+    "name_input": "Name",
+    "lastName_input": "Last name",
+    "surname_input": "Surname",
+    "work_input": "Work experience",
+    "city_input": "City",
+    "telegram_input": "Telegram",
+    "watsup_input": "Wats Up",
+    "birthday_input": "Birthday",
+    "additionalInformation_input": "Additional information",
+    "submitBut_input": "Save"
   }
 }

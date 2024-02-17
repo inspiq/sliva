@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
 import { Loader } from 'src/components';
@@ -32,6 +33,7 @@ export const UserProfile = () => {
   const { currentUser } = useAuthContext();
   const [userMetaData, setUserMetaData] = useState<Specialist>();
   const [fileUpload, setFileUpload] = useState<File>();
+  const t = useTranslations();
 
   const getUserData = useCallback(async () => {
     if (!currentUser) return;
@@ -76,7 +78,7 @@ export const UserProfile = () => {
 
   return (
     <>
-      <Title>Мои данные</Title>
+      <Title>{t('user_profile.additionalInformation_input')}</Title>
       <MainLayout>
         <UploadAvatar
           userMetaData={userMetaData}

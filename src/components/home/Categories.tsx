@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
 import { devices } from 'src/shared';
@@ -53,15 +54,33 @@ const CategoryInfoLayout = styled.div`
 `;
 
 export const Categories = () => {
+  const t = useTranslations();
   const CATEGORIES = [
-    { title: 'Мастер по ремонту', imgPath: '/files/images/plumbing.jpg' },
-    { title: 'Автомеханик', imgPath: '/files/images/car-mechanic.jpg' },
-    { title: 'Кулинария', imgPath: '/files/images/cooking.jpg' },
-    { title: 'Мувинг', imgPath: '/files/images/transportation.jpg' },
-    { title: 'Мастер красоты', imgPath: '/files/images/beautiful.jpeg' },
-    { title: 'Фитнес', imgPath: '/files/images/fitness.jpeg' },
-    { title: 'Домашние животные', imgPath: '/files/images/home-pets.jpg' },
-    { title: 'Домашний персонал', imgPath: '/files/images/cleaning.jpg' },
+    {
+      title: t('categories.renovation'),
+      imgPath: '/files/images/renovation.jpg',
+    },
+    {
+      title: t('categories.auto'),
+      imgPath: '/files/images/auto.jpg',
+    },
+    { title: t('categories.kitchen'), imgPath: '/files/images/kitchen.jpg' },
+    {
+      title: t('categories.transportationServices'),
+      imgPath: '/files/images/transportationServices.jpg',
+    },
+    {
+      title: t('categories.beautyServices'),
+      imgPath: '/files/images/beautyServices.jpg',
+    },
+    {
+      title: t('categories.animalServices'),
+      imgPath: '/files/images/animalServices.jpg',
+    },
+    {
+      title: t('categories.fitness'),
+      imgPath: '/files/images/fitness.jpg',
+    },
   ];
 
   return (
