@@ -8,7 +8,14 @@ import { useAuthContext } from 'src/context';
 import { Link, locales, usePathname } from 'src/navigation';
 import { UiButton } from 'src/shared';
 import { auth, devices } from 'src/shared';
-import { ArrowIcon } from 'src/shared/icons';
+import {
+  ArrowIcon,
+  EditIcon,
+  EnglishIcon,
+  ExitIcon,
+  RussiaIcon,
+  SpanishIcon,
+} from 'src/shared/icons';
 
 const MainLayout = styled.div`
   height: 70px;
@@ -56,6 +63,11 @@ const MenuLayout = styled.div`
   gap: 10px;
 `;
 
+const StyledArrowIcon = styled(ArrowIcon)`
+  transform: rotate(90deg);
+  transition: transform 0.3s cubic-bezier(0, 0, 0, 1);
+`;
+
 const MenuItemLayout = styled.div`
   transition: background-color 0.3s;
   padding: 0 20px;
@@ -85,6 +97,10 @@ const MenuItemLayout = styled.div`
       background-color: transparent;
     }
   }
+
+  &:hover > ${StyledArrowIcon} {
+    transform: rotate(270deg);
+  }
 `;
 
 const PopupMenuLayout = styled.div`
@@ -105,6 +121,8 @@ const StyledLink = styled(Link)`
   padding: 10px 20px;
   display: flex;
   flex-wrap: nowrap;
+  align-items: center;
+  gap: 5px;
 
   &:hover {
     background-color: ${({ theme }) => theme.light};
@@ -116,10 +134,7 @@ const Text = styled.div`
   font-weight: ${({ theme }) => theme.w400};
   display: flex;
   white-space: nowrap;
-`;
-
-const StyledArrowIcon = styled(ArrowIcon)`
-  transform: rotate(90deg);
+  color: ${({ theme }) => theme.text};
 `;
 
 const LanguageSwitcher = () => {
@@ -174,6 +189,9 @@ export const Header = () => {
             <PopupMenuLayout>
               {locales.map((locale) => (
                 <StyledLink href={currentPath} locale={locale} key={locale}>
+                  {locale == 'ru' && <RussiaIcon width={18} />}
+                  {locale == 'en' && <EnglishIcon width={18} />}
+                  {locale == 'es' && <SpanishIcon width={18} />}
                   {t(`language_switcher.languages.${locale}`)}
                 </StyledLink>
               ))}
@@ -190,9 +208,11 @@ export const Header = () => {
           >
             <PopupMenuLayout>
               <StyledLink href="/profile">
+                <EditIcon width={18} />
                 {t('account_management_menu.profile')}
               </StyledLink>
               <StyledLink href="/" onClick={onLogout}>
+                <ExitIcon width={18} />
                 {t('account_management_menu.logout')}
               </StyledLink>
             </PopupMenuLayout>

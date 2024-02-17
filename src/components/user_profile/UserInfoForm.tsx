@@ -25,7 +25,7 @@ const TextAreaRow = styled.div`
 const StyledUiForm = styled(UiForm)`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
 `;
 
 const UiButtonLayout = styled.div`

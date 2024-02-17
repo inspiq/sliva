@@ -12,14 +12,17 @@ import { db, devices, Specialist, storage } from 'src/shared';
 
 const Title = styled.h6`
   font-size: 24px;
-  font-weight: ${({ theme }) => theme.w500};
+  font-weight: ${({ theme }) => theme.w600};
+  color: ${({ theme }) => theme.secondary};
   margin-bottom: 40px;
+  margin-top: 50px;
 `;
 
 const MainLayout = styled.div`
   display: flex;
   flex-direction: row;
   gap: 40px;
+  margin-bottom: 50px;
 
   @media ${devices.mobileL} {
     flex-direction: column;

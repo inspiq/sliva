@@ -11,7 +11,7 @@ const MainLayout = styled.div`
   margin: 80px 0;
 
   @media ${devices.mobileL} {
-    margin: 50px 0;
+    margin: 40px 0;
   }
 `;
 
