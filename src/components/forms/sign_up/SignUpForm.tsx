@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 import * as yup from 'yup';
 
-import { Line, Loader, UiRate } from 'src/components';
+import { Line, Loader } from 'src/components';
 import { UiButtonLayout } from 'src/components/forms/ButtonLayout';
 import { Error } from 'src/components/forms/Error';
 import { FormLayout } from 'src/components/forms/FormLayout';
@@ -99,7 +99,6 @@ export const SignUpForm = () => {
 
   return (
     <FormLayout title={t('SignUpForm.title')} onSubmit={handleSubmit}>
-      <UiRate />
       <UiInput
         name="email"
         onChange={handleChange}
