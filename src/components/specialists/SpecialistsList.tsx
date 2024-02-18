@@ -7,19 +7,26 @@ import {
 } from 'react';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import Image from 'next/image';
-import styled, { useTheme } from 'styled-components';
+import styled from 'styled-components';
 
 import { Line, Loader } from 'src/components';
-import { Filter } from 'src/components/specialists/specialist_filters/Filters';
+import { Filters } from 'src/components/specialists/specialist_filters/Filters';
 import { Link } from 'src/navigation';
-import { ChatIcon, db, devices, StarIcon } from 'src/shared';
+import { ChatIcon, db, devices } from 'src/shared';
 import { Specialist } from 'src/shared';
 
 const MainLayout = styled.div`
   display: grid;
   grid-template-columns: 300px auto;
+
   gap: 50px;
   margin: 50px 0;
+
+  @media ${devices.mobileL} {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+  }
 `;
 
 const SpecialistCardLayout = styled(Link)`
@@ -92,7 +99,6 @@ const Row = styled.div`
 
 const SpecialistsListElement = (): ReactElement => {
   const [specialists, setSpecialists] = useState<Specialist[]>([]);
-  const { primary } = useTheme();
 
   const getSpecialists = useCallback(async () => {
     try {
@@ -126,7 +132,7 @@ const SpecialistsListElement = (): ReactElement => {
 
   return (
     <MainLayout>
-      <Filter />
+      <Filters />
       <SpecialistsLayout>
         {specialists.map((specialist) => (
           <Fragment key={specialist.userId}>
@@ -144,10 +150,7 @@ const SpecialistsListElement = (): ReactElement => {
                 <City>Область: {specialist.city}</City>
                 <Experience>Стаж: {specialist.experience} года</Experience>
                 <Row>
-                  <Rating>
-                    <StarIcon width={20} color={primary} />
-                    4,5
-                  </Rating>
+                  <Rating>4,5</Rating>
                   <ReviewsCount>
                     <ChatIcon width={20} />
                     590 отзывов

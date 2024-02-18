@@ -28,3 +28,8 @@ export interface Specialist extends Client {
   telegram: string;
   whatsApp: string;
 }
+
+export interface Option {
+  value: string;
+  label: string;
+}

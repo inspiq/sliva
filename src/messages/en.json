@@ -97,7 +97,7 @@
       "min": "Name must contain at least 2 characters",
       "matches": "Name should only contain letters, spaces, and hyphens"
     },
-    "lastName": {
+    "last_name": {
       "min": "Last name must contain at least 2 characters",
       "matches": "Last name should only contain letters, spaces, and hyphens"
     },

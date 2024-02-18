@@ -1,4 +1,5 @@
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
+import Select from 'react-select';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useFormik } from 'formik';
 import { useTranslations } from 'next-intl';
@@ -6,12 +7,20 @@ import styled from 'styled-components';
 import * as yup from 'yup';
 
 import { useAuthContext } from 'src/context';
-import { db, devices, Specialist, UiButton, UiForm, UiInput } from 'src/shared';
+import {
+  db,
+  devices,
+  Option,
+  Specialist,
+  UiButton,
+  UiForm,
+  UiInput,
+} from 'src/shared';
 
 const Row = styled.div`
   display: grid;
   grid-template-columns: repeat(4, minmax(100px, 250px));
-  gap: 15px;
+  gap: 10px;
 
   @media ${devices.mobileL} {
     grid-template-columns: repeat(2, minmax(100px, 250px));
@@ -26,12 +35,17 @@ const TextAreaRow = styled.div`
 const StyledUiForm = styled(UiForm)`
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
 `;
 
 const UiButtonLayout = styled.div`
   margin-top: 10px;
   margin-bottom: 25px;
+`;
+
+const SelectRow = styled.div`
+  width: 100%;
+  height: auto;
 `;
 
 const StyledTextArea = styled.textarea`
@@ -67,7 +81,8 @@ interface Props {
 
 const UserInfoFormElement = (props: Props): ReactElement => {
   const { userMetaData, uploadFile, fileUpload } = props;
-
+  const [categories, setCategories] = useState<Option[]>();
+  const [subcategories, setSubcategories] = useState<Option[]>();
   const t = useTranslations();
   const { currentUser } = useAuthContext();
   const {
@@ -109,6 +124,46 @@ const UserInfoFormElement = (props: Props): ReactElement => {
       }
     },
   });
+
+  const colourOptions = [
+    { value: 'ocean', label: 'Разнорабочий' },
+    { value: 'blue', label: 'Электрик' },
+    { value: 'purple', label: 'Сантехник' },
+    { value: 'red', label: 'Дизайн' },
+    { value: 'orange', label: 'Вентиляция и кондиционеры' },
+    { value: 'yellow', label: 'Гипсокартон шпатлевка и покраска' },
+    { value: 'green', label: 'Кровля' },
+    { value: 'forest', label: 'Терраса' },
+    { value: 'slate', label: 'Столяр' },
+    { value: 'silver', label: 'Ремонт' },
+    { value: 'silver', label: 'Чистка салона' },
+    { value: 'silver', label: 'Мойка автомобиля' },
+    { value: 'silver', label: 'Продажа авто' },
+    { value: 'silver', label: 'Аренда' },
+    { value: 'silver', label: 'Запчасти' },
+    { value: 'silver', label: 'Домашняя еда' },
+    { value: 'silver', label: 'Кухни мира' },
+    { value: 'silver', label: 'Готовка с выездом' },
+    { value: 'silver', label: 'Мероприятия' },
+    { value: 'silver', label: 'Переезд' },
+    { value: 'silver', label: 'Доставка' },
+    { value: 'silver', label: 'Пассажирские перевозки' },
+    { value: 'silver', label: 'Грузоперевозки' },
+    { value: 'silver', label: 'Тренировки и фитнес' },
+    { value: 'silver', label: 'Персональный трене' },
+    { value: 'silver', label: 'Прокат спорт инвентаря' },
+    { value: 'silver', label: 'Экстремальные виды спорта' },
+    { value: 'silver', label: 'Экипировка и одежда' },
+    { value: 'silver', label: 'Спортивное питание' },
+    { value: 'silver', label: 'Ветеринария' },
+    { value: 'silver', label: 'Ветеринария' },
+    { value: 'silver', label: 'Выгул собак' },
+    { value: 'silver', label: 'Вязка животных' },
+    { value: 'silver', label: 'Дрессировка животных' },
+    { value: 'silver', label: 'Уход за животных' },
+    { value: 'silver', label: 'Корм для ваших питомцев' },
+    { value: 'silver', label: 'Передержка животных' },
+  ];
 
   return (
     <StyledUiForm onSubmit={handleSubmit}>
@@ -190,6 +245,26 @@ const UserInfoFormElement = (props: Props): ReactElement => {
           textError={errors.whatsApp}
         />
       </Row>
+      <SelectRow>
+        <Select
+          isMulti
+          name="colors"
+          options={colourOptions}
+          onChange={setCategories as VoidFunction}
+          value={categories}
+          placeholder="Выберите категории"
+        />
+      </SelectRow>
+      <SelectRow>
+        <Select
+          isMulti
+          name="colors2"
+          onChange={setSubcategories as VoidFunction}
+          options={colourOptions}
+          value={subcategories}
+          placeholder="Выберите подкатегории"
+        />
+      </SelectRow>
       <Row>
         <UiInput
           placeholder="Почта"

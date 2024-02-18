@@ -64,14 +64,14 @@ const GlobalStyle = createGlobalStyle`
   }
 
   .css-13cymwt-control {
-    height: 50px!important;
+    min-height: 50px!important;
     border-radius: 10px!important;
     font-size: 15px;
     border: 1px solid ${({ theme }) => theme.input.border};
   }
 
   .css-t3ipsp-control {
-    height: 50px!important;
+    min-height: 50px!important;
     box-shadow: none!important;
     border-radius: 10px!important;
     font-size: 15px;

@@ -97,7 +97,7 @@
       "min": "El nombre debe contener al menos 2 caracteres",
       "matches": "El nombre solo debe contener letras, espacios y guiones"
     },
-    "lastName": {
+    "last_name": {
       "min": "El apellido debe contener al menos 2 caracteres",
       "matches": "El apellido solo debe contener letras, espacios y guiones"
     },

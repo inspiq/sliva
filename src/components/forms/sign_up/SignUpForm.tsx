@@ -1,4 +1,5 @@
 import { ReactElement, useState } from 'react';
+import Select from 'react-select';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import { useFormik } from 'formik';
@@ -13,7 +14,8 @@ import { FormLayout } from 'src/components/forms/FormLayout';
 import { StyledLink } from 'src/components/forms/Link';
 import { TextTip, TextTipLayout, Tip } from 'src/components/forms/Tip';
 import { useRouter } from 'src/navigation';
-import { auth, db, UiButton, UiInput, UiSelect } from 'src/shared';
+import { auth, db, UiButton, UiInput } from 'src/shared';
+import { Option } from 'src/shared';
 import { EmailIcon, PasswordIcon } from 'src/shared/icons';
 
 const DownloadLink = styled.a`
@@ -25,17 +27,19 @@ const Row = styled.div`
   gap: 10px;
 `;
 
+const StyledSelect = styled(Select)`
+  width: 100%;
+`;
+
 const SignUpFormElement = (): ReactElement => {
   const [isRequestError, setIsRequestError] = useState(false);
   const router = useRouter();
   const t = useTranslations();
 
-  const defaultOption = {
+  const defaultUserType = {
     value: 'client',
     label: t('SignUpForm.select.options.client'),
   };
-
-  const [selectedOption, setSelectedOption] = useState(defaultOption);
 
   const options = [
     { value: 'client', label: t('SignUpForm.select.options.client') },
@@ -50,6 +54,7 @@ const SignUpFormElement = (): ReactElement => {
     errors,
     touched,
     isSubmitting,
+    setFieldValue,
   } = useFormik({
     initialValues: {
       name: '',
@@ -57,20 +62,19 @@ const SignUpFormElement = (): ReactElement => {
       email: '',
       password: '',
       repeat_password: '',
-      userType: selectedOption.value,
-      country: selectedOption.value,
+      userType: defaultUserType,
     },
     validationSchema: yup.object().shape({
+      lastName: yup
+        .string()
+        .required(t('validations.required'))
+        .min(2, t('validations.last_name.min'))
+        .matches(/^[A-Za-zА-Яа-яЁё\s-]+$/, t('validations.last_name.matches')),
       name: yup
         .string()
         .required(t('validations.required'))
         .min(2, t('validations.name.min'))
         .matches(/^[A-Za-zА-Яа-яЁё\s-]+$/, t('validations.name.matches')),
-      lastName: yup
-        .string()
-        .required(t('validations.required'))
-        .min(2, t('validations.lastName.min'))
-        .matches(/^[A-Za-zА-Яа-яЁё\s-]+$/, t('validations.lastName.matches')),
       email: yup
         .string()
         .email(t('validations.email'))
@@ -88,7 +92,7 @@ const SignUpFormElement = (): ReactElement => {
     }),
     validateOnMount: true,
     onSubmit: async (options) => {
-      const { name, lastName, email, password } = options;
+      const { name, lastName, email, password, userType } = options;
 
       try {
         const { user } = await createUserWithEmailAndPassword(
@@ -104,7 +108,7 @@ const SignUpFormElement = (): ReactElement => {
           lastName,
           surname: '',
           userId: user.uid,
-          type: values.userType,
+          type: userType.value,
         });
 
         router.push('/');
@@ -115,6 +119,10 @@ const SignUpFormElement = (): ReactElement => {
     },
   });
 
+  const onChangeUserType = (option: Option) => {
+    setFieldValue('userType', option);
+  };
+
   if (isSubmitting) {
     return <Loader />;
   }
@@ -123,7 +131,7 @@ const SignUpFormElement = (): ReactElement => {
     <FormLayout title={t('SignUpForm.title')} onSubmit={handleSubmit}>
       <Row>
         <UiInput
-          name="name"
+          name="lastName"
           onChange={handleChange}
           value={values.lastName}
           placeholder={t('SignUpForm.last_name_input.placeholder')}
@@ -132,7 +140,7 @@ const SignUpFormElement = (): ReactElement => {
           textError={errors.lastName}
         />
         <UiInput
-          name="lastName"
+          name="name"
           onChange={handleChange}
           value={values.name}
           placeholder={t('SignUpForm.name_input.placeholder')}
@@ -173,11 +181,11 @@ const SignUpFormElement = (): ReactElement => {
         hasError={!!errors.repeat_password && !!touched.repeat_password}
         textError={errors.repeat_password}
       />
-      <UiSelect
-        onChange={setSelectedOption}
-        defaultValue={selectedOption}
+      <StyledSelect
+        value={values.userType}
+        onChange={onChangeUserType}
         options={options}
-        value={selectedOption}
+        defaultValue={defaultUserType}
       />
       {isRequestError && <Error>The user with this email already exists</Error>}
       <Tip>{t('SignUpForm.tip.input')}</Tip>

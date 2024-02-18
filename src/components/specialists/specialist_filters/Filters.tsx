@@ -1,48 +1,17 @@
-import { Fragment, ReactElement, useState } from 'react';
-import { Accordion, AccordionItem } from '@szhsin/react-accordion';
+import { ReactElement, useState } from 'react';
+import { Accordion } from '@szhsin/react-accordion';
 import styled from 'styled-components';
 
-import { ArrowIcon } from 'src/shared';
+import { Filter } from 'src/components/specialists/specialist_filters/Filter';
 
 const MainLayout = styled.div`
   max-width: 400px;
   width: 100%;
-  height: calc(100vh - 70px);
   display: flex;
   flex-direction: column;
 `;
 
-const Subcategory = styled.div`
-  display: flex;
-`;
-
-const ItemWithChevron = (props: {
-  header: string;
-  subcategories?: string[];
-}) => {
-  const { header, subcategories, ...rest } = props;
-
-  return (
-    <AccordionItem
-      {...rest}
-      header={
-        <>
-          {header}
-          <ArrowIcon className="chevron-down" width={12} />
-        </>
-      }
-    >
-      {subcategories?.map((subcategory) => (
-        <Subcategory key={subcategory}>
-          <input type="checkbox" id={subcategory} />
-          <label htmlFor={subcategory}>{subcategory}</label>
-        </Subcategory>
-      ))}
-    </AccordionItem>
-  );
-};
-
-const StyledAccordionItem = styled(ItemWithChevron)`
+const StyledAccordionItem = styled(Filter)`
   border-bottom: 1px solid ${({ theme }) => theme.border};
 
   .szh-accordion__item {
@@ -89,61 +58,50 @@ const StyledAccordionItem = styled(ItemWithChevron)`
   }
 `;
 
-const FilterElement = (): ReactElement => {
+const FiltersElement = (): ReactElement => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+  const [selectedFilters, setSelectedFilters] = useState<
+    { header: string; subcategories: string[] }[]
+  >([]);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const onChangeFilter = (filter: string) => {
-    setSelectedFilters((prev) => {
-      const findIndex = prev.findIndex((item) => item === filter);
-      const updatedSelectedFilters = [...prev];
-
-      if (findIndex != -1) {
-        updatedSelectedFilters.splice(findIndex, 1);
-
-        return updatedSelectedFilters;
-      }
-
-      return [...prev, filter];
-    });
-  };
+  console.log(selectedFilters);
 
   const FILTERS = [
     {
       category: 'Все специалисты',
+      subcategories: [],
     },
     {
       category: 'Ремонт и строительство',
-      subcategories: ['Handyman'],
+      subcategories: ['Разнорабочий'],
     },
     {
       category: 'Репетиторство',
-      subcategories: ['Handyman'],
+      subcategories: ['a'],
     },
     {
       category: 'Авто',
-      subcategories: ['Handyman'],
+      subcategories: ['v'],
     },
     {
       category: 'Кухня',
-      subcategories: ['Handyman'],
+      subcategories: ['s'],
     },
     {
       category: 'Транспортные услуги',
-      subcategories: ['Handyman'],
+      subcategories: ['gf'],
     },
     {
       category: 'Фитнес и спорт',
-      subcategories: ['Handyman'],
+      subcategories: ['Hee'],
     },
     {
       category: 'Услуги для животных',
-      subcategories: ['Handyman'],
+      subcategories: ['gg'],
     },
     {
       category: 'Домработники',
-      subcategories: ['Handyman'],
+      subcategories: ['Hern'],
     },
     {
       category: 'Фриланс',
@@ -158,6 +116,7 @@ const FilterElement = (): ReactElement => {
           <StyledAccordionItem
             header={category}
             subcategories={subcategories}
+            setSelectedFilters={setSelectedFilters}
             key={category}
           />
         ))}
@@ -166,4 +125,4 @@ const FilterElement = (): ReactElement => {
   );
 };
 
-export const Filter = FilterElement;
+export const Filters = FiltersElement;
