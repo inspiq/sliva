@@ -1,8 +1,14 @@
-import { ReactElement, useCallback, useEffect, useState } from 'react';
-import { doc, getDoc } from 'firebase/firestore';
-import { string } from 'yup';
+import {
+  FormEvent,
+  ReactElement,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
+import { collection, doc, getDoc, setDoc } from 'firebase/firestore';
 
 import { UIFeedback } from 'src/components';
+import { Props as ReviewsType } from 'src/components/Feedback';
 import { ReviewForm } from 'src/components/forms/review/ReviewForm';
 import { db, Specialist } from 'src/shared';
 
@@ -16,7 +22,32 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
   const [userMetaData, setUserMetaData] = useState<Specialist>();
   const [text, setText] = useState('');
   console.log(userMetaData);
-  console.log(userMetaData?.reviews);
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setText(e.target.value);
+  };
+
+  const newReview: ReviewsType = {
+    reveiwId: '',
+    name: 'Имя пользователя',
+    date: new Date().toISOString(),
+    description: text,
+  };
+
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log('Click');
+
+    try {
+      const usersCollection = collection(db, 'users');
+      const userDocRef = doc(usersCollection, userMetaData?.userId);
+      await setDoc(userDocRef, {
+        reviews: [...(userMetaData?.reviews || []), newReview],
+      });
+    } catch (error) {
+      console.error('Ошибка при отправке отзыва:', error);
+    }
+  };
 
   const getSpecialist = useCallback(async () => {
     try {
@@ -46,10 +77,7 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
           key={feedback.reveiwId}
         />
       ))}
-      <ReviewForm
-        userId={userMetaData?.userId}
-        reviews={userMetaData?.reviews}
-      />
+      <ReviewForm onChange={handleChange} onSubmit={onSubmit} />
     </>
   );
 };

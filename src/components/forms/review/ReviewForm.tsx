@@ -1,49 +1,24 @@
-import React, { FormEvent, ReactElement, useState } from 'react';
-import { collection, doc, setDoc } from 'firebase/firestore';
+import React, { ChangeEvent, FormEventHandler, ReactElement } from 'react';
 
 import { Props as ReviewsType } from 'src/components/Feedback';
-import { db } from 'src/shared';
 
 interface Props {
   userId?: string;
+  text?: string;
+  setText?: React.Dispatch<React.SetStateAction<string>>;
   reviews?: ReviewsType[];
+  onSubmit?: FormEventHandler<HTMLFormElement>;
+  onChange?: (event: ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 const ReviewFormElement = (props: Props): ReactElement => {
-  const { userId, reviews } = props;
-  console.log(userId);
-  const [text, setText] = useState('');
-
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setText(e.target.value);
-  };
-  const newReview: ReviewsType = {
-    reveiwId: '',
-    name: 'Имя пользователя',
-    date: new Date().toISOString(),
-    description: text,
-  };
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log('Click');
-
-    try {
-      const usersCollection = collection(db, 'users');
-      const userDocRef = doc(usersCollection, userId);
-      await setDoc(userDocRef, {
-        reviews: [...(reviews || []), newReview],
-      });
-    } catch (error) {
-      console.error('Ошибка при отправке отзыва:', error);
-    }
-  };
+  const { text, onChange, onSubmit } = props;
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={onSubmit}>
       <textarea
         value={text}
-        onChange={handleChange}
+        onChange={onChange}
         placeholder="Введите отзыв"
         required
       />
