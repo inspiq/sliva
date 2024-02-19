@@ -62,25 +62,6 @@ const GlobalStyle = createGlobalStyle`
     outline: none;
     font-family: ${montserrat.style.fontFamily};
   }
-
-  .css-13cymwt-control {
-    min-height: 50px!important;
-    border-radius: 10px!important;
-    font-size: 15px;
-    border: 1px solid ${({ theme }) => theme.input.border};
-  }
-
-  .css-t3ipsp-control {
-    min-height: 50px!important;
-    box-shadow: none!important;
-    border-radius: 10px!important;
-    font-size: 15px;
-    border: 1px solid ${({ theme }) => theme.input.border};
-  }
-
-  .css-1nmdiq5-menu {
-    font-size: 15px;
-  }
 `;
 
 export const App = (props: PropsWithChildren) => {

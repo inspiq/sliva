@@ -1,10 +1,10 @@
 import { ReactElement, useState } from 'react';
-import Select from 'react-select';
+import Select, { StylesConfig } from 'react-select';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import { useFormik } from 'formik';
 import { useTranslations } from 'next-intl';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import * as yup from 'yup';
 
 import { Line, Loader } from 'src/components';
@@ -27,7 +27,7 @@ const Row = styled.div`
   gap: 10px;
 `;
 
-const StyledSelect = styled(Select)`
+const SelectLayout = styled.div`
   width: 100%;
 `;
 
@@ -35,6 +35,7 @@ const SignUpFormElement = (): ReactElement => {
   const [isRequestError, setIsRequestError] = useState(false);
   const router = useRouter();
   const t = useTranslations();
+  const { primary, light, border_ui, border_ui_hover } = useTheme();
 
   const defaultUserType = {
     value: 'client',
@@ -124,6 +125,32 @@ const SignUpFormElement = (): ReactElement => {
     setFieldValue('userType', option);
   };
 
+  const styles: StylesConfig = {
+    option: (base) => ({
+      ...base,
+      paddingLeft: 10,
+      paddingRight: 10,
+      fontSize: 15,
+      paddingTop: 10,
+      paddingBottom: 10,
+    }),
+    control: (styles, { isFocused }) => ({
+      ...styles,
+      width: '100%',
+      height: 50,
+      borderRadius: 10,
+      borderColor: isFocused ? border_ui_hover : border_ui,
+      boxShadow: 'none',
+      borderWidth: 1,
+      fontSize: 15,
+      transition: '0.3s',
+      ':hover': {
+        ...styles[':hover'],
+        borderColor: border_ui_hover,
+      },
+    }),
+  };
+
   if (isSubmitting) {
     return <Loader />;
   }
@@ -182,12 +209,24 @@ const SignUpFormElement = (): ReactElement => {
         hasError={!!errors.repeat_password && !!touched.repeat_password}
         textError={errors.repeat_password}
       />
-      <StyledSelect
-        value={values.userType}
-        onChange={onChangeUserType as VoidFunction}
-        options={options}
-        defaultValue={defaultUserType}
-      />
+      <SelectLayout>
+        <Select
+          value={values.userType}
+          onChange={onChangeUserType as VoidFunction}
+          options={options}
+          defaultValue={defaultUserType}
+          styles={styles}
+          theme={(theme) => ({
+            ...theme,
+            colors: {
+              ...theme.colors,
+              primary25: light,
+              primary50: light,
+              primary,
+            },
+          })}
+        />
+      </SelectLayout>
       {isRequestError && <Error>The user with this email already exists</Error>}
       <Tip>{t('SignUpForm.tip.input')}</Tip>
       <Tip>
