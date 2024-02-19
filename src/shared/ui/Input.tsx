@@ -1,7 +1,7 @@
 import { InputHTMLAttributes, ReactElement } from 'react';
 import styled from 'styled-components';
 
-import { Error } from 'src/components/forms/Error';
+import { Error } from 'src/components/auth/Error';
 import { useToggle } from 'src/shared/hooks';
 import { CloseEyeIcon, EyeIcon, PlusIcon } from 'src/shared/icons';
 

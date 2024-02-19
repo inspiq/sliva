@@ -8,11 +8,11 @@ import styled from 'styled-components';
 import * as yup from 'yup';
 
 import { Line, Loader } from 'src/components';
-import { UiButtonLayout } from 'src/components/forms/ButtonLayout';
-import { Error } from 'src/components/forms/Error';
-import { FormLayout } from 'src/components/forms/FormLayout';
-import { StyledLink } from 'src/components/forms/Link';
-import { TextTip, TextTipLayout, Tip } from 'src/components/forms/Tip';
+import { UiButtonLayout } from 'src/components/auth/ButtonLayout';
+import { Error } from 'src/components/auth/Error';
+import { FormLayout } from 'src/components/auth/FormLayout';
+import { StyledLink } from 'src/components/auth/Link';
+import { TextTip, TextTipLayout, Tip } from 'src/components/auth/Tip';
 import { useRouter } from 'src/navigation';
 import { auth, db, UiButton, UiInput } from 'src/shared';
 import { Option } from 'src/shared';

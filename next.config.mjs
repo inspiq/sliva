@@ -7,7 +7,15 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-  images: { domains: ['firebasestorage.googleapis.com'] },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'firebasestorage.googleapis.com',
+        pathname: '**',
+      },
+    ],
+  },
 };
 
 export default withNextIntl(nextConfig);

@@ -4,9 +4,9 @@ import { useFormik } from 'formik';
 import { useTranslations } from 'next-intl';
 import * as yup from 'yup';
 
-import { UiButtonLayout } from 'src/components/forms/ButtonLayout';
-import { FormLayout } from 'src/components/forms/FormLayout';
-import { Tip } from 'src/components/forms/Tip';
+import { UiButtonLayout } from 'src/components/auth/ButtonLayout';
+import { FormLayout } from 'src/components/auth/FormLayout';
+import { Tip } from 'src/components/auth/Tip';
 import { EmailIcon, UiButton, UiInput } from 'src/shared';
 import { auth } from 'src/shared/firebase';
 
