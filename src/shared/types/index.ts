@@ -1,3 +1,4 @@
+import { Props as ReviewsType } from 'src/components/Feedback';
 import { UserType } from 'src/shared';
 
 export interface Client {
@@ -20,6 +21,7 @@ export interface Specialist extends Client {
   userId: string;
   email: string;
   city: string;
+  reviews: ReviewsType[];
   dayOfBirth: string;
   experience: string;
   lastName: string;

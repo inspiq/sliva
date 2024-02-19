@@ -11,7 +11,7 @@ export { Line } from 'src/components/Line';
 export { Footer } from 'src/components/Footer';
 export { Loader } from 'src/components/Loader';
 export { Rate } from 'src/components/chips/RateChip';
-
+export { UIFeedback } from 'src/components/Feedback';
 export * from 'src/components/home';
 export * from 'src/components/user_profile';
 export * from 'src/components/specialists';
