@@ -1,9 +1,9 @@
 import { ReactElement } from 'react';
-import Select from 'react-select';
+import Select, { StylesConfig } from 'react-select';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useFormik } from 'formik';
 import { useTranslations } from 'next-intl';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import * as yup from 'yup';
 
 import { useAuthContext } from 'src/context';
@@ -45,7 +45,9 @@ const UiButtonLayout = styled.div`
 
 const SelectRow = styled.div`
   width: 100%;
-  height: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 `;
 
 const StyledTextArea = styled.textarea`
@@ -82,6 +84,7 @@ interface Props {
 const UserInfoFormElement = (props: Props): ReactElement => {
   const { userMetaData, uploadFile, fileUpload } = props;
   const t = useTranslations();
+  const { primary, light, border_ui, border_ui_hover } = useTheme();
   const { currentUser } = useAuthContext();
   const {
     handleSubmit,
@@ -210,6 +213,32 @@ const UserInfoFormElement = (props: Props): ReactElement => {
     { value: 'operator', label: 'Оператор' },
   ];
 
+  const styles: StylesConfig = {
+    option: (base) => ({
+      ...base,
+      paddingLeft: 10,
+      paddingRight: 10,
+      fontSize: 15,
+      paddingTop: 10,
+      paddingBottom: 10,
+    }),
+    control: (styles, { isFocused }) => ({
+      ...styles,
+      width: '100%',
+      minHeight: 50,
+      borderRadius: 10,
+      borderColor: isFocused ? border_ui_hover : border_ui,
+      boxShadow: 'none',
+      borderWidth: 1,
+      fontSize: 15,
+      transition: '0.3s',
+      ':hover': {
+        ...styles[':hover'],
+        borderColor: border_ui_hover,
+      },
+    }),
+  };
+
   return (
     <StyledUiForm onSubmit={handleSubmit}>
       <Row>
@@ -298,9 +327,17 @@ const UserInfoFormElement = (props: Props): ReactElement => {
           onChange={onChangeCategories as VoidFunction}
           value={values.categories}
           placeholder="Выберите категории"
-        />
-      </SelectRow>
-      <SelectRow>
+          styles={styles}
+          theme={(theme) => ({
+            ...theme,
+            colors: {
+              ...theme.colors,
+              primary25: light,
+              primary50: light,
+              primary,
+            },
+          })}
+        />{' '}
         <Select
           isMulti
           name="subcategories"
@@ -308,6 +345,16 @@ const UserInfoFormElement = (props: Props): ReactElement => {
           options={subcategories}
           value={values.subcategories}
           placeholder="Выберите подкатегории"
+          styles={styles}
+          theme={(theme) => ({
+            ...theme,
+            colors: {
+              ...theme.colors,
+              primary25: light,
+              primary50: light,
+              primary,
+            },
+          })}
         />
       </SelectRow>
       <Row>
