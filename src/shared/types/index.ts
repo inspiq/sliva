@@ -29,6 +29,8 @@ export interface Specialist extends Client {
   surname: string;
   telegram: string;
   whatsApp: string;
+  categories: Option[];
+  subcategories: Option[];
 }
 
 export interface Option {
