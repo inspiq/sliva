@@ -1,9 +1,15 @@
-import { ReactElement } from 'react';
-import Image from 'next/image';
+import { memo, ReactElement } from 'react';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
 import { devices } from 'src/shared';
+
+import { CategoryCard } from './CategoryCard';
+
+export interface Category {
+  title: string;
+  imgPath: string;
+}
 
 const MainLayout = styled.div`
   margin: 20px 0 100px 0;
@@ -22,43 +28,7 @@ const MainLayout = styled.div`
   }
 `;
 
-const Title = styled.h6`
-  font-size: 18px;
-  color: ${({ theme }) => theme.text};
-  font-weight: ${({ theme }) => theme.w600};
-  margin-top: 10px;
-  padding-left: 10px;
-  transition: color 0.3s;
-
-  @media ${devices.mobileL} {
-    margin-top: 5px;
-    font-size: 15px;
-    padding-left: 5px;
-  }
-`;
-
-const StyledImage = styled(Image)`
-  border-radius: 10px;
-  cursor: pointer;
-  object-fit: cover;
-  width: 100%;
-  height: 220px;
-
-  @media ${devices.mobileL} {
-    height: 200px;
-  }
-`;
-
-const CategoryInfoLayout = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  & > ${StyledImage}:hover + ${Title} {
-    color: ${({ theme }) => theme.primary};
-  }
-`;
-
-const CategoriesElement = (): ReactElement => {
+const CategoriesPanelElement = memo((): ReactElement => {
   const t = useTranslations();
   const CATEGORIES = [
     {
@@ -98,18 +68,12 @@ const CategoriesElement = (): ReactElement => {
   return (
     <MainLayout>
       {CATEGORIES.map((category) => (
-        <CategoryInfoLayout key={category.title}>
-          <StyledImage
-            src={category.imgPath}
-            alt={category.title}
-            width="290"
-            height="225"
-          />
-          <Title>{category.title}</Title>
-        </CategoryInfoLayout>
+        <CategoryCard category={category} key={category.title} />
       ))}
     </MainLayout>
   );
-};
+});
 
-export const Categories = CategoriesElement;
+CategoriesPanelElement.displayName = 'CategoriesPanelElement';
+
+export const Categories = CategoriesPanelElement;

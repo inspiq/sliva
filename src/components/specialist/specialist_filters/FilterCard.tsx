@@ -20,7 +20,7 @@ const Title = styled.label`
   color: ${({ theme }) => theme.secondary};
 `;
 
-const FilterElement = (props: {
+const FilterCardElement = (props: {
   header: Option;
   subcategories?: Option[];
   setSelectedFilters: Dispatch<
@@ -111,4 +111,4 @@ const FilterElement = (props: {
   );
 };
 
-export const Filter = FilterElement;
+export const Filter = FilterCardElement;

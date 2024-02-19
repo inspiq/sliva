@@ -5,18 +5,12 @@ import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
 import { Container, Logo } from 'src/components';
+import { UserActions } from 'src/components/header/AccountManagement';
+import { LanguageManagement } from 'src/components/header/LanguageManagement';
+import { LocalesPanel } from 'src/components/header/locales/LocalesPanel';
 import { useAuthContext } from 'src/context';
-import { Link, locales, usePathname } from 'src/navigation';
-import { UiButton } from 'src/shared';
-import { auth, devices } from 'src/shared';
-import {
-  ArrowIcon,
-  EditIcon,
-  EnglishIcon,
-  ExitIcon,
-  RussiaIcon,
-  SpanishIcon,
-} from 'src/shared/icons';
+import { Link } from 'src/navigation';
+import { auth, devices, EditIcon, ExitIcon, UiButton } from 'src/shared';
 
 const MainLayout = styled.div`
   height: 70px;
@@ -64,46 +58,6 @@ const MenuLayout = styled.div`
   gap: 10px;
 `;
 
-const StyledArrowIcon = styled(ArrowIcon)`
-  transform: rotate(90deg);
-  transition: transform 0.3s cubic-bezier(0, 0, 0, 1);
-`;
-
-const MenuItemLayout = styled.div`
-  transition: background-color 0.3s;
-  padding: 0 20px;
-  height: 40px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.light};
-  }
-
-  &:focus {
-    border-width: 0 !important;
-    border: none;
-  }
-
-  @media ${devices.mobileL} {
-    padding: 0;
-    height: auto;
-    justify-content: flex-end;
-
-    &:hover {
-      background-color: transparent;
-    }
-  }
-
-  &:hover > ${StyledArrowIcon} {
-    transform: rotate(270deg);
-  }
-`;
-
 const PopupMenuLayout = styled.div`
   display: flex;
   flex-direction: column;
@@ -130,40 +84,9 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const Text = styled.div`
-  font-size: 15px;
-  font-weight: ${({ theme }) => theme.w400};
-  display: flex;
-  white-space: nowrap;
-  color: ${({ theme }) => theme.text};
-`;
-
-const LanguageSwitcher = () => {
-  const t = useTranslations('Header');
-
-  return (
-    <MenuItemLayout>
-      <Text>{t('language_switcher.title')}</Text>
-      <StyledArrowIcon width="10" height="10" />
-    </MenuItemLayout>
-  );
-};
-
-const Profile = () => {
-  const t = useTranslations('Header');
-
-  return (
-    <MenuItemLayout>
-      <Text>{t('buttons.account_management')}</Text>
-      <StyledArrowIcon width="10" height="10" />
-    </MenuItemLayout>
-  );
-};
-
 const HeaderElement = (): ReactElement => {
   const { currentUser } = useAuthContext();
   const t = useTranslations('Header');
-  const currentPath = usePathname();
 
   const onLogout = async () => {
     try {
@@ -181,27 +104,20 @@ const HeaderElement = (): ReactElement => {
             <Logo />
           </Link>
           <Popup
-            trigger={LanguageSwitcher}
+            trigger={LanguageManagement}
             position="bottom right"
             on="hover"
             mouseLeaveDelay={300}
             mouseEnterDelay={0}
           >
             <PopupMenuLayout>
-              {locales.map((locale) => (
-                <StyledLink href={currentPath} locale={locale} key={locale}>
-                  {locale == 'ru' && <RussiaIcon width={18} />}
-                  {locale == 'en' && <EnglishIcon width={18} />}
-                  {locale == 'es' && <SpanishIcon width={18} />}
-                  {t(`language_switcher.languages.${locale}`)}
-                </StyledLink>
-              ))}
+              <LocalesPanel />
             </PopupMenuLayout>
           </Popup>
         </MenuLayout>
         {currentUser ? (
           <Popup
-            trigger={Profile}
+            trigger={UserActions}
             position="bottom right"
             on="hover"
             mouseLeaveDelay={300}
