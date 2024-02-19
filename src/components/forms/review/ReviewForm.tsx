@@ -1,29 +1,61 @@
-import React, { ChangeEvent, FormEventHandler, ReactElement } from 'react';
+import React, {
+  FormEvent,
+  ReactElement,
+  TextareaHTMLAttributes,
+  useState,
+} from 'react';
+import { collection, doc, updateDoc } from 'firebase/firestore';
+import { v4 as uuidv4 } from 'uuid';
 
 import { Props as ReviewsType } from 'src/components/Feedback';
+import { db, UiForm } from 'src/shared';
 
-interface Props {
+interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   userId?: string;
   text?: string;
-  setText?: React.Dispatch<React.SetStateAction<string>>;
+
   reviews?: ReviewsType[];
-  onSubmit?: FormEventHandler<HTMLFormElement>;
-  onChange?: (event: ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 const ReviewFormElement = (props: Props): ReactElement => {
-  const { text, onChange, onSubmit } = props;
+  const { userId, reviews, ...rest } = props;
+  const [text, setText] = useState('');
+  const newReview: ReviewsType = {
+    reveiwId: uuidv4(),
+    name: 'Имя пользователя',
+    date: new Date().toISOString(),
+    description: text,
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setText(e.target.value);
+  };
+
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log('Click');
+
+    try {
+      const usersCollection = collection(db, 'users');
+      const userDocRef = doc(usersCollection, userId);
+      await updateDoc(userDocRef, {
+        reviews: [...(reviews || []), newReview],
+      });
+    } catch (error) {
+      console.error('Ошибка при отправке отзыва:', error);
+    }
+  };
 
   return (
-    <form onSubmit={onSubmit}>
+    <UiForm onSubmit={onSubmit}>
       <textarea
         value={text}
-        onChange={onChange}
+        onChange={handleChange}
         placeholder="Введите отзыв"
-        required
+        {...rest}
       />
       <button type="submit">Отправить отзыв</button>
-    </form>
+    </UiForm>
   );
 };
 

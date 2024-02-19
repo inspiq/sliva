@@ -14,13 +14,9 @@ const Form = styled.form`
 interface Props extends FormHTMLAttributes<HTMLFormElement> {}
 
 const UiFormElement = (props: PropsWithChildren<Props>): ReactElement => {
-  const { children, onSubmit, ...rest } = props;
+  const { children, ...rest } = props;
 
-  return (
-    <Form onSubmit={onSubmit} {...rest}>
-      {children}
-    </Form>
-  );
+  return <Form {...rest}>{children}</Form>;
 };
 
 export const UiForm = UiFormElement;

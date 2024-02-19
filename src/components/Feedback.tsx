@@ -74,7 +74,7 @@ export interface Props {
   description?: string;
 }
 
-const Feedback = (props: Props): ReactElement => {
+const ReviewsItemElement = (props: Props): ReactElement => {
   const { name, date, description } = props;
 
   return (
@@ -96,4 +96,4 @@ const Feedback = (props: Props): ReactElement => {
     </ReviewContainer>
   );
 };
-export const UIFeedback = Feedback;
+export const ReviewsItem = ReviewsItemElement;
