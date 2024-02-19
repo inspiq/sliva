@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import { ReactElement } from 'react';
 import Select from 'react-select';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useFormik } from 'formik';
@@ -81,14 +81,13 @@ interface Props {
 
 const UserInfoFormElement = (props: Props): ReactElement => {
   const { userMetaData, uploadFile, fileUpload } = props;
-  const [categories, setCategories] = useState<Option[]>();
-  const [subcategories, setSubcategories] = useState<Option[]>();
   const t = useTranslations();
   const { currentUser } = useAuthContext();
   const {
     handleSubmit,
     handleChange,
     handleBlur,
+    setFieldValue,
     values,
     isSubmitting,
     errors,
@@ -104,6 +103,8 @@ const UserInfoFormElement = (props: Props): ReactElement => {
       city: userMetaData.city ?? '',
       telegram: userMetaData.telegram ?? '',
       whatsApp: userMetaData.whatsApp ?? '',
+      categories: userMetaData.categories ?? null,
+      subcategories: userMetaData.subcategories ?? null,
     },
     validateOnMount: true,
     validationSchema: yup.object().shape({
@@ -125,44 +126,88 @@ const UserInfoFormElement = (props: Props): ReactElement => {
     },
   });
 
-  const colourOptions = [
-    { value: 'ocean', label: 'Разнорабочий' },
-    { value: 'blue', label: 'Электрик' },
-    { value: 'purple', label: 'Сантехник' },
-    { value: 'red', label: 'Дизайн' },
-    { value: 'orange', label: 'Вентиляция и кондиционеры' },
-    { value: 'yellow', label: 'Гипсокартон шпатлевка и покраска' },
-    { value: 'green', label: 'Кровля' },
-    { value: 'forest', label: 'Терраса' },
-    { value: 'slate', label: 'Столяр' },
-    { value: 'silver', label: 'Ремонт' },
-    { value: 'silver', label: 'Чистка салона' },
-    { value: 'silver', label: 'Мойка автомобиля' },
-    { value: 'silver', label: 'Продажа авто' },
-    { value: 'silver', label: 'Аренда' },
-    { value: 'silver', label: 'Запчасти' },
-    { value: 'silver', label: 'Домашняя еда' },
-    { value: 'silver', label: 'Кухни мира' },
-    { value: 'silver', label: 'Готовка с выездом' },
-    { value: 'silver', label: 'Мероприятия' },
-    { value: 'silver', label: 'Переезд' },
-    { value: 'silver', label: 'Доставка' },
-    { value: 'silver', label: 'Пассажирские перевозки' },
-    { value: 'silver', label: 'Грузоперевозки' },
-    { value: 'silver', label: 'Тренировки и фитнес' },
-    { value: 'silver', label: 'Персональный трене' },
-    { value: 'silver', label: 'Прокат спорт инвентаря' },
-    { value: 'silver', label: 'Экстремальные виды спорта' },
-    { value: 'silver', label: 'Экипировка и одежда' },
-    { value: 'silver', label: 'Спортивное питание' },
-    { value: 'silver', label: 'Ветеринария' },
-    { value: 'silver', label: 'Ветеринария' },
-    { value: 'silver', label: 'Выгул собак' },
-    { value: 'silver', label: 'Вязка животных' },
-    { value: 'silver', label: 'Дрессировка животных' },
-    { value: 'silver', label: 'Уход за животных' },
-    { value: 'silver', label: 'Корм для ваших питомцев' },
-    { value: 'silver', label: 'Передержка животных' },
+  const onChangeCategories = (option: Option) => {
+    setFieldValue('categories', option);
+  };
+
+  const onChangeSubcategories = (option: Option) => {
+    setFieldValue('subcategories', option);
+  };
+
+  const categories = [
+    { value: 'repair_and_construction', label: 'Ремонт и строительство' },
+    { value: 'auto_services', label: 'Авто услуги' },
+    { value: 'kitchen', label: 'Кухня' },
+    { value: 'transport_services', label: 'Транспортные услуги' },
+    { value: 'beauty_and_health', label: 'Красота и здоровье' },
+    { value: 'services_for_animals', label: 'Услуги для животных' },
+    { value: 'fitness_and_sports', label: 'Фитнес и спорт' },
+    { value: 'household_staff', label: 'Домашний персонал' },
+    {
+      value: 'freelance_and_creative_services',
+      label: 'Фриланс и креативные услуги',
+    },
+  ];
+  const subcategories = [
+    { value: 'laborer', label: 'Разнорабочий' },
+    { value: 'electrician', label: 'Электрик' },
+    { value: 'plumber', label: 'Сантехник' },
+    {
+      value: 'landscaping_and_design',
+      label: 'Благоустройство и ландшафтный дизайн',
+    },
+    {
+      value: 'ventilation_and_air_conditioning',
+      label: 'Вентиляция и кондиционеры',
+    },
+    { value: 'finishing', label: 'Отделка' },
+    { value: 'roofing', label: 'Кровля' },
+    { value: 'flooring_master', label: 'Мастер напольных покрытий' },
+    { value: 'carpenter', label: 'Столяр' },
+    { value: 'mechanic', label: 'Механик' },
+    { value: 'car_washer', label: 'Автомойщик' },
+    { value: 'cook', label: 'Кулинар' },
+    { value: 'on_site_cooking', label: 'Готовка с выездом' },
+    { value: 'events', label: 'Мероприятия' },
+    { value: 'moving', label: 'Переезд' },
+    { value: 'delivery', label: 'Доставка' },
+    { value: 'passenger_transport', label: 'Пассажирские перевозы' },
+    { value: 'cargo_transportation', label: 'Грузоперевозки' },
+    { value: 'makeup_artist', label: 'Визажист' },
+    { value: 'cosmetology', label: 'Косметология' },
+    { value: 'hairdresser_services', label: 'Парикмахерские услуги' },
+    { value: 'spa_procedures', label: 'Спа процедуры' },
+    { value: 'masseur', label: 'Массажист' },
+    {
+      value: 'tattoo_microblading_and_permanent_makeup',
+      label: 'Тату татуаж и перманентный макияж',
+    },
+    { value: 'solarium', label: 'Солярий' },
+    { value: 'fitness_trainer', label: 'Фитнес тренер' },
+    { value: 'sports_equipment_rental', label: 'Прокат спорт инвентаря' },
+    { value: 'equipment_and_clothing', label: 'Экипировка и одежда' },
+    { value: 'sports_nutrition', label: 'Спортивное питание' },
+    { value: 'veterinarian', label: 'Ветеринар' },
+    { value: 'dog_walking', label: 'Выгул собак' },
+    { value: 'animal_breeding', label: 'Вязка животных' },
+    { value: 'animal_training', label: 'Дрессировка животных' },
+    { value: 'pet_care', label: 'Уход за животными' },
+    { value: 'pet_food', label: 'Корм для питомцев' },
+    { value: 'animal_boarding', label: 'Передержка животных' },
+    { value: 'aquaristics', label: 'Аквариумистика' },
+    { value: 'domestic_workers', label: 'Домработники' },
+    { value: 'caregivers', label: 'Сиделки' },
+    { value: 'nannies', label: 'Няни' },
+    { value: 'gardeners', label: 'Садовники' },
+    { value: 'housekeepers', label: 'Горничные' },
+    { value: 'cooks', label: 'Повара' },
+    { value: 'personal_driver', label: 'Личный водитель' },
+    { value: 'personal_security', label: 'Личный охранник' },
+    { value: 'household_management', label: 'Управление домашним хозяйством' },
+    { value: 'web_development', label: 'Веб-разработка' },
+    { value: 'design', label: 'Дизайн' },
+    { value: 'copywriting', label: 'Копирайтинг' },
+    { value: 'operator', label: 'Оператор' },
   ];
 
   return (
@@ -248,20 +293,20 @@ const UserInfoFormElement = (props: Props): ReactElement => {
       <SelectRow>
         <Select
           isMulti
-          name="colors"
-          options={colourOptions}
-          onChange={setCategories as VoidFunction}
-          value={categories}
+          name="categories"
+          options={categories}
+          onChange={onChangeCategories as VoidFunction}
+          value={values.categories}
           placeholder="Выберите категории"
         />
       </SelectRow>
       <SelectRow>
         <Select
           isMulti
-          name="colors2"
-          onChange={setSubcategories as VoidFunction}
-          options={colourOptions}
-          value={subcategories}
+          name="subcategories"
+          onChange={onChangeSubcategories as VoidFunction}
+          options={subcategories}
+          value={values.subcategories}
           placeholder="Выберите подкатегории"
         />
       </SelectRow>

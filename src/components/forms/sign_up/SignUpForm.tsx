@@ -109,6 +109,7 @@ const SignUpFormElement = (): ReactElement => {
           surname: '',
           userId: user.uid,
           type: userType.value,
+          categories: [{ value: 'all_specialists', label: 'Все специалисты' }],
         });
 
         router.push('/');
@@ -183,7 +184,7 @@ const SignUpFormElement = (): ReactElement => {
       />
       <StyledSelect
         value={values.userType}
-        onChange={onChangeUserType}
+        onChange={onChangeUserType as VoidFunction}
         options={options}
         defaultValue={defaultUserType}
       />

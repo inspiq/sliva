@@ -3,6 +3,7 @@ import {
   ReactElement,
   useCallback,
   useEffect,
+  useMemo,
   useState,
 } from 'react';
 import { collection, getDocs, query, where } from 'firebase/firestore';
@@ -19,7 +20,7 @@ const MainLayout = styled.div`
   display: grid;
   grid-template-columns: 300px auto;
 
-  gap: 50px;
+  gap: 60px;
   margin: 50px 0;
 
   @media ${devices.mobileL} {
@@ -39,10 +40,11 @@ const LineLayout = styled.div`
 `;
 
 const Avatar = styled(Image)`
-  width: 100px;
+  width: 110px;
   height: 130px;
   border-radius: 10px;
   object-fit: cover;
+  background-color: ${({ theme }) => theme.light};
 `;
 
 const SpecialistInfo = styled.div`
@@ -99,6 +101,9 @@ const Row = styled.div`
 
 const SpecialistsListElement = (): ReactElement => {
   const [specialists, setSpecialists] = useState<Specialist[]>([]);
+  const [selectedFilters, setSelectedFilters] = useState<
+    { header: string; subcategories: string[] }[]
+  >([]);
 
   const getSpecialists = useCallback(async () => {
     try {
@@ -122,6 +127,42 @@ const SpecialistsListElement = (): ReactElement => {
     }
   }, []);
 
+  const filteredSpecialists = useMemo(() => {
+    if (!selectedFilters.length) return;
+
+    const uniqueSpecialistIds = new Set<string>();
+
+    const filteredSpecialistsByCategory = specialists.filter((specialist) =>
+      specialist.categories.some((category) =>
+        selectedFilters.some((filter) => filter.header === category.value),
+      ),
+    );
+
+    const filteredSpecialistsBySubcategory = specialists.filter((specialist) =>
+      specialist?.subcategories?.some((subcategory) => {
+        const { value } = subcategory;
+
+        return selectedFilters.some((filter) =>
+          filter.subcategories.includes(value),
+        );
+      }),
+    );
+
+    const mergedSpecialists = [
+      ...filteredSpecialistsBySubcategory,
+      ...filteredSpecialistsByCategory,
+    ];
+
+    return mergedSpecialists.filter((specialist) => {
+      if (uniqueSpecialistIds.has(specialist.userId)) {
+        return false;
+      }
+      uniqueSpecialistIds.add(specialist.userId);
+
+      return true;
+    });
+  }, [selectedFilters, specialists]);
+
   useEffect(() => {
     getSpecialists();
   }, [getSpecialists]);
@@ -132,13 +173,13 @@ const SpecialistsListElement = (): ReactElement => {
 
   return (
     <MainLayout>
-      <Filters />
+      <Filters setSelectedFilters={setSelectedFilters} />
       <SpecialistsLayout>
-        {specialists.map((specialist) => (
+        {(filteredSpecialists ?? specialists).map((specialist) => (
           <Fragment key={specialist.userId}>
             <SpecialistCardLayout href={`/specialists/${specialist.userId}`}>
               <Avatar
-                src={specialist.avatarUrl}
+                src={specialist.avatarUrl ?? '/files/images/avatar.png'}
                 width={100}
                 height={100}
                 alt="Avatar"

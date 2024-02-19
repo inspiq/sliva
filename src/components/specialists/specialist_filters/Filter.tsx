@@ -1,34 +1,50 @@
-import { Dispatch, ReactElement, SetStateAction, useMemo } from 'react';
-import { AccordionItem } from '@szhsin/react-accordion';
+import {
+  ChangeEvent,
+  Dispatch,
+  ReactElement,
+  SetStateAction,
+  useMemo,
+} from 'react';
 import styled from 'styled-components';
 
-import { ArrowIcon } from 'src/shared';
+import { Option, UiAccordion } from 'src/shared';
 
 const Subcategory = styled.div`
   display: flex;
+  align-items: center;
+  gap: 3px;
+`;
+
+const Title = styled.label`
+  font-size: 15px;
+  color: ${({ theme }) => theme.secondary};
 `;
 
 const FilterElement = (props: {
-  header: string;
-  subcategories?: string[];
+  header: Option;
+  subcategories?: Option[];
   setSelectedFilters: Dispatch<
     SetStateAction<{ header: string; subcategories: string[] }[]>
   >;
 }): ReactElement => {
-  const { header, subcategories, setSelectedFilters, ...rest } = props;
+  const { header, subcategories, setSelectedFilters } = props;
 
   const onChangeCategoriesFilter = useMemo(
-    () => () => {
-      setSelectedFilters((prev) => {
-        const isCategorySelected = prev.some((item) => item.header === header);
+    () => (e: ChangeEvent<HTMLInputElement>) => {
+      const isChecked = e.target.checked;
 
-        if (isCategorySelected) {
-          return prev.filter((item) => item.header != header);
+      setSelectedFilters((prev) => {
+        const isCategorySelected = prev.some(
+          (item) => item.header === header.value,
+        );
+
+        if (isCategorySelected && !isChecked) {
+          return prev.filter((item) => item.header != header.value);
         }
 
-        //if (!isCategorySelected && visible) {
-        //  return [...prev, { header, subcategories: [] }];
-        //}
+        if (!isCategorySelected && isChecked) {
+          return [...prev, { header: header.value, subcategories: [] }];
+        }
 
         return prev;
       });
@@ -41,7 +57,7 @@ const FilterElement = (props: {
       setSelectedFilters((prev) => {
         const copy = [...prev];
         const findCategoryIdx = copy.findIndex(
-          (item) => item.header === header,
+          (item) => item.header === header.value,
         );
         const findSubcategoryIdx = copy?.[
           findCategoryIdx
@@ -73,29 +89,25 @@ const FilterElement = (props: {
   );
 
   return (
-    <AccordionItem
-      onClick={onChangeCategoriesFilter}
-      header={
-        <>
-          {header}
-          <ArrowIcon className="chevron-down" width={12} />
-        </>
-      }
-      {...rest}
+    <UiAccordion
+      title={header.label}
+      id={header.label}
+      onChange={onChangeCategoriesFilter}
+      isDisabled={header.value === 'all_specialists'}
     >
       {subcategories?.map((subcategory) => (
-        <Subcategory key={subcategory}>
+        <Subcategory key={subcategory.value}>
           <input
             type="checkbox"
-            id={subcategory}
+            id={subcategory.label}
             onChange={(e) =>
-              onChangeSubcategoriesFilter(subcategory, e.target.checked)
+              onChangeSubcategoriesFilter(subcategory.value, e.target.checked)
             }
           />
-          <label htmlFor={subcategory}>{subcategory}</label>
+          <Title htmlFor={subcategory.label}>{subcategory.label}</Title>
         </Subcategory>
       ))}
-    </AccordionItem>
+    </UiAccordion>
   );
 };
 

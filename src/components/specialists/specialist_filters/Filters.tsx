@@ -1,126 +1,59 @@
-import { ReactElement, useState } from 'react';
-import { Accordion } from '@szhsin/react-accordion';
+import { Dispatch, ReactElement, SetStateAction } from 'react';
 import styled from 'styled-components';
 
 import { Filter } from 'src/components/specialists/specialist_filters/Filter';
+import { devices } from 'src/shared';
 
 const MainLayout = styled.div`
   max-width: 400px;
   width: 100%;
   display: flex;
   flex-direction: column;
-`;
+  height: calc(100vh - 70px);
 
-const StyledAccordionItem = styled(Filter)`
-  border-bottom: 1px solid ${({ theme }) => theme.border};
-
-  .szh-accordion__item {
-    &-btn {
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      width: 100%;
-      padding: 12px 10px;
-      font-size: 15px;
-      font-weight: ${({ theme }) => theme.w500};
-      color: ${({ theme }) => theme.text};
-      background-color: transparent;
-      border: none;
-
-      &:hover {
-        background-color: ${({ theme }) => theme.light};
-      }
-    }
-
-    &-content {
-      transition: height 0.25s cubic-bezier(0, 0, 0, 1);
-    }
-
-    &-panel {
-      padding: 12px 10px;
-    }
-  }
-
-  .chevron-down {
-    margin-left: auto;
-    transition: transform 0.3s cubic-bezier(0, 0, 0, 1);
-    transform: rotate(90deg);
-  }
-
-  &.szh-accordion__item--expanded {
-    .szh-accordion__item-btn {
-      background-color: ${({ theme }) => theme.secondary};
-      color: ${({ theme }) => theme.white};
-    }
-    .chevron-down {
-      transform: rotate(270deg);
-    }
+  @media ${devices.mobileL} {
+    height: 100%;
   }
 `;
 
-const FiltersElement = (): ReactElement => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [selectedFilters, setSelectedFilters] = useState<
-    { header: string; subcategories: string[] }[]
-  >([]);
-
-  console.log(selectedFilters);
-
+const FiltersElement = (props: {
+  setSelectedFilters: Dispatch<
+    SetStateAction<{ header: string; subcategories: string[] }[]>
+  >;
+}): ReactElement => {
   const FILTERS = [
     {
-      category: 'Все специалисты',
-      subcategories: [],
+      category: {
+        value: 'all_specialists',
+        label: 'Все специалисты',
+      },
     },
     {
-      category: 'Ремонт и строительство',
-      subcategories: ['Разнорабочий'],
+      category: {
+        value: 'repair_and_construction',
+        label: 'Ремонт и строительство',
+      },
+      subcategories: [{ value: 'laborer', label: 'Разнорабочий' }],
     },
     {
-      category: 'Репетиторство',
-      subcategories: ['a'],
-    },
-    {
-      category: 'Авто',
-      subcategories: ['v'],
-    },
-    {
-      category: 'Кухня',
-      subcategories: ['s'],
-    },
-    {
-      category: 'Транспортные услуги',
-      subcategories: ['gf'],
-    },
-    {
-      category: 'Фитнес и спорт',
-      subcategories: ['Hee'],
-    },
-    {
-      category: 'Услуги для животных',
-      subcategories: ['gg'],
-    },
-    {
-      category: 'Домработники',
-      subcategories: ['Hern'],
-    },
-    {
-      category: 'Фриланс',
-      subcategories: ['Handyman'],
+      category: {
+        value: 'auto_services',
+        label: 'Авто услуги',
+      },
+      subcategories: [{ value: 'plumber', label: 'Сантехник' }],
     },
   ];
 
   return (
     <MainLayout>
-      <Accordion allowMultiple>
-        {FILTERS.map(({ category, subcategories }) => (
-          <StyledAccordionItem
-            header={category}
-            subcategories={subcategories}
-            setSelectedFilters={setSelectedFilters}
-            key={category}
-          />
-        ))}
-      </Accordion>
+      {FILTERS.map(({ category, subcategories }) => (
+        <Filter
+          header={category}
+          subcategories={subcategories}
+          setSelectedFilters={props.setSelectedFilters}
+          key={category.value}
+        />
+      ))}
     </MainLayout>
   );
 };
