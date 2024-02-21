@@ -3,6 +3,7 @@ import Image from 'next/image';
 import styled from 'styled-components';
 
 import { Category } from 'src/components/home/categories/CategoriesPanel';
+import { Link } from 'src/navigation';
 import { devices } from 'src/shared';
 
 const Title = styled.h6`
@@ -32,7 +33,7 @@ const StyledImage = styled(Image)`
   }
 `;
 
-const CategoryInfoLayout = styled.div`
+const CategoryInfoLayout = styled(Link)`
   display: flex;
   flex-direction: column;
 
@@ -49,7 +50,7 @@ export const CategoryCard = (props: Props) => {
   const { imgPath, title } = props.category;
 
   return (
-    <CategoryInfoLayout key={title}>
+    <CategoryInfoLayout href={'/specialists'}>
       <StyledImage src={imgPath} alt={title} width="290" height="225" />
       <Title>{title}</Title>
     </CategoryInfoLayout>

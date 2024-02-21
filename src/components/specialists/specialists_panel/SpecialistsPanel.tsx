@@ -10,8 +10,8 @@ import { collection, getDocs, query, where } from 'firebase/firestore';
 import styled from 'styled-components';
 
 import { Loader } from 'src/components';
-import { Filters } from 'src/components/specialist/specialist_filters/FiltersPanel';
-import { SpecialistCard } from 'src/components/specialist/specialists/SpecialistCard';
+import { Filters } from 'src/components/specialists/specialist_filters/FiltersPanel';
+import { SpecialistCard } from 'src/components/specialists/specialists_panel/SpecialistCard';
 import { db, devices, Specialist } from 'src/shared';
 
 const MainLayout = styled.div`

@@ -48,6 +48,10 @@ const SelectRow = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
+
+  @media ${devices.mobileL} {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const StyledTextArea = styled.textarea`
@@ -319,6 +323,18 @@ const UserInfoFormElement = (props: Props): ReactElement => {
           textError={errors.whatsApp}
         />
       </Row>
+      <Row>
+        <UiInput
+          placeholder="Почта"
+          value={values.email}
+          name="email"
+          onChange={handleChange}
+          onBlur={handleBlur}
+          hasError={!!errors.email && !!touched.email}
+          textError={errors.email}
+          disabled={true}
+        />
+      </Row>
       <SelectRow>
         <Select
           isMulti
@@ -337,7 +353,7 @@ const UserInfoFormElement = (props: Props): ReactElement => {
               primary,
             },
           })}
-        />{' '}
+        />
         <Select
           isMulti
           name="subcategories"
@@ -357,18 +373,6 @@ const UserInfoFormElement = (props: Props): ReactElement => {
           })}
         />
       </SelectRow>
-      <Row>
-        <UiInput
-          placeholder="Почта"
-          value={values.email}
-          name="email"
-          onChange={handleChange}
-          onBlur={handleBlur}
-          hasError={!!errors.email && !!touched.email}
-          textError={errors.email}
-          disabled={true}
-        />
-      </Row>
       <TextAreaRow>
         <StyledTextArea
           placeholder={t('user_profile.additional_information_input')}

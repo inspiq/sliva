@@ -1,7 +1,7 @@
 import { Dispatch, memo, ReactElement, SetStateAction } from 'react';
 import styled from 'styled-components';
 
-import { Filter } from 'src/components/specialist/specialist_filters/FilterCard';
+import { Filter } from 'src/components/specialists/specialist_filters/FilterCard';
 import { devices } from 'src/shared';
 
 const MainLayout = styled.div`

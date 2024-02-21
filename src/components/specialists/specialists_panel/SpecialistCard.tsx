@@ -92,7 +92,9 @@ const SpecialistCardElement = (props: Props): ReactElement => {
             {name} {surname}
           </FullName>
           <City>Область: {city}</City>
-          <Experience>Стаж: {experience} года</Experience>
+          <Experience>
+            Стаж: {experience ? `${experience} года` : 'Не указан'}
+          </Experience>
           <Row>
             <Rating>4,5</Rating>
             <ReviewsCount>

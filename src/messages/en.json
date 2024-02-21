@@ -143,10 +143,23 @@
     "surname_input": "Surname",
     "work_input": "Work experience",
     "city_input": "City",
-    "telegram_input": "Telegram",
+    "telegram_input": "@Telegram",
     "whats_app_input": "Whats App",
     "birthday_input": "Birthday",
     "additional_information_input": "Additional information",
     "button": "Save"
+  },
+  "chat_banner": {
+    "title": "Get advice, solutions, and real-time support",
+    "button": "Join the chat"
+  },
+  "modal_test": {
+    "title": "Attention!",
+    "tips": {
+      "one": "1. Please note that you are using the test version of the website.",
+      "two": "2. Report any issues – your feedback is important to us!",
+      "three": "3. Let's make the service even better together."
+    },
+    "button": "Accept"
   }
 }

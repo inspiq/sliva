@@ -143,10 +143,23 @@
     "surname_input": "Segundo nombre",
     "work_input": "Experiencia laboral",
     "city_input": "Ciudad",
-    "telegram_input": "Telegrama",
+    "telegram_input": "@Telegrama",
     "whats_app_input": "Whats App",
     "birthday_input": "Fecha de nacimiento",
     "additional_information_input": "Información adicional",
     "button": "Guardar"
+  },
+  "chat_banner": {
+    "title": "Obtén consejos, soluciones y soporte en tiempo real",
+    "button": "Unirse al chat"
+  },
+  "modal_test": {
+    "title": "¡Atención!",
+    "tips": {
+      "one": "1. Recuerda que estás utilizando la versión de prueba del sitio web.",
+      "two": "2. ¡Informa sobre cualquier problema – tu opinión es importante para nosotros!",
+      "three": "3. Hagamos que el servicio sea aún mejor juntos."
+    },
+    "button": "Aceptar"
   }
 }

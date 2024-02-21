@@ -1,11 +1,9 @@
-import { ReactElement, useCallback, useEffect, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import { ReactElement } from 'react';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
-import { Loader } from 'src/components';
 import { useRouter } from 'src/navigation';
-import { db, devices, UiButton } from 'src/shared';
+import { devices, UiButton } from 'src/shared';
 
 const MainLayout = styled.div`
   margin: 80px 0;
@@ -42,27 +40,14 @@ const UiButtonLayout = styled.div`
   display: flex;
 `;
 
-const SloganElement = (): ReactElement => {
-  const [numberOfUsers, setNumberOfUsers] = useState(0);
+interface Props {
+  numberOfUsers: number;
+}
+
+const SloganElement = (props: Props): ReactElement => {
+  const { numberOfUsers } = props;
   const t = useTranslations('slogan');
   const router = useRouter();
-
-  const getUserData = useCallback(async () => {
-    try {
-      const { size } = await getDocs(collection(db, 'users'));
-      setNumberOfUsers(size);
-    } catch {
-      /* empty */
-    }
-  }, []);
-
-  useEffect(() => {
-    getUserData();
-  }, [getUserData]);
-
-  if (!numberOfUsers) {
-    return <Loader />;
-  }
 
   return (
     <MainLayout>

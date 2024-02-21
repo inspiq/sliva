@@ -1,25 +1,7 @@
-import {
-  Categories,
-  Container,
-  Footer,
-  Header,
-  Slogan,
-  Wrapper,
-} from 'src/components';
+import { Home } from 'src/components';
 
 const HomePage = () => {
-  return (
-    <>
-      <Header />
-      <Wrapper>
-        <Container>
-          <Slogan />
-          <Categories />
-        </Container>
-      </Wrapper>
-      <Footer />
-    </>
-  );
+  return <Home />;
 };
 
 export default HomePage;

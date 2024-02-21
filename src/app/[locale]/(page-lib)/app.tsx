@@ -1,6 +1,7 @@
 'use client';
 
 import React, { PropsWithChildren } from 'react';
+import { CookiesProvider } from 'react-cookie';
 import { Montserrat } from 'next/font/google';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
@@ -62,17 +63,41 @@ const GlobalStyle = createGlobalStyle`
     outline: none;
     font-family: ${montserrat.style.fontFamily};
   }
+
+  @keyframes anvil {
+    0% {
+      transform: scale(1) translateY(0px);
+      opacity: 0;
+      box-shadow: 0 0 0 rgba(241, 241, 241, 0);
+    }
+    1% {
+      transform: scale(0.96) translateY(10px);
+      opacity: 0;
+      box-shadow: 0 0 0 rgba(241, 241, 241, 0);
+    }
+    100% {
+      transform: scale(1) translateY(0px);
+      opacity: 1;
+      box-shadow: 0 0 500px rgba(241, 241, 241, 0);
+    }
+  }
+
+  .popup-content {
+    -webkit-animation: anvil 0.3s cubic-bezier(0.38, 0.1, 0.36, 0.9) forwards;
+  }
 `;
 
 export const App = (props: PropsWithChildren) => {
   const { children } = props;
 
   return (
-    <AuthContextProvider>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
-      </ThemeProvider>
-    </AuthContextProvider>
+    <CookiesProvider>
+      <AuthContextProvider>
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
+          <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+        </ThemeProvider>
+      </AuthContextProvider>
+    </CookiesProvider>
   );
 };

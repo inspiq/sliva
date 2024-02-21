@@ -6,7 +6,7 @@ export const colors = {
   black: '#000',
   light: '#f3f3f3',
   border: '#ebebeb',
-  footer: '#eeeeee',
+  footer: '#f3f3f3',
   grey: '#a6a6a6',
   error: '#fa6104',
   hover_button_primary: '#e25d0b',
