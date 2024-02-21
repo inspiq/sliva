@@ -10,7 +10,7 @@ import { collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 
-import { Props as ReviewsType } from 'src/components/Review';
+import { ReviewProps as ReviewsType } from 'src/components/specialists/account/SpecialistAccount';
 import { useAuthContext } from 'src/context/AuthContext';
 import { Client, db, Rate } from 'src/shared';
 
@@ -26,7 +26,9 @@ const MainLayout = styled.form`
   border-radius: 16px;
   padding: 10px;
 `;
+
 const Head = styled.div``;
+
 const StyledTextarea = styled.textarea`
   width: 100%;
   min-height: 100px;
@@ -51,6 +53,7 @@ export const StyledButton = styled.button`
     background-color: ${({ theme }) => theme.primaryDark};
   }
 `;
+
 const HeadContent = styled.div`
   display: flex;
   justify-content: space-between;
@@ -70,7 +73,7 @@ const ReviewFormElement = (props: Props): ReactElement => {
   const [currentRating, setCurrentRating] = useState(0);
   const { currentUser } = useAuthContext();
   const [userMetaData, setUserMetaData] = useState<Client>();
-  console.log(userMetaData);
+
   const getClient = useCallback(async () => {
     try {
       const docRef = doc(db, 'users', currentUser?.uid || '');
@@ -104,7 +107,6 @@ const ReviewFormElement = (props: Props): ReactElement => {
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Click');
 
     try {
       const usersCollection = collection(db, 'users');

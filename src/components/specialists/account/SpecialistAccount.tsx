@@ -1,4 +1,10 @@
-import { ReactElement, useCallback, useEffect, useState } from 'react';
+import {
+  ReactElement,
+  TextareaHTMLAttributes,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import { doc, getDoc, onSnapshot } from 'firebase/firestore';
 import Image from 'next/image';
 import styled from 'styled-components';
@@ -17,33 +23,40 @@ const Avatar = styled(Image)`
   object-fit: cover;
   background-color: ${({ theme }) => theme.light};
 `;
+
 const SpecialistProfileLayout = styled.div`
   display: flex;
   align-self: flex-start;
   gap: 20px;
   margin: 40px 10px;
 `;
+
 const SpecialistListInfo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
 `;
+
 const FullName = styled.div`
   font-size: 20px;
   font-weight: ${({ theme }) => theme.w600};
 `;
+
 const City = styled.div`
   font-size: 18px;
   font-weight: ${({ theme }) => theme.w400};
 `;
+
 const Experience = styled.div`
   font-size: 18px;
   font-weight: ${({ theme }) => theme.w400};
 `;
+
 const Row = styled.div`
   display: flex;
   gap: 30px;
 `;
+
 const Rating = styled.div`
   font-size: 18px;
   font-weight: ${({ theme }) => theme.w500};
@@ -51,6 +64,7 @@ const Rating = styled.div`
   align-items: center;
   gap: 5px;
 `;
+
 const ReviewsCount = styled.div`
   font-size: 16px;
   font-weight: ${({ theme }) => theme.w500};
@@ -58,12 +72,14 @@ const ReviewsCount = styled.div`
   align-items: center;
   gap: 5px;
 `;
+
 const ReviewsBlock = styled.div`
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
   gap: 50px;
 `;
+
 const Container = styled.div`
   max-width: 820px;
   margin: 10px auto;
@@ -77,14 +93,25 @@ interface Props {
   specialistId: string;
 }
 
+export interface ReviewProps {
+  lastName?: string;
+  userId?: string;
+  specialistId?: string;
+  reveiwId?: string;
+  name?: string;
+  date?: string;
+  description?: string;
+  rating: number;
+  textareaProps?: TextareaHTMLAttributes<HTMLTextAreaElement>;
+}
+
 const SpecialistAccountElement = (props: Props): ReactElement => {
   const { specialistId } = props;
   const [userMetaData, setUserMetaData] = useState<Specialist>();
-  const [write, setWrite] = useState<boolean>();
-  console.log(userMetaData);
+  const [IsWrite, seIitWrite] = useState<boolean>();
 
   const WriteReview = () => {
-    setWrite((prev) => !prev);
+    seIitWrite((prev) => !prev);
   };
 
   const getSpecialist = useCallback(async () => {
@@ -141,7 +168,7 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
         </SpecialistListInfo>
       </SpecialistProfileLayout>
       <ReviewsBlock>
-        {write ? (
+        {IsWrite ? (
           <ReviewForm
             reviews={userMetaData?.reviews}
             userId={userMetaData?.userId}

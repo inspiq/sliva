@@ -1,36 +1,37 @@
-import React, { ReactElement, TextareaHTMLAttributes } from 'react';
+import React, { ReactElement } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import { UiButton } from 'src/shared';
+import { ReviewProps as ReviewsType } from 'src/components/specialists/account/SpecialistAccount';
 import { Rate } from 'src/shared/ui/chips/RateChip';
 
 const ReviewContainer = styled.div`
-  margin-bottom: 1rem;
-  padding: 1rem;
+  margin-bottom: 10px;
+  padding: 10px;
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   max-width: 800px;
 `;
 
-const RateFeedbackContainer = styled.div`
+const RateReviewContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
 `;
+
 const DateFeedback = styled.div`
   padding-bottom: 3px;
 `;
 
-const FeedbackAvatar = styled(Image)`
+const ReviewAvatar = styled(Image)`
   object-fit: cover;
   border-radius: 60px;
   width: 30px;
   height: 30px;
 `;
 
-const UserInfoFeedback = styled.div`
+const UserInfoReview = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
@@ -56,44 +57,32 @@ const Thead = styled.div`
   font-size: 20px;
   margin-bottom: 10px;
 `;
+
 const Description = styled.div`
   word-wrap: break-word;
 `;
 
-export interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  editable?: boolean;
-  lastName?: string;
-  userId?: string;
-  specialistId?: string;
-  reveiwId?: string;
-  name?: string;
-  date?: string;
-  description?: string;
-  rating?: number;
-}
-
-const ReviewsItemElement = (props: Props): ReactElement => {
-  const { editable, name, lastName, rating, date, description } = props;
+const ReviewsItemElement = (props: ReviewsType): ReactElement => {
+  const { name, lastName, rating, date, description } = props;
 
   return (
     <ReviewContainer>
       <Head>
-        <UserInfoFeedback>
-          <FeedbackAvatar></FeedbackAvatar>
+        <UserInfoReview>
+          <ReviewAvatar></ReviewAvatar>
           <Title>
             {name} {lastName}
           </Title>
-        </UserInfoFeedback>
-        <RateFeedbackContainer>
+        </UserInfoReview>
+        <RateReviewContainer>
           <DateFeedback>{date}</DateFeedback>
-          <Rate dis={true} currentRating={rating} />
-        </RateFeedbackContainer>
+          <Rate isDisabled={true} currentRating={rating} />
+        </RateReviewContainer>
       </Head>
       <Comment>
         <Thead>Комментарий</Thead>
-        {editable ? <textarea /> : <Description>{description} </Description>}
+        <Description>{description} </Description>
       </Comment>
-      {editable ? <UiButton type="submit" /> : <div></div>}
     </ReviewContainer>
   );
 };

@@ -1,8 +1,8 @@
-import React, { ReactElement } from 'react';
+import React, { memo, ReactElement } from 'react';
 import styled from 'styled-components';
 
-import { Props as ReviewsType } from 'src/components/Review';
 import { ReviewsItem } from 'src/components/Review';
+import { ReviewProps as ReviewsType } from 'src/components/specialists/account/SpecialistAccount';
 
 const ReviewItemList = styled.div`
   display: flex;
@@ -10,26 +10,27 @@ const ReviewItemList = styled.div`
   gap: 5px;
 `;
 interface Props {
-  reviews: ReviewsType[] | undefined;
+  reviews?: ReviewsType[];
 }
 
-const ReviewListElement = (props: Props): ReactElement => {
+// eslint-disable-next-line react/display-name
+const ReviewListElement = memo((props: Props): ReactElement => {
   const { reviews } = props;
 
   return (
     <ReviewItemList>
-      {reviews?.map((feedback) => (
+      {reviews?.map((review) => (
         <ReviewsItem
-          name={feedback.name}
-          lastName={feedback.lastName}
-          date={feedback.date}
-          description={feedback.description}
-          key={feedback.userId}
-          rating={feedback.rating}
+          name={review.name}
+          lastName={review.lastName}
+          date={review.date}
+          description={review.description}
+          key={review.userId}
+          rating={review.rating}
         />
       ))}
     </ReviewItemList>
   );
-};
+});
 
 export const ReviewList = ReviewListElement;

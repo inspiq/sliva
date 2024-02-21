@@ -1,4 +1,4 @@
-import { Props as ReviewsType } from 'src/components/Review';
+import { ReviewProps as ReviewsType } from 'src/components/specialists/account/SpecialistAccount';
 import { UserType } from 'src/shared';
 
 export interface Client {
