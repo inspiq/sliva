@@ -1,4 +1,10 @@
-import React, { ReactElement, useCallback, useEffect, useState } from 'react';
+import React, {
+  ReactElement,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import styled from 'styled-components';
 
@@ -19,11 +25,14 @@ export interface Message {
   chatId: string;
   userId: string;
   text: string;
+  avatarUrl: string;
 }
 
 const MessagesPanelElement = (): ReactElement => {
   const [messages, setMessages] = useState<Message[]>([]);
   const { currentUser } = useAuthContext();
+
+  const ref = useRef(null);
 
   const getMessages = useCallback(async () => {
     try {
@@ -46,7 +55,7 @@ const MessagesPanelElement = (): ReactElement => {
   }, [getMessages]);
 
   return (
-    <MainLayout>
+    <MainLayout ref={ref}>
       {messages.map((message) => (
         <MessageCard
           message={message}

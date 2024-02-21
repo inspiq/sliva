@@ -71,13 +71,23 @@ const MessageCardElement = (props: Props): ReactElement => {
 
   return (
     <MainLayout $isMyMessage={isMyMessage}>
+      {!isMyMessage && (
+        <StyledImage
+          src={message.avatarUrl ?? '/files/images/avatar.png'}
+          alt="Avatar"
+          width={30}
+          height={30}
+        />
+      )}
       <Message $isMyMessage={isMyMessage}>{message.text}</Message>
-      <StyledImage
-        src={userMetaData?.avatarUrl ?? '/files/images/avatar.png'}
-        alt="Avatar"
-        width={30}
-        height={30}
-      />
+      {isMyMessage && (
+        <StyledImage
+          src={userMetaData?.avatarUrl ?? '/files/images/avatar.png'}
+          alt="Avatar"
+          width={30}
+          height={30}
+        />
+      )}
     </MainLayout>
   );
 };

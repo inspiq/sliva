@@ -1,5 +1,11 @@
-import React, { ReactElement, useState } from 'react';
-import { collection, doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import React, { ReactElement, useCallback, useEffect, useState } from 'react';
+import {
+  collection,
+  doc,
+  getDoc,
+  serverTimestamp,
+  setDoc,
+} from 'firebase/firestore';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -8,7 +14,7 @@ import { MessagesPanel } from 'src/components/chat/messages_panel/MessagesPanel'
 import { ChatRoomsPanel } from 'src/components/chat/rooms_panel/ChatRoomsPanel';
 import { SendMessagePanel } from 'src/components/chat/SendMessagePanel';
 import { useAuthContext } from 'src/context';
-import { db } from 'src/shared';
+import { db, Specialist } from 'src/shared';
 
 export const MainLayout = styled.div`
   display: grid;
@@ -51,6 +57,23 @@ const ChatManagementElement = (): ReactElement => {
   const [activeRoom, setActiveRoom] = useState('Глобальный чат');
   const { currentUser } = useAuthContext();
 
+  const [userMetaData, setUserMetaData] = useState<Specialist>();
+
+  const getSpecialist = useCallback(async () => {
+    if (!currentUser) return;
+
+    try {
+      const docRef = doc(db, 'users', currentUser?.uid);
+      const snapshot = await getDoc(docRef);
+
+      if (snapshot.exists()) {
+        setUserMetaData(snapshot.data() as Specialist);
+      }
+    } catch {
+      /* empty */
+    }
+  }, [currentUser]);
+
   const onSendMessage = async (text: string) => {
     try {
       const usersCollection = collection(db, 'global_chat');
@@ -61,6 +84,7 @@ const ChatManagementElement = (): ReactElement => {
         userId: currentUser?.uid,
         text,
         timestamp: serverTimestamp(),
+        avatarUrl: userMetaData?.avatarUrl,
       });
 
       console.log(text);
@@ -68,6 +92,10 @@ const ChatManagementElement = (): ReactElement => {
       /* empty */
     }
   };
+
+  useEffect(() => {
+    getSpecialist();
+  }, [getSpecialist]);
 
   return (
     <MainLayout>
