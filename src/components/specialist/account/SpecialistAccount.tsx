@@ -3,9 +3,8 @@ import { doc, getDoc, onSnapshot } from 'firebase/firestore';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import { ReviewsItem } from 'src/components/Feedback';
 import { ReviewForm } from 'src/components/forms/review/ReviewForm';
-import { ChatIcon, db, Rate, Specialist } from 'src/shared';
+import { ChatIcon, db, Specialist } from 'src/shared';
 
 import { ReviewList } from './SpecialistReviewList';
 

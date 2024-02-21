@@ -82,6 +82,7 @@ const Description = styled.div`
 export interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   editable?: boolean;
   userId?: string;
+  specialistId?: string;
   reveiwId?: string;
   name?: string;
   date?: string;

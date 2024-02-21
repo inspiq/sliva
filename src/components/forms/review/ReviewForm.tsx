@@ -2,14 +2,17 @@ import React, {
   FormEvent,
   ReactElement,
   TextareaHTMLAttributes,
+  useCallback,
+  useEffect,
   useState,
 } from 'react';
-import { collection, doc, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Props as ReviewsType } from 'src/components/Feedback';
-import { db, Rate } from 'src/shared';
+import { useAuthContext } from 'src/context/AuthContext';
+import { Client, db, Rate } from 'src/shared';
 
 const MainLayout = styled.form`
   max-width: 800px;
@@ -73,9 +76,30 @@ interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 const ReviewFormElement = (props: Props): ReactElement => {
   const { userId, reviews, ...rest } = props;
   const [text, setText] = useState('');
+  const { currentUser } = useAuthContext();
+  const [userMetaData, setUserMetaData] = useState<Client>();
+  console.log(userMetaData);
+  const getClient = useCallback(async () => {
+    try {
+      const docRef = doc(db, 'users', currentUser?.uid || '');
+      const snapshot = await getDoc(docRef);
+
+      if (snapshot.exists()) {
+        setUserMetaData(snapshot.data() as Client);
+      }
+    } catch {
+      /* empty */
+    }
+  }, [currentUser?.uid]);
+
+  useEffect(() => {
+    getClient();
+  }, [getClient]);
+
   const newReview: ReviewsType = {
     reveiwId: uuidv4(),
-    name: 'Имя пользователя',
+    userId: currentUser?.uid,
+    name: userMetaData?.name,
     date: new Date().toISOString(),
     description: text,
   };
