@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
+import { Link } from 'src/navigation';
 import { devices, UiButton } from 'src/shared';
 
 const MainLayout = styled.div`
@@ -42,9 +43,11 @@ const ChatBannerElement = (): ReactElement => {
   return (
     <MainLayout>
       <Title>{t('title')}</Title>
-      <UiButton isStretching={false} size="big">
-        {t('button')}
-      </UiButton>
+      <Link href={'/chat'}>
+        <UiButton isStretching={false} size="big">
+          {t('button')}
+        </UiButton>
+      </Link>
     </MainLayout>
   );
 };
