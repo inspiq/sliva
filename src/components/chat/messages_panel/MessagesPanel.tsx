@@ -1,5 +1,5 @@
 import React, { ReactElement, useCallback, useEffect, useState } from 'react';
-import { collection, onSnapshot, query } from 'firebase/firestore';
+import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import styled from 'styled-components';
 
 import { MessageCard } from 'src/components/chat/messages_panel/MessageCard';
@@ -11,7 +11,7 @@ const MainLayout = styled.div`
   flex-direction: column;
   gap: 5px;
   overflow-y: scroll;
-  padding-bottom: 90px;
+  padding-bottom: 70px;
   padding-top: 65px;
 `;
 
@@ -27,7 +27,7 @@ const MessagesPanelElement = (): ReactElement => {
 
   const getMessages = useCallback(async () => {
     try {
-      const q = query(collection(db, 'global_chat'));
+      const q = query(collection(db, 'global_chat'), orderBy('timestamp'));
 
       onSnapshot(q, (querySnapshot) => {
         const messages: Message[] = [];

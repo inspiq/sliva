@@ -1,5 +1,5 @@
 import React, { ReactElement, useState } from 'react';
-import { collection, doc, setDoc } from 'firebase/firestore';
+import { collection, doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -28,6 +28,7 @@ export const ChatLayout = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
+  justify-content: flex-end;
 `;
 
 export const Title = styled.h3`
@@ -59,6 +60,7 @@ const ChatManagementElement = (): ReactElement => {
         chatId: uuidv4(),
         userId: currentUser?.uid,
         text,
+        timestamp: serverTimestamp(),
       });
 
       console.log(text);
