@@ -81,27 +81,31 @@ const Description = styled.div`
 
 export interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   editable?: boolean;
+  lastName?: string;
   userId?: string;
   specialistId?: string;
   reveiwId?: string;
   name?: string;
   date?: string;
   description?: string;
+  rating?: number;
 }
 
 const ReviewsItemElement = (props: Props): ReactElement => {
-  const { editable, name, date, description, ...rest } = props;
+  const { editable, name, lastName, rating, date, description } = props;
 
   return (
     <ReviewContainer>
       <Head>
         <UserInfoFeedback>
           <FeedbackAvatar></FeedbackAvatar>
-          <Title>{name}</Title>
+          <Title>
+            {name} {lastName}
+          </Title>
         </UserInfoFeedback>
         <RateFeedbackContainer>
           <DateFeedback>{date}</DateFeedback>
-          <Rate />
+          <Rate dis={true} currentRating={rating} />
         </RateFeedbackContainer>
       </Head>
       <Comment>

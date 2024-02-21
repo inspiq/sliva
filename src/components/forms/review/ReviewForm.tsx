@@ -76,6 +76,7 @@ interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 const ReviewFormElement = (props: Props): ReactElement => {
   const { userId, reviews, ...rest } = props;
   const [text, setText] = useState('');
+  const [currentRating, setCurrentRating] = useState(0);
   const { currentUser } = useAuthContext();
   const [userMetaData, setUserMetaData] = useState<Client>();
   console.log(userMetaData);
@@ -100,8 +101,10 @@ const ReviewFormElement = (props: Props): ReactElement => {
     reveiwId: uuidv4(),
     userId: currentUser?.uid,
     name: userMetaData?.name,
+    lastName: userMetaData?.lastName,
     date: new Date().toISOString(),
     description: text,
+    rating: currentRating,
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -127,7 +130,10 @@ const ReviewFormElement = (props: Props): ReactElement => {
     <MainLayout onSubmit={onSubmit}>
       <HeadContent>
         <Head>Оставьте отзыв</Head>
-        <Rate />
+        <Rate
+          setCurrentRating={setCurrentRating}
+          currentRating={currentRating}
+        />
       </HeadContent>
       <StyledTextarea
         value={text}

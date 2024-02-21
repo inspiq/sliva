@@ -21,9 +21,11 @@ const ReviewListElement = (props: Props): ReactElement => {
       {reviews?.map((feedback) => (
         <ReviewsItem
           name={feedback.name}
+          lastName={feedback.lastName}
           date={feedback.date}
           description={feedback.description}
           key={feedback.userId}
+          rating={feedback.rating}
         />
       ))}
     </ReviewItemList>
