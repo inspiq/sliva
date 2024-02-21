@@ -17,8 +17,6 @@ import {
   UiInput,
 } from 'src/shared';
 
-import { UIFeedback } from '..';
-
 const Row = styled.div`
   display: grid;
   grid-template-columns: repeat(4, minmax(100px, 250px));
@@ -339,7 +337,6 @@ const UserInfoFormElement = (props: Props): ReactElement => {
           {t('user_profile.button')}
         </UiButton>
       </UiButtonLayout>
-      <UIFeedback />
     </StyledUiForm>
   );
 };

@@ -1,8 +1,9 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, TextareaHTMLAttributes } from 'react';
 import Image from 'next/image';
 import styled, { keyframes } from 'styled-components';
 
-import { Rate } from '.';
+import { UiButton } from 'src/shared';
+import { Rate } from 'src/shared/ui/chips/RateChip';
 
 // Анимация для эффекта загрузки
 const shimmer = keyframes`
@@ -21,8 +22,17 @@ const ReviewContainer = styled.div`
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  max-width: 780px;
+  max-width: 800px;
 `;
+const ReviewFormContainer = styled.form`
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+`;
+
 const RateFeedbackContainer = styled.div`
   display: flex;
   align-items: center;
@@ -65,9 +75,13 @@ const Thead = styled.div`
   font-size: 20px;
   margin-bottom: 10px;
 `;
-const Description = styled.div``;
+const Description = styled.div`
+  word-wrap: break-word;
+`;
 
-export interface Props {
+export interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  editable?: boolean;
+  userId?: string;
   reveiwId?: string;
   name?: string;
   date?: string;
@@ -75,7 +89,7 @@ export interface Props {
 }
 
 const ReviewsItemElement = (props: Props): ReactElement => {
-  const { name, date, description } = props;
+  const { editable, name, date, description, ...rest } = props;
 
   return (
     <ReviewContainer>
@@ -91,8 +105,9 @@ const ReviewsItemElement = (props: Props): ReactElement => {
       </Head>
       <Comment>
         <Thead>Комментарий</Thead>
-        <Description>{description} </Description>
+        {editable ? <textarea /> : <Description>{description} </Description>}
       </Comment>
+      {editable ? <UiButton type="submit" /> : <div></div>}
     </ReviewContainer>
   );
 };
