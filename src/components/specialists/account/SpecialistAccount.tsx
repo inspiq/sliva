@@ -3,7 +3,10 @@ import { doc, getDoc, onSnapshot } from 'firebase/firestore';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import { ReviewForm } from 'src/components/forms/review/ReviewForm';
+import {
+  ReviewForm,
+  StyledButton,
+} from 'src/components/forms/review/ReviewForm';
 import { ReviewList } from 'src/components/specialist/account/SpecialistReviewList';
 import { ChatIcon, db, Specialist } from 'src/shared';
 
@@ -16,6 +19,7 @@ const Avatar = styled(Image)`
 `;
 const SpecialistProfileLayout = styled.div`
   display: flex;
+  align-self: flex-start;
   gap: 20px;
   margin: 40px 10px;
 `;
@@ -61,7 +65,12 @@ const ReviewsBlock = styled.div`
   gap: 50px;
 `;
 const Container = styled.div`
+  max-width: 820px;
   margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 interface Props {
@@ -71,7 +80,12 @@ interface Props {
 const SpecialistAccountElement = (props: Props): ReactElement => {
   const { specialistId } = props;
   const [userMetaData, setUserMetaData] = useState<Specialist>();
+  const [write, setWrite] = useState<boolean>();
   console.log(userMetaData);
+
+  const WriteReview = () => {
+    setWrite((prev) => !prev);
+  };
 
   const getSpecialist = useCallback(async () => {
     try {
@@ -127,10 +141,15 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
         </SpecialistListInfo>
       </SpecialistProfileLayout>
       <ReviewsBlock>
-        <ReviewForm
-          reviews={userMetaData?.reviews}
-          userId={userMetaData?.userId}
-        />
+        {write ? (
+          <ReviewForm
+            reviews={userMetaData?.reviews}
+            userId={userMetaData?.userId}
+            onClick={WriteReview}
+          />
+        ) : (
+          <StyledButton onClick={WriteReview}>Написать отзыв</StyledButton>
+        )}
         <ReviewList reviews={userMetaData?.reviews} />
       </ReviewsBlock>
     </Container>

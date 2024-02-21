@@ -10,7 +10,7 @@ import { collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 
-import { Props as ReviewsType } from 'src/components/Feedback';
+import { Props as ReviewsType } from 'src/components/Review';
 import { useAuthContext } from 'src/context/AuthContext';
 import { Client, db, Rate } from 'src/shared';
 
@@ -37,7 +37,7 @@ const StyledTextarea = styled.textarea`
   resize: none;
 `;
 
-const StyledButton = styled.button`
+export const StyledButton = styled.button`
   padding: 10px 20px;
   font-size: 13px;
   background-color: ${({ theme }) => theme.primary};
@@ -57,24 +57,15 @@ const HeadContent = styled.div`
   width: 100%;
 `;
 
-const FormHeader = styled.div`
-  padding: 20px 0;
-  border-bottom: 1px solid ${({ theme }) => theme.border};
-  width: 100%;
-  text-align: center;
-  font-size: 15px;
-  font-weight: ${({ theme }) => theme.w600};
-  color: ${({ theme }) => theme.primary};
-`;
-
 interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   userId?: string;
   text?: string;
   reviews?: ReviewsType[];
+  onClick?: () => void;
 }
 
 const ReviewFormElement = (props: Props): ReactElement => {
-  const { userId, reviews, ...rest } = props;
+  const { userId, onClick, reviews, ...rest } = props;
   const [text, setText] = useState('');
   const [currentRating, setCurrentRating] = useState(0);
   const { currentUser } = useAuthContext();
@@ -121,6 +112,10 @@ const ReviewFormElement = (props: Props): ReactElement => {
       await updateDoc(userDocRef, {
         reviews: [newReview, ...(reviews || [])],
       });
+
+      if (onClick) {
+        onClick();
+      }
     } catch (error) {
       console.error('Ошибка при отправке отзыва:', error);
     }

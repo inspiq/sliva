@@ -1,30 +1,11 @@
 import React, { ReactElement, TextareaHTMLAttributes } from 'react';
 import Image from 'next/image';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
 import { UiButton } from 'src/shared';
 import { Rate } from 'src/shared/ui/chips/RateChip';
 
-// Анимация для эффекта загрузки
-const shimmer = keyframes`
-  0% {
-    background-position: -40rem 0;
-  }
-  100% {
-    background-position: 40rem 0;
-  }
-`;
-
-// Стилизованный контейнер для отзыва
 const ReviewContainer = styled.div`
-  margin-bottom: 1rem;
-  padding: 1rem;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  max-width: 800px;
-`;
-const ReviewFormContainer = styled.form`
   margin-bottom: 1rem;
   padding: 1rem;
   background-color: #f9f9f9;

@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
-import { Props as ReviewsType } from 'src/components/Feedback';
-import { ReviewsItem } from 'src/components/Feedback';
+import { Props as ReviewsType } from 'src/components/Review';
+import { ReviewsItem } from 'src/components/Review';
 
 const ReviewItemList = styled.div`
   display: flex;
