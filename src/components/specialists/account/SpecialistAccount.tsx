@@ -13,7 +13,7 @@ import {
   ReviewForm,
   StyledButton,
 } from 'src/components/forms/review/ReviewForm';
-import { ReviewList } from 'src/components/specialist/account/SpecialistReviewList';
+import { ReviewList } from 'src/components/specialists/account/SpecialistReviewList';
 import { ChatIcon, db, Specialist } from 'src/shared';
 
 const Avatar = styled(Image)`
@@ -78,6 +78,7 @@ const ReviewsBlock = styled.div`
   justify-content: flex-start;
   flex-direction: column;
   gap: 50px;
+  width: 100%;
 `;
 
 const Container = styled.div`
@@ -109,6 +110,9 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
   const { specialistId } = props;
   const [userMetaData, setUserMetaData] = useState<Specialist>();
   const [IsWrite, seIitWrite] = useState<boolean>();
+  const totalRating = userMetaData?.reviews
+    ? userMetaData.reviews.reduce((sum, item) => sum + item.rating, 0)
+    : 0;
 
   const WriteReview = () => {
     seIitWrite((prev) => !prev);
@@ -127,6 +131,11 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
     }
   }, [specialistId]);
 
+  console.log(userMetaData?.reviews);
+
+  if (userMetaData?.reviews && userMetaData.reviews.length > 0) {
+    console.log(totalRating / userMetaData.reviews.length);
+  }
   useEffect(() => {
     getSpecialist();
   }, [getSpecialist]);
@@ -159,7 +168,7 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
           <City>Область:{userMetaData?.city}</City>
           <Experience>Стаж:{userMetaData?.experience}</Experience>
           <Row>
-            <Rating>4,5</Rating>
+            <Rating>{userMetaData?.estimation}</Rating>
             <ReviewsCount>
               <ChatIcon width={20} />
               590 отзывов
@@ -168,8 +177,9 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
         </SpecialistListInfo>
       </SpecialistProfileLayout>
       <ReviewsBlock>
-        {IsWrite ? (
+        {IsWrite && userMetaData ? (
           <ReviewForm
+            specialist={userMetaData}
             reviews={userMetaData?.reviews}
             userId={userMetaData?.userId}
             onClick={WriteReview}

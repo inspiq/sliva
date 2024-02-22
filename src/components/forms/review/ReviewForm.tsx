@@ -12,7 +12,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { ReviewProps as ReviewsType } from 'src/components/specialists/account/SpecialistAccount';
 import { useAuthContext } from 'src/context/AuthContext';
-import { Client, db, Rate } from 'src/shared';
+import { Client, db, Rate, Specialist } from 'src/shared';
 
 const MainLayout = styled.form`
   max-width: 800px;
@@ -64,15 +64,22 @@ interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   userId?: string;
   text?: string;
   reviews?: ReviewsType[];
+  specialist: Specialist;
   onClick?: () => void;
 }
 
 const ReviewFormElement = (props: Props): ReactElement => {
-  const { userId, onClick, reviews, ...rest } = props;
+  const { userId, onClick, ...rest } = props;
+  const { reviews } = props.specialist;
+  console.log(reviews);
   const [text, setText] = useState('');
   const [currentRating, setCurrentRating] = useState(0);
   const { currentUser } = useAuthContext();
   const [userMetaData, setUserMetaData] = useState<Client>();
+  const totalRating =
+    reviews.length != 0
+      ? reviews.reduce((sum, item) => sum + item.rating, 0)
+      : 0;
 
   const getClient = useCallback(async () => {
     try {
@@ -113,6 +120,10 @@ const ReviewFormElement = (props: Props): ReactElement => {
       const userDocRef = doc(usersCollection, userId);
       await updateDoc(userDocRef, {
         reviews: [newReview, ...(reviews || [])],
+        estimation: (
+          (totalRating + currentRating) / (reviews.length + 1) +
+          1
+        ).toFixed(1),
       });
 
       if (onClick) {

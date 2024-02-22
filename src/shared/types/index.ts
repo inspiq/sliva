@@ -21,6 +21,7 @@ export interface Specialist extends Client {
   userId: string;
   email: string;
   city: string;
+  estimation: number;
   reviews: ReviewsType[];
   dayOfBirth: string;
   experience: string;

@@ -1,10 +1,11 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, useCallback } from 'react';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import Image from 'next/image';
 import styled from 'styled-components';
 
 import { Line } from 'src/components';
 import { Link } from 'src/navigation';
-import { ChatIcon, devices, Specialist } from 'src/shared';
+import { ChatIcon, db, devices, Specialist } from 'src/shared';
 
 const Row = styled.div`
   display: flex;
@@ -75,7 +76,7 @@ interface Props {
 }
 
 const SpecialistCardElement = (props: Props): ReactElement => {
-  const { avatarUrl, userId, surname, name, city, experience } =
+  const { avatarUrl, userId, surname, name, city, experience, estimation } =
     props.specialist;
 
   return (
@@ -96,7 +97,7 @@ const SpecialistCardElement = (props: Props): ReactElement => {
             Стаж: {experience ? `${experience} года` : 'Не указан'}
           </Experience>
           <Row>
-            <Rating>4,5</Rating>
+            <Rating>{estimation}</Rating>
             <ReviewsCount>
               <ChatIcon width={20} />
               590 отзывов
