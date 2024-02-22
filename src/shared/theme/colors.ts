@@ -3,6 +3,7 @@ export const colors = {
   secondary: '#09004d',
   slogan: '#333',
   white: '#fff',
+  light_blue: '#59adff',
   black: '#000',
   light: '#f3f3f3',
   border: '#ebebeb',

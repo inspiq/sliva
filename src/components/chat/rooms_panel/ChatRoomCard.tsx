@@ -1,11 +1,11 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
-export const RoomCard = styled.div<{ isActiveRoom: boolean }>`
+export const RoomCard = styled.div<{ $isActiveRoom: boolean }>`
   padding: 12px 10px;
   border-radius: 5px;
-  background-color: ${({ theme, isActiveRoom }) =>
-    isActiveRoom ? theme.light : 'transparent'};
+  background-color: ${({ theme, $isActiveRoom }) =>
+    $isActiveRoom ? theme.light : 'transparent'};
   cursor: pointer;
   font-size: 15px;
   font-weight: ${({ theme }) => theme.w500};
@@ -23,7 +23,7 @@ const ChatRoomCardElement = (props: Props): ReactElement => {
   return (
     <RoomCard
       onClick={() => onChangeActiveRoom(room)}
-      isActiveRoom={isActiveRoom}
+      $isActiveRoom={isActiveRoom}
     >
       {room}
     </RoomCard>

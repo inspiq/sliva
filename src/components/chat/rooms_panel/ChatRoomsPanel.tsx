@@ -1,7 +1,7 @@
 import React, { Dispatch, memo, ReactElement, SetStateAction } from 'react';
 import styled from 'styled-components';
 
-import { ChatRoomCard } from 'src/components/chat/chat_rooms_panel/ChatRoomCard';
+import { ChatRoomCard } from 'src/components/chat/rooms_panel/ChatRoomCard';
 
 const MainLayout = styled.div`
   display: flex;

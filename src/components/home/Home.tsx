@@ -47,7 +47,7 @@ const Title = styled.p`
 
 const HomeElement = (): ReactElement => {
   const [numberOfUsers, setNumberOfUsers] = useState(0);
-  const { currentUser } = useAuthContext();
+  const { currentAuthUser } = useAuthContext();
   const [cookies, setCookie] = useCookies();
   const t = useTranslations();
 
@@ -85,7 +85,11 @@ const HomeElement = (): ReactElement => {
         </Container>
       </Wrapper>
       <Footer />
-      <StyledPopup open={!currentUser && !cookies.modal_test} modal lockScroll>
+      <StyledPopup
+        open={!currentAuthUser && !cookies.modal_test}
+        modal
+        lockScroll
+      >
         <Title>{t('modal_test.title')}</Title>
         <Tip>
           {t('modal_test.tips.one')}
