@@ -1,24 +1,21 @@
 import {
   createContext,
-  Dispatch,
   PropsWithChildren,
-  SetStateAction,
   useContext,
   useEffect,
   useState,
 } from 'react';
 import { onAuthStateChanged, User } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
 
-import { auth } from 'src/shared';
+import { auth, db, UserType, UserWithAdditionalInfo } from 'src/shared';
 
 interface Values {
-  currentUser: User | null;
-  setCurrentUser: Dispatch<SetStateAction<User | null>>;
+  currentAuthUser: UserWithAdditionalInfo;
 }
 
 const initialValues: Values = {
-  currentUser: null,
-  setCurrentUser: () => undefined,
+  currentAuthUser: null,
 };
 
 export const AuthContext = createContext(initialValues);
@@ -26,13 +23,37 @@ export const AuthContext = createContext(initialValues);
 export const AuthContextProvider = (props: PropsWithChildren) => {
   const { children } = props;
 
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [currentAuthUser, setCurrentAuthUser] = useState<User | null>(null);
+  const [additionalUserInfo, setAdditionalUserInfo] = useState<UserType | null>(
+    null,
+  );
 
-  useEffect(() => onAuthStateChanged(auth, setCurrentUser), []);
+  useEffect(() => {
+    const getAdditionalUserInfo = async () => {
+      if (!currentAuthUser) return;
+
+      try {
+        const docRef = doc(db, 'users', currentAuthUser?.uid);
+        const snapshot = await getDoc(docRef);
+
+        if (snapshot.exists()) {
+          const userData = snapshot.data() as UserType;
+          setAdditionalUserInfo(userData);
+        }
+      } catch (e) {
+        /* обработка ошибок */
+      }
+    };
+
+    getAdditionalUserInfo();
+  }, [currentAuthUser]);
+
+  useEffect(() => onAuthStateChanged(auth, setCurrentAuthUser), []);
 
   const contextValues = {
-    currentUser,
-    setCurrentUser,
+    currentAuthUser: currentAuthUser
+      ? { ...currentAuthUser, additionalInfo: additionalUserInfo }
+      : null,
   };
 
   return (

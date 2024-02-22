@@ -85,7 +85,7 @@ const StyledLink = styled(Link)`
 `;
 
 const HeaderElement = (): ReactElement => {
-  const { currentUser } = useAuthContext();
+  const { currentAuthUser } = useAuthContext();
   const t = useTranslations('Header');
 
   const onLogout = async () => {
@@ -115,7 +115,7 @@ const HeaderElement = (): ReactElement => {
             </PopupMenuLayout>
           </Popup>
         </MenuLayout>
-        {currentUser ? (
+        {currentAuthUser ? (
           <Popup
             trigger={UserActions}
             position="bottom right"

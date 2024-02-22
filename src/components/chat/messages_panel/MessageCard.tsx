@@ -1,12 +1,9 @@
-import React, { ReactElement, useCallback, useEffect, useState } from 'react';
-import { doc, getDoc } from 'firebase/firestore';
+import React, { ReactElement } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
+import { Message } from 'src/components/chat/messages_panel/MessagesPanel';
 import { useAuthContext } from 'src/context';
-import { db, Specialist } from 'src/shared';
-
-import { Message } from './MessagesPanel';
 
 const MainLayout = styled.div<{ $isMyMessage: boolean }>`
   width: 100%;
@@ -47,27 +44,7 @@ interface Props {
 const MessageCardElement = (props: Props): ReactElement => {
   const { message, isMyMessage } = props;
 
-  const [userMetaData, setUserMetaData] = useState<Specialist>();
-  const { currentUser } = useAuthContext();
-
-  const getSpecialist = useCallback(async () => {
-    if (!currentUser) return;
-
-    try {
-      const docRef = doc(db, 'users', currentUser?.uid);
-      const snapshot = await getDoc(docRef);
-
-      if (snapshot.exists()) {
-        setUserMetaData(snapshot.data() as Specialist);
-      }
-    } catch {
-      /* empty */
-    }
-  }, [currentUser]);
-
-  useEffect(() => {
-    getSpecialist();
-  }, [getSpecialist]);
+  const { currentAuthUser } = useAuthContext();
 
   return (
     <MainLayout $isMyMessage={isMyMessage}>
@@ -82,7 +59,10 @@ const MessageCardElement = (props: Props): ReactElement => {
       <Message $isMyMessage={isMyMessage}>{message.text}</Message>
       {isMyMessage && (
         <StyledImage
-          src={userMetaData?.avatarUrl ?? '/files/images/avatar.png'}
+          src={
+            currentAuthUser?.additionalInfo?.avatarUrl ??
+            '/files/images/avatar.png'
+          }
           alt="Avatar"
           width={30}
           height={30}

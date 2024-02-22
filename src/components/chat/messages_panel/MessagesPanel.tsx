@@ -30,7 +30,7 @@ export interface Message {
 
 const MessagesPanelElement = (): ReactElement => {
   const [messages, setMessages] = useState<Message[]>([]);
-  const { currentUser } = useAuthContext();
+  const { currentAuthUser } = useAuthContext();
 
   const ref = useRef(null);
 
@@ -54,14 +54,19 @@ const MessagesPanelElement = (): ReactElement => {
     getMessages();
   }, [getMessages]);
 
+  useEffect(() => {
+    ref.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
   return (
-    <MainLayout ref={ref}>
+    <MainLayout>
       {messages.map((message) => (
-        <MessageCard
-          message={message}
-          isMyMessage={message.userId == currentUser?.uid}
-          key={message.chatId}
-        />
+        <div ref={ref} key={message.chatId}>
+          <MessageCard
+            message={message}
+            isMyMessage={message.userId == currentAuthUser?.uid}
+          />
+        </div>
       ))}
     </MainLayout>
   );

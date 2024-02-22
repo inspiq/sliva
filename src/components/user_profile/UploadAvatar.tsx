@@ -1,8 +1,8 @@
 import { Dispatch, FormEvent, SetStateAction, useMemo } from 'react';
-import { DocumentData } from 'firebase/firestore';
 import Image from 'next/image';
 import styled from 'styled-components';
 
+import { useAuthContext } from 'src/context';
 import { UiInput } from 'src/shared';
 
 const MainLayout = styled.div`
@@ -29,11 +29,12 @@ const StyledImage = styled(Image)`
 `;
 
 const UploadAvatarElement = (props: {
-  userMetaData?: DocumentData;
   setFileUpload: Dispatch<SetStateAction<File | undefined>>;
   fileUpload?: File;
 }) => {
-  const { userMetaData, setFileUpload, fileUpload } = props;
+  const { setFileUpload, fileUpload } = props;
+
+  const { currentAuthUser } = useAuthContext();
 
   const onChange = (e: FormEvent<HTMLInputElement>) => {
     const { files } = e.target as HTMLInputElement;
@@ -45,12 +46,12 @@ const UploadAvatarElement = (props: {
       return URL.createObjectURL(fileUpload);
     }
 
-    if (userMetaData && userMetaData.avatarUrl) {
-      return userMetaData.avatarUrl;
+    if (currentAuthUser?.additionalInfo?.avatarUrl) {
+      return currentAuthUser.additionalInfo?.avatarUrl;
     }
 
     return '/files/images/avatar.png';
-  }, [fileUpload, userMetaData]);
+  }, [currentAuthUser, fileUpload]);
 
   return (
     <MainLayout>

@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, useMemo } from 'react';
 import Select, { StylesConfig } from 'react-select';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useFormik } from 'formik';
@@ -10,8 +10,8 @@ import { useAuthContext } from 'src/context';
 import {
   db,
   devices,
+  isSpecialist,
   Option,
-  Specialist,
   UiButton,
   UiForm,
   UiInput,
@@ -80,16 +80,44 @@ const StyledTextArea = styled.textarea`
 `;
 
 interface Props {
-  userMetaData: Specialist;
   uploadFile: (fileUpload: File) => Promise<void>;
   fileUpload?: File;
 }
 
 const UserInfoFormElement = (props: Props): ReactElement => {
-  const { userMetaData, uploadFile, fileUpload } = props;
+  const { uploadFile, fileUpload } = props;
+
   const t = useTranslations();
+  const { currentAuthUser } = useAuthContext();
   const { primary, light, border_ui, border_ui_hover } = useTheme();
-  const { currentUser } = useAuthContext();
+
+  const initialValues = useMemo(
+    () =>
+      isSpecialist(currentAuthUser?.additionalInfo)
+        ? {
+            name: currentAuthUser?.additionalInfo?.name ?? '',
+            surname: currentAuthUser?.additionalInfo?.surname ?? '',
+            lastName: currentAuthUser?.additionalInfo?.lastName ?? '',
+            dayOfBirth: currentAuthUser?.additionalInfo?.dayOfBirth ?? '',
+            email: currentAuthUser?.additionalInfo?.email ?? '',
+            experience: currentAuthUser?.additionalInfo?.experience ?? '',
+            city: currentAuthUser?.additionalInfo?.city ?? '',
+            telegram: currentAuthUser?.additionalInfo?.telegram ?? '',
+            whatsApp: currentAuthUser?.additionalInfo?.whatsApp ?? '',
+            categories: currentAuthUser?.additionalInfo?.categories ?? null,
+            subcategories:
+              currentAuthUser?.additionalInfo?.subcategories ?? null,
+          }
+        : {
+            name: currentAuthUser?.additionalInfo?.name ?? '',
+            surname: currentAuthUser?.additionalInfo?.surname ?? '',
+            lastName: currentAuthUser?.additionalInfo?.lastName ?? '',
+            dayOfBirth: currentAuthUser?.additionalInfo?.dayOfBirth ?? '',
+            email: currentAuthUser?.additionalInfo?.email ?? '',
+          },
+    [currentAuthUser?.additionalInfo],
+  );
+
   const {
     handleSubmit,
     handleChange,
@@ -100,19 +128,8 @@ const UserInfoFormElement = (props: Props): ReactElement => {
     errors,
     touched,
   } = useFormik({
-    initialValues: {
-      name: userMetaData.name ?? '',
-      surname: userMetaData.surname ?? '',
-      lastName: userMetaData.lastName ?? '',
-      dayOfBirth: userMetaData.dayOfBirth ?? '',
-      email: currentUser?.email ?? '',
-      experience: userMetaData.experience ?? '',
-      city: userMetaData.city ?? '',
-      telegram: userMetaData.telegram ?? '',
-      whatsApp: userMetaData.whatsApp ?? '',
-      categories: userMetaData.categories ?? null,
-      subcategories: userMetaData.subcategories ?? null,
-    },
+    initialValues,
+    enableReinitialize: true,
     validateOnMount: true,
     validationSchema: yup.object().shape({
       name: yup.string().required(t('validations.required')),
@@ -121,10 +138,10 @@ const UserInfoFormElement = (props: Props): ReactElement => {
       dayOfBirth: yup.string().required(t('validations.required')),
     }),
     onSubmit: async (metaData) => {
-      if (!currentUser) return;
+      if (!currentAuthUser) return;
 
       try {
-        const userDocRef = doc(db, 'users', currentUser?.uid);
+        const userDocRef = doc(db, 'users', currentAuthUser?.uid);
         await updateDoc(userDocRef, { ...metaData });
         uploadFile(fileUpload!);
       } catch (e) {

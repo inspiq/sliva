@@ -1,35 +1,34 @@
-import { UserType } from 'src/shared';
+import { User } from 'firebase/auth';
+
+import { UserRole } from 'src/shared';
+
+export * from 'src/shared/types/type-guards';
 
 export interface Client {
-  avatarUrl: string;
-  type: UserType;
   userId: string;
+  avatarUrl: string;
+  type: UserRole;
   email: string;
-  city: string;
   dayOfBirth: string;
   name: string;
   lastName: string;
-  suraname: string;
-  telegram: string;
-  whatsApp: string;
+  surname: string;
 }
 
 export interface Specialist extends Client {
-  avatarUrl: string;
-  type: UserType;
-  userId: string;
-  email: string;
   city: string;
   dayOfBirth: string;
   experience: string;
-  lastName: string;
-  name: string;
-  surname: string;
-  telegram: string;
-  whatsApp: string;
   categories: Option[];
   subcategories: Option[];
+  telegram: string;
+  whatsApp: string;
 }
+
+export type UserType = Client | Specialist;
+export type UserWithAdditionalInfo =
+  | (User & { additionalInfo: UserType | null })
+  | null;
 
 export interface Option {
   value: string;
