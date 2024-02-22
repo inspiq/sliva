@@ -54,9 +54,9 @@ const MessagesPanelElement = (): ReactElement => {
     getMessages();
   }, [getMessages]);
 
-  useEffect(() => {
-    ref.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+  //useEffect(() => {
+  //  ref.current?.scrollIntoView({ behavior: 'smooth' });
+  //}, [messages]);
 
   return (
     <MainLayout>
