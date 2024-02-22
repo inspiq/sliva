@@ -10,7 +10,7 @@ import styled from 'styled-components';
 
 import { MessageCard } from 'src/components/chat/messages_panel/MessageCard';
 import { useAuthContext } from 'src/context';
-import { db } from 'src/shared';
+import { db, UserType } from 'src/shared';
 
 const MainLayout = styled.div`
   display: flex;
@@ -23,16 +23,19 @@ const MainLayout = styled.div`
 
 export interface Message {
   chatId: string;
-  userId: string;
   text: string;
-  avatarUrl: string;
+  timestamp: {
+    nanoseconds: number;
+    seconds: number;
+  };
+  user: UserType;
 }
 
 const MessagesPanelElement = (): ReactElement => {
   const [messages, setMessages] = useState<Message[]>([]);
   const { currentAuthUser } = useAuthContext();
 
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement | null>(null);
 
   const getMessages = useCallback(async () => {
     try {
@@ -54,19 +57,19 @@ const MessagesPanelElement = (): ReactElement => {
     getMessages();
   }, [getMessages]);
 
-  //useEffect(() => {
-  //  ref.current?.scrollIntoView({ behavior: 'smooth' });
-  //}, [messages]);
+  useEffect(() => {
+    ref.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
 
   return (
     <MainLayout>
       {messages.map((message) => (
-        <div ref={ref} key={message.chatId}>
-          <MessageCard
-            message={message}
-            isMyMessage={message.userId == currentAuthUser?.uid}
-          />
-        </div>
+        <MessageCard
+          ref={ref}
+          message={message}
+          isMyMessage={message?.user?.userId == currentAuthUser?.uid}
+          key={message.chatId}
+        />
       ))}
     </MainLayout>
   );

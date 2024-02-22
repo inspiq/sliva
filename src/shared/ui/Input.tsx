@@ -1,12 +1,16 @@
 import { InputHTMLAttributes, ReactElement } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { switchProp } from 'styled-tools';
 
 import { Error } from 'src/components/auth/Error';
 import { useToggle } from 'src/shared/hooks';
 import { CloseEyeIcon, EyeIcon, PlusIcon } from 'src/shared/icons';
 
-const Input = styled.input<{ $hasError?: boolean; $hasIcon: boolean }>`
-  height: 50px;
+const Input = styled.input<{
+  $hasError?: boolean;
+  $hasIcon: boolean;
+  $size?: Size;
+}>`
   width: 100%;
   border: 1px solid
     ${({ theme, $hasError }) =>
@@ -18,6 +22,15 @@ const Input = styled.input<{ $hasError?: boolean; $hasIcon: boolean }>`
   color: ${({ theme }) => theme.input.value};
   font-weight: ${({ theme }) => theme.w400};
   transition: border 0.3s;
+
+  ${switchProp('$size', {
+    ['big']: css`
+      height: 50px;
+    `,
+    ['medium']: css`
+      height: 40px;
+    `,
+  })}
 
   &::placeholder {
     color: ${({ theme }) => theme.input.placeholder};
@@ -81,16 +94,18 @@ const PlusIconLayout = styled.div`
   }
 `;
 
+type Size = 'medium' | 'big';
+
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   Icon?: JSX.Element;
   hasError?: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   textError?: any;
-  disabled?: boolean;
+  size?: Size;
 }
 
 const UiInputElement = (props: Props): ReactElement => {
-  const { Icon, hasError, textError, type, ...rest } = props;
+  const { Icon, hasError, textError, type, size = 'big', ...rest } = props;
 
   const { visible: passVisible, toggle } = useToggle();
 
@@ -119,6 +134,7 @@ const UiInputElement = (props: Props): ReactElement => {
         <Input
           $hasError={hasError}
           $hasIcon={hasIcon}
+          $size={size}
           type={hasTypePassword ? currentTypePasswordField : type}
           {...rest}
         />
