@@ -101,11 +101,11 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   hasError?: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   textError?: any;
-  size?: Size;
+  inputSize?: Size;
 }
 
 const UiInputElement = (props: Props): ReactElement => {
-  const { Icon, hasError, textError, type, size = 'big', ...rest } = props;
+  const { Icon, hasError, textError, type, inputSize = 'big', ...rest } = props;
 
   const { visible: passVisible, toggle } = useToggle();
 
@@ -134,7 +134,7 @@ const UiInputElement = (props: Props): ReactElement => {
         <Input
           $hasError={hasError}
           $hasIcon={hasIcon}
-          $size={size}
+          $size={inputSize}
           type={hasTypePassword ? currentTypePasswordField : type}
           {...rest}
         />
