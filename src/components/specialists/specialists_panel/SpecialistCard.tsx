@@ -1,11 +1,10 @@
-import React, { ReactElement, useCallback } from 'react';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import React, { ReactElement } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
 import { Line } from 'src/components';
 import { Link } from 'src/navigation';
-import { ChatIcon, db, devices, Specialist } from 'src/shared';
+import { ChatIcon, devices, Specialist } from 'src/shared';
 
 const Row = styled.div`
   display: flex;
@@ -76,8 +75,16 @@ interface Props {
 }
 
 const SpecialistCardElement = (props: Props): ReactElement => {
-  const { avatarUrl, userId, surname, name, city, experience, estimation } =
-    props.specialist;
+  const {
+    avatarUrl,
+    userId,
+    surname,
+    name,
+    city,
+    experience,
+    estimation,
+    reviews,
+  } = props.specialist;
 
   return (
     <>
@@ -100,7 +107,7 @@ const SpecialistCardElement = (props: Props): ReactElement => {
             <Rating>{estimation}</Rating>
             <ReviewsCount>
               <ChatIcon width={20} />
-              590 отзывов
+              {reviews.length} отзывов
             </ReviewsCount>
           </Row>
         </SpecialistInfo>

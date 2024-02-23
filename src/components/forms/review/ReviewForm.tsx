@@ -1,18 +1,18 @@
 import React, {
+  ChangeEvent,
   FormEvent,
   ReactElement,
   TextareaHTMLAttributes,
-  useCallback,
-  useEffect,
+  useMemo,
   useState,
 } from 'react';
-import { collection, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { collection, doc, updateDoc } from 'firebase/firestore';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 
-import { ReviewProps as ReviewsType } from 'src/components/specialists/account/SpecialistAccount';
+import { ReviewProps as Review } from 'src/components/specialists/account/SpecialistAccount';
 import { useAuthContext } from 'src/context/AuthContext';
-import { Client, db, Rate, Specialist } from 'src/shared';
+import { db, Rate, Specialist } from 'src/shared';
 
 const MainLayout = styled.form`
   max-width: 800px;
@@ -27,23 +27,20 @@ const MainLayout = styled.form`
   padding: 10px;
 `;
 
-const Head = styled.div``;
-
-const StyledTextarea = styled.textarea`
+const Textarea = styled.textarea`
   width: 100%;
   min-height: 100px;
   padding: 10px;
   border: 1px solid ${({ theme }) => theme.border};
   border-radius: 8px;
   font-size: 16px;
-  resize: none;
 `;
 
-export const StyledButton = styled.button`
+export const Button = styled.button`
   padding: 10px 20px;
   font-size: 13px;
   background-color: ${({ theme }) => theme.primary};
-  color: white;
+  color: ${({ theme }) => theme.white};
   align-self: flex-end;
   border: none;
   border-radius: 8px;
@@ -54,72 +51,68 @@ export const StyledButton = styled.button`
   }
 `;
 
-const HeadContent = styled.div`
+const Content = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
 `;
 
 interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  userId?: string;
-  text?: string;
-  reviews?: ReviewsType[];
   specialist: Specialist;
-  onClick?: () => void;
+  onClick: () => void;
 }
 
 const ReviewFormElement = (props: Props): ReactElement => {
-  const { userId, onClick, ...rest } = props;
+  const { onClick, ...rest } = props;
   const { reviews } = props.specialist;
-  console.log(reviews);
-  const [text, setText] = useState('');
+  const [value, setValue] = useState('');
   const [currentRating, setCurrentRating] = useState(0);
-  const { currentUser } = useAuthContext();
-  const [userMetaData, setUserMetaData] = useState<Client>();
+  const { currentAuthUser } = useAuthContext();
   const totalRating =
     reviews.length != 0
       ? reviews.reduce((sum, item) => sum + item.rating, 0)
       : 0;
 
-  const getClient = useCallback(async () => {
-    try {
-      const docRef = doc(db, 'users', currentUser?.uid || '');
-      const snapshot = await getDoc(docRef);
-
-      if (snapshot.exists()) {
-        setUserMetaData(snapshot.data() as Client);
+  const sortedReviews = useMemo(() => {
+    const reviewsWithDates = reviews.filter((review) => review.date);
+    const sortedReviews = [...reviewsWithDates].sort((a, b) => {
+      if (!a.date || !b.date) {
+        return 0;
       }
-    } catch {
-      /* empty */
-    }
-  }, [currentUser?.uid]);
 
-  useEffect(() => {
-    getClient();
-  }, [getClient]);
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    });
 
-  const newReview: ReviewsType = {
+    return sortedReviews;
+  }, [reviews]);
+
+  const newReview: Review = {
     reveiwId: uuidv4(),
-    userId: currentUser?.uid,
-    name: userMetaData?.name,
-    lastName: userMetaData?.lastName,
     date: new Date().toISOString(),
-    description: text,
+    description: value,
     rating: currentRating,
+    name: currentAuthUser?.additionalInfo?.name,
+    lastName: currentAuthUser?.additionalInfo?.lastName,
+    userId: currentAuthUser?.additionalInfo?.userId,
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setText(e.target.value);
+  const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    const value = event.target.value;
+    setValue(value);
   };
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const updatedReviews = [newReview, ...sortedReviews];
 
     try {
       const usersCollection = collection(db, 'users');
-      const userDocRef = doc(usersCollection, userId);
+      const userDocRef = doc(
+        usersCollection,
+        currentAuthUser?.additionalInfo?.userId,
+      );
       await updateDoc(userDocRef, {
-        reviews: [newReview, ...(reviews || [])],
+        reviews: updatedReviews,
         estimation: (
           (totalRating + currentRating) / (reviews.length + 1) +
           1
@@ -129,27 +122,27 @@ const ReviewFormElement = (props: Props): ReactElement => {
       if (onClick) {
         onClick();
       }
-    } catch (error) {
-      console.error('Ошибка при отправке отзыва:', error);
+    } catch (e) {
+      /* empty */
     }
   };
 
   return (
     <MainLayout onSubmit={onSubmit}>
-      <HeadContent>
-        <Head>Оставьте отзыв</Head>
+      <Content>
+        <div>Оставьте отзыв</div>
         <Rate
           setCurrentRating={setCurrentRating}
           currentRating={currentRating}
         />
-      </HeadContent>
-      <StyledTextarea
-        value={text}
+      </Content>
+      <Textarea
+        value={value}
         onChange={handleChange}
         placeholder="Введите отзыв"
         {...rest}
       />
-      <StyledButton type="submit">Отправить отзыв</StyledButton>
+      <Button type="submit">Отправить отзыв</Button>
     </MainLayout>
   );
 };

@@ -7,15 +7,8 @@ import styled, { useTheme } from 'styled-components';
 import * as yup from 'yup';
 
 import { useAuthContext } from 'src/context';
-import {
-  db,
-  devices,
-  isSpecialist,
-  Option,
-  UiButton,
-  UiForm,
-  UiInput,
-} from 'src/shared';
+import { db, devices, Option, UiButton, UiForm, UiInput } from 'src/shared';
+import { isSpecialist } from 'src/shared/types/type-guards';
 
 const Row = styled.div`
   display: grid;

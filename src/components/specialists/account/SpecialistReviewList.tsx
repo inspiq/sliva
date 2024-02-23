@@ -1,26 +1,26 @@
+/* eslint-disable react/display-name */
 import React, { memo, ReactElement } from 'react';
 import styled from 'styled-components';
 
-import { ReviewsItem } from 'src/components/Review';
-import { ReviewProps as ReviewsType } from 'src/components/specialists/account/SpecialistAccount';
+import { ReviewCard } from 'src/components/Review';
+import { ReviewProps as Review } from 'src/components/specialists/account/SpecialistAccount';
 
-const ReviewItemList = styled.div`
+const MainLayout = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
 `;
 interface Props {
-  reviews?: ReviewsType[];
+  reviews?: Review[];
 }
 
-// eslint-disable-next-line react/display-name
 const ReviewListElement = memo((props: Props): ReactElement => {
   const { reviews } = props;
 
   return (
-    <ReviewItemList>
+    <MainLayout>
       {reviews?.map((review) => (
-        <ReviewsItem
+        <ReviewCard
           name={review.name}
           lastName={review.lastName}
           date={review.date}
@@ -29,8 +29,8 @@ const ReviewListElement = memo((props: Props): ReactElement => {
           rating={review.rating}
         />
       ))}
-    </ReviewItemList>
+    </MainLayout>
   );
 });
 
-export const ReviewList = ReviewListElement;
+export const ReviewPanel = ReviewListElement;

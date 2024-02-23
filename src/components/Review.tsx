@@ -2,42 +2,43 @@ import React, { ReactElement } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import { ReviewProps as ReviewsType } from 'src/components/specialists/account/SpecialistAccount';
 import { Rate } from 'src/shared/ui/chips/RateChip';
 
-const ReviewContainer = styled.div`
+import { ReviewProps as Review } from './specialists/account/SpecialistAccount';
+
+const MainLayout = styled.div`
   margin-bottom: 10px;
   padding: 10px;
-  background-color: #f9f9f9;
+  background-color: ${({ theme }) => theme.white};
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   max-width: 800px;
 `;
 
-const RateReviewContainer = styled.div`
+const RateReviewLayout = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
 `;
 
-const DateFeedback = styled.div`
+const Date = styled.div`
   padding-bottom: 3px;
 `;
 
-const ReviewAvatar = styled(Image)`
+const StyledAvatar = styled(Image)`
   object-fit: cover;
   border-radius: 60px;
   width: 30px;
   height: 30px;
 `;
 
-const UserInfoReview = styled.div`
+const UserDetailsLayout = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
 `;
 
-const Head = styled.div`
+const ReviewHeader = styled.div`
   display: flex;
   justify-content: space-between;
   max-width: 100%;
@@ -45,45 +46,43 @@ const Head = styled.div`
   min-width: 600px;
 `;
 
-const Comment = styled.div`
+const CommentDetailsLayout = styled.div`
   padding-left: 39px;
   margin-top: 16px;
 `;
 
-const Title = styled.div``;
-
-const Thead = styled.div`
-  font-weight: bold;
+const Title = styled.div`
+  font-weight: ${({ theme }) => theme.w600};
   font-size: 20px;
   margin-bottom: 10px;
 `;
 
-const Description = styled.div`
+const TextComment = styled.div`
   word-wrap: break-word;
 `;
 
-const ReviewsItemElement = (props: ReviewsType): ReactElement => {
-  const { name, lastName, rating, date, description } = props;
+const ReviewCardElement = (props: Review): ReactElement => {
+  const { name, lastName, date, description, rating } = props;
 
   return (
-    <ReviewContainer>
-      <Head>
-        <UserInfoReview>
-          <ReviewAvatar></ReviewAvatar>
-          <Title>
+    <MainLayout>
+      <ReviewHeader>
+        <UserDetailsLayout>
+          <StyledAvatar></StyledAvatar>
+          <div>
             {name} {lastName}
-          </Title>
-        </UserInfoReview>
-        <RateReviewContainer>
-          <DateFeedback>{date}</DateFeedback>
-          <Rate isDisabled={true} currentRating={rating} />
-        </RateReviewContainer>
-      </Head>
-      <Comment>
-        <Thead>Комментарий</Thead>
-        <Description>{description} </Description>
-      </Comment>
-    </ReviewContainer>
+          </div>
+        </UserDetailsLayout>
+        <RateReviewLayout>
+          <Date>{date}</Date>
+          <Rate isDisabled currentRating={rating} />
+        </RateReviewLayout>
+      </ReviewHeader>
+      <CommentDetailsLayout>
+        <Title>Комментарий</Title>
+        <TextComment>{description} </TextComment>
+      </CommentDetailsLayout>
+    </MainLayout>
   );
 };
-export const ReviewsItem = ReviewsItemElement;
+export const ReviewCard = ReviewCardElement;

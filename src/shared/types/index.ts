@@ -1,6 +1,6 @@
 import { User } from 'firebase/auth';
 
-import { ReviewProps as ReviewsType } from 'src/components/specialists/account/SpecialistAccount';
+import { ReviewProps as ReviewType } from 'src/components/specialists/account/SpecialistAccount';
 import { UserRole } from 'src/shared';
 
 export interface Client {
@@ -17,12 +17,13 @@ export interface Client {
 export interface Specialist extends Client {
   city: string;
   estimation: number;
-  reviews: ReviewsType[];
+  reviews: ReviewType[];
   dayOfBirth: string;
   experience: string;
   categories: Option[];
   subcategories: Option[];
   telegram: string;
+  area: Option[];
   whatsApp: string;
 }
 

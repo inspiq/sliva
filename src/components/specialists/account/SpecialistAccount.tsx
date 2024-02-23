@@ -1,20 +1,19 @@
-import {
-  ReactElement,
-  TextareaHTMLAttributes,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
-import { doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
+import Select, { StylesConfig } from 'react-select';
+import { doc, getDoc, onSnapshot, updateDoc } from 'firebase/firestore';
+import { useFormik } from 'formik';
 import Image from 'next/image';
-import styled from 'styled-components';
+import { useTranslations } from 'next-intl';
+import styled, { useTheme } from 'styled-components';
+import * as yup from 'yup';
 
-import {
-  ReviewForm,
-  StyledButton,
-} from 'src/components/forms/review/ReviewForm';
-import { ReviewList } from 'src/components/specialists/account/SpecialistReviewList';
+import { Container, Footer, Header, Loader, Wrapper } from 'src/components';
+import { Button, ReviewForm } from 'src/components/forms/review/ReviewForm';
+import { ReviewPanel } from 'src/components/specialists/account/SpecialistReviewList';
+import { useAuthContext } from 'src/context';
+import { Option } from 'src/shared';
 import { ChatIcon, db, Specialist } from 'src/shared';
+import { isSpecialist } from 'src/shared/types/type-guards';
 
 const Avatar = styled(Image)`
   width: 150px;
@@ -73,7 +72,7 @@ const ReviewsCount = styled.div`
   gap: 5px;
 `;
 
-const ReviewsBlock = styled.div`
+const ReviewsLayout = styled.div`
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
@@ -81,7 +80,7 @@ const ReviewsBlock = styled.div`
   width: 100%;
 `;
 
-const Container = styled.div`
+const Specialistlayout = styled.div`
   max-width: 820px;
   margin: 10px auto;
   display: flex;
@@ -95,26 +94,39 @@ interface Props {
 }
 
 export interface ReviewProps {
-  lastName?: string;
-  userId?: string;
-  specialistId?: string;
   reveiwId?: string;
   name?: string;
+  lastName?: string;
+  userId?: string;
   date?: string;
   description?: string;
   rating: number;
-  textareaProps?: TextareaHTMLAttributes<HTMLTextAreaElement>;
 }
 
 const SpecialistAccountElement = (props: Props): ReactElement => {
   const { specialistId } = props;
   const [userMetaData, setUserMetaData] = useState<Specialist>();
   const [IsWrite, seIitWrite] = useState<boolean>();
-  const totalRating = userMetaData?.reviews
-    ? userMetaData.reviews.reduce((sum, item) => sum + item.rating, 0)
-    : 0;
+  const { primary, light, border_ui, border_ui_hover } = useTheme();
+  const { currentAuthUser } = useAuthContext();
+  const t = useTranslations();
+  const initialValues = useMemo(
+    () =>
+      isSpecialist(currentAuthUser?.additionalInfo)
+        ? {
+            area: currentAuthUser.additionalInfo.area ?? '',
+          }
+        : {
+            name: currentAuthUser?.additionalInfo?.name ?? '',
+            surname: currentAuthUser?.additionalInfo?.surname ?? '',
+            lastName: currentAuthUser?.additionalInfo?.lastName ?? '',
+            dayOfBirth: currentAuthUser?.additionalInfo?.dayOfBirth ?? '',
+            email: currentAuthUser?.additionalInfo?.email ?? '',
+          },
+    [currentAuthUser?.additionalInfo],
+  );
 
-  const WriteReview = () => {
+  const writeReview = () => {
     seIitWrite((prev) => !prev);
   };
 
@@ -131,11 +143,6 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
     }
   }, [specialistId]);
 
-  console.log(userMetaData?.reviews);
-
-  if (userMetaData?.reviews && userMetaData.reviews.length > 0) {
-    console.log(totalRating / userMetaData.reviews.length);
-  }
   useEffect(() => {
     getSpecialist();
   }, [getSpecialist]);
@@ -151,45 +158,131 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
     return () => unsubscribe();
   }, [specialistId]);
 
+  const onChangeArea = (option: Option) => {
+    setFieldValue('area', option);
+  };
+
+  const styles: StylesConfig = {
+    option: (base) => ({
+      ...base,
+      paddingLeft: 10,
+      paddingRight: 10,
+      fontSize: 15,
+      paddingTop: 10,
+      paddingBottom: 10,
+    }),
+    control: (styles, { isFocused }) => ({
+      ...styles,
+      width: '100%',
+      minHeight: 50,
+      borderRadius: 10,
+      borderColor: isFocused ? border_ui_hover : border_ui,
+      boxShadow: 'none',
+      borderWidth: 1,
+      fontSize: 15,
+      transition: '0.3s',
+      ':hover': {
+        ...styles[':hover'],
+        borderColor: border_ui_hover,
+      },
+    }),
+  };
+  const areas = [
+    { value: 'Izhevsk', label: 'Ижевск' },
+    { value: 'Arkansas', label: 'Арканзас' },
+    { value: 'Texas', label: 'Техас' },
+    { value: 'Boston', label: 'Бостон' },
+    { value: 'Florida', label: 'Флорида' },
+    { value: 'Seattle', label: 'Сиэтл' },
+    { value: 'Dortmund', label: 'Дортмунд' },
+    { value: 'Catalonia', label: 'Каталония' },
+  ];
+  const { setFieldValue, values } = useFormik({
+    initialValues,
+    enableReinitialize: true,
+    validateOnMount: true,
+    validationSchema: yup.object().shape({
+      name: yup.string().required(t('validations.required')),
+      surname: yup.string().required(t('validations.required')),
+      lastName: yup.string().required(t('validations.required')),
+      dayOfBirth: yup.string().required(t('validations.required')),
+    }),
+    onSubmit: async (metaData) => {
+      if (!currentAuthUser) return;
+
+      try {
+        const userDocRef = doc(db, 'users', currentAuthUser?.uid);
+        await updateDoc(userDocRef, { ...metaData });
+      } catch (e) {
+        /* empty */
+      }
+    },
+  });
+
+  if (!currentAuthUser) {
+    return <Loader />;
+  }
+
   return (
-    <Container>
-      <SpecialistProfileLayout>
-        <Avatar
-          src={userMetaData?.avatarUrl ?? '/files/images/avatar.png'}
-          width={100}
-          height={100}
-          alt="Avatar"
-        />
-        <SpecialistListInfo>
-          <FullName>
-            {userMetaData?.name}
-            {userMetaData?.lastName}
-          </FullName>
-          <City>Область:{userMetaData?.city}</City>
-          <Experience>Стаж:{userMetaData?.experience}</Experience>
-          <Row>
-            <Rating>{userMetaData?.estimation}</Rating>
-            <ReviewsCount>
-              <ChatIcon width={20} />
-              590 отзывов
-            </ReviewsCount>
-          </Row>
-        </SpecialistListInfo>
-      </SpecialistProfileLayout>
-      <ReviewsBlock>
-        {IsWrite && userMetaData ? (
-          <ReviewForm
-            specialist={userMetaData}
-            reviews={userMetaData?.reviews}
-            userId={userMetaData?.userId}
-            onClick={WriteReview}
-          />
-        ) : (
-          <StyledButton onClick={WriteReview}>Написать отзыв</StyledButton>
-        )}
-        <ReviewList reviews={userMetaData?.reviews} />
-      </ReviewsBlock>
-    </Container>
+    <>
+      <Header />
+      <Wrapper>
+        <Container>
+          <Specialistlayout>
+            <SpecialistProfileLayout>
+              <Avatar
+                src={userMetaData?.avatarUrl ?? '/files/images/avatar.png'}
+                width={100}
+                height={100}
+                alt="Avatar"
+              />
+              <SpecialistListInfo>
+                <FullName>
+                  {userMetaData?.name}
+                  {userMetaData?.lastName}
+                </FullName>
+                <City>Область:{userMetaData?.city}</City>
+                <Experience>Стаж:{userMetaData?.experience}</Experience>
+                <Row>
+                  <Rating>{userMetaData?.estimation}</Rating>
+                  <ReviewsCount>
+                    <ChatIcon width={20} />
+                    {userMetaData?.reviews.length} отзывов
+                  </ReviewsCount>
+                </Row>
+              </SpecialistListInfo>
+            </SpecialistProfileLayout>
+            <ReviewsLayout>
+              <Select
+                isMulti
+                name="area"
+                options={areas}
+                onChange={onChangeArea as VoidFunction}
+                value={values.area}
+                placeholder="Выберите области работы"
+                styles={styles}
+                theme={(theme) => ({
+                  ...theme,
+                  colors: {
+                    ...theme.colors,
+                    primary25: light,
+                    primary50: light,
+                    primary,
+                  },
+                })}
+              />
+              {IsWrite && userMetaData ? (
+                <ReviewForm specialist={userMetaData} onClick={writeReview} />
+              ) : (
+                <Button onClick={writeReview}>Написать отзыв</Button>
+              )}
+              <ReviewPanel reviews={userMetaData?.reviews} />
+            </ReviewsLayout>
+          </Specialistlayout>
+        </Container>
+      </Wrapper>
+      <Footer />
+    </>
   );
 };
 
