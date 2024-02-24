@@ -96,6 +96,7 @@ const UserInfoFormElement = (props: Props): ReactElement => {
             experience: currentAuthUser?.additionalInfo?.experience ?? '',
             city: currentAuthUser?.additionalInfo?.city ?? '',
             telegram: currentAuthUser?.additionalInfo?.telegram ?? '',
+            area: currentAuthUser?.additionalInfo?.area ?? '',
             whatsApp: currentAuthUser?.additionalInfo?.whatsApp ?? '',
             categories: currentAuthUser?.additionalInfo?.categories ?? null,
             subcategories:
@@ -150,6 +151,20 @@ const UserInfoFormElement = (props: Props): ReactElement => {
   const onChangeSubcategories = (option: Option) => {
     setFieldValue('subcategories', option);
   };
+
+  const onChangeArea = (option: Option) => {
+    setFieldValue('area', option);
+  };
+  const areas = [
+    { value: 'Izhevsk', label: 'Ижевск' },
+    { value: 'Arkansas', label: 'Арканзас' },
+    { value: 'Texas', label: 'Техас' },
+    { value: 'Boston', label: 'Бостон' },
+    { value: 'Florida', label: 'Флорида' },
+    { value: 'Seattle', label: 'Сиэтл' },
+    { value: 'Dortmund', label: 'Дортмунд' },
+    { value: 'Catalonia', label: 'Каталония' },
+  ];
 
   const categories = [
     { value: 'repair_and_construction', label: 'Ремонт и строительство' },
@@ -371,6 +386,24 @@ const UserInfoFormElement = (props: Props): ReactElement => {
           options={subcategories}
           value={values.subcategories}
           placeholder="Выберите подкатегории"
+          styles={styles}
+          theme={(theme) => ({
+            ...theme,
+            colors: {
+              ...theme.colors,
+              primary25: light,
+              primary50: light,
+              primary,
+            },
+          })}
+        />
+        <Select
+          isMulti
+          name="area"
+          options={areas}
+          onChange={onChangeArea as VoidFunction}
+          value={values.area}
+          placeholder="Выберите области работы"
           styles={styles}
           theme={(theme) => ({
             ...theme,

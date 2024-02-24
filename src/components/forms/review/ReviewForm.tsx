@@ -3,7 +3,6 @@ import React, {
   FormEvent,
   ReactElement,
   TextareaHTMLAttributes,
-  useMemo,
   useState,
 } from 'react';
 import { collection, doc, updateDoc } from 'firebase/firestore';
@@ -59,12 +58,11 @@ const Content = styled.div`
 
 interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   specialist: Specialist;
-  onClick: () => void;
 }
 
 const ReviewFormElement = (props: Props): ReactElement => {
-  const { onClick, ...rest } = props;
-  const { reviews } = props.specialist;
+  const { specialist } = props;
+  const { reviews } = specialist;
   const [value, setValue] = useState('');
   const [currentRating, setCurrentRating] = useState(0);
   const { currentAuthUser } = useAuthContext();
@@ -72,19 +70,6 @@ const ReviewFormElement = (props: Props): ReactElement => {
     reviews.length != 0
       ? reviews.reduce((sum, item) => sum + item.rating, 0)
       : 0;
-
-  const sortedReviews = useMemo(() => {
-    const reviewsWithDates = reviews.filter((review) => review.date);
-    const sortedReviews = [...reviewsWithDates].sort((a, b) => {
-      if (!a.date || !b.date) {
-        return 0;
-      }
-
-      return new Date(b.date).getTime() - new Date(a.date).getTime();
-    });
-
-    return sortedReviews;
-  }, [reviews]);
 
   const newReview: Review = {
     reveiwId: uuidv4(),
@@ -103,7 +88,6 @@ const ReviewFormElement = (props: Props): ReactElement => {
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const updatedReviews = [newReview, ...sortedReviews];
 
     try {
       const usersCollection = collection(db, 'users');
@@ -112,16 +96,12 @@ const ReviewFormElement = (props: Props): ReactElement => {
         currentAuthUser?.additionalInfo?.userId,
       );
       await updateDoc(userDocRef, {
-        reviews: updatedReviews,
+        reviews: [newReview, ...(reviews || [])],
         estimation: (
           (totalRating + currentRating) / (reviews.length + 1) +
           1
         ).toFixed(1),
       });
-
-      if (onClick) {
-        onClick();
-      }
     } catch (e) {
       /* empty */
     }
@@ -140,7 +120,7 @@ const ReviewFormElement = (props: Props): ReactElement => {
         value={value}
         onChange={handleChange}
         placeholder="Введите отзыв"
-        {...rest}
+        {...props}
       />
       <Button type="submit">Отправить отзыв</Button>
     </MainLayout>

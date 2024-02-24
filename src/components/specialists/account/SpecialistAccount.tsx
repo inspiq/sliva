@@ -1,19 +1,15 @@
-import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
-import Select, { StylesConfig } from 'react-select';
-import { doc, getDoc, onSnapshot, updateDoc } from 'firebase/firestore';
-import { useFormik } from 'formik';
+import { ReactElement, useCallback, useEffect, useState } from 'react';
+import { doc, getDoc, onSnapshot } from 'firebase/firestore';
 import Image from 'next/image';
-import { useTranslations } from 'next-intl';
-import styled, { useTheme } from 'styled-components';
-import * as yup from 'yup';
+import styled from 'styled-components';
 
 import { Container, Footer, Header, Loader, Wrapper } from 'src/components';
-import { Button, ReviewForm } from 'src/components/forms/review/ReviewForm';
+import { ReviewForm } from 'src/components/forms/review/ReviewForm';
 import { ReviewPanel } from 'src/components/specialists/account/SpecialistReviewList';
 import { useAuthContext } from 'src/context';
-import { Option } from 'src/shared';
 import { ChatIcon, db, Specialist } from 'src/shared';
-import { isSpecialist } from 'src/shared/types/type-guards';
+
+import { AreaPanel } from './SpecialistAreaPanel';
 
 const Avatar = styled(Image)`
   width: 150px;
@@ -105,30 +101,8 @@ export interface ReviewProps {
 
 const SpecialistAccountElement = (props: Props): ReactElement => {
   const { specialistId } = props;
-  const [userMetaData, setUserMetaData] = useState<Specialist>();
-  const [IsWrite, seIitWrite] = useState<boolean>();
-  const { primary, light, border_ui, border_ui_hover } = useTheme();
+  const [specialistDetails, setSpecialistDetails] = useState<Specialist>();
   const { currentAuthUser } = useAuthContext();
-  const t = useTranslations();
-  const initialValues = useMemo(
-    () =>
-      isSpecialist(currentAuthUser?.additionalInfo)
-        ? {
-            area: currentAuthUser.additionalInfo.area ?? '',
-          }
-        : {
-            name: currentAuthUser?.additionalInfo?.name ?? '',
-            surname: currentAuthUser?.additionalInfo?.surname ?? '',
-            lastName: currentAuthUser?.additionalInfo?.lastName ?? '',
-            dayOfBirth: currentAuthUser?.additionalInfo?.dayOfBirth ?? '',
-            email: currentAuthUser?.additionalInfo?.email ?? '',
-          },
-    [currentAuthUser?.additionalInfo],
-  );
-
-  const writeReview = () => {
-    seIitWrite((prev) => !prev);
-  };
 
   const getSpecialist = useCallback(async () => {
     try {
@@ -136,7 +110,7 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
       const snapshot = await getDoc(docRef);
 
       if (snapshot.exists()) {
-        setUserMetaData(snapshot.data() as Specialist);
+        setSpecialistDetails(snapshot.data() as Specialist);
       }
     } catch {
       /* empty */
@@ -151,75 +125,18 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
     const docRef = doc(db, 'users', specialistId);
     const unsubscribe = onSnapshot(docRef, (docSnapshot) => {
       if (docSnapshot.exists()) {
-        setUserMetaData(docSnapshot.data() as Specialist);
+        setSpecialistDetails(docSnapshot.data() as Specialist);
       }
     });
 
     return () => unsubscribe();
   }, [specialistId]);
 
-  const onChangeArea = (option: Option) => {
-    setFieldValue('area', option);
-  };
-
-  const styles: StylesConfig = {
-    option: (base) => ({
-      ...base,
-      paddingLeft: 10,
-      paddingRight: 10,
-      fontSize: 15,
-      paddingTop: 10,
-      paddingBottom: 10,
-    }),
-    control: (styles, { isFocused }) => ({
-      ...styles,
-      width: '100%',
-      minHeight: 50,
-      borderRadius: 10,
-      borderColor: isFocused ? border_ui_hover : border_ui,
-      boxShadow: 'none',
-      borderWidth: 1,
-      fontSize: 15,
-      transition: '0.3s',
-      ':hover': {
-        ...styles[':hover'],
-        borderColor: border_ui_hover,
-      },
-    }),
-  };
-  const areas = [
-    { value: 'Izhevsk', label: 'Ижевск' },
-    { value: 'Arkansas', label: 'Арканзас' },
-    { value: 'Texas', label: 'Техас' },
-    { value: 'Boston', label: 'Бостон' },
-    { value: 'Florida', label: 'Флорида' },
-    { value: 'Seattle', label: 'Сиэтл' },
-    { value: 'Dortmund', label: 'Дортмунд' },
-    { value: 'Catalonia', label: 'Каталония' },
-  ];
-  const { setFieldValue, values } = useFormik({
-    initialValues,
-    enableReinitialize: true,
-    validateOnMount: true,
-    validationSchema: yup.object().shape({
-      name: yup.string().required(t('validations.required')),
-      surname: yup.string().required(t('validations.required')),
-      lastName: yup.string().required(t('validations.required')),
-      dayOfBirth: yup.string().required(t('validations.required')),
-    }),
-    onSubmit: async (metaData) => {
-      if (!currentAuthUser) return;
-
-      try {
-        const userDocRef = doc(db, 'users', currentAuthUser?.uid);
-        await updateDoc(userDocRef, { ...metaData });
-      } catch (e) {
-        /* empty */
-      }
-    },
-  });
-
-  if (!currentAuthUser) {
+  if (
+    !currentAuthUser ||
+    !currentAuthUser?.additionalInfo ||
+    !specialistDetails
+  ) {
     return <Loader />;
   }
 
@@ -231,52 +148,31 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
           <Specialistlayout>
             <SpecialistProfileLayout>
               <Avatar
-                src={userMetaData?.avatarUrl ?? '/files/images/avatar.png'}
+                src={specialistDetails?.avatarUrl ?? '/files/images/avatar.png'}
                 width={100}
                 height={100}
                 alt="Avatar"
               />
               <SpecialistListInfo>
                 <FullName>
-                  {userMetaData?.name}
-                  {userMetaData?.lastName}
+                  {specialistDetails?.name}
+                  {specialistDetails?.lastName}
                 </FullName>
-                <City>Область:{userMetaData?.city}</City>
-                <Experience>Стаж:{userMetaData?.experience}</Experience>
+                <City>Область:{specialistDetails?.city}</City>
+                <Experience>Стаж:{specialistDetails?.experience}</Experience>
                 <Row>
-                  <Rating>{userMetaData?.estimation}</Rating>
+                  <Rating>{specialistDetails?.estimation}</Rating>
                   <ReviewsCount>
                     <ChatIcon width={20} />
-                    {userMetaData?.reviews.length} отзывов
+                    {specialistDetails?.reviews.length} отзывов
                   </ReviewsCount>
                 </Row>
               </SpecialistListInfo>
             </SpecialistProfileLayout>
+            <AreaPanel areas={specialistDetails?.area} />
             <ReviewsLayout>
-              <Select
-                isMulti
-                name="area"
-                options={areas}
-                onChange={onChangeArea as VoidFunction}
-                value={values.area}
-                placeholder="Выберите области работы"
-                styles={styles}
-                theme={(theme) => ({
-                  ...theme,
-                  colors: {
-                    ...theme.colors,
-                    primary25: light,
-                    primary50: light,
-                    primary,
-                  },
-                })}
-              />
-              {IsWrite && userMetaData ? (
-                <ReviewForm specialist={userMetaData} onClick={writeReview} />
-              ) : (
-                <Button onClick={writeReview}>Написать отзыв</Button>
-              )}
-              <ReviewPanel reviews={userMetaData?.reviews} />
+              <ReviewForm specialist={specialistDetails} />
+              <ReviewPanel reviews={specialistDetails?.reviews} />
             </ReviewsLayout>
           </Specialistlayout>
         </Container>

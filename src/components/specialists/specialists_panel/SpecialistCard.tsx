@@ -53,7 +53,7 @@ const City = styled.div`
   font-weight: ${({ theme }) => theme.w400};
 `;
 
-const SpecialistCardLayout = styled(Link)`
+const StyledLink = styled(Link)`
   display: flex;
   gap: 20px;
 `;
@@ -88,7 +88,7 @@ const SpecialistCardElement = (props: Props): ReactElement => {
 
   return (
     <>
-      <SpecialistCardLayout href={`/specialists/${userId}`}>
+      <StyledLink href={`/specialists/${userId}`}>
         <Avatar
           src={avatarUrl ?? '/files/images/avatar.png'}
           width={100}
@@ -111,7 +111,7 @@ const SpecialistCardElement = (props: Props): ReactElement => {
             </ReviewsCount>
           </Row>
         </SpecialistInfo>
-      </SpecialistCardLayout>
+      </StyledLink>
       <LineLayout>
         <Line />
       </LineLayout>
