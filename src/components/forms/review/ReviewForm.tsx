@@ -5,7 +5,7 @@ import React, {
   TextareaHTMLAttributes,
   useState,
 } from 'react';
-import { collection, doc, updateDoc } from 'firebase/firestore';
+import { collection, doc, setDoc, updateDoc } from 'firebase/firestore';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -58,28 +58,28 @@ const Content = styled.div`
 
 interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   specialist: Specialist;
+  reviews?: Review[];
 }
 
 const ReviewFormElement = (props: Props): ReactElement => {
-  const { specialist } = props;
-  const { reviews } = specialist;
+  const { specialist, reviews } = props;
   const [value, setValue] = useState('');
   const [currentRating, setCurrentRating] = useState(0);
   const { currentAuthUser } = useAuthContext();
-  const totalRating =
-    reviews.length != 0
-      ? reviews.reduce((sum, item) => sum + item.rating, 0)
-      : 0;
+  const totalRating = reviews
+    ? reviews.reduce((sum, item) => sum + item.rating, 0)
+    : 0;
 
-  const newReview: Review = {
-    reveiwId: uuidv4(),
-    date: new Date().toISOString(),
-    description: value,
-    rating: currentRating,
-    name: currentAuthUser?.additionalInfo?.name,
-    lastName: currentAuthUser?.additionalInfo?.lastName,
-    userId: currentAuthUser?.additionalInfo?.userId,
-  };
+  // const newReview: Review = {
+  //   avatar: currentAuthUser?.additionalInfo?.avatarUrl,
+  //   reveiwId: uuidv4(),
+  //   date: new Date().toISOString(),
+  //   description: value,
+  //   rating: currentRating,
+  //   name: currentAuthUser?.additionalInfo?.name,
+  //   lastName: currentAuthUser?.additionalInfo?.lastName,
+  //   userId: currentAuthUser?.additionalInfo?.userId,
+  // };
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const value = event.target.value;
@@ -91,16 +91,32 @@ const ReviewFormElement = (props: Props): ReactElement => {
 
     try {
       const usersCollection = collection(db, 'users');
-      const userDocRef = doc(
+      const userDoc = doc(
         usersCollection,
         currentAuthUser?.additionalInfo?.userId,
       );
-      await updateDoc(userDocRef, {
-        reviews: [newReview, ...(reviews || [])],
-        estimation: (
-          (totalRating + currentRating) / (reviews.length + 1) +
-          1
-        ).toFixed(1),
+
+      if (reviews) {
+        await updateDoc(userDoc, {
+          estimation: (
+            (totalRating + currentRating) / (reviews.length + 1) +
+            1
+          ).toFixed(1),
+        });
+      }
+
+      const reviewsCollection = collection(db, 'reviews');
+      const userDocRef = doc(reviewsCollection);
+
+      await setDoc(userDocRef, {
+        avatar: currentAuthUser?.additionalInfo?.avatarUrl,
+        reveiwId: uuidv4(),
+        date: new Date().toISOString(),
+        description: value,
+        rating: currentRating,
+        name: currentAuthUser?.additionalInfo?.name,
+        lastName: currentAuthUser?.additionalInfo?.lastName,
+        userId: currentAuthUser?.additionalInfo?.userId,
       });
     } catch (e) {
       /* empty */

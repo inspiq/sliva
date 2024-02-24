@@ -1,5 +1,13 @@
 import { ReactElement, useCallback, useEffect, useState } from 'react';
-import { doc, getDoc, onSnapshot } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getDoc,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from 'firebase/firestore';
 import Image from 'next/image';
 import styled from 'styled-components';
 
@@ -90,6 +98,7 @@ interface Props {
 }
 
 export interface ReviewProps {
+  avatar?: string;
   reveiwId?: string;
   name?: string;
   lastName?: string;
@@ -102,8 +111,8 @@ export interface ReviewProps {
 const SpecialistAccountElement = (props: Props): ReactElement => {
   const { specialistId } = props;
   const [specialistDetails, setSpecialistDetails] = useState<Specialist>();
+  const [review, setReview] = useState<ReviewProps[]>([]);
   const { currentAuthUser } = useAuthContext();
-
   const getSpecialist = useCallback(async () => {
     try {
       const docRef = doc(db, 'users', specialistId);
@@ -131,6 +140,30 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
 
     return () => unsubscribe();
   }, [specialistId]);
+
+  const getReviews = useCallback(async () => {
+    try {
+      console.log(specialistDetails?.userId);
+      const q = query(collection(db, 'reviews'), orderBy('date', 'desc'));
+
+      onSnapshot(q, (querySnapshot) => {
+        const reviews: ReviewProps[] = [];
+        querySnapshot.forEach((doc) => {
+          reviews.push(doc.data() as ReviewProps);
+        });
+        console.log(review);
+        setReview(reviews);
+      });
+    } catch (e) {
+      /* empty */
+    }
+  }, []);
+
+  useEffect(() => {
+    if (specialistDetails) {
+      getReviews();
+    }
+  }, [specialistDetails, getReviews]);
 
   if (
     !currentAuthUser ||
@@ -164,15 +197,15 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
                   <Rating>{specialistDetails?.estimation}</Rating>
                   <ReviewsCount>
                     <ChatIcon width={20} />
-                    {specialistDetails?.reviews.length} отзывов
+                    {review.length} отзывов
                   </ReviewsCount>
                 </Row>
               </SpecialistListInfo>
             </SpecialistProfileLayout>
             <AreaPanel areas={specialistDetails?.area} />
             <ReviewsLayout>
-              <ReviewForm specialist={specialistDetails} />
-              <ReviewPanel reviews={specialistDetails?.reviews} />
+              <ReviewForm specialist={specialistDetails} reviews={review} />
+              <ReviewPanel reviews={review} />
             </ReviewsLayout>
           </Specialistlayout>
         </Container>

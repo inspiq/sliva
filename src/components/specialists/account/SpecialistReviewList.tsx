@@ -21,6 +21,7 @@ const ReviewListElement = memo((props: Props): ReactElement => {
     <MainLayout>
       {reviews?.map((review) => (
         <ReviewCard
+          avatar={review.avatar}
           name={review.name}
           lastName={review.lastName}
           date={review.date}

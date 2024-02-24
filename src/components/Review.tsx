@@ -62,13 +62,18 @@ const TextComment = styled.div`
 `;
 
 const ReviewCardElement = (props: Review): ReactElement => {
-  const { name, lastName, date, description, rating } = props;
+  const { avatar, name, lastName, date, description, rating } = props;
 
   return (
     <MainLayout>
       <ReviewHeader>
         <UserDetailsLayout>
-          <StyledAvatar></StyledAvatar>
+          <StyledAvatar
+            src={avatar ?? '/files/images/avatar.png'}
+            alt="Avatar"
+            width={30}
+            height={30}
+          />
           <div>
             {name} {lastName}
           </div>
