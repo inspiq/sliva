@@ -15,8 +15,8 @@
       "account_management": "Account management"
     },
     "account_management_menu": {
-      "profile": "Edit information",
-      "logout": "Log out of your account"
+      "my_profile": "My profile",
+      "logout": "Log out"
     }
   },
   "LogInForm": {
@@ -130,7 +130,7 @@
     "animal_services": "Animal Services",
     "home_staff": "Domestic Staff"
   },
-  "personal_info": {
+  "my_profile": {
     "title": "Personal information",
     "first_name_input": "First name",
     "last_name_input": "Last name",

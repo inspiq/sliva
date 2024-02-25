@@ -64,7 +64,6 @@ const SignUpFormElement = (): ReactElement => {
       password: '',
       repeatPassword: '',
       userType: defaultUserTypeOption,
-      categories: defaultUserCategories,
     },
     validationSchema: yup.object().shape({
       lastName: yup
@@ -106,9 +105,11 @@ const SignUpFormElement = (): ReactElement => {
         const userDocRef = doc(usersCollection, user.uid);
 
         await setDoc(userDocRef, {
+          userId: user.uid,
           firstName,
           lastName,
           type: userType.value,
+          categories: defaultUserCategories,
         });
 
         router.push('/');

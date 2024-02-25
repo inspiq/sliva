@@ -15,8 +15,8 @@
       "account_management": "Управление аккаунтом"
     },
     "account_management_menu": {
-      "profile": "Редактировать информацию",
-      "logout": "Выйти из аккаунта"
+      "my_profile": "Мой профиль",
+      "logout": "Выйти"
     }
   },
   "LogInForm": {
@@ -130,7 +130,7 @@
     "animal_services": "Услуги для животных",
     "home_staff": "Домашний персонал"
   },
-  "personal_info": {
+  "my_profile": {
     "title": "Персональная информация",
     "first_name_input": "Имя",
     "last_name_input": "Фамилия",
