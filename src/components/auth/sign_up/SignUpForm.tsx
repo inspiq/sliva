@@ -14,7 +14,7 @@ import { FormLayout } from 'src/components/auth/FormLayout';
 import { StyledLink } from 'src/components/auth/Link';
 import { TextTip, TextTipLayout, Tip } from 'src/components/auth/Tip';
 import { useRouter } from 'src/navigation';
-import { auth, db, UiButton, UiInput } from 'src/shared';
+import { auth, db, getUserTypeOptions, UiButton, UiInput } from 'src/shared';
 import { Option } from 'src/shared';
 import { EmailIcon, PasswordIcon } from 'src/shared/icons';
 
@@ -31,28 +31,21 @@ const SelectLayout = styled.div`
   width: 100%;
 `;
 
+const defaultUserCategories = [
+  {
+    value: 'all_specialists',
+    label: 'Все специалисты',
+  },
+];
+
 const SignUpFormElement = (): ReactElement => {
   const [isRequestError, setIsRequestError] = useState(false);
   const router = useRouter();
   const t = useTranslations();
   const { primary, light, border_ui, border_ui_hover } = useTheme();
 
-  const defaultUserType = {
-    value: 'client',
-    label: t('SignUpForm.select.options.client'),
-  };
-
-  const defaultUserCategories = [
-    {
-      value: 'all_specialists',
-      label: 'Все специалисты',
-    },
-  ];
-
-  const options = [
-    { value: 'client', label: t('SignUpForm.select.options.client') },
-    { value: 'specialist', label: t('SignUpForm.select.options.specialist') },
-  ];
+  const userTypeOptions = getUserTypeOptions(t);
+  const defaultUserTypeOption = userTypeOptions[0];
 
   const {
     handleSubmit,
@@ -70,7 +63,7 @@ const SignUpFormElement = (): ReactElement => {
       email: '',
       password: '',
       repeatPassword: '',
-      userType: defaultUserType,
+      userType: defaultUserTypeOption,
       categories: defaultUserCategories,
     },
     validationSchema: yup.object().shape({
@@ -218,8 +211,8 @@ const SignUpFormElement = (): ReactElement => {
         <Select
           value={values.userType}
           onChange={onChangeUserType as VoidFunction}
-          options={options}
-          defaultValue={defaultUserType}
+          options={userTypeOptions}
+          defaultValue={defaultUserTypeOption}
           styles={styles}
           theme={(theme) => ({
             ...theme,
