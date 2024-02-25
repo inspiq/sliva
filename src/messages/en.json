@@ -34,7 +34,7 @@
       "link_description": "Forgot your password?",
       "link": "Reset password"
     },
-    "validation_errors": {
+    "error": {
       "invalid_email_or_password": "Invalid email or password"
     }
   },
@@ -53,14 +53,11 @@
   },
   "SignUpForm": {
     "title": "Sign Up for Sliva",
-    "name_input": {
-      "placeholder": "First Name"
+    "first_name_input": {
+      "placeholder": "First name"
     },
     "last_name_input": {
-      "placeholder": "Last Name"
-    },
-    "surname_input": {
-      "placeholder": "Middle Name"
+      "placeholder": "Last name"
     },
     "email_input": {
       "placeholder": "Email"
@@ -85,7 +82,7 @@
       "link_description": "Do you have an account?",
       "link": "Log In"
     },
-    "validation_errors": {
+    "error": {
       "user_already_exist": "The user with this email already exists"
     }
   },
@@ -93,17 +90,13 @@
     "text": "Copyright 2024 - 2024 Sliva, Inc. All Rights Reserved"
   },
   "validations": {
-    "name": {
+    "first_name": {
       "min": "Name must contain at least 2 characters",
       "matches": "Name should only contain letters, spaces, and hyphens"
     },
     "last_name": {
       "min": "Last name must contain at least 2 characters",
       "matches": "Last name should only contain letters, spaces, and hyphens"
-    },
-    "surname": {
-      "min": "Surname must contain at least 2 characters",
-      "matches": "Surname should only contain letters, spaces, and hyphens"
     },
     "email": "Enter a valid email address",
     "required": "The field must be filled in",
@@ -137,16 +130,16 @@
     "animal_services": "Animal Services",
     "home_staff": "Domestic Staff"
   },
-  "user_profile": {
-    "name_input": "Name",
+  "personal_info": {
+    "title": "Personal information",
+    "first_name_input": "First name",
     "last_name_input": "Last name",
-    "surname_input": "Surname",
     "work_input": "Work experience",
     "city_input": "City",
     "telegram_input": "@Telegram",
     "whats_app_input": "Whats App",
     "birthday_input": "Birthday",
-    "additional_information_input": "Additional information",
+    "additional_information_textarea": "Additional information",
     "button": "Save"
   },
   "chat_banner": {

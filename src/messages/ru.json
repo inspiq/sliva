@@ -34,7 +34,7 @@
       "link_description": "Забыли пароль?",
       "link": "Сбросить пароль"
     },
-    "validation_errors": {
+    "error": {
       "invalid_email_or_password": "Некорректная почта или пароль"
     }
   },
@@ -53,14 +53,11 @@
   },
   "SignUpForm": {
     "title": "Регистрация в Sliva",
-    "name_input": {
+    "first_name_input": {
       "placeholder": "Имя"
     },
     "last_name_input": {
       "placeholder": "Фамилия"
-    },
-    "surname_input": {
-      "placeholder": "Отчество"
     },
     "email_input": {
       "placeholder": "Электронная почта"
@@ -85,7 +82,7 @@
       "link_description": "У вас уже есть аккаунт?",
       "link": "Войти"
     },
-    "validation_errors": {
+    "error": {
       "user_already_exist": "Пользователь с данной почтой уже существует"
     }
   },
@@ -93,17 +90,13 @@
     "text": "Copyright 2024 - 2024 Sliva, Inc. All Rights Reserved"
   },
   "validations": {
-    "name": {
+    "first_name": {
       "min": "Имя должно содержать не менее 2 символов",
       "matches": "Имя должно содержать только буквы, пробелы и дефисы"
     },
     "last_name": {
       "min": "Фамилия должна содержать не менее 2 символов",
       "matches": "Фамилия должно содержать только буквы, пробелы и дефисы"
-    },
-    "surname": {
-      "min": "Отчество должно содержать не менее 2 символов",
-      "matches": "Отчество должно содержать только буквы, пробелы и дефисы"
     },
     "email": "Введите действительный адрес электронной почты",
     "required": "Поле должно быть заполнено",
@@ -137,16 +130,16 @@
     "animal_services": "Услуги для животных",
     "home_staff": "Домашний персонал"
   },
-  "user_profile": {
-    "name_input": "Имя",
+  "personal_info": {
+    "title": "Персональная информация",
+    "first_name_input": "Имя",
     "last_name_input": "Фамилия",
-    "surname_input": "Отчество",
     "work_input": "Опыт работы",
     "city_input": "Город",
     "telegram_input": "@Телеграм",
-    "whats_app_input": "Ватсап",
+    "whats_app_input": "WhatsApp",
     "birthday_input": "Дата рождения",
-    "additional_information_input": "Дополнительная информация",
+    "additional_information_textarea": "Дополнительная информация",
     "button": "Сохранить"
   },
   "chat_banner": {

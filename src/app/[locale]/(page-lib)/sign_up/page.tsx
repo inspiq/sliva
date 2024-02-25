@@ -1,17 +1,7 @@
-import { Container, Footer, Header, SignUpForm, Wrapper } from 'src/components';
+import { SignUp } from 'src/components';
 
-const SignUp = () => {
-  return (
-    <>
-      <Header />
-      <Wrapper>
-        <Container>
-          <SignUpForm />
-        </Container>
-      </Wrapper>
-      <Footer />
-    </>
-  );
+const SignUpPage = () => {
+  return <SignUp />;
 };
 
-export default SignUp;
+export default SignUpPage;

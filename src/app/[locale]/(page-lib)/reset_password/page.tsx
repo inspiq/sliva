@@ -1,23 +1,7 @@
-import {
-  Container,
-  Footer,
-  Header,
-  ResetPasswordForm,
-  Wrapper,
-} from 'src/components';
+import { ResetPassword } from 'src/components';
 
-const ResetPassword = () => {
-  return (
-    <>
-      <Header />
-      <Wrapper>
-        <Container>
-          <ResetPasswordForm />
-        </Container>
-      </Wrapper>
-      <Footer />
-    </>
-  );
+const ResetPasswordPage = () => {
+  return <ResetPassword />;
 };
 
-export default ResetPassword;
+export default ResetPasswordPage;

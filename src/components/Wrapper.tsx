@@ -12,6 +12,6 @@ export const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.white};
 
   @media ${devices.mobileL} {
-    padding-top: 117px;
+    padding-top: 110px;
   }
 `;

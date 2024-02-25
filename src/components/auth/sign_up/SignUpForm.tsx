@@ -42,6 +42,13 @@ const SignUpFormElement = (): ReactElement => {
     label: t('SignUpForm.select.options.client'),
   };
 
+  const defaultUserCategories = [
+    {
+      value: 'all_specialists',
+      label: 'Все специалисты',
+    },
+  ];
+
   const options = [
     { value: 'client', label: t('SignUpForm.select.options.client') },
     { value: 'specialist', label: t('SignUpForm.select.options.specialist') },
@@ -58,12 +65,13 @@ const SignUpFormElement = (): ReactElement => {
     setFieldValue,
   } = useFormik({
     initialValues: {
-      name: '',
+      firstName: '',
       lastName: '',
       email: '',
       password: '',
-      repeat_password: '',
+      repeatPassword: '',
       userType: defaultUserType,
+      categories: defaultUserCategories,
     },
     validationSchema: yup.object().shape({
       lastName: yup
@@ -71,11 +79,11 @@ const SignUpFormElement = (): ReactElement => {
         .required(t('validations.required'))
         .min(2, t('validations.last_name.min'))
         .matches(/^[A-Za-zА-Яа-яЁё\s-]+$/, t('validations.last_name.matches')),
-      name: yup
+      firstName: yup
         .string()
         .required(t('validations.required'))
-        .min(2, t('validations.name.min'))
-        .matches(/^[A-Za-zА-Яа-яЁё\s-]+$/, t('validations.name.matches')),
+        .min(2, t('validations.first_name.min'))
+        .matches(/^[A-Za-zА-Яа-яЁё\s-]+$/, t('validations.first_name.matches')),
       email: yup
         .string()
         .email(t('validations.email'))
@@ -92,8 +100,8 @@ const SignUpFormElement = (): ReactElement => {
         .oneOf([yup.ref('password')], t('validations.password.one_of')),
     }),
     validateOnMount: true,
-    onSubmit: async (options) => {
-      const { name, lastName, email, password, userType } = options;
+    onSubmit: async (userDetails) => {
+      const { firstName, lastName, email, password, userType } = userDetails;
 
       try {
         const { user } = await createUserWithEmailAndPassword(
@@ -105,12 +113,9 @@ const SignUpFormElement = (): ReactElement => {
         const userDocRef = doc(usersCollection, user.uid);
 
         await setDoc(userDocRef, {
-          name,
+          firstName,
           lastName,
-          surname: '',
-          userId: user.uid,
           type: userType.value,
-          categories: [{ value: 'all_specialists', label: 'Все специалисты' }],
         });
 
         router.push('/');
@@ -168,13 +173,13 @@ const SignUpFormElement = (): ReactElement => {
           textError={errors.lastName}
         />
         <UiInput
-          name="name"
+          name="firstName"
           onChange={handleChange}
-          value={values.name}
-          placeholder={t('SignUpForm.name_input.placeholder')}
+          value={values.firstName}
+          placeholder={t('SignUpForm.first_name_input.placeholder')}
           onBlur={handleBlur}
-          hasError={!!errors.name && !!touched.name}
-          textError={errors.name}
+          hasError={!!errors.firstName && !!touched.firstName}
+          textError={errors.firstName}
         />
       </Row>
       <UiInput
@@ -200,14 +205,14 @@ const SignUpFormElement = (): ReactElement => {
       />
       <UiInput
         type="password"
-        name="repeat_password"
+        name="repeatPassword"
         onChange={handleChange}
-        value={values.repeat_password}
+        value={values.repeatPassword}
         placeholder={t('SignUpForm.repeat_password_input.placeholder')}
         Icon={<PasswordIcon />}
         onBlur={handleBlur}
-        hasError={!!errors.repeat_password && !!touched.repeat_password}
-        textError={errors.repeat_password}
+        hasError={!!errors.repeatPassword && !!touched.repeatPassword}
+        textError={errors.repeatPassword}
       />
       <SelectLayout>
         <Select
@@ -227,7 +232,9 @@ const SignUpFormElement = (): ReactElement => {
           })}
         />
       </SelectLayout>
-      {isRequestError && <Error>The user with this email already exists</Error>}
+      {isRequestError && (
+        <Error>{t('SignUpForm.error.user_already_exist')}</Error>
+      )}
       <Tip>{t('SignUpForm.tip.input')}</Tip>
       <Tip>
         {t('privacy_policy.description')}{' '}

@@ -1,17 +1,7 @@
-import { Container, Footer, Header, LogInForm, Wrapper } from 'src/components';
+import { LogIn } from 'src/components';
 
-const LogIn = () => {
-  return (
-    <>
-      <Header />
-      <Wrapper>
-        <Container>
-          <LogInForm />
-        </Container>
-      </Wrapper>
-      <Footer />
-    </>
-  );
+const LogInPage = () => {
+  return <LogIn />;
 };
 
-export default LogIn;
+export default LogInPage;

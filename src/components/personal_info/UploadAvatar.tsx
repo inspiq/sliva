@@ -2,8 +2,7 @@ import { Dispatch, FormEvent, SetStateAction, useMemo } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import { useAuthContext } from 'src/context';
-import { UiInput } from 'src/shared';
+import { UiInput, UserType } from 'src/shared';
 
 const MainLayout = styled.div`
   width: 200px;
@@ -31,34 +30,34 @@ const StyledImage = styled(Image)`
 const UploadAvatarElement = (props: {
   setFileUpload: Dispatch<SetStateAction<File | undefined>>;
   fileUpload?: File;
+  additionalInfo: UserType | null;
 }) => {
-  const { setFileUpload, fileUpload } = props;
-
-  const { currentAuthUser } = useAuthContext();
+  const { setFileUpload, fileUpload, additionalInfo } = props;
+  const avatarUrl = additionalInfo?.avatarUrl;
 
   const onChange = (e: FormEvent<HTMLInputElement>) => {
     const { files } = e.target as HTMLInputElement;
     setFileUpload(files?.[0]);
   };
 
-  const getSrc = useMemo(() => {
+  const getAvatarPath = useMemo(() => {
     if (fileUpload) {
       return URL.createObjectURL(fileUpload);
     }
 
-    if (currentAuthUser?.additionalInfo?.avatarUrl) {
-      return currentAuthUser.additionalInfo?.avatarUrl;
+    if (avatarUrl) {
+      return avatarUrl;
     }
 
     return '/files/images/avatar.png';
-  }, [currentAuthUser, fileUpload]);
+  }, [avatarUrl, fileUpload]);
 
   return (
     <MainLayout>
       <UiInputLayout>
         <UiInput type="file" onChange={onChange} />
       </UiInputLayout>
-      <StyledImage src={getSrc} width={200} height={200} alt={'Avatar'} />
+      <StyledImage src={getAvatarPath} width={200} height={200} alt="Avatar" />
     </MainLayout>
   );
 };

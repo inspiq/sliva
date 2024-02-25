@@ -34,7 +34,7 @@
       "link_description": "Recuperar contraseña?",
       "link": "Restablecer contraseña"
     },
-    "validation_errors": {
+    "error": {
       "invalid_email_or_password": "Correo electrónico o contraseña incorrectos"
     }
   },
@@ -53,14 +53,11 @@
   },
   "SignUpForm": {
     "title": "Regístrate para el Servicio de Hogar",
-    "name_input": {
+    "first_name_input": {
       "placeholder": "Nombre"
     },
     "last_name_input": {
       "placeholder": "Apellido"
-    },
-    "surname_input": {
-      "placeholder": "Segundo nombre"
     },
     "email_input": {
       "placeholder": "Correo electrónico"
@@ -85,7 +82,7 @@
       "link_description": "¿Ya tienes una cuenta?",
       "link": "Iniciar sesión"
     },
-    "validation_errors": {
+    "error": {
       "user_already_exist": "El usuario con este correo ya existe"
     }
   },
@@ -93,17 +90,13 @@
     "text": "Derechos de autor 2024-2024 Sliva, Inc. Todos los Derechos Reservados"
   },
   "validations": {
-    "name": {
+    "first_name": {
       "min": "El nombre debe contener al menos 2 caracteres",
       "matches": "El nombre solo debe contener letras, espacios y guiones"
     },
     "last_name": {
       "min": "El apellido debe contener al menos 2 caracteres",
       "matches": "El apellido solo debe contener letras, espacios y guiones"
-    },
-    "surname": {
-      "min": "El segundo nombre debe contener al menos 2 caracteres",
-      "matches": "El segundo nombre solo debe contener letras, espacios y guiones"
     },
     "email": "Ingrese una dirección de correo electrónico válida",
     "required": "El campo debe ser completado",
@@ -137,16 +130,16 @@
     "animal_services": "Servicios para animales",
     "home_staff": "Servicio doméstico"
   },
-  "user_profile": {
-    "name_input": "Nombre",
+  "personal_info": {
+    "title": "Información personal",
+    "first_name_input": "Nombre",
     "last_name_input": "Apellido",
-    "surname_input": "Segundo nombre",
     "work_input": "Experiencia laboral",
     "city_input": "Ciudad",
-    "telegram_input": "@Telegrama",
-    "whats_app_input": "Whats App",
+    "telegram_input": "@Telegram",
+    "whats_app_input": "WhatsApp",
     "birthday_input": "Fecha de nacimiento",
-    "additional_information_input": "Información adicional",
+    "additional_information_textarea": "Información adicional",
     "button": "Guardar"
   },
   "chat_banner": {
