@@ -87,7 +87,7 @@ const SignUpFormElement = (): ReactElement => {
         .min(6, t('validations.password.min'))
         .matches(/[A-Z]/, t('validations.password.matches'))
         .matches(/\d/, t('validations.password.second_matches')),
-      repeat_password: yup
+      repeatPassword: yup
         .string()
         .required(t('validations.required'))
         .oneOf([yup.ref('password')], t('validations.password.one_of')),
