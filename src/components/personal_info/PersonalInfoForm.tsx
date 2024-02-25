@@ -127,6 +127,7 @@ const PersonalInfoFormElement = (props: {
             whatsApp: additionalInfo?.whatsApp ?? '',
             categories: additionalInfo?.categories ?? null,
             subcategories: additionalInfo?.subcategories ?? null,
+            extendedInfo: additionalInfo?.extendedInfo ?? '',
           }
         : {
             firstName: additionalInfo?.firstName ?? '',
@@ -383,7 +384,7 @@ const PersonalInfoFormElement = (props: {
               onBlur={handleBlur}
               hasError={!!errors.email && !!touched.email}
               textError={errors.email}
-              disabled={true}
+              disabled
             />
           </Row>
           <SelectRow>
@@ -430,7 +431,10 @@ const PersonalInfoFormElement = (props: {
           </SelectRow>
           <TextAreaRow>
             <StyledTextArea
+              value={values.extendedInfo}
+              onChange={handleChange}
               placeholder={t('personal_info.additional_information_textarea')}
+              name="extendedInfo"
             />
           </TextAreaRow>
           <UiButtonLayout>
