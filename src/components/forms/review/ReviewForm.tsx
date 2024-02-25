@@ -93,6 +93,8 @@ const ReviewFormElement = (props: Props): ReactElement => {
     date: new Date().toISOString(),
     description: value,
     rating: currentRating,
+    firstName: currentAuthUser?.additionalInfo?.firstName,
+    lastName: currentAuthUser?.additionalInfo?.lastName,
     userId: currentAuthUser?.additionalInfo?.userId,
   };
 
@@ -115,10 +117,13 @@ const ReviewFormElement = (props: Props): ReactElement => {
 
       if (reviews) {
         await updateDoc(userDoc, {
-          estimation: (
-            (totalRating + currentRating) / (reviews.length + 1) +
-            1
-          ).toFixed(1),
+          reviewDetails: {
+            avgRating: (
+              (totalRating + currentRating) / (reviews.length + 1) +
+              1
+            ).toFixed(1),
+            count: updatedReviews?.length,
+          },
         });
       }
 

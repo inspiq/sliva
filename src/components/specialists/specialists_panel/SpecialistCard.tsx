@@ -78,13 +78,13 @@ const SpecialistCardElement = (props: Props): ReactElement => {
   const {
     avatarUrl,
     userId,
-    surname,
-    name,
+    firstName,
+    lastName,
     city,
     experience,
-    estimation,
-    reviews,
+    reviewDetails,
   } = props.specialist;
+  console.log(reviewDetails);
 
   return (
     <>
@@ -97,17 +97,19 @@ const SpecialistCardElement = (props: Props): ReactElement => {
         />
         <SpecialistInfo>
           <FullName>
-            {name} {surname}
+            {firstName} {lastName}
           </FullName>
           <City>Область: {city}</City>
           <Experience>
             Стаж: {experience ? `${experience} года` : 'Не указан'}
           </Experience>
           <Row>
-            <Rating>{estimation}</Rating>
+            <Rating>
+              {reviewDetails ? reviewDetails.avgRating : 'Не указан'}
+            </Rating>
             <ReviewsCount>
               <ChatIcon width={20} />
-              {reviews ? reviews?.length : 0} отзывов
+              {reviewDetails ? reviewDetails.count : 0} отзывов
             </ReviewsCount>
           </Row>
         </SpecialistInfo>
