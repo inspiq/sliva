@@ -107,11 +107,14 @@ export interface ReviewProps {
   description?: string;
   rating: number;
 }
+interface Rev {
+  reviews: ReviewProps[];
+}
 
 const SpecialistAccountElement = (props: Props): ReactElement => {
   const { specialistId } = props;
   const [specialistDetails, setSpecialistDetails] = useState<Specialist>();
-  const [review, setReview] = useState<ReviewProps[]>([]);
+  const [reviews, setReviews] = useState<Rev>();
   const { currentAuthUser } = useAuthContext();
   const getSpecialist = useCallback(async () => {
     try {
@@ -131,6 +134,17 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
   }, [getSpecialist]);
 
   useEffect(() => {
+    const docRef = doc(db, 'reviews', specialistId);
+    const unsubscribe = onSnapshot(docRef, (docSnapshot) => {
+      if (docSnapshot.exists()) {
+        setReviews(docSnapshot.data() as Rev);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [specialistId]);
+
+  useEffect(() => {
     const docRef = doc(db, 'users', specialistId);
     const unsubscribe = onSnapshot(docRef, (docSnapshot) => {
       if (docSnapshot.exists()) {
@@ -141,29 +155,22 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
     return () => unsubscribe();
   }, [specialistId]);
 
-  const getReviews = useCallback(async () => {
+  const getReview = useCallback(async () => {
     try {
-      console.log(specialistDetails?.userId);
-      const q = query(collection(db, 'reviews'), orderBy('date', 'desc'));
+      const docRef = doc(db, 'reviews', specialistId);
+      const snapshot = await getDoc(docRef);
 
-      onSnapshot(q, (querySnapshot) => {
-        const reviews: ReviewProps[] = [];
-        querySnapshot.forEach((doc) => {
-          reviews.push(doc.data() as ReviewProps);
-        });
-        console.log(review);
-        setReview(reviews);
-      });
-    } catch (e) {
+      if (snapshot.exists()) {
+        setReviews(snapshot.data() as Rev);
+      }
+    } catch {
       /* empty */
     }
-  }, []);
+  }, [specialistId]);
 
   useEffect(() => {
-    if (specialistDetails) {
-      getReviews();
-    }
-  }, [specialistDetails, getReviews]);
+    getReview();
+  }, [getReview]);
 
   if (
     !currentAuthUser ||
@@ -197,15 +204,18 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
                   <Rating>{specialistDetails?.estimation}</Rating>
                   <ReviewsCount>
                     <ChatIcon width={20} />
-                    {review.length} отзывов
+                    {specialistDetails?.reviews?.length} отзывов
                   </ReviewsCount>
                 </Row>
               </SpecialistListInfo>
             </SpecialistProfileLayout>
             <AreaPanel areas={specialistDetails?.area} />
             <ReviewsLayout>
-              <ReviewForm specialist={specialistDetails} reviews={review} />
-              <ReviewPanel reviews={review} />
+              <ReviewForm
+                specialist={specialistDetails}
+                reviews={reviews?.reviews}
+              />
+              <ReviewPanel reviews={reviews?.reviews} />
             </ReviewsLayout>
           </Specialistlayout>
         </Container>

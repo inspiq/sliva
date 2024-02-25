@@ -107,7 +107,7 @@ const SpecialistCardElement = (props: Props): ReactElement => {
             <Rating>{estimation}</Rating>
             <ReviewsCount>
               <ChatIcon width={20} />
-              {reviews.length} отзывов
+              {reviews ? reviews?.length : 0} отзывов
             </ReviewsCount>
           </Row>
         </SpecialistInfo>

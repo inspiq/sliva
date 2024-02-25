@@ -62,7 +62,7 @@ const TextComment = styled.div`
 `;
 
 const ReviewCardElement = (props: Review): ReactElement => {
-  const { avatar, name, lastName, date, description, rating } = props;
+  const { avatar, date, description, rating } = props;
 
   return (
     <MainLayout>
@@ -74,9 +74,7 @@ const ReviewCardElement = (props: Review): ReactElement => {
             width={30}
             height={30}
           />
-          <div>
-            {name} {lastName}
-          </div>
+          <div></div>
         </UserDetailsLayout>
         <RateReviewLayout>
           <Date>{date}</Date>

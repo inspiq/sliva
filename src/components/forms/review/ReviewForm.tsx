@@ -3,9 +3,10 @@ import React, {
   FormEvent,
   ReactElement,
   TextareaHTMLAttributes,
+  useMemo,
   useState,
 } from 'react';
-import { collection, doc, setDoc, updateDoc } from 'firebase/firestore';
+import { collection, doc, updateDoc } from 'firebase/firestore';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -65,21 +66,35 @@ const ReviewFormElement = (props: Props): ReactElement => {
   const { specialist, reviews } = props;
   const [value, setValue] = useState('');
   const [currentRating, setCurrentRating] = useState(0);
+  console.log(currentRating);
   const { currentAuthUser } = useAuthContext();
   const totalRating = reviews
     ? reviews.reduce((sum, item) => sum + item.rating, 0)
     : 0;
 
-  // const newReview: Review = {
-  //   avatar: currentAuthUser?.additionalInfo?.avatarUrl,
-  //   reveiwId: uuidv4(),
-  //   date: new Date().toISOString(),
-  //   description: value,
-  //   rating: currentRating,
-  //   name: currentAuthUser?.additionalInfo?.name,
-  //   lastName: currentAuthUser?.additionalInfo?.lastName,
-  //   userId: currentAuthUser?.additionalInfo?.userId,
-  // };
+  const sortedReviews = useMemo(() => {
+    const reviewsWithDates = reviews?.filter((review) => review.date);
+    const sortedReviews =
+      reviewsWithDates &&
+      [...reviewsWithDates].sort((a, b) => {
+        if (!a.date || !b.date) {
+          return 0;
+        }
+
+        return new Date(b.date).getTime() - new Date(a.date).getTime();
+      });
+
+    return sortedReviews;
+  }, [reviews]);
+
+  const newReview: Review = {
+    avatar: currentAuthUser?.additionalInfo?.avatarUrl,
+    reveiwId: uuidv4(),
+    date: new Date().toISOString(),
+    description: value,
+    rating: currentRating,
+    userId: currentAuthUser?.additionalInfo?.userId,
+  };
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const value = event.target.value;
@@ -88,6 +103,8 @@ const ReviewFormElement = (props: Props): ReactElement => {
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const updatedReviews = sortedReviews && [newReview, ...sortedReviews];
 
     try {
       const usersCollection = collection(db, 'users');
@@ -106,20 +123,13 @@ const ReviewFormElement = (props: Props): ReactElement => {
       }
 
       const reviewsCollection = collection(db, 'reviews');
-      const userDocRef = doc(reviewsCollection);
+      const userDocRef = doc(reviewsCollection, specialist.userId);
 
-      await setDoc(userDocRef, {
-        avatar: currentAuthUser?.additionalInfo?.avatarUrl,
-        reveiwId: uuidv4(),
-        date: new Date().toISOString(),
-        description: value,
-        rating: currentRating,
-        name: currentAuthUser?.additionalInfo?.name,
-        lastName: currentAuthUser?.additionalInfo?.lastName,
-        userId: currentAuthUser?.additionalInfo?.userId,
+      await updateDoc(userDocRef, {
+        reviews: [...(updatedReviews || [])],
       });
     } catch (e) {
-      /* empty */
+      console.log(e);
     }
   };
 
