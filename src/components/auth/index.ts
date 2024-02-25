@@ -1,3 +1,3 @@
-export { SignUpForm } from 'src/components/auth/sign_up/SignUpForm';
-export { LogInForm } from 'src/components/auth/log_in/LogInForm';
-export { ResetPasswordForm } from 'src/components/auth/reset_password/ResetPasswordForm';
+export { SignUp } from 'src/components/auth/sign_up/SignUp';
+export { LogIn } from 'src/components/auth/log_in/LogIn';
+export { ResetPassword } from 'src/components/auth/reset_password/ResetPassword';

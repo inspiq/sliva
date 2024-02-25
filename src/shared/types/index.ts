@@ -9,9 +9,8 @@ export interface Client {
   type: UserRole;
   email: string;
   dayOfBirth: string;
-  name: string;
+  firstName: string;
   lastName: string;
-  surname: string;
 }
 
 export interface Specialist extends Client {
@@ -25,12 +24,11 @@ export interface Specialist extends Client {
   telegram: string;
   area: Option[];
   whatsApp: string;
+  extendedInfo: string;
 }
 
 export type UserType = Client | Specialist;
-export type UserWithAdditionalInfo =
-  | (User & { additionalInfo: UserType | null })
-  | null;
+export type UserWithAdditionalInfo = User & { additionalInfo: UserType | null };
 
 export interface Option {
   value: string;

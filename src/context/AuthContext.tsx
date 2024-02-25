@@ -11,7 +11,7 @@ import { doc, getDoc } from 'firebase/firestore';
 import { auth, db, UserType, UserWithAdditionalInfo } from 'src/shared';
 
 interface Values {
-  currentAuthUser: UserWithAdditionalInfo;
+  currentAuthUser: UserWithAdditionalInfo | null;
 }
 
 const initialValues: Values = {

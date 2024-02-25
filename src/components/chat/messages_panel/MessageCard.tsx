@@ -1,30 +1,46 @@
-import React, { ReactElement } from 'react';
+import React, { forwardRef, ReactElement, Ref } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
 import { Message } from 'src/components/chat/messages_panel/MessagesPanel';
-import { useAuthContext } from 'src/context';
+import { devices, getInitials, getTime } from 'src/shared';
 
 const MainLayout = styled.div<{ $isMyMessage: boolean }>`
   width: 100%;
   display: flex;
   justify-content: ${({ $isMyMessage }) => ($isMyMessage ? 'end' : 'start')};
   align-items: flex-end;
-  gap: 5px;
+  gap: 8px;
 `;
 
-const Message = styled.p<{ $isMyMessage: boolean }>`
+const MessageLayout = styled.p<{ $isMyMessage: boolean }>`
   color: ${({ theme }) => theme.white};
   background-color: ${({ theme, $isMyMessage }) =>
     $isMyMessage ? theme.primary : theme.secondary};
-  padding: 10px;
+  padding: 10px 55px 10px 10px;
   border-radius: ${({ $isMyMessage }) =>
     $isMyMessage ? '15px 15px 3px 15px' : '15px 15px 15px 3px'};
-  max-width: 300px;
-  max-height: 300px;
+  max-width: 400px;
+  max-height: 500px;
   word-wrap: break-word;
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.05);
-  margin-bottom: 20px;
+  margin-bottom: 12px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+
+  @media ${devices.mobileL} {
+    max-width: 220px;
+    max-height: 500px;
+  }
+`;
+
+const Time = styled.div`
+  font-size: 13px;
+  position: absolute;
+  right: 10px;
+  bottom: 5px;
 `;
 
 const StyledImage = styled(Image)`
@@ -33,7 +49,21 @@ const StyledImage = styled(Image)`
   object-fit: cover;
   width: 30px;
   height: 30px;
-  background-color: ${({ theme }) => theme.light};
+  background-color: ${({ theme }) => theme.border};
+`;
+
+const UserName = styled.div`
+  font-size: 13px;
+  font-weight: ${({ theme }) => theme.w500};
+`;
+
+const MessageText = styled.div`
+  font-size: 15px;
+  font-weight: ${({ theme }) => theme.w400};
+
+  @media ${devices.mobileL} {
+    font-size: 13px;
+  }
 `;
 
 interface Props {
@@ -41,35 +71,41 @@ interface Props {
   isMyMessage: boolean;
 }
 
-const MessageCardElement = (props: Props): ReactElement => {
-  const { message, isMyMessage } = props;
+const MessageCardElement = forwardRef(
+  (props: Props, ref: Ref<HTMLDivElement>): ReactElement => {
+    const { message, isMyMessage } = props;
+    const { user, timestamp, text } = message;
 
-  const { currentAuthUser } = useAuthContext();
+    return (
+      <MainLayout $isMyMessage={isMyMessage} ref={ref}>
+        {!isMyMessage && (
+          <StyledImage
+            src={user?.avatarUrl ?? '/files/images/avatar.png'}
+            alt="Avatar"
+            width={30}
+            height={30}
+          />
+        )}
+        <MessageLayout $isMyMessage={isMyMessage}>
+          <UserName>
+            {getInitials({ name: user?.firstName, lastName: user?.lastName })}
+          </UserName>
+          <MessageText>{text}</MessageText>
+          <Time>{getTime(timestamp?.seconds, timestamp?.nanoseconds)}</Time>
+        </MessageLayout>
+        {isMyMessage && (
+          <StyledImage
+            src={user?.avatarUrl ?? '/files/images/avatar.png'}
+            alt="Avatar"
+            width={30}
+            height={30}
+          />
+        )}
+      </MainLayout>
+    );
+  },
+);
 
-  return (
-    <MainLayout $isMyMessage={isMyMessage}>
-      {!isMyMessage && (
-        <StyledImage
-          src={message.avatarUrl ?? '/files/images/avatar.png'}
-          alt="Avatar"
-          width={30}
-          height={30}
-        />
-      )}
-      <Message $isMyMessage={isMyMessage}>{message.text}</Message>
-      {isMyMessage && (
-        <StyledImage
-          src={
-            currentAuthUser?.additionalInfo?.avatarUrl ??
-            '/files/images/avatar.png'
-          }
-          alt="Avatar"
-          width={30}
-          height={30}
-        />
-      )}
-    </MainLayout>
-  );
-};
+MessageCardElement.displayName = 'MessageCardElement';
 
 export const MessageCard = MessageCardElement;

@@ -26,8 +26,7 @@ const MainLayout = styled.div`
   top: 0;
 
   @media ${devices.mobileL} {
-    height: auto;
-    padding: 15px 0;
+    height: 110px;
   }
 `;
 
@@ -124,7 +123,7 @@ const HeaderElement = (): ReactElement => {
             mouseEnterDelay={0}
           >
             <PopupMenuLayout>
-              <StyledLink href="/profile">
+              <StyledLink href="/personal_info">
                 <EditIcon width={18} />
                 {t('account_management_menu.profile')}
               </StyledLink>

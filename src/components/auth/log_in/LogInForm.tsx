@@ -78,7 +78,9 @@ const LogInFormElement = (): ReactElement => {
         hasError={!!errors.password && !!touched.password}
         textError={errors.password}
       />
-      {isRequestError && <Error>Invalid email or password</Error>}
+      {isRequestError && (
+        <Error>{t('LogInForm.error.invalid_email_or_password')}</Error>
+      )}
       <UiButtonLayout>
         <UiButton type="submit" size="big" disabled={isSubmitting}>
           {t('LogInForm.button.text')}

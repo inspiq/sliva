@@ -38,6 +38,7 @@ const SendMessagePanelElement = (props: Props): ReactElement => {
         onKeyDown={onKeyDown}
         value={value}
         onChange={(e) => setValue(e.target.value)}
+        inputSize="medium"
       />
     </MainLayout>
   );
