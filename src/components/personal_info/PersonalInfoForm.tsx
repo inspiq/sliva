@@ -112,7 +112,7 @@ const PersonalInfoFormElement = (props: {
 
   const [fileUpload, setFileUpload] = useState<File>();
   const t = useTranslations();
-  const { primary, light, border_ui, border_ui_hover } = useTheme();
+  const { primary, light, border_ui, border_ui_hover, grey } = useTheme();
   const initialValues = useMemo(
     () =>
       isSpecialist(additionalInfo)
@@ -290,6 +290,10 @@ const PersonalInfoFormElement = (props: {
         ...styles[':hover'],
         borderColor: border_ui_hover,
       },
+    }),
+    placeholder: (styles) => ({
+      ...styles,
+      color: grey,
     }),
   };
 

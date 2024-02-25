@@ -88,7 +88,7 @@ const MessageCardElement = forwardRef(
         )}
         <MessageLayout $isMyMessage={isMyMessage}>
           <UserName>
-            {getInitials({ name: user?.name, lastName: user?.lastName })}
+            {getInitials({ name: user?.firstName, lastName: user?.lastName })}
           </UserName>
           <MessageText>{text}</MessageText>
           <Time>{getTime(timestamp?.seconds, timestamp?.nanoseconds)}</Time>
