@@ -114,7 +114,7 @@
   "slogan": {
     "title": "Sliva – a reliable partner",
     "second_title": "for service",
-    "subtitle": "{numberOfUsers, plural, =1 {# client trusted} other {# clients trusted}} our service",
+    "subtitle": "{usersCount, plural, =1 {# client trusted} other {# clients trusted}} our service",
     "button": "Find a specialist"
   },
   "categories": {
@@ -135,6 +135,9 @@
     "first_name_input": "First name",
     "last_name_input": "Last name",
     "work_input": "Work experience",
+    "email_input": "Email",
+    "categories_select": "Categories of activities",
+    "subcategories_select": "Subcategories of activities",
     "city_input": "City",
     "telegram_input": "@Telegram",
     "whats_app_input": "Whats App",

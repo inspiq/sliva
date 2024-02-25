@@ -210,7 +210,9 @@ const SignUpFormElement = (): ReactElement => {
       <SelectLayout>
         <Select
           value={values.userType}
-          onChange={onChangeUserType as VoidFunction}
+          onChange={(selectedUserType) =>
+            onChangeUserType(selectedUserType as Option)
+          }
           options={userTypeOptions}
           defaultValue={defaultUserTypeOption}
           styles={styles}
@@ -236,7 +238,12 @@ const SignUpFormElement = (): ReactElement => {
         </DownloadLink>
       </Tip>
       <UiButtonLayout>
-        <UiButton type="submit" size="big" disabled={isSubmitting}>
+        <UiButton
+          type="submit"
+          size="big"
+          disabled={isSubmitting}
+          isSubmitting={isSubmitting}
+        >
           {t('SignUpForm.button.text')}
         </UiButton>
       </UiButtonLayout>

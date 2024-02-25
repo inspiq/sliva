@@ -46,7 +46,7 @@ const Title = styled.p`
 `;
 
 const HomeElement = (): ReactElement => {
-  const [numberOfUsers, setNumberOfUsers] = useState(0);
+  const [usersCount, setUsersCount] = useState(0);
   const { currentAuthUser } = useAuthContext();
   const [cookies, setCookie] = useCookies();
   const t = useTranslations();
@@ -54,7 +54,7 @@ const HomeElement = (): ReactElement => {
   const getUserData = useCallback(async () => {
     try {
       const { size } = await getDocs(collection(db, 'users'));
-      setNumberOfUsers(size);
+      setUsersCount(size);
     } catch {
       /* empty */
     }
@@ -70,7 +70,7 @@ const HomeElement = (): ReactElement => {
     });
   };
 
-  if (!numberOfUsers) {
+  if (!usersCount) {
     return <Loader />;
   }
 
@@ -79,7 +79,7 @@ const HomeElement = (): ReactElement => {
       <Header />
       <Wrapper>
         <Container>
-          <Slogan numberOfUsers={numberOfUsers} />
+          <Slogan usersCount={usersCount} />
           <Categories />
           <ChatBanner />
         </Container>

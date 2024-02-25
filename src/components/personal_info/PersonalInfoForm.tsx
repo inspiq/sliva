@@ -306,7 +306,7 @@ const PersonalInfoFormElement = (props: {
               textError={errors.whatsApp}
             />
             <UiInput
-              placeholder="Почта"
+              placeholder={t('personal_info.email_input')}
               value={values.email}
               name="email"
               onChange={handleChange}
@@ -325,7 +325,7 @@ const PersonalInfoFormElement = (props: {
                 onChangeCategories(selectedOptions as MultiValue<Option>)
               }
               value={values.categories}
-              placeholder="Выберите категории"
+              placeholder={t('personal_info.categories_select')}
               styles={styles}
               theme={(theme) => ({
                 ...theme,
@@ -345,7 +345,7 @@ const PersonalInfoFormElement = (props: {
               }
               options={subcategories}
               value={values.subcategories}
-              placeholder="Выберите подкатегории"
+              placeholder={t('personal_info.subcategories_select')}
               styles={styles}
               theme={(theme) => ({
                 ...theme,

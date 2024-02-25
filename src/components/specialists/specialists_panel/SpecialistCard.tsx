@@ -75,8 +75,9 @@ interface Props {
 }
 
 const SpecialistCardElement = (props: Props): ReactElement => {
-  const { avatarUrl, userId, surname, name, city, experience } =
-    props.specialist;
+  const { specialist } = props;
+  const { avatarUrl, userId, lastName, firstName, city, experience } =
+    specialist;
 
   return (
     <>
@@ -89,7 +90,7 @@ const SpecialistCardElement = (props: Props): ReactElement => {
         />
         <SpecialistInfo>
           <FullName>
-            {name} {surname}
+            {firstName} {lastName}
           </FullName>
           <City>Область: {city}</City>
           <Experience>
