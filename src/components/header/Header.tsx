@@ -123,9 +123,9 @@ const HeaderElement = (): ReactElement => {
             mouseEnterDelay={0}
           >
             <PopupMenuLayout>
-              <StyledLink href="/personal_info">
+              <StyledLink href="/my_profile">
                 <EditIcon width={18} />
-                {t('account_management_menu.profile')}
+                {t('account_management_menu.my_profile')}
               </StyledLink>
               <StyledLink href="/" onClick={onLogout}>
                 <ExitIcon width={18} />

@@ -82,7 +82,12 @@ const LogInFormElement = (): ReactElement => {
         <Error>{t('LogInForm.error.invalid_email_or_password')}</Error>
       )}
       <UiButtonLayout>
-        <UiButton type="submit" size="big" disabled={isSubmitting}>
+        <UiButton
+          type="submit"
+          size="big"
+          disabled={isSubmitting}
+          isSubmitting={isSubmitting}
+        >
           {t('LogInForm.button.text')}
         </UiButton>
       </UiButtonLayout>

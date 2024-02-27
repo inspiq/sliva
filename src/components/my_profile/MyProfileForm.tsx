@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import styled, { useTheme } from 'styled-components';
 import * as yup from 'yup';
 
-import { UploadAvatar } from 'src/components/personal_info/UploadAvatar';
+import { UploadAvatar } from 'src/components/my_profile/UploadAvatar';
 import {
   db,
   devices,
@@ -106,7 +106,7 @@ const Title = styled.h6`
   margin-top: 50px;
 `;
 
-const PersonalInfoFormElement = (props: {
+const MyProfileFormElement = (props: {
   currentAuthUser: UserWithAdditionalInfo;
 }): ReactElement => {
   const { currentAuthUser } = props;
@@ -229,7 +229,7 @@ const PersonalInfoFormElement = (props: {
 
   return (
     <>
-      <Title>{t('personal_info.title')}</Title>
+      <Title>{t('my_profile.title')}</Title>
       <FormLayout>
         <UploadAvatar
           fileUpload={fileUpload}
@@ -239,7 +239,7 @@ const PersonalInfoFormElement = (props: {
         <StyledUiForm onSubmit={handleSubmit}>
           <Row>
             <UiInput
-              placeholder={t('personal_info.last_name_input')}
+              placeholder={t('my_profile.last_name_input')}
               value={values.lastName}
               name="lastName"
               onChange={handleChange}
@@ -248,7 +248,7 @@ const PersonalInfoFormElement = (props: {
               textError={errors.lastName}
             />
             <UiInput
-              placeholder={t('personal_info.first_name_input')}
+              placeholder={t('my_profile.first_name_input')}
               value={values.firstName}
               name="firstName"
               onChange={handleChange}
@@ -257,7 +257,7 @@ const PersonalInfoFormElement = (props: {
               textError={errors.firstName}
             />
             <UiInput
-              placeholder={t('personal_info.birthday_input')}
+              placeholder={t('my_profile.birthday_input')}
               value={values.dayOfBirth}
               name="dayOfBirth"
               type="date"
@@ -267,7 +267,7 @@ const PersonalInfoFormElement = (props: {
               textError={errors.dayOfBirth}
             />
             <UiInput
-              placeholder={t('personal_info.work_input')}
+              placeholder={t('my_profile.work_input')}
               value={values.experience}
               name="experience"
               onChange={handleChange}
@@ -279,7 +279,7 @@ const PersonalInfoFormElement = (props: {
           </Row>
           <Row>
             <UiInput
-              placeholder={t('personal_info.city_input')}
+              placeholder={t('my_profile.city_input')}
               value={values.city}
               name="city"
               onChange={handleChange}
@@ -288,7 +288,7 @@ const PersonalInfoFormElement = (props: {
               textError={errors.city}
             />
             <UiInput
-              placeholder={t('personal_info.telegram_input')}
+              placeholder={t('my_profile.telegram_input')}
               value={values.telegram}
               name="telegram"
               onChange={handleChange}
@@ -297,7 +297,7 @@ const PersonalInfoFormElement = (props: {
               textError={errors.telegram}
             />
             <UiInput
-              placeholder={t('personal_info.whats_app_input')}
+              placeholder={t('my_profile.whats_app_input')}
               value={values.whatsApp}
               name="whatsApp"
               onChange={handleChange}
@@ -306,7 +306,7 @@ const PersonalInfoFormElement = (props: {
               textError={errors.whatsApp}
             />
             <UiInput
-              placeholder="Почта"
+              placeholder={t('my_profile.email_input')}
               value={values.email}
               name="email"
               onChange={handleChange}
@@ -325,7 +325,7 @@ const PersonalInfoFormElement = (props: {
                 onChangeCategories(selectedOptions as MultiValue<Option>)
               }
               value={values.categories}
-              placeholder="Выберите категории"
+              placeholder={t('my_profile.categories_select')}
               styles={styles}
               theme={(theme) => ({
                 ...theme,
@@ -345,7 +345,7 @@ const PersonalInfoFormElement = (props: {
               }
               options={subcategories}
               value={values.subcategories}
-              placeholder="Выберите подкатегории"
+              placeholder={t('my_profile.subcategories_select')}
               styles={styles}
               theme={(theme) => ({
                 ...theme,
@@ -362,7 +362,7 @@ const PersonalInfoFormElement = (props: {
             <StyledTextArea
               value={values.extendedInfo}
               onChange={handleChange}
-              placeholder={t('personal_info.additional_information_textarea')}
+              placeholder={t('my_profile.additional_information_textarea')}
               name="extendedInfo"
             />
           </TextAreaRow>
@@ -374,7 +374,7 @@ const PersonalInfoFormElement = (props: {
               isSubmitting={isSubmitting}
               isStretching={false}
             >
-              {t('personal_info.button')}
+              {t('my_profile.button')}
             </UiButton>
           </UiButtonLayout>
         </StyledUiForm>
@@ -383,4 +383,4 @@ const PersonalInfoFormElement = (props: {
   );
 };
 
-export const PersonalInfoForm = PersonalInfoFormElement;
+export const PersonalInfoForm = MyProfileFormElement;

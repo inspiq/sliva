@@ -1,10 +1,10 @@
 import { ReactElement } from 'react';
 
 import { Container, Footer, Header, Loader, Wrapper } from 'src/components';
-import { PersonalInfoForm } from 'src/components/personal_info/PersonalInfoForm';
+import { PersonalInfoForm } from 'src/components/my_profile/MyProfileForm';
 import { useAuthContext } from 'src/context';
 
-const PersonalInfoElement = (): ReactElement => {
+const MyProfileElement = (): ReactElement => {
   const { currentAuthUser } = useAuthContext();
 
   if (!currentAuthUser) {
@@ -24,4 +24,4 @@ const PersonalInfoElement = (): ReactElement => {
   );
 };
 
-export const PersonalInfo = PersonalInfoElement;
+export const MyProfile = MyProfileElement;

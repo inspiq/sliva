@@ -15,8 +15,8 @@
       "account_management": "Управление аккаунтом"
     },
     "account_management_menu": {
-      "profile": "Редактировать информацию",
-      "logout": "Выйти из аккаунта"
+      "my_profile": "Мой профиль",
+      "logout": "Выйти"
     }
   },
   "LogInForm": {
@@ -114,7 +114,7 @@
   "slogan": {
     "title": "Sliva – надежный партнер",
     "second_title": "по обслуживанию",
-    "subtitle": "{numberOfUsers, plural, =1 {# клиент доверился} other {# клиентов доверились}} нашему сервису",
+    "subtitle": "{usersCount, plural, =1 {# клиент доверился} other {# клиентов доверились}} нашему сервису",
     "button": "Найти специалиста"
   },
   "categories": {
@@ -130,12 +130,15 @@
     "animal_services": "Услуги для животных",
     "home_staff": "Домашний персонал"
   },
-  "personal_info": {
+  "my_profile": {
     "title": "Персональная информация",
     "first_name_input": "Имя",
     "last_name_input": "Фамилия",
     "work_input": "Опыт работы",
     "city_input": "Город",
+    "email_input": "Электронная почта",
+    "categories_select": "Категории деятельностей",
+    "subcategories_select": "Подкатегории деятельностей",
     "telegram_input": "@Телеграм",
     "whats_app_input": "WhatsApp",
     "birthday_input": "Дата рождения",

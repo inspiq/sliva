@@ -15,8 +15,8 @@
       "account_management": "Gestión de cuentas"
     },
     "account_management_menu": {
-      "profile": "Editar información",
-      "logout": "Cerrar sesión"
+      "my_profile": "Mi perfil",
+      "logout": "Salir"
     }
   },
   "LogInForm": {
@@ -114,7 +114,7 @@
   "slogan": {
     "title": "Sliva – un socio confiable",
     "second_title": "para servicio",
-    "subtitle": "{numberOfUsers, plural, =1 {# cliente confió} other {# clientes confiaron}} en nuestro servicio",
+    "subtitle": "{usersCount, plural, =1 {# cliente confió} other {# clientes confiaron}} en nuestro servicio",
     "button": "Encontrar un especialista"
   },
   "categories": {
@@ -130,11 +130,14 @@
     "animal_services": "Servicios para animales",
     "home_staff": "Servicio doméstico"
   },
-  "personal_info": {
+  "my_profile": {
     "title": "Información personal",
     "first_name_input": "Nombre",
     "last_name_input": "Apellido",
     "work_input": "Experiencia laboral",
+    "email_input": "Correo electrónico",
+    "categories_select": "Categorías de actividades",
+    "subcategories_select": "Subcategorías de actividades",
     "city_input": "Ciudad",
     "telegram_input": "@Telegram",
     "whats_app_input": "WhatsApp",

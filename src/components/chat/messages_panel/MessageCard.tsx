@@ -76,6 +76,8 @@ const MessageCardElement = forwardRef(
     const { message, isMyMessage } = props;
     const { user, timestamp, text } = message;
 
+    console.log(isMyMessage);
+
     return (
       <MainLayout $isMyMessage={isMyMessage} ref={ref}>
         {!isMyMessage && (

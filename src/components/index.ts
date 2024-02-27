@@ -9,7 +9,7 @@ export { Footer } from 'src/components/Footer';
 export { Loader } from 'src/components/Loader';
 
 export * from 'src/components/home';
-export * from 'src/components/personal_info';
+export * from 'src/components/my_profile';
 export * from 'src/components/specialists';
 export * from 'src/components/chat';
 export * from 'src/components/auth';

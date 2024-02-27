@@ -41,11 +41,11 @@ const UiButtonLayout = styled.div`
 `;
 
 interface Props {
-  numberOfUsers: number;
+  usersCount: number;
 }
 
 const SloganElement = (props: Props): ReactElement => {
-  const { numberOfUsers } = props;
+  const { usersCount } = props;
   const t = useTranslations('slogan');
   const router = useRouter();
 
@@ -54,7 +54,7 @@ const SloganElement = (props: Props): ReactElement => {
       <Title>
         {t('title')} <p>{t('second_title')}</p>
       </Title>
-      <SubTitle>{t('subtitle', { numberOfUsers })}</SubTitle>
+      <SubTitle>{t('subtitle', { usersCount })}</SubTitle>
       <UiButtonLayout>
         <UiButton
           size="big"
