@@ -1,4 +1,4 @@
-import React, { InputHTMLAttributes, ReactElement, useState } from 'react';
+import { InputHTMLAttributes, ReactElement, useState } from 'react';
 import styled from 'styled-components';
 
 import { StarIcon } from 'src/shared';

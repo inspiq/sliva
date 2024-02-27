@@ -1,9 +1,11 @@
 export const getInitials = ({
-  name,
+  firstName,
   lastName,
 }: {
-  name: string;
+  firstName: string;
   lastName: string;
 }) => {
-  return `${name} ${lastName?.split('').shift()}.`;
+  if (!firstName || !lastName) return '';
+
+  return `${firstName} ${lastName?.split('').shift()}.`;
 };

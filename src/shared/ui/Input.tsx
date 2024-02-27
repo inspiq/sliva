@@ -2,9 +2,8 @@ import { InputHTMLAttributes, ReactElement } from 'react';
 import styled, { css } from 'styled-components';
 import { switchProp } from 'styled-tools';
 
-import { Error } from 'src/components/auth/Error';
-import { useToggle } from 'src/shared/hooks';
-import { CloseEyeIcon, EyeIcon, PlusIcon } from 'src/shared/icons';
+import { Error } from 'src/modules/auth/Error';
+import { CloseEyeIcon, EyeIcon, PlusIcon, useToggle } from 'src/shared';
 
 const Input = styled.input<{
   $hasError?: boolean;

@@ -1,23 +1,7 @@
-import {
-  Container,
-  Footer,
-  Header,
-  SpecialistsList,
-  Wrapper,
-} from 'src/components';
+import { Specialists } from 'src/modules';
 
-const Specialists = () => {
-  return (
-    <>
-      <Header />
-      <Wrapper>
-        <Container>
-          <SpecialistsList />
-        </Container>
-      </Wrapper>
-      <Footer />
-    </>
-  );
+const SpecialistsPage = () => {
+  return <Specialists />;
 };
 
-export default Specialists;
+export default SpecialistsPage;

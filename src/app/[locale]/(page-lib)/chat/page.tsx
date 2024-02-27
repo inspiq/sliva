@@ -1,7 +1,7 @@
-import { Chat as GlobalChat } from 'src/components';
+import { Chat } from 'src/modules';
 
-const Chat = () => {
-  return <GlobalChat />;
+const ChatPage = () => {
+  return <Chat />;
 };
 
-export default Chat;
+export default ChatPage;
