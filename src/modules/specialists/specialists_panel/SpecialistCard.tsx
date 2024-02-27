@@ -98,7 +98,7 @@ const SpecialistCardElement = (props: Props): ReactElement => {
           <Row>
             <Rating>4,5</Rating>
             <ReviewsCount>
-              <ChatIcon width={20} />
+              <ChatIcon />
               590 отзывов
             </ReviewsCount>
           </Row>

@@ -3,18 +3,21 @@ import { SVGProps } from 'react';
 import { useTheme } from 'styled-components';
 
 export const ChatIcon = (props: SVGProps<SVGSVGElement>) => {
-  const { width, height } = props;
-  const { secondary } = useTheme();
+  const { width = 20, height = 20, color } = props;
+
+  const { black } = useTheme();
 
   return (
     <svg
-      viewBox="0 0 24 24"
       width={width}
       height={height}
-      fill={secondary}
+      stroke={color ?? black}
+      fill={color ?? black}
+      strokeWidth={10}
+      viewBox="0 0 1024 1024"
       {...props}
     >
-      <path d="M12 2A10 10 0 0 0 2 12a9.89 9.89 0 0 0 2.26 6.33l-2 2a1 1 0 0 0-.21 1.09A1 1 0 0 0 3 22h9a10 10 0 0 0 0-20zm0 18H5.41l.93-.93a1 1 0 0 0 0-1.41A8 8 0 1 1 12 20z" />
+      <path d="M273.536 736H800a64 64 0 0 0 64-64V256a64 64 0 0 0-64-64H224a64 64 0 0 0-64 64v570.88L273.536 736zM296 800 147.968 918.4A32 32 0 0 1 96 893.44V256a128 128 0 0 1 128-128h576a128 128 0 0 1 128 128v416a128 128 0 0 1-128 128H296z" />
     </svg>
   );
 };

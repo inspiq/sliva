@@ -57,6 +57,13 @@ const StyledButton = styled.button<{
   white-space: nowrap;
 `;
 
+export const ContentLayout = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+`;
+
 type Variant = 'primary' | 'outline';
 type Size = 'big' | 'medium' | 'small';
 
@@ -65,6 +72,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: Size;
   isSubmitting?: boolean;
   isStretching?: boolean;
+  Icon?: ReactElement;
 }
 
 const UiButtonElement = (props: PropsWithChildren<Props>): ReactElement => {
@@ -75,6 +83,7 @@ const UiButtonElement = (props: PropsWithChildren<Props>): ReactElement => {
     size = 'medium',
     isSubmitting,
     isStretching = true,
+    Icon,
     ...rest
   } = props;
 
@@ -91,7 +100,10 @@ const UiButtonElement = (props: PropsWithChildren<Props>): ReactElement => {
       {isSubmitting ? (
         <PulseLoader size={10} color={loader.secondary} />
       ) : (
-        children
+        <ContentLayout>
+          {Icon}
+          {children}
+        </ContentLayout>
       )}
     </StyledButton>
   );

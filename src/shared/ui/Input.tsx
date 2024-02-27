@@ -140,7 +140,7 @@ const UiInputElement = (props: Props): ReactElement => {
       )}
       {hasTypePassword && (
         <EyeIconLayout onClick={toggle}>
-          {passVisible ? <EyeIcon /> : <CloseEyeIcon />}
+          {passVisible ? <CloseEyeIcon /> : <EyeIcon />}
         </EyeIconLayout>
       )}
       {hasError && (

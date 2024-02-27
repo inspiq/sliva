@@ -1,9 +1,9 @@
 import { ReactElement } from 'react';
 import { useTranslations } from 'next-intl';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 
 import { Link } from 'src/navigation';
-import { devices, UiButton } from 'src/shared';
+import { ChatIcon, devices, UiButton } from 'src/shared';
 
 const MainLayout = styled.div`
   display: flex;
@@ -39,12 +39,17 @@ const Title = styled.div`
 
 const ChatBannerElement = (): ReactElement => {
   const t = useTranslations('chat_banner');
+  const { white } = useTheme();
 
   return (
     <MainLayout>
       <Title>{t('title')}</Title>
       <Link href={'/chat'}>
-        <UiButton isStretching={false} size="big">
+        <UiButton
+          isStretching={false}
+          size="big"
+          Icon={<ChatIcon color={white} />}
+        >
           {t('button')}
         </UiButton>
       </Link>
