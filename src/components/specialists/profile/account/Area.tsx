@@ -1,11 +1,17 @@
 import React, { ReactElement } from 'react';
 import styled from 'styled-components';
 
-const Circle = styled.div`
+import { generateRandomColor } from 'src/shared/utils/get-random-color';
+
+interface StyledProps {
+  generatedColor: string;
+}
+
+const Circle = styled.div<StyledProps>`
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: ${({ color }) => color};
+  background-color: ${({ generatedColor }) => generatedColor};
   margin-right: 5px;
   align-self: center;
 `;
@@ -15,27 +21,15 @@ const MainLayout = styled.div`
 `;
 
 interface Props {
-  value?: string;
   label?: string;
 }
-
-const generateRandomColor = (): string => {
-  const letters = '0123456789ABCDEF';
-  let color = '#';
-
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-
-  return color;
-};
 
 const AreaElement = (props: Props): ReactElement => {
   const { label } = props;
 
   return (
     <MainLayout>
-      <Circle color={generateRandomColor()} />
+      <Circle generatedColor={generateRandomColor()} />
       <div>{label}</div>
     </MainLayout>
   );

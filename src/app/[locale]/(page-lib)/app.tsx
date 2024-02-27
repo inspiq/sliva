@@ -7,7 +7,6 @@ import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
 import StyledComponentsRegistry from 'src/app/[locale]/(page-lib)/registry';
 import { AuthContextProvider } from 'src/context';
-import { SpecialistReviewContextProvider } from 'src/context/ReviewContext';
 import { theme } from 'src/shared';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
@@ -94,12 +93,10 @@ export const App = (props: PropsWithChildren) => {
   return (
     <CookiesProvider>
       <AuthContextProvider>
-        <SpecialistReviewContextProvider>
-          <ThemeProvider theme={theme}>
-            <GlobalStyle />
-            <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
-          </ThemeProvider>
-        </SpecialistReviewContextProvider>
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
+          <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+        </ThemeProvider>
       </AuthContextProvider>
     </CookiesProvider>
   );

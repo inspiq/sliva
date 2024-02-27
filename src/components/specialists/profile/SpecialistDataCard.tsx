@@ -2,9 +2,8 @@ import { ReactElement } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
+import { ReviewDocument } from 'src/components/specialists/profile/account/SpecialistProfile';
 import { ChatIcon, Specialist } from 'src/shared';
-
-import { Rev } from './SpecialistAccount';
 
 const Avatar = styled(Image)`
   width: 150px;
@@ -65,11 +64,11 @@ const ReviewsCount = styled.div`
 
 interface Props {
   specialist: Specialist;
-  reviews?: Rev;
+  reviewsDocument?: ReviewDocument;
 }
 
 const SpecialistDataCardElement = (props: Props): ReactElement => {
-  const { specialist, reviews } = props;
+  const { specialist, reviewsDocument } = props;
   const { avatarUrl, firstName, lastName, reviewDetails, experience, city } =
     specialist;
 
@@ -89,10 +88,10 @@ const SpecialistDataCardElement = (props: Props): ReactElement => {
         <City>Область:{city}</City>
         <Experience>Стаж:{experience}</Experience>
         <Row>
-          <Rating>{reviewDetails.avgRating}</Rating>
+          <Rating>{reviewDetails?.avgRating}</Rating>
           <ReviewsCount>
             <ChatIcon width={20} />
-            {reviews?.reviews?.length} отзывов
+            {reviewsDocument?.reviews?.length} отзывов
           </ReviewsCount>
         </Row>
       </SpecialistListInfo>
@@ -100,4 +99,4 @@ const SpecialistDataCardElement = (props: Props): ReactElement => {
   );
 };
 
-export const SpecialistDataCard = SpecialistDataCardElement;
+export const SpecialistDetailsCard = SpecialistDataCardElement;

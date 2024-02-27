@@ -1,17 +1,16 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
+import { Review } from 'src/components/specialists/profile/account/SpecialistProfile';
 import { Rate } from 'src/shared/ui/chips/RateChip';
-
-import { ReviewProps as Review } from './specialists/account/SpecialistAccount';
 
 const MainLayout = styled.div`
   margin-bottom: 10px;
   padding: 10px;
-  background-color: ${({ theme }) => theme.white};
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: ${({ theme }) => theme.light};
+  border-radius: 10px;
+  box-shadow: ${({ theme }) => theme.shadow};
   max-width: 800px;
 `;
 
@@ -61,8 +60,13 @@ const TextComment = styled.div`
   word-wrap: break-word;
 `;
 
-const ReviewCardElement = (props: Review): ReactElement => {
-  const { avatar, date, firstName, lastName, description, rating } = props;
+interface Props {
+  review: Review;
+}
+
+const ReviewCardElement = (props: Props): ReactElement => {
+  const { avatar, date, firstName, lastName, description, rating } =
+    props.review;
 
   return (
     <MainLayout>
@@ -83,9 +87,10 @@ const ReviewCardElement = (props: Review): ReactElement => {
       </ReviewHeader>
       <CommentDetailsLayout>
         <Title>Комментарий</Title>
-        <TextComment>{description} </TextComment>
+        <TextComment>{description}</TextComment>
       </CommentDetailsLayout>
     </MainLayout>
   );
 };
+
 export const ReviewCard = ReviewCardElement;

@@ -1,8 +1,7 @@
-/* eslint-disable react/display-name */
 import React, { memo, ReactElement } from 'react';
 import styled from 'styled-components';
 
-import { Area } from 'src/components/Area';
+import { Area } from 'src/components/specialists/profile/account/Area';
 import { Option } from 'src/shared';
 
 const AreaListLayout = styled.div`
@@ -27,7 +26,9 @@ interface Props {
   areas?: Option[];
 }
 
-const AreaListElement = memo((props: Props): ReactElement => {
+const AreaListElement = memo(function AreaListElement(
+  props: Props,
+): ReactElement {
   const { areas } = props;
 
   return (

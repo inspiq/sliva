@@ -4,12 +4,12 @@ import styled from 'styled-components';
 
 import { Container, Footer, Header, Loader, Wrapper } from 'src/components';
 import { ReviewForm } from 'src/components/forms/review/ReviewForm';
-import { ReviewPanel } from 'src/components/specialists/account/SpecialistReviewList';
+import { ReviewPanels } from 'src/components/specialists/profile/SpecialistReviewPanel';
 import { useAuthContext } from 'src/context';
 import { db, Specialist } from 'src/shared';
 
-import { AreaPanel } from './SpecialistAreaPanel';
-import { SpecialistDataCard } from './SpecialistDataCard';
+import { AreaPanel } from '../SpecialistAreaPanel';
+import { SpecialistDetailsCard } from '../SpecialistDataCard';
 
 const ReviewsLayout = styled.div`
   display: flex;
@@ -19,20 +19,17 @@ const ReviewsLayout = styled.div`
   width: 100%;
 `;
 
-const Specialistlayout = styled.div`
+const Layout = styled.div`
   max-width: 820px;
+  height: calc(100vh);
   margin: 10px auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 `;
 
 interface Props {
   specialistId: string;
 }
 
-export interface ReviewProps {
+export interface Review {
   avatar?: string;
   reveiwId?: string;
   firstName?: string;
@@ -43,14 +40,14 @@ export interface ReviewProps {
   rating: number;
 }
 
-export interface Rev {
-  reviews: ReviewProps[];
+export interface ReviewDocument {
+  reviews: Review[];
 }
 
 const SpecialistAccountElement = (props: Props): ReactElement => {
   const { specialistId } = props;
   const [specialistDetails, setSpecialistDetails] = useState<Specialist>();
-  const [reviews, setReviews] = useState<Rev>();
+  const [reviewsDocument, setReviewsDocument] = useState<ReviewDocument>();
   const { currentAuthUser } = useAuthContext();
   const getSpecialist = useCallback(async () => {
     try {
@@ -73,7 +70,7 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
     const docRef = doc(db, 'reviews', specialistId);
     const unsubscribe = onSnapshot(docRef, (docSnapshot) => {
       if (docSnapshot.exists()) {
-        setReviews(docSnapshot.data() as Rev);
+        setReviewsDocument(docSnapshot.data() as ReviewDocument);
       }
     });
 
@@ -97,7 +94,7 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
       const snapshot = await getDoc(docRef);
 
       if (snapshot.exists()) {
-        setReviews(snapshot.data() as Rev);
+        setReviewsDocument(snapshot.data() as ReviewDocument);
       }
     } catch {
       /* empty */
@@ -121,20 +118,20 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
       <Header />
       <Wrapper>
         <Container>
-          <Specialistlayout>
-            <SpecialistDataCard
+          <Layout>
+            <SpecialistDetailsCard
               specialist={specialistDetails}
-              reviews={reviews}
+              reviewsDocument={reviewsDocument}
             />
-            <AreaPanel areas={specialistDetails?.area} />
+            <AreaPanel areas={specialistDetails?.areas} />
             <ReviewsLayout>
               <ReviewForm
                 specialist={specialistDetails}
-                reviews={reviews?.reviews}
+                reviews={reviewsDocument?.reviews}
               />
-              <ReviewPanel reviews={reviews?.reviews} />
+              <ReviewPanels reviews={reviewsDocument?.reviews} />
             </ReviewsLayout>
-          </Specialistlayout>
+          </Layout>
         </Container>
       </Wrapper>
       <Footer />
@@ -142,4 +139,4 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
   );
 };
 
-export const SpecialistAccount = SpecialistAccountElement;
+export const SpecialistProfile = SpecialistAccountElement;

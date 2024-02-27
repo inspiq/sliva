@@ -1,4 +1,4 @@
-import React, {
+import {
   ChangeEvent,
   FormEvent,
   ReactElement,
@@ -6,11 +6,11 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { collection, doc, updateDoc } from 'firebase/firestore';
+import { collection, doc, setDoc, updateDoc } from 'firebase/firestore';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 
-import { ReviewProps as Review } from 'src/components/specialists/account/SpecialistAccount';
+import { Review } from 'src/components/specialists/profile/account/SpecialistProfile';
 import { useAuthContext } from 'src/context/AuthContext';
 import { db, Rate, Specialist } from 'src/shared';
 
@@ -34,6 +34,19 @@ const Textarea = styled.textarea`
   border: 1px solid ${({ theme }) => theme.border};
   border-radius: 8px;
   font-size: 16px;
+
+  &::placeholder {
+    color: ${({ theme }) => theme.input.placeholder};
+    font-weight: ${({ theme }) => theme.w400};
+  }
+
+  &:hover {
+    border-color: ${({ theme }) => theme.input.active};
+  }
+
+  &:focus {
+    border-color: ${({ theme }) => theme.input.active};
+  }
 `;
 
 export const Button = styled.button`
@@ -64,25 +77,23 @@ interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 
 const ReviewFormElement = (props: Props): ReactElement => {
   const { specialist, reviews } = props;
+  console.log(specialist.userId);
   const [value, setValue] = useState('');
   const [currentRating, setCurrentRating] = useState(0);
-  console.log(currentRating);
   const { currentAuthUser } = useAuthContext();
+
   const totalRating = reviews
     ? reviews.reduce((sum, item) => sum + item.rating, 0)
     : 0;
 
   const sortedReviews = useMemo(() => {
-    const reviewsWithDates = reviews?.filter((review) => review.date);
-    const sortedReviews =
-      reviewsWithDates &&
-      [...reviewsWithDates].sort((a, b) => {
-        if (!a.date || !b.date) {
-          return 0;
-        }
+    const sortedReviews = reviews?.sort((a, b) => {
+      if (!a.date || !b.date) {
+        return 0;
+      }
 
-        return new Date(b.date).getTime() - new Date(a.date).getTime();
-      });
+      return new Date(b.date).getTime() - new Date(a.date).getTime();
+    });
 
     return sortedReviews;
   }, [reviews]);
@@ -106,22 +117,22 @@ const ReviewFormElement = (props: Props): ReactElement => {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const updatedReviews = sortedReviews && [newReview, ...sortedReviews];
+    const updatedReviews = sortedReviews
+      ? [newReview, ...sortedReviews]
+      : [newReview];
 
     try {
       const usersCollection = collection(db, 'users');
-      const userDoc = doc(
-        usersCollection,
-        currentAuthUser?.additionalInfo?.userId,
-      );
+      const userDoc = doc(usersCollection, specialist?.userId);
 
       if (reviews) {
+        const newRating = (
+          (totalRating + currentRating) / (reviews.length + 1) +
+          1
+        ).toFixed(1);
         await updateDoc(userDoc, {
           reviewDetails: {
-            avgRating: (
-              (totalRating + currentRating) / (reviews.length + 1) +
-              1
-            ).toFixed(1),
+            avgRating: newRating,
             count: updatedReviews?.length,
           },
         });
@@ -130,11 +141,11 @@ const ReviewFormElement = (props: Props): ReactElement => {
       const reviewsCollection = collection(db, 'reviews');
       const userDocRef = doc(reviewsCollection, specialist.userId);
 
-      await updateDoc(userDocRef, {
-        reviews: [...(updatedReviews || [])],
+      await setDoc(userDocRef, {
+        reviews: updatedReviews || [],
       });
     } catch (e) {
-      console.log(e);
+      /* empty */
     }
   };
 
