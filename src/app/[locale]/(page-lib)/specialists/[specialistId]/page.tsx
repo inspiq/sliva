@@ -1,9 +1,9 @@
-import { SpecialistProfile } from 'src/components';
+import { SpecialistProfile } from 'src/modules';
 
 const Specialist = (props: { params: { specialistId: string } }) => {
   const { params } = props;
 
-  return <SpecialistProfile specialistId={params.specialistId} />;
+  return <SpecialistProfile {...params} />;
 };
 
 export default Specialist;

@@ -1,4 +1,4 @@
-import { SignUp } from 'src/components';
+import { SignUp } from 'src/modules';
 
 const SignUpPage = () => {
   return <SignUp />;

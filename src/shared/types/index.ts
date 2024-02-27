@@ -2,6 +2,8 @@ import { User } from 'firebase/auth';
 
 import { UserRole } from 'src/shared';
 
+export * from 'src/shared/types/type-guards';
+
 export interface Client {
   userId: string;
   avatarUrl: string;

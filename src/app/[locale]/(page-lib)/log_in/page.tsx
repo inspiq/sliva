@@ -1,4 +1,4 @@
-import { LogIn } from 'src/components';
+import { LogIn } from 'src/modules';
 
 const LogInPage = () => {
   return <LogIn />;

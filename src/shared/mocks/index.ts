@@ -87,3 +87,17 @@ export const getCategories = (t: (key: string) => string) => {
     },
   ];
 };
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const getAreas = (t: (key: string) => string) => {
+  return [
+    { value: 'Izhevsk', label: 'Ижевск' },
+    { value: 'Arkansas', label: 'Арканзас' },
+    { value: 'Texas', label: 'Техас' },
+    { value: 'Boston', label: 'Бостон' },
+    { value: 'Florida', label: 'Флорида' },
+    { value: 'Seattle', label: 'Сиэтл' },
+    { value: 'Dortmund', label: 'Дортмунд' },
+    { value: 'Catalonia', label: 'Каталония' },
+  ];
+};
