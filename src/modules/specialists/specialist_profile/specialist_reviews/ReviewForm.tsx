@@ -1,10 +1,4 @@
-import {
-  FormEvent,
-  ReactElement,
-  TextareaHTMLAttributes,
-  useMemo,
-  useState,
-} from 'react';
+import { ReactElement, TextareaHTMLAttributes, useMemo, useState } from 'react';
 import { collection, doc, setDoc, updateDoc } from 'firebase/firestore';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
