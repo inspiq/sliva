@@ -14,7 +14,7 @@ interface Props {
   reviews?: Review[];
 }
 
-const ReviewListElement = memo(function ReviewList(props: Props): ReactElement {
+const ReviewsPanelElement = memo((props: Props): ReactElement => {
   const { reviews } = props;
 
   return (
@@ -26,4 +26,6 @@ const ReviewListElement = memo(function ReviewList(props: Props): ReactElement {
   );
 });
 
-export const ReviewsPanel = ReviewListElement;
+ReviewsPanelElement.displayName = 'ReviewsPanelElement';
+
+export const ReviewsPanel = ReviewsPanelElement;

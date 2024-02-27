@@ -26,9 +26,7 @@ interface Props {
   areas?: Option[];
 }
 
-const AreaListElement = memo(function AreaListElement(
-  props: Props,
-): ReactElement {
+const AreasPanelElement = memo((props: Props): ReactElement => {
   const { areas } = props;
 
   return (
@@ -41,4 +39,6 @@ const AreaListElement = memo(function AreaListElement(
   );
 });
 
-export const AreaPanel = AreaListElement;
+AreasPanelElement.displayName = 'AreasPanelElement';
+
+export const AreaPanel = AreasPanelElement;
