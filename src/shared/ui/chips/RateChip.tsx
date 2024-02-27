@@ -15,19 +15,26 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   Icon?: JSX.Element;
   title?: string;
   hover?: boolean;
-  currentRating?: number;
+  currentRating: number;
+  setCurrentRating?: React.Dispatch<React.SetStateAction<number>>;
+  isDisabled?: true;
 }
 
 const RateChip = (props: Props): ReactElement => {
+  const { currentRating, setCurrentRating } = props;
+  const { isDisabled } = props;
   const [hover, setHover] = useState(0);
-  const [rating, setRating] = useState(0);
 
   const handleMouseOver = (index: number) => {
-    setHover(index);
+    if (!isDisabled) {
+      setHover(index);
+    }
   };
 
   const handleClick = (index: number) => {
-    setRating(index);
+    if (!isDisabled && setCurrentRating) {
+      setCurrentRating(index);
+    }
   };
 
   return (
@@ -38,10 +45,11 @@ const RateChip = (props: Props): ReactElement => {
             type="radio"
             value={index}
             onClick={() => handleClick(index)}
+            disabled={isDisabled}
             {...props}
           />
           <StarIcon
-            color={(hover || rating) >= index ? 'orange' : 'gray'}
+            color={(hover || currentRating) >= index ? 'orange' : 'gray'}
             key={index}
             onMouseOver={() => handleMouseOver(index)}
           />

@@ -16,7 +16,6 @@ import { db, devices, Loader, Specialist } from 'src/shared';
 const MainLayout = styled.div`
   display: grid;
   grid-template-columns: 300px auto;
-
   gap: 60px;
   margin: 50px 0;
 

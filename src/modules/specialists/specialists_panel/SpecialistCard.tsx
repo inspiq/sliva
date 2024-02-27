@@ -52,7 +52,7 @@ const City = styled.div`
   font-weight: ${({ theme }) => theme.w400};
 `;
 
-const SpecialistCardLayout = styled(Link)`
+const StyledLink = styled(Link)`
   display: flex;
   gap: 20px;
 `;
@@ -74,13 +74,19 @@ interface Props {
 }
 
 const SpecialistCardElement = (props: Props): ReactElement => {
-  const { specialist } = props;
-  const { avatarUrl, userId, lastName, firstName, city, experience } =
-    specialist;
+  const {
+    avatarUrl,
+    userId,
+    firstName,
+    lastName,
+    city,
+    experience,
+    reviewDetails,
+  } = props.specialist;
 
   return (
     <>
-      <SpecialistCardLayout href={`/specialists/${userId}`}>
+      <StyledLink href={`/specialists/${userId}`}>
         <Avatar
           src={avatarUrl ?? '/files/images/avatar.png'}
           width={100}
@@ -96,14 +102,16 @@ const SpecialistCardElement = (props: Props): ReactElement => {
             Стаж: {experience ? `${experience} года` : 'Не указан'}
           </Experience>
           <Row>
-            <Rating>4,5</Rating>
+            <Rating>
+              {reviewDetails ? reviewDetails.avgRating : 'Не указан'}
+            </Rating>
             <ReviewsCount>
-              <ChatIcon />
-              590 отзывов
+              <ChatIcon width={20} />
+              {reviewDetails ? reviewDetails.count : 0} отзывов
             </ReviewsCount>
           </Row>
         </SpecialistInfo>
-      </SpecialistCardLayout>
+      </StyledLink>
       <LineLayout>
         <Line />
       </LineLayout>

@@ -11,6 +11,7 @@ import { UploadAvatar } from 'src/modules/my_profile/UploadAvatar';
 import {
   db,
   devices,
+  getAreas,
   getCategories,
   getSubcategories,
   isSpecialist,
@@ -127,6 +128,7 @@ const MyProfileFormElement = (props: {
             city: additionalInfo?.city ?? '',
             telegram: additionalInfo?.telegram ?? '',
             whatsApp: additionalInfo?.whatsApp ?? '',
+            areas: additionalInfo?.areas ?? null,
             categories: additionalInfo?.categories ?? null,
             subcategories: additionalInfo?.subcategories ?? null,
             extendedInfo: additionalInfo?.extendedInfo ?? '',
@@ -188,6 +190,7 @@ const MyProfileFormElement = (props: {
 
   const categories = getCategories(t);
   const subcategories = getSubcategories(t);
+  const areas = getAreas(t);
 
   const onChangeCategories = (options: MultiValue<Option>) => {
     setFieldValue('categories', options);
@@ -195,6 +198,10 @@ const MyProfileFormElement = (props: {
 
   const onChangeSubcategories = (options: MultiValue<Option>) => {
     setFieldValue('subcategories', options);
+  };
+
+  const onChangeArea = (option: MultiValue<Option>) => {
+    setFieldValue('areas', option);
   };
 
   const styles: StylesConfig = {
@@ -346,6 +353,24 @@ const MyProfileFormElement = (props: {
               options={subcategories}
               value={values.subcategories}
               placeholder={t('my_profile.subcategories_select')}
+              styles={styles}
+              theme={(theme) => ({
+                ...theme,
+                colors: {
+                  ...theme.colors,
+                  primary25: light,
+                  primary50: light,
+                  primary,
+                },
+              })}
+            />
+            <Select
+              isMulti
+              name="area"
+              options={areas}
+              onChange={onChangeArea as VoidFunction}
+              value={values.areas}
+              placeholder="Выберите области работы"
               styles={styles}
               theme={(theme) => ({
                 ...theme,
