@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 import styled from 'styled-components';
 
 import { generateRandomColor } from 'src/shared/utils/get-random-color';
@@ -20,19 +20,23 @@ const MainLayout = styled.div`
   display: flex;
 `;
 
+const NameArea = styled.div`
+  font-size: 15px;
+`;
+
 interface Props {
   label?: string;
 }
 
-const AreaElement = (props: Props): ReactElement => {
+const SpecialistAreaCardElement = (props: Props): ReactElement => {
   const { label } = props;
 
   return (
     <MainLayout>
       <Circle generatedColor={generateRandomColor()} />
-      <div>{label}</div>
+      <NameArea>{label}</NameArea>
     </MainLayout>
   );
 };
 
-export const Area = AreaElement;
+export const SpecialistAreaCard = SpecialistAreaCardElement;

@@ -7,13 +7,12 @@ import { UiInput, UserType } from 'src/shared';
 const MainLayout = styled.div`
   width: 200px;
   height: 200px;
-  border: 1px solid ${({ theme }) => theme.border};
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
   border-radius: 60px;
-  background-color: ${({ theme }) => theme.light};
+  background-color: ${({ theme }) => theme.aqua};
 `;
 
 const UiInputLayout = styled.div`

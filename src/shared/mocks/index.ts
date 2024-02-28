@@ -101,3 +101,22 @@ export const getAreas = (t: (key: string) => string) => {
     { value: 'Catalonia', label: 'Каталония' },
   ];
 };
+
+export const getMonthName = (month: number) => {
+  const months = [
+    'январь',
+    'февраль',
+    'март',
+    'апрель',
+    'май',
+    'июнь',
+    'июль',
+    'август',
+    'сентябрь',
+    'октябрь',
+    'ноябрь',
+    'декабрь',
+  ];
+
+  return months[month];
+};

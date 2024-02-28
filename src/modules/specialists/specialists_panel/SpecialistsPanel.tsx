@@ -1,15 +1,8 @@
-import {
-  memo,
-  ReactElement,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { memo, ReactElement, useEffect, useMemo, useState } from 'react';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import styled from 'styled-components';
 
-import { Filters } from 'src/modules/specialists/specialist_filters/FiltersPanel';
+import { Filters } from 'src/modules/specialists/filters/FiltersPanel';
 import { SpecialistCard } from 'src/modules/specialists/specialists_panel/SpecialistCard';
 import { db, devices, Loader, Specialist } from 'src/shared';
 
@@ -17,8 +10,7 @@ const MainLayout = styled.div`
   display: grid;
   grid-template-columns: 300px auto;
   gap: 60px;
-  margin: 50px 0;
-
+  padding: 25px 0;
   @media ${devices.mobileL} {
     display: flex;
     flex-direction: column;
@@ -37,35 +29,13 @@ const SpecialistsPanelElement = memo((): ReactElement => {
     { header: string; subcategories: string[] }[]
   >([]);
 
-  const getSpecialists = useCallback(async () => {
-    try {
-      const q = query(
-        collection(db, 'users'),
-        where('type', '==', 'specialist'),
-      );
-      const querySnapshot = await getDocs(q);
-
-      setSpecialists(() => {
-        const result: Specialist[] = [];
-
-        querySnapshot.forEach((element) => {
-          result.push(element.data() as Specialist);
-        });
-
-        return [...result];
-      });
-    } catch (e) {
-      /* empty */
-    }
-  }, []);
-
   const filteredSpecialists = useMemo(() => {
     if (!selectedFilters.length) return;
 
     const uniqueSpecialistIds = new Set<string>();
 
     const filteredSpecialistsByCategory = specialists.filter((specialist) =>
-      specialist.categories.some((category) =>
+      specialist.categories?.some((category) =>
         selectedFilters.some((filter) => filter.header === category.value),
       ),
     );
@@ -96,8 +66,22 @@ const SpecialistsPanelElement = memo((): ReactElement => {
   }, [selectedFilters, specialists]);
 
   useEffect(() => {
-    getSpecialists();
-  }, [getSpecialists]);
+    const q = query(collection(db, 'users'), where('type', '==', 'specialist'));
+
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const specialists: Specialist[] = [];
+
+      querySnapshot.forEach((element) => {
+        specialists.push(element.data() as Specialist);
+      });
+
+      setSpecialists(specialists);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   if (!specialists.length) {
     return <Loader />;

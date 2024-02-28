@@ -1,60 +1,65 @@
-import { InputHTMLAttributes, ReactElement, useState } from 'react';
-import styled from 'styled-components';
+import {
+  Dispatch,
+  InputHTMLAttributes,
+  ReactElement,
+  SetStateAction,
+  useState,
+} from 'react';
+import styled, { useTheme } from 'styled-components';
 
 import { StarIcon } from 'src/shared';
 
 const Container = styled.div`
   display: flex;
-`;
-
-const Star = styled.input`
-  display: none;
+  gap: 3px;
 `;
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  Icon?: JSX.Element;
-  title?: string;
-  hover?: boolean;
-  currentRating: number;
-  setCurrentRating?: React.Dispatch<React.SetStateAction<number>>;
-  isDisabled?: true;
+  selectedRating: number;
+  setSelectedRating?: Dispatch<SetStateAction<number>>;
+  isDisabled?: boolean;
 }
 
 const RateChip = (props: Props): ReactElement => {
-  const { currentRating, setCurrentRating } = props;
-  const { isDisabled } = props;
-  const [hover, setHover] = useState(0);
+  const { selectedRating, setSelectedRating, isDisabled = false } = props;
 
-  const handleMouseOver = (index: number) => {
-    if (!isDisabled) {
-      setHover(index);
-    }
+  const [hover, setHover] = useState(0);
+  const { border, yellow } = useTheme();
+
+  const onChangeRating = (value: number) => {
+    if (isDisabled) return;
+
+    setSelectedRating?.(value);
   };
 
-  const handleClick = (index: number) => {
-    if (!isDisabled && setCurrentRating) {
-      setCurrentRating(index);
-    }
+  const onChangeHover = (value: number) => {
+    if (isDisabled) return;
+
+    setHover(value);
   };
 
   return (
     <Container>
-      {[...Array(5)].map((_, index) => (
-        <label key={index}>
-          <Star
-            type="radio"
-            value={index}
-            onClick={() => handleClick(index)}
-            disabled={isDisabled}
-            {...props}
-          />
-          <StarIcon
-            color={(hover || currentRating) >= index ? 'orange' : 'gray'}
-            key={index}
-            onMouseOver={() => handleMouseOver(index)}
-          />
-        </label>
-      ))}
+      {[...Array(5)].fill(0).map((_, index) => {
+        const starValue = index + 1;
+
+        return (
+          <label key={index}>
+            <input
+              type="radio"
+              value={index}
+              onClick={() => onChangeRating(starValue)}
+              hidden
+              {...props}
+            />
+            <StarIcon
+              color={(hover || selectedRating) >= starValue ? yellow : border}
+              onMouseOver={() => onChangeHover(starValue)}
+              onMouseLeave={() => setHover(0)}
+            />
+          </label>
+        );
+      })}
     </Container>
   );
 };

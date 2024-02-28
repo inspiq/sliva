@@ -53,12 +53,6 @@ const FullName = styled.div`
   font-weight: ${({ theme }) => theme.w600};
 `;
 
-const Service = styled.div`
-  font-size: 15px;
-  font-weight: ${({ theme }) => theme.w500};
-  text-decoration: underline;
-`;
-
 const StyledLink = styled(Link)`
   display: flex;
   gap: 20px;
@@ -81,7 +75,7 @@ interface Props {
   specialist: Specialist;
 }
 
-const SpecialistCardElement = (props: Props): ReactElement => {
+const SpecialistDetailsElement = (props: Props): ReactElement => {
   const { specialist } = props;
   const {
     avatarUrl,
@@ -120,8 +114,6 @@ const SpecialistCardElement = (props: Props): ReactElement => {
               {reviewsCount} отзывов
             </ReviewsCount>
           </Row>
-          <Service>Все отзывы ({reviewsCount})</Service>
-          <Service>Все услуги и цены</Service>
         </SpecialistInfo>
       </StyledLink>
       <SpecialistAreasPanel areas={areas} />
@@ -132,4 +124,4 @@ const SpecialistCardElement = (props: Props): ReactElement => {
   );
 };
 
-export const SpecialistCard = SpecialistCardElement;
+export const SpecialistDetails = SpecialistDetailsElement;
