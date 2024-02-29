@@ -22,19 +22,21 @@ const MainLayout = styled.div`
 
 const NameArea = styled.div`
   font-size: 15px;
+  color: ${({ theme }) => theme.secondary};
+  font-family: ${({ theme }) => theme.w400};
 `;
 
 interface Props {
-  label?: string;
+  area?: string;
 }
 
 const SpecialistAreaCardElement = (props: Props): ReactElement => {
-  const { label } = props;
+  const { area } = props;
 
   return (
     <MainLayout>
       <Circle generatedColor={generateRandomColor()} />
-      <NameArea>{label}</NameArea>
+      <NameArea>{area}</NameArea>
     </MainLayout>
   );
 };

@@ -2,7 +2,6 @@ import { ReactElement, useEffect, useState } from 'react';
 import { doc, onSnapshot } from 'firebase/firestore';
 import styled from 'styled-components';
 
-import { useAuthContext } from 'src/context';
 import { Header } from 'src/modules';
 import { SpecialistReviewForm } from 'src/modules/specialist_profile/specialist_reviews/SpecialistReviewForm';
 import { SpecialistReviewsPanel } from 'src/modules/specialist_profile/specialist_reviews/SpecialistReviewsPanel';
@@ -50,9 +49,8 @@ export interface ReviewDocument {
 const SpecialistAccountElement = (props: Props): ReactElement => {
   const { specialistId } = props;
 
-  const [specialistDetails, setSpecialistDetails] = useState<Specialist>();
+  const [specialist, setSpecialist] = useState<Specialist>();
   const [allReviews, setAllReviews] = useState<ReviewDocument>();
-  const { currentAuthUser } = useAuthContext();
 
   useEffect(() => {
     const docRef = doc(db, 'reviews', specialistId);
@@ -71,7 +69,7 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
     const docRef = doc(db, 'users', specialistId);
     const unsubscribe = onSnapshot(docRef, (docSnapshot) => {
       if (docSnapshot.exists()) {
-        setSpecialistDetails(docSnapshot.data() as Specialist);
+        setSpecialist(docSnapshot.data() as Specialist);
       }
     });
 
@@ -80,11 +78,7 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
     };
   }, [specialistId]);
 
-  if (
-    !currentAuthUser ||
-    !currentAuthUser?.additionalInfo ||
-    !specialistDetails
-  ) {
+  if (!specialist) {
     return <Loader />;
   }
 
@@ -95,10 +89,10 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
         <Container>
           <ContentLayout>
             <Column>
-              <SpecialistDetails specialist={specialistDetails} />
+              <SpecialistDetails specialist={specialist} />
               <ReviewsLayout>
                 <SpecialistReviewForm
-                  specialist={specialistDetails}
+                  specialist={specialist}
                   reviews={allReviews?.reviews}
                 />
                 <SpecialistReviewsPanel reviews={allReviews?.reviews} />

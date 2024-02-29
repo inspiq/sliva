@@ -27,6 +27,7 @@ const Textarea = styled.textarea`
   border-radius: 8px;
   font-size: 16px;
   transition: border 0.3s;
+  color: ${({ theme }) => theme.secondary};
 
   &::placeholder {
     color: ${({ theme }) => theme.input.placeholder};
@@ -51,6 +52,7 @@ const Header = styled.div`
 const Title = styled.div`
   font-size: 16px;
   font-weight: ${({ theme }) => theme.w600};
+  color: ${({ theme }) => theme.secondary};
 `;
 
 const ButtonLayout = styled.div`
