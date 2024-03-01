@@ -13,7 +13,7 @@ const MainLayout = styled.div`
 
 const Row = styled.div`
   display: flex;
-  gap: 20px;
+  gap: 15px;
 
   @media ${devices.mobileL} {
     flex-direction: column;
@@ -21,9 +21,11 @@ const Row = styled.div`
   }
 `;
 
-const Experience = styled.div`
+const Experience = styled.div<{ hasExperience: boolean }>`
   font-size: 15px;
   font-weight: ${({ theme }) => theme.w400};
+  color: ${({ theme, hasExperience }) =>
+    hasExperience ? theme.secondary : theme.grey};
 `;
 
 const Rating = styled.div`
@@ -57,6 +59,7 @@ const Service = styled.div`
   font-size: 15px;
   font-weight: ${({ theme }) => theme.w500};
   text-decoration: underline;
+  color: ${({ theme }) => theme.secondary};
 `;
 
 const StyledLink = styled(Link)`
@@ -70,7 +73,7 @@ const LineLayout = styled.div`
 `;
 
 const Avatar = styled(Image)`
-  width: 110px;
+  width: 120px;
   height: 130px;
   border-radius: 10px;
   object-fit: cover;
@@ -101,15 +104,17 @@ const SpecialistCardElement = (props: Props): ReactElement => {
       <StyledLink href={`/specialists/${userId}`}>
         <Avatar
           src={avatarUrl ?? '/files/images/avatar.png'}
-          width={50}
-          height={50}
+          width={120}
+          height={130}
           alt="Avatar"
         />
         <SpecialistInfo>
           <FullName>
             {firstName} {lastName}
           </FullName>
-          <Experience>Опыт работы: {experience} года</Experience>
+          <Experience hasExperience={!!experience}>
+            Опыт работы: {experience ? `${experience} года` : 'нет информации'}
+          </Experience>
           <Row>
             <Rating>
               <StarIcon color={secondary} width={18} />

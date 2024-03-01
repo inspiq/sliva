@@ -12,16 +12,19 @@ const MainLayout = styled.div`
   margin-top: 3px;
 `;
 
-const AreasLayout = styled.div`
+const AreasLayout = styled.div<{ hasAreas: boolean }>`
   display: flex;
   max-width: 500px;
   gap: 5px 10px;
   flex-wrap: wrap;
+  color: ${({ theme }) => theme.grey};
+  font-size: 15px;
 `;
 
 const Title = styled.div`
   font-weight: ${({ theme }) => theme.w500};
   font-size: 16px;
+  color: ${({ theme }) => theme.secondary};
 `;
 
 interface Props {
@@ -34,10 +37,12 @@ const SpecialistAreasPanelElement = memo((props: Props): ReactElement => {
   return (
     <MainLayout>
       <Title>Выезд к клиенту</Title>
-      <AreasLayout>
-        {areas?.map((area) => (
-          <SpecialistAreaCard key={area.value} label={area.label} />
-        ))}
+      <AreasLayout hasAreas={!!areas?.length}>
+        {areas
+          ? areas?.map((area) => (
+              <SpecialistAreaCard key={area.value} area={area.label} />
+            ))
+          : 'нет информации'}
       </AreasLayout>
     </MainLayout>
   );

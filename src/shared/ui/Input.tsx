@@ -104,8 +104,7 @@ type Size = 'medium' | 'big';
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   Icon?: JSX.Element;
   hasError?: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  textError?: any;
+  textError?: string;
   inputSize?: Size;
   hasInChat?: boolean;
 }

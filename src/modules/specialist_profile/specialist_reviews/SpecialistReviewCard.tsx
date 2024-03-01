@@ -21,12 +21,15 @@ const RateReviewLayout = styled.div`
 
 const UserInitials = styled.div`
   font-size: 15px;
+  color: ${({ theme }) => theme.secondary};
+  font-weight: ${({ theme }) => theme.w400};
 `;
 
 const Date = styled.div`
   padding-bottom: 3px;
   color: ${({ theme }) => theme.grey};
   font-size: 15px;
+  font-weight: ${({ theme }) => theme.w400};
 `;
 
 const StyledImage = styled(Image)`
@@ -57,6 +60,8 @@ const TextComment = styled.div`
   word-wrap: break-word;
   font-weight: ${({ theme }) => theme.w400};
   font-size: 15px;
+  color: ${({ theme }) => theme.secondary};
+  font-weight: ${({ theme }) => theme.w400};
 `;
 
 const Column = styled.div`

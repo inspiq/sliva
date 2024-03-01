@@ -55,7 +55,7 @@ const UiButtonLayout = styled.div`
 const SelectRow = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 10px;
 
   @media ${devices.mobileL} {
@@ -123,15 +123,15 @@ const MyProfileFormElement = (props: {
             firstName: additionalInfo?.firstName ?? '',
             lastName: additionalInfo?.lastName ?? '',
             dayOfBirth: additionalInfo?.dayOfBirth ?? '',
-            email: additionalInfo?.email ?? '',
+            email: email ?? '',
             experience: additionalInfo?.experience ?? '',
-            city: additionalInfo?.city ?? '',
-            telegram: additionalInfo?.telegram ?? '',
-            whatsApp: additionalInfo?.whatsApp ?? '',
+            city: additionalInfo?.city ?? null,
+            telegram: additionalInfo?.telegram ?? null,
+            whatsApp: additionalInfo?.whatsApp ?? null,
             areas: additionalInfo?.areas ?? null,
             categories: additionalInfo?.categories ?? null,
             subcategories: additionalInfo?.subcategories ?? null,
-            extendedInfo: additionalInfo?.extendedInfo ?? '',
+            extendedInfo: additionalInfo?.extendedInfo ?? null,
           }
         : {
             firstName: additionalInfo?.firstName ?? '',
@@ -176,6 +176,7 @@ const MyProfileFormElement = (props: {
       firstName: yup.string().required(t('validations.required')),
       lastName: yup.string().required(t('validations.required')),
       dayOfBirth: yup.string().required(t('validations.required')),
+      experience: yup.number().required(t('validations.required')),
     }),
     onSubmit: async (userDetails) => {
       try {

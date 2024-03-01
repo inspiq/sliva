@@ -3,7 +3,6 @@ import Image from 'next/image';
 import styled, { useTheme } from 'styled-components';
 
 import { SpecialistAreasPanel } from 'src/modules/specialist_profile/specialist_areas/SpecialistAreasPanel';
-import { Link } from 'src/navigation';
 import { ChatIcon, devices, Line, Specialist, StarIcon } from 'src/shared';
 
 const MainLayout = styled.div`
@@ -21,9 +20,11 @@ const Row = styled.div`
   }
 `;
 
-const Experience = styled.div`
+const Experience = styled.div<{ hasExperience: boolean }>`
   font-size: 15px;
   font-weight: ${({ theme }) => theme.w400};
+  color: ${({ theme, hasExperience }) =>
+    hasExperience ? theme.secondary : theme.grey};
 `;
 
 const Rating = styled.div`
@@ -53,10 +54,9 @@ const FullName = styled.div`
   font-weight: ${({ theme }) => theme.w600};
 `;
 
-const StyledLink = styled(Link)`
+const SpecialistCard = styled.div`
   display: flex;
-  gap: 20px;
-  margin-bottom: 10px;
+  gap: 15px;
 `;
 
 const LineLayout = styled.div`
@@ -64,11 +64,29 @@ const LineLayout = styled.div`
 `;
 
 const Avatar = styled(Image)`
-  width: 110px;
-  height: 130px;
+  width: 140px;
+  height: 150px;
   border-radius: 10px;
   object-fit: cover;
   background-color: ${({ theme }) => theme.aqua};
+`;
+
+const AdditionalInfoLayout = styled.div`
+  margin-top: 15px;
+`;
+
+const AdditionalInfoTitle = styled.div`
+  font-size: 16px;
+  font-weight: ${({ theme }) => theme.w500};
+  color: ${({ theme }) => theme.secondary};
+`;
+
+const AdditionalInfoDescription = styled.div<{ hasExtendedInfo: boolean }>`
+  font-size: 15px;
+  font-weight: ${({ theme }) => theme.w400};
+  color: ${({ theme, hasExtendedInfo }) =>
+    hasExtendedInfo ? theme.secondary : theme.grey};
+  margin-top: 5px;
 `;
 
 interface Props {
@@ -79,12 +97,12 @@ const SpecialistDetailsElement = (props: Props): ReactElement => {
   const { specialist } = props;
   const {
     avatarUrl,
-    userId,
     firstName,
     lastName,
     experience,
     reviewDetails,
     areas,
+    extendedInfo,
   } = specialist;
   const reviewsCount = reviewDetails?.count ?? 0;
 
@@ -92,18 +110,20 @@ const SpecialistDetailsElement = (props: Props): ReactElement => {
 
   return (
     <MainLayout>
-      <StyledLink href={`/specialists/${userId}`}>
+      <SpecialistCard>
         <Avatar
           src={avatarUrl ?? '/files/images/avatar.png'}
-          width={50}
-          height={50}
+          width={140}
+          height={150}
           alt="Avatar"
         />
         <SpecialistInfo>
           <FullName>
             {firstName} {lastName}
           </FullName>
-          <Experience>Опыт работы: {experience} года</Experience>
+          <Experience hasExperience={!!experience}>
+            Опыт работы: {experience ? `${experience} года` : 'нет информации'}
+          </Experience>
           <Row>
             <Rating>
               <StarIcon color={secondary} width={18} />
@@ -114,9 +134,15 @@ const SpecialistDetailsElement = (props: Props): ReactElement => {
               {reviewsCount} отзывов
             </ReviewsCount>
           </Row>
+          <SpecialistAreasPanel areas={areas} />
         </SpecialistInfo>
-      </StyledLink>
-      <SpecialistAreasPanel areas={areas} />
+      </SpecialistCard>
+      <AdditionalInfoLayout>
+        <AdditionalInfoTitle>Дополнительная информация</AdditionalInfoTitle>
+        <AdditionalInfoDescription hasExtendedInfo={!!extendedInfo}>
+          {extendedInfo ? extendedInfo : 'нет информации'}
+        </AdditionalInfoDescription>
+      </AdditionalInfoLayout>
       <LineLayout>
         <Line />
       </LineLayout>
