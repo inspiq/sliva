@@ -1,5 +1,6 @@
 import { ReactElement, useState } from 'react';
 import { collection, doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -7,7 +8,7 @@ import { useAuthContext } from 'src/context';
 import { MessagesPanel } from 'src/modules/chat/messages_panel/MessagesPanel';
 import { ChatRoomsPanel } from 'src/modules/chat/rooms_panel/ChatRoomsPanel';
 import { SendMessagePanel } from 'src/modules/chat/SendMessagePanel';
-import { db, devices, Line } from 'src/shared';
+import { db, devices, Line, storage } from 'src/shared';
 
 export const MainLayout = styled.div`
   display: grid;
@@ -65,17 +66,32 @@ const ChatManagementElement = (): ReactElement => {
   const [activeRoom, setActiveRoom] = useState('Глобальный чат');
   const { currentAuthUser } = useAuthContext();
 
-  const onSendMessage = async (text: string) => {
+  const onSendMessage = async (text: string, fileUpload?: File) => {
+    const filesFolderRef =
+      fileUpload && ref(storage, `uploads/${fileUpload.name}`);
+
     try {
       const usersCollection = collection(db, 'global_chat');
       const userDocRef = doc(usersCollection);
 
-      await setDoc(userDocRef, {
-        chatId: uuidv4(),
-        timestamp: serverTimestamp(),
-        text,
-        user: currentAuthUser?.additionalInfo,
-      });
+      if (filesFolderRef) {
+        const { ref } = await uploadBytes(filesFolderRef, fileUpload);
+        const downloadUrl = await getDownloadURL(ref);
+        await setDoc(userDocRef, {
+          chatId: uuidv4(),
+          timestamp: serverTimestamp(),
+          text,
+          image_message: downloadUrl,
+          user: currentAuthUser?.additionalInfo,
+        });
+      } else {
+        await setDoc(userDocRef, {
+          chatId: uuidv4(),
+          timestamp: serverTimestamp(),
+          text,
+          user: currentAuthUser?.additionalInfo,
+        });
+      }
     } catch (e) {
       /* empty */
     }
