@@ -1,4 +1,4 @@
-import { FormEvent, ReactElement, useMemo, useState } from 'react';
+import { FormEvent, ReactElement, useState } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
@@ -37,52 +37,54 @@ const ImageLayout = styled.div`
   position: absolute;
   top: -50px;
   left: 30px;
+  display: flex;
+  gap: 10px;
 `;
 
 interface Props {
-  onSendMessage: (text: string, fileUpload?: File) => void;
+  onSendMessage: (text: string, fileUpload?: File[]) => void;
   uploadFile?: (fileUpload: File) => void;
 }
 
 const SendMessagePanelElement = (props: Props): ReactElement => {
   const [value, setValue] = useState('');
-  const [image, setImage] = useState<File>();
+  const [images, setImages] = useState<File[]>();
+  console.log(images);
   const { onSendMessage } = props;
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (!value && !image) return;
+    if (!value && !images?.length) return;
 
     if (event.key == 'Enter') {
-      onSendMessage(value, image);
+      onSendMessage(value, images);
       setValue('');
-      setImage(undefined);
+      setImages([]);
     }
   };
 
   const onChange = (e: FormEvent<HTMLInputElement>) => {
     const { files } = e.target as HTMLInputElement;
-    setImage(files?.[0]);
+
+    if (files) {
+      setImages((prevImages) => [...(prevImages ?? []), ...Array.from(files)]);
+    }
   };
 
-  const getAvatarPath = useMemo(() => {
-    if (image) {
-      return URL.createObjectURL(image);
-    }
-  }, [image]);
-
   return (
-    <MainLayout isImage={!!image}>
-      {image && (
-        <ImageLayout>
+    <MainLayout isImage={!!images?.length}>
+      <ImageLayout>
+        {images?.map((image) => (
           <StyledImage
-            src={getAvatarPath || ''}
+            key={image.name}
+            src={URL.createObjectURL(image)}
             width={60}
             height={60}
             quality={200}
             alt="Image"
           />
-        </ImageLayout>
-      )}
+        ))}
+      </ImageLayout>
+
       <UiInput
         placeholder="Введите сообщение"
         onKeyDown={onKeyDown}

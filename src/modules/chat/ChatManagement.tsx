@@ -66,22 +66,26 @@ const ChatManagementElement = (): ReactElement => {
   const [activeRoom, setActiveRoom] = useState('Глобальный чат');
   const { currentAuthUser } = useAuthContext();
 
-  const onSendMessage = async (text: string, fileUpload?: File) => {
-    const filesFolderRef =
-      fileUpload && ref(storage, `uploads/${fileUpload.name}`);
-
+  const onSendMessage = async (text: string, fileUpload?: File[]) => {
     try {
+      const promises = fileUpload?.map(async (file) => {
+        const filesFolderRef = ref(storage, `uploads/${file.name}`);
+        const { ref: fileRef } = await uploadBytes(filesFolderRef, file);
+        const downloadUrl = await getDownloadURL(fileRef);
+
+        return downloadUrl;
+      });
+
+      const imageUrls = await Promise.all(promises || []);
       const usersCollection = collection(db, 'global_chat');
       const userDocRef = doc(usersCollection);
 
-      if (filesFolderRef) {
-        const { ref } = await uploadBytes(filesFolderRef, fileUpload);
-        const downloadUrl = await getDownloadURL(ref);
+      if (imageUrls.length) {
         await setDoc(userDocRef, {
           chatId: uuidv4(),
           timestamp: serverTimestamp(),
           text,
-          image_message: downloadUrl,
+          images_message: imageUrls,
           user: currentAuthUser?.additionalInfo,
         });
       } else {

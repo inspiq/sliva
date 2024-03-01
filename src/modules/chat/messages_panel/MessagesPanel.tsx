@@ -18,7 +18,7 @@ const MainLayout = styled.div`
 export interface Message {
   chatId: string;
   text: string;
-  image_message?: string;
+  images_message?: string[];
   timestamp: {
     nanoseconds: number;
     seconds: number;
