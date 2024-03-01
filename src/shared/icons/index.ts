@@ -14,3 +14,4 @@ export * from 'src/shared/icons/SpanishIcon';
 export * from 'src/shared/icons/EnglishIcon';
 export * from 'src/shared/icons/ExitIcon';
 export * from 'src/shared/icons/EditIcon';
+export * from 'src/shared/icons/PaperClipIcon';

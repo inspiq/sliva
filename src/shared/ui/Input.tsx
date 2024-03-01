@@ -3,7 +3,13 @@ import styled, { css } from 'styled-components';
 import { switchProp } from 'styled-tools';
 
 import { Error } from 'src/modules/auth/Error';
-import { CloseEyeIcon, EyeIcon, PlusIcon, useToggle } from 'src/shared';
+import {
+  CloseEyeIcon,
+  EyeIcon,
+  PaperClipIcon,
+  PlusIcon,
+  useToggle,
+} from 'src/shared';
 
 const Input = styled.input<{
   $hasError?: boolean;
@@ -92,7 +98,7 @@ const PlusIconLayout = styled.div`
     background-color: ${({ theme }) => theme.hover_button_primary};
   }
 `;
-
+const PaperClipIconLayout = styled.div``;
 type Size = 'medium' | 'big';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
@@ -101,10 +107,19 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   textError?: any;
   inputSize?: Size;
+  hasInChat?: boolean;
 }
 
 const UiInputElement = (props: Props): ReactElement => {
-  const { Icon, hasError, textError, type, inputSize = 'big', ...rest } = props;
+  const {
+    Icon,
+    hasError,
+    textError,
+    type,
+    hasInChat,
+    inputSize = 'big',
+    ...rest
+  } = props;
 
   const { visible: passVisible, toggle } = useToggle();
 
@@ -117,9 +132,15 @@ const UiInputElement = (props: Props): ReactElement => {
       <IconLayout>{Icon}</IconLayout>
       {type === 'file' && (
         <StyledLabel htmlFor="file">
-          <PlusIconLayout>
-            <PlusIcon />
-          </PlusIconLayout>
+          {hasInChat ? (
+            <PaperClipIconLayout>
+              <PaperClipIcon />
+            </PaperClipIconLayout>
+          ) : (
+            <PlusIconLayout>
+              <PlusIcon />
+            </PlusIconLayout>
+          )}
           <Input
             $hasError={hasError}
             $hasIcon={hasIcon}

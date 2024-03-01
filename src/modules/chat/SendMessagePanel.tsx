@@ -21,8 +21,8 @@ const MainLayout = styled.div<StyledProps>`
 
 const UiInputLayout = styled.div`
   position: absolute;
-  right: 20px;
-  bottom: 15px;
+  right: 30px;
+  bottom: 24px;
 `;
 
 const StyledImage = styled(Image)`
@@ -49,7 +49,6 @@ interface Props {
 const SendMessagePanelElement = (props: Props): ReactElement => {
   const [value, setValue] = useState('');
   const [images, setImages] = useState<File[]>();
-  console.log(images);
   const { onSendMessage } = props;
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -93,7 +92,7 @@ const SendMessagePanelElement = (props: Props): ReactElement => {
         inputSize="medium"
       />
       <UiInputLayout>
-        <UiInput type="file" onChange={onChange} />
+        <UiInput type="file" hasInChat={true} onChange={onChange} />
       </UiInputLayout>
     </MainLayout>
   );

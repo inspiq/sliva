@@ -109,7 +109,6 @@ const MessageCardElement = forwardRef(
   (props: Props, ref: Ref<HTMLDivElement>): ReactElement => {
     const { message, isMyMessage } = props;
     const { user, timestamp, text, images_message } = message;
-    console.log(images_message);
 
     return (
       <MainLayout $isMyMessage={isMyMessage} ref={ref}>
