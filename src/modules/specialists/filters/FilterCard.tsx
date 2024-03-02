@@ -7,7 +7,8 @@ import {
 } from 'react';
 import styled from 'styled-components';
 
-import { Option, UiAccordion } from 'src/shared';
+import { SpecialistFilter } from 'src/modules/specialists/specialists_panel/SpecialistsPanel';
+import { Accordion, Option } from 'src/shared';
 
 const Subcategory = styled.div`
   display: flex;
@@ -23,9 +24,7 @@ const Title = styled.label`
 const FilterCardElement = (props: {
   header: Option;
   subcategories?: Option[];
-  setSelectedFilters: Dispatch<
-    SetStateAction<{ header: string; subcategories: string[] }[]>
-  >;
+  setSelectedFilters: Dispatch<SetStateAction<SpecialistFilter[]>>;
 }): ReactElement => {
   const { header, subcategories, setSelectedFilters } = props;
 
@@ -59,27 +58,24 @@ const FilterCardElement = (props: {
         const findCategoryIdx = copy.findIndex(
           (item) => item.header === header.value,
         );
-        const findSubcategoryIdx = copy?.[
-          findCategoryIdx
-        ]?.subcategories.findIndex((item) => item == subcategory);
 
-        if (findCategoryIdx != -1 && findSubcategoryIdx == -1 && isChecked) {
+        if (findCategoryIdx != -1 && isChecked) {
           copy[findCategoryIdx].subcategories = [
             ...copy[findCategoryIdx].subcategories,
             subcategory,
           ];
 
-          return copy;
+          return Array.from(new Set(copy));
         }
 
-        if (findCategoryIdx != -1 && findSubcategoryIdx != -1 && !isChecked) {
+        if (findCategoryIdx != -1 && !isChecked) {
           copy[findCategoryIdx].subcategories = [
             ...copy[findCategoryIdx].subcategories.filter(
-              (item) => item != subcategory,
+              (item) => item !== subcategory,
             ),
           ];
 
-          return copy;
+          return Array.from(new Set(copy));
         }
 
         return prev;
@@ -89,11 +85,10 @@ const FilterCardElement = (props: {
   );
 
   return (
-    <UiAccordion
+    <Accordion
       title={header.label}
       id={header.label}
       onChange={onChangeCategoriesFilter}
-      isDisabled={header.value === 'all_specialists'}
     >
       {subcategories?.map((subcategory) => (
         <Subcategory key={subcategory.value}>
@@ -107,7 +102,7 @@ const FilterCardElement = (props: {
           <Title htmlFor={subcategory.label}>{subcategory.label}</Title>
         </Subcategory>
       ))}
-    </UiAccordion>
+    </Accordion>
   );
 };
 

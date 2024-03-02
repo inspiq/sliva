@@ -102,6 +102,26 @@ export const getAreas = (t: (key: string) => string) => {
   ];
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const getSpecialistFilters = (t: (key: string) => string) => {
+  return [
+    {
+      category: {
+        value: 'repair_and_construction',
+        label: 'Ремонт и строительство',
+      },
+      subcategories: [{ value: 'laborer', label: 'Разнорабочий' }],
+    },
+    {
+      category: {
+        value: 'auto_services',
+        label: 'Авто услуги',
+      },
+      subcategories: [{ value: 'plumber', label: 'Сантехник' }],
+    },
+  ];
+};
+
 export const getMonthName = (month: number) => {
   const months = [
     'январь',

@@ -1,8 +1,10 @@
 import { Dispatch, memo, ReactElement, SetStateAction } from 'react';
+import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
 import { Filter } from 'src/modules/specialists/filters/FilterCard';
-import { devices } from 'src/shared';
+import { SpecialistFilter } from 'src/modules/specialists/specialists_panel/SpecialistsPanel';
+import { devices, getSpecialistFilters } from 'src/shared';
 
 const MainLayout = styled.div`
   max-width: 400px;
@@ -18,36 +20,14 @@ const MainLayout = styled.div`
 
 const FiltersPanelElement = memo(
   (props: {
-    setSelectedFilters: Dispatch<
-      SetStateAction<{ header: string; subcategories: string[] }[]>
-    >;
+    setSelectedFilters: Dispatch<SetStateAction<SpecialistFilter[]>>;
   }): ReactElement => {
-    const FILTERS = [
-      {
-        category: {
-          value: 'all_specialists',
-          label: 'Все специалисты',
-        },
-      },
-      {
-        category: {
-          value: 'repair_and_construction',
-          label: 'Ремонт и строительство',
-        },
-        subcategories: [{ value: 'laborer', label: 'Разнорабочий' }],
-      },
-      {
-        category: {
-          value: 'auto_services',
-          label: 'Авто услуги',
-        },
-        subcategories: [{ value: 'plumber', label: 'Сантехник' }],
-      },
-    ];
+    const t = useTranslations();
+    const specialistFilters = getSpecialistFilters(t);
 
     return (
       <MainLayout>
-        {FILTERS.map(({ category, subcategories }) => (
+        {specialistFilters.map(({ category, subcategories }) => (
           <Filter
             header={category}
             subcategories={subcategories}
