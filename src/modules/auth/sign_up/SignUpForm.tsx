@@ -39,13 +39,6 @@ const SelectLayout = styled.div`
   width: 100%;
 `;
 
-const defaultUserCategories = [
-  {
-    value: 'all_specialists',
-    label: 'Все специалисты',
-  },
-];
-
 const SignUpFormElement = (): ReactElement => {
   const [isRequestError, setIsRequestError] = useState(false);
   const router = useRouter();
@@ -117,7 +110,6 @@ const SignUpFormElement = (): ReactElement => {
           firstName,
           lastName,
           type: userType.value,
-          categories: defaultUserCategories,
         });
 
         router.push('/');

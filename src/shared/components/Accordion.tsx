@@ -47,14 +47,12 @@ const Title = styled.div`
   font-size: 15px;
 `;
 
-interface Props extends FormHTMLAttributes<HTMLInputElement> {
-  isDisabled?: boolean;
-}
+interface Props extends FormHTMLAttributes<HTMLInputElement> {}
 
-export const UiAccordionElement = (
+export const AccordionElement = (
   props: PropsWithChildren<Props>,
 ): ReactElement => {
-  const { children, title, onChange, isDisabled, ...rest } = props;
+  const { children, title, onChange, ...rest } = props;
 
   const { toggle, visible } = useToggle();
   const { secondary, white } = useTheme();
@@ -75,18 +73,16 @@ export const UiAccordionElement = (
       />
       <Header htmlFor={rest.id} visible={visible}>
         <Title>{title}</Title>
-        {!isDisabled && (
-          <ArrowIcon
-            width={12}
-            height={12}
-            color={visible ? white : secondary}
-            className={'arrow'}
-          />
-        )}
+        <ArrowIcon
+          width={12}
+          height={12}
+          color={visible ? white : secondary}
+          className={'arrow'}
+        />
       </Header>
-      {visible && !isDisabled && <ContentLayout>{children}</ContentLayout>}
+      {visible && <ContentLayout>{children}</ContentLayout>}
     </MainLayout>
   );
 };
 
-export const UiAccordion = UiAccordionElement;
+export const Accordion = AccordionElement;

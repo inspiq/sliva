@@ -1,8 +1,8 @@
-import { memo, ReactElement } from 'react';
+import { ReactElement } from 'react';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
-import { devices } from 'src/shared';
+import { devices, getMainCategories } from 'src/shared';
 
 import { CategoryCard } from './CategoryCard';
 
@@ -28,52 +28,17 @@ const MainLayout = styled.div`
   }
 `;
 
-const CategoriesPanelElement = memo((): ReactElement => {
+const CategoriesPanelElement = (): ReactElement => {
   const t = useTranslations();
-  const CATEGORIES = [
-    {
-      title: t('categories.renovation'),
-      imgPath: '/files/images/categories/renovation.jpg',
-    },
-    {
-      title: t('categories.auto'),
-      imgPath: '/files/images/categories/auto.jpg',
-    },
-    {
-      title: t('categories.kitchen'),
-      imgPath: '/files/images/categories/kitchen.jpg',
-    },
-    {
-      title: t('categories.transportation_services'),
-      imgPath: '/files/images/categories/transportation_services.jpg',
-    },
-    {
-      title: t('categories.beauty_services'),
-      imgPath: '/files/images/categories/beauty_services.jpg',
-    },
-    {
-      title: t('categories.animal_services'),
-      imgPath: '/files/images/categories/animal_services.jpg',
-    },
-    {
-      title: t('categories.fitness'),
-      imgPath: '/files/images/categories/fitness.jpg',
-    },
-    {
-      title: t('categories.home_staff'),
-      imgPath: '/files/images/categories/home_staff.jpg',
-    },
-  ];
+  const mainCategories = getMainCategories(t);
 
   return (
     <MainLayout>
-      {CATEGORIES.map((category) => (
+      {mainCategories.map((category) => (
         <CategoryCard category={category} key={category.title} />
       ))}
     </MainLayout>
   );
-});
-
-CategoriesPanelElement.displayName = 'CategoriesPanelElement';
+};
 
 export const Categories = CategoriesPanelElement;

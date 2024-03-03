@@ -4,3 +4,5 @@ export * from 'src/shared/components/Wrapper';
 export * from 'src/shared/components/Line';
 export * from 'src/shared/components/Footer';
 export * from 'src/shared/components/Loader';
+export * from 'src/shared/components/chips';
+export * from 'src/shared/components/Accordion';

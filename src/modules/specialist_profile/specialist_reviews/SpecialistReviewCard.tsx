@@ -1,10 +1,10 @@
-import { ReactElement } from 'react';
+import { memo, ReactElement } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
 import { Review } from 'src/modules/specialist_profile/SpecialistProfile';
 import { getDayAndYear, getInitials, Line } from 'src/shared';
-import { Rate } from 'src/shared/ui/chips/RateChip';
+import { Rate } from 'src/shared/components/chips/RateChip';
 
 const MainLayout = styled.div`
   padding: 15px 20px;
@@ -109,4 +109,4 @@ const SpecialistReviewCardElement = (props: {
   );
 };
 
-export const SpecialistReviewCard = SpecialistReviewCardElement;
+export const SpecialistReviewCard = memo(SpecialistReviewCardElement);

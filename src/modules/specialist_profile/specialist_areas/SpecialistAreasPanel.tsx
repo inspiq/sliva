@@ -1,4 +1,4 @@
-import { memo, ReactElement } from 'react';
+import { ReactElement } from 'react';
 import styled from 'styled-components';
 
 import { SpecialistAreaCard } from 'src/modules/specialist_profile/specialist_areas/SpecialistAreaCard';
@@ -31,14 +31,14 @@ interface Props {
   areas?: Option[];
 }
 
-const SpecialistAreasPanelElement = memo((props: Props): ReactElement => {
+const SpecialistAreasPanelElement = (props: Props): ReactElement => {
   const { areas } = props;
 
   return (
     <MainLayout>
       <Title>Выезд к клиенту</Title>
       <AreasLayout hasAreas={!!areas?.length}>
-        {areas
+        {areas?.length
           ? areas?.map((area) => (
               <SpecialistAreaCard key={area.value} area={area.label} />
             ))
@@ -46,8 +46,6 @@ const SpecialistAreasPanelElement = memo((props: Props): ReactElement => {
       </AreasLayout>
     </MainLayout>
   );
-});
-
-SpecialistAreasPanelElement.displayName = 'SpecialistAreasPanelElement';
+};
 
 export const SpecialistAreasPanel = SpecialistAreasPanelElement;

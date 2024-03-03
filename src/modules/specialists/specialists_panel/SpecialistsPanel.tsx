@@ -1,4 +1,4 @@
-import { memo, ReactElement, useEffect, useMemo, useState } from 'react';
+import { ReactElement, useEffect, useMemo, useState } from 'react';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import styled from 'styled-components';
 
@@ -11,6 +11,7 @@ const MainLayout = styled.div`
   grid-template-columns: 300px auto;
   gap: 60px;
   padding: 25px 0;
+
   @media ${devices.mobileL} {
     display: flex;
     flex-direction: column;
@@ -23,39 +24,44 @@ const SpecialistsLayout = styled.div`
   flex-direction: column;
 `;
 
-const SpecialistsPanelElement = memo((): ReactElement => {
+export interface SpecialistFilter {
+  header: string;
+  subcategories: string[];
+}
+
+const SpecialistsPanelElement = (): ReactElement => {
   const [specialists, setSpecialists] = useState<Specialist[]>([]);
-  const [selectedFilters, setSelectedFilters] = useState<
-    { header: string; subcategories: string[] }[]
-  >([]);
+  const [selectedFilters, setSelectedFilters] = useState<SpecialistFilter[]>(
+    [],
+  );
 
   const filteredSpecialists = useMemo(() => {
-    if (!selectedFilters.length) return;
+    if (!selectedFilters.length) return specialists;
 
-    const uniqueSpecialistIds = new Set<string>();
+    const uniqueSpecialistIds = new Set();
+    let filteredSpecialists: Specialist[] = [];
 
-    const filteredSpecialistsByCategory = specialists.filter((specialist) =>
-      specialist.categories?.some((category) =>
-        selectedFilters.some((filter) => filter.header === category.value),
-      ),
-    );
-
-    const filteredSpecialistsBySubcategory = specialists.filter((specialist) =>
-      specialist?.subcategories?.some((subcategory) => {
-        const { value } = subcategory;
-
-        return selectedFilters.some((filter) =>
-          filter.subcategories.includes(value),
+    selectedFilters.forEach((filter) => {
+      if (filter.subcategories.length) {
+        filteredSpecialists.push(
+          ...specialists.filter((specialist) =>
+            specialist?.subcategories?.some((subcategory) =>
+              filter.subcategories.includes(subcategory.value),
+            ),
+          ),
         );
-      }),
-    );
+      } else {
+        filteredSpecialists.push(
+          ...specialists.filter((specialist) =>
+            specialist.categories?.some(
+              (category) => category.value === filter.header,
+            ),
+          ),
+        );
+      }
+    });
 
-    const mergedSpecialists = [
-      ...filteredSpecialistsBySubcategory,
-      ...filteredSpecialistsByCategory,
-    ];
-
-    return mergedSpecialists.filter((specialist) => {
+    filteredSpecialists = filteredSpecialists.filter((specialist) => {
       if (uniqueSpecialistIds.has(specialist.userId)) {
         return false;
       }
@@ -63,6 +69,8 @@ const SpecialistsPanelElement = memo((): ReactElement => {
 
       return true;
     });
+
+    return filteredSpecialists;
   }, [selectedFilters, specialists]);
 
   useEffect(() => {
@@ -97,8 +105,6 @@ const SpecialistsPanelElement = memo((): ReactElement => {
       </SpecialistsLayout>
     </MainLayout>
   );
-});
-
-SpecialistsPanelElement.displayName = 'SpecialistsPanel';
+};
 
 export const SpecialistsPanel = SpecialistsPanelElement;

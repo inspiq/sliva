@@ -88,6 +88,43 @@ export const getCategories = (t: (key: string) => string) => {
   ];
 };
 
+export const getMainCategories = (t: (key: string) => string) => {
+  return [
+    {
+      title: t('categories.renovation'),
+      imgPath: '/files/images/categories/renovation.jpg',
+    },
+    {
+      title: t('categories.auto'),
+      imgPath: '/files/images/categories/auto.jpg',
+    },
+    {
+      title: t('categories.kitchen'),
+      imgPath: '/files/images/categories/kitchen.jpg',
+    },
+    {
+      title: t('categories.transportation_services'),
+      imgPath: '/files/images/categories/transportation_services.jpg',
+    },
+    {
+      title: t('categories.beauty_services'),
+      imgPath: '/files/images/categories/beauty_services.jpg',
+    },
+    {
+      title: t('categories.animal_services'),
+      imgPath: '/files/images/categories/animal_services.jpg',
+    },
+    {
+      title: t('categories.fitness'),
+      imgPath: '/files/images/categories/fitness.jpg',
+    },
+    {
+      title: t('categories.home_staff'),
+      imgPath: '/files/images/categories/home_staff.jpg',
+    },
+  ];
+};
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getAreas = (t: (key: string) => string) => {
   return [
@@ -99,6 +136,26 @@ export const getAreas = (t: (key: string) => string) => {
     { value: 'Seattle', label: 'Сиэтл' },
     { value: 'Dortmund', label: 'Дортмунд' },
     { value: 'Catalonia', label: 'Каталония' },
+  ];
+};
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const getSpecialistFilters = (t: (key: string) => string) => {
+  return [
+    {
+      category: {
+        value: 'repair_and_construction',
+        label: 'Ремонт и строительство',
+      },
+      subcategories: [{ value: 'laborer', label: 'Разнорабочий' }],
+    },
+    {
+      category: {
+        value: 'auto_services',
+        label: 'Авто услуги',
+      },
+      subcategories: [{ value: 'plumber', label: 'Сантехник' }],
+    },
   ];
 };
 

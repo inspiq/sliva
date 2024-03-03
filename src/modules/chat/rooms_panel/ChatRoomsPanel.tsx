@@ -1,4 +1,4 @@
-import { Dispatch, memo, ReactElement, SetStateAction } from 'react';
+import { Dispatch, ReactElement, SetStateAction, useCallback } from 'react';
 import styled from 'styled-components';
 
 import { ChatRoomCard } from 'src/modules/chat/rooms_panel/ChatRoomCard';
@@ -13,14 +13,17 @@ interface Props {
   setActiveRoom: Dispatch<SetStateAction<string>>;
 }
 
-const ChatRoomsPanelElement = memo((props: Props): ReactElement => {
+const ChatRoomsPanelElement = (props: Props): ReactElement => {
   const { setActiveRoom, activeRoom } = props;
 
   const CHAT_ROOMS = ['Глобальный чат', 'Чат для слесарей'];
 
-  const onChangeActiveRoom = (room: string) => {
-    setActiveRoom(room);
-  };
+  const onChangeActiveRoom = useCallback(
+    (room: string) => {
+      setActiveRoom(room);
+    },
+    [setActiveRoom],
+  );
 
   return (
     <MainLayout>
@@ -29,13 +32,11 @@ const ChatRoomsPanelElement = memo((props: Props): ReactElement => {
           key={room}
           room={room}
           onChangeActiveRoom={onChangeActiveRoom}
-          isActiveRoom={activeRoom == room}
+          isActiveRoom={activeRoom === room}
         />
       ))}
     </MainLayout>
   );
-});
-
-ChatRoomsPanelElement.displayName = 'chatRoomsPanelElement';
+};
 
 export const ChatRoomsPanel = ChatRoomsPanelElement;
