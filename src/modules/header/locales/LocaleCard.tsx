@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { memo, ReactElement } from 'react';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
@@ -34,12 +34,12 @@ const LocaleCardElement = (props: Props): ReactElement => {
 
   return (
     <StyledLink href={currentPath} locale={locale}>
-      {locale == 'ru' && <RussiaIcon width={18} />}
-      {locale == 'en' && <EnglishIcon width={18} />}
-      {locale == 'es' && <SpanishIcon width={18} />}
+      {locale === 'ru' && <RussiaIcon width={18} />}
+      {locale === 'en' && <EnglishIcon width={18} />}
+      {locale === 'es' && <SpanishIcon width={18} />}
       {t(`language_switcher.languages.${locale}`)}
     </StyledLink>
   );
 };
 
-export const LocaleCard = LocaleCardElement;
+export const LocaleCard = memo(LocaleCardElement);

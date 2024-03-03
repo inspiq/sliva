@@ -25,7 +25,7 @@ const SendMessagePanelElement = (props: Props): ReactElement => {
   const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (!value) return;
 
-    if (event.key == 'Enter') {
+    if (event.key === 'Enter') {
       onSendMessage(value);
       setValue('');
     }

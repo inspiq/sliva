@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useEffect, useRef, useState } from 'react';
+import { ReactElement, useEffect, useRef, useState } from 'react';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import styled from 'styled-components';
 
@@ -31,25 +31,25 @@ const MessagesPanelElement = (): ReactElement => {
 
   const ref = useRef<HTMLDivElement | null>(null);
 
-  const getMessages = useCallback(async () => {
-    try {
-      const q = query(collection(db, 'global_chat'), orderBy('timestamp'));
-
-      onSnapshot(q, (querySnapshot) => {
-        const messages: Message[] = [];
-        querySnapshot.forEach((doc) => {
-          messages.push(doc.data() as Message);
-        });
-        setMessages(messages);
-      });
-    } catch (e) {
-      /* empty */
-    }
-  }, []);
-
   useEffect(() => {
+    const getMessages = async () => {
+      try {
+        const q = query(collection(db, 'global_chat'), orderBy('timestamp'));
+
+        onSnapshot(q, (querySnapshot) => {
+          const messages: Message[] = [];
+          querySnapshot.forEach((doc) => {
+            messages.push(doc.data() as Message);
+          });
+          setMessages(messages);
+        });
+      } catch (e) {
+        /* empty */
+      }
+    };
+
     getMessages();
-  }, [getMessages]);
+  }, []);
 
   useEffect(() => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
@@ -61,7 +61,7 @@ const MessagesPanelElement = (): ReactElement => {
         <MessageCard
           ref={ref}
           message={message}
-          isMyMessage={message?.user?.userId == currentAuthUser?.uid}
+          isMyMessage={message?.user?.userId === currentAuthUser?.uid}
           key={message.chatId}
         />
       ))}

@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { memo, ReactElement } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
@@ -109,4 +109,4 @@ const SpecialistReviewCardElement = (props: {
   );
 };
 
-export const SpecialistReviewCard = SpecialistReviewCardElement;
+export const SpecialistReviewCard = memo(SpecialistReviewCardElement);

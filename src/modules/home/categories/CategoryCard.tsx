@@ -1,3 +1,4 @@
+import { memo, ReactElement } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
@@ -45,7 +46,7 @@ interface Props {
   category: Category;
 }
 
-export const CategoryCard = (props: Props) => {
+export const CategoryCardElement = (props: Props): ReactElement => {
   const { imgPath, title } = props.category;
 
   return (
@@ -55,3 +56,5 @@ export const CategoryCard = (props: Props) => {
     </CategoryInfoLayout>
   );
 };
+
+export const CategoryCard = memo(CategoryCardElement);

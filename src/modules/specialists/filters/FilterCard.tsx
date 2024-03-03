@@ -1,6 +1,7 @@
 import {
   ChangeEvent,
   Dispatch,
+  memo,
   ReactElement,
   SetStateAction,
   useMemo,
@@ -106,4 +107,4 @@ const FilterCardElement = (props: {
   );
 };
 
-export const Filter = FilterCardElement;
+export const Filter = memo(FilterCardElement);

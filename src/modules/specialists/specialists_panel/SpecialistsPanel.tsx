@@ -1,4 +1,4 @@
-import { memo, ReactElement, useEffect, useMemo, useState } from 'react';
+import { ReactElement, useEffect, useMemo, useState } from 'react';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import styled from 'styled-components';
 
@@ -29,7 +29,7 @@ export interface SpecialistFilter {
   subcategories: string[];
 }
 
-const SpecialistsPanelElement = memo((): ReactElement => {
+const SpecialistsPanelElement = (): ReactElement => {
   const [specialists, setSpecialists] = useState<Specialist[]>([]);
   const [selectedFilters, setSelectedFilters] = useState<SpecialistFilter[]>(
     [],
@@ -105,8 +105,6 @@ const SpecialistsPanelElement = memo((): ReactElement => {
       </SpecialistsLayout>
     </MainLayout>
   );
-});
-
-SpecialistsPanelElement.displayName = 'SpecialistsPanel';
+};
 
 export const SpecialistsPanel = SpecialistsPanelElement;

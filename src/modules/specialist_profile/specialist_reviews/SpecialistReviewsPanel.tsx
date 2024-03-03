@@ -1,4 +1,4 @@
-import { memo, ReactElement } from 'react';
+import { ReactElement } from 'react';
 import styled from 'styled-components';
 
 import { SpecialistReviewCard } from 'src/modules/specialist_profile/specialist_reviews/SpecialistReviewCard';
@@ -14,7 +14,7 @@ interface Props {
   reviews?: Review[];
 }
 
-const SpecialistReviewsPanelElement = memo((props: Props): ReactElement => {
+const SpecialistReviewsPanelElement = (props: Props): ReactElement => {
   const { reviews } = props;
 
   return (
@@ -24,8 +24,6 @@ const SpecialistReviewsPanelElement = memo((props: Props): ReactElement => {
       ))}
     </MainLayout>
   );
-});
-
-SpecialistReviewsPanelElement.displayName = 'SpecialistReviewsPanelElement';
+};
 
 export const SpecialistReviewsPanel = SpecialistReviewsPanelElement;

@@ -1,4 +1,4 @@
-import { Dispatch, memo, ReactElement, SetStateAction } from 'react';
+import { Dispatch, ReactElement, SetStateAction } from 'react';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
@@ -18,28 +18,24 @@ const MainLayout = styled.div`
   }
 `;
 
-const FiltersPanelElement = memo(
-  (props: {
-    setSelectedFilters: Dispatch<SetStateAction<SpecialistFilter[]>>;
-  }): ReactElement => {
-    const t = useTranslations();
-    const specialistFilters = getSpecialistFilters(t);
+const FiltersPanelElement = (props: {
+  setSelectedFilters: Dispatch<SetStateAction<SpecialistFilter[]>>;
+}): ReactElement => {
+  const t = useTranslations();
+  const specialistFilters = getSpecialistFilters(t);
 
-    return (
-      <MainLayout>
-        {specialistFilters.map(({ category, subcategories }) => (
-          <Filter
-            header={category}
-            subcategories={subcategories}
-            setSelectedFilters={props.setSelectedFilters}
-            key={category.value}
-          />
-        ))}
-      </MainLayout>
-    );
-  },
-);
-
-FiltersPanelElement.displayName = 'FiltersPanelElement';
+  return (
+    <MainLayout>
+      {specialistFilters.map(({ category, subcategories }) => (
+        <Filter
+          header={category}
+          subcategories={subcategories}
+          setSelectedFilters={props.setSelectedFilters}
+          key={category.value}
+        />
+      ))}
+    </MainLayout>
+  );
+};
 
 export const Filters = FiltersPanelElement;

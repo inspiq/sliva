@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { memo, ReactElement } from 'react';
 import styled from 'styled-components';
 
 import { generateRandomColor } from 'src/shared/utils/get-random-color';
@@ -41,4 +41,4 @@ const SpecialistAreaCardElement = (props: Props): ReactElement => {
   );
 };
 
-export const SpecialistAreaCard = SpecialistAreaCardElement;
+export const SpecialistAreaCard = memo(SpecialistAreaCardElement);

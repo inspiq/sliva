@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { memo, ReactElement } from 'react';
 import styled from 'styled-components';
 
 export const RoomCard = styled.div<{ $isActiveRoom: boolean }>`
@@ -30,4 +30,4 @@ const ChatRoomCardElement = (props: Props): ReactElement => {
   );
 };
 
-export const ChatRoomCard = ChatRoomCardElement;
+export const ChatRoomCard = memo(ChatRoomCardElement);

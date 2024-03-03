@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import Popup from 'reactjs-popup';
 import { collection, getDocs } from 'firebase/firestore';
@@ -51,18 +51,18 @@ const HomeElement = (): ReactElement => {
   const [cookies, setCookie] = useCookies();
   const t = useTranslations();
 
-  const getUserData = useCallback(async () => {
-    try {
-      const { size } = await getDocs(collection(db, 'users'));
-      setUsersCount(size);
-    } catch {
-      /* empty */
-    }
-  }, []);
-
   useEffect(() => {
+    const getUserData = async () => {
+      try {
+        const { size } = await getDocs(collection(db, 'users'));
+        setUsersCount(size);
+      } catch {
+        /* empty */
+      }
+    };
+
     getUserData();
-  }, [getUserData]);
+  }, []);
 
   const onClick = () => {
     setCookie('modal_test', true, {

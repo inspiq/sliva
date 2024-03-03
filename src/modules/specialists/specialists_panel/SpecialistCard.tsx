@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { memo, ReactElement } from 'react';
 import Image from 'next/image';
 import styled, { useTheme } from 'styled-components';
 
@@ -137,4 +137,4 @@ const SpecialistCardElement = (props: Props): ReactElement => {
   );
 };
 
-export const SpecialistCard = SpecialistCardElement;
+export const SpecialistCard = memo(SpecialistCardElement);
