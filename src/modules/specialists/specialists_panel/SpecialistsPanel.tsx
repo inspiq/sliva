@@ -34,7 +34,6 @@ const SpecialistsPanelElement = (): ReactElement => {
   const [selectedFilters, setSelectedFilters] = useState<SpecialistFilter[]>(
     [],
   );
-
   const filteredSpecialists = useMemo(() => {
     if (!selectedFilters.length) return specialists;
 
