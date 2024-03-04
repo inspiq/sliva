@@ -23,6 +23,7 @@ const MainLayout = styled.div`
   }
 
   @media ${devices.mobileL} {
+    margin: 20px 0 50px 0;
     gap: 15px;
     grid-template-columns: repeat(2, minmax(100px, 290px));
   }

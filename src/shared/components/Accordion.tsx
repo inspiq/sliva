@@ -28,7 +28,7 @@ const Header = styled.label<{ visible: boolean }>`
     visible &&
     css`
       background-color: ${theme.secondary};
-      color: ${({ theme }) => theme.white};
+      color: ${theme.white};
     `}
 
   &:hover {
@@ -43,8 +43,16 @@ const Header = styled.label<{ visible: boolean }>`
   }
 `;
 
-const Title = styled.div`
+const Title = styled.div<{ visible: boolean }>`
   font-size: 15px;
+  font-weight: ${({ theme }) => theme.w400};
+  color: ${({ theme }) => theme.secondary};
+
+  ${({ visible, theme }) =>
+    visible &&
+    css`
+      color: ${theme.white};
+    `}
 `;
 
 interface Props extends FormHTMLAttributes<HTMLInputElement> {}
@@ -72,7 +80,7 @@ export const AccordionElement = (
         {...rest}
       />
       <Header htmlFor={rest.id} visible={visible}>
-        <Title>{title}</Title>
+        <Title visible={visible}>{title}</Title>
         <ArrowIcon
           width={12}
           height={12}

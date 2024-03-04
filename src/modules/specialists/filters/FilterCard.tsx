@@ -34,15 +34,11 @@ const FilterCardElement = (props: {
       const isChecked = e.target.checked;
 
       setSelectedFilters((prev) => {
-        const isCategorySelected = prev.some(
-          (item) => item.header === header.value,
-        );
-
-        if (isCategorySelected && !isChecked) {
-          return prev.filter((item) => item.header != header.value);
+        if (!isChecked) {
+          return prev.filter((item) => item.header !== header.value);
         }
 
-        if (!isCategorySelected && isChecked) {
+        if (isChecked) {
           return [...prev, { header: header.value, subcategories: [] }];
         }
 
@@ -66,7 +62,7 @@ const FilterCardElement = (props: {
             subcategory,
           ];
 
-          return Array.from(new Set(copy));
+          return copy;
         }
 
         if (findCategoryIdx != -1 && !isChecked) {
@@ -76,7 +72,7 @@ const FilterCardElement = (props: {
             ),
           ];
 
-          return Array.from(new Set(copy));
+          return copy;
         }
 
         return prev;
