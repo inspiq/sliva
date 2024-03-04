@@ -94,6 +94,8 @@ const SpecialistCardElement = (props: Props): ReactElement => {
     experience,
     reviewDetails,
     areas,
+    categories,
+    subcategories,
   } = specialist;
   const reviewsCount = reviewDetails?.count ?? 0;
 
@@ -112,6 +114,9 @@ const SpecialistCardElement = (props: Props): ReactElement => {
           <FullName>
             {firstName} {lastName}
           </FullName>
+          {categories?.map((item) => <>{item.label}</>)}
+          {subcategories?.map((item) => <>{item.label}</>)}
+
           <Experience hasExperience={!!experience}>
             Опыт работы: {experience ? `${experience} года` : 'нет информации'}
           </Experience>
