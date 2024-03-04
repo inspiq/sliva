@@ -14,7 +14,10 @@ const MainLayout = styled.div`
 `;
 
 const ContentLayout = styled.div`
-  padding: 10px 10px;
+  padding: 10px 7px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 `;
 
 const Header = styled.label<{ visible: boolean }>`

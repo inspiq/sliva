@@ -16,7 +16,6 @@ const ReviewsLayout = styled.div`
 `;
 
 const ContentLayout = styled.div`
-  min-height: calc(100vh - 146px);
   padding: 50px 0;
   display: flex;
   flex-direction: column;
@@ -85,7 +84,7 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
   return (
     <>
       <Header />
-      <Wrapper>
+      <Wrapper content="flex-start">
         <Container>
           <ContentLayout>
             <Column>

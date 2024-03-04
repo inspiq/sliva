@@ -13,7 +13,7 @@ import { Accordion, Option } from 'src/shared';
 
 const Subcategory = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 3px;
 `;
 

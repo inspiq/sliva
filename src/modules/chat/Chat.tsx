@@ -8,7 +8,7 @@ export const ChatElement = (): ReactElement => {
   return (
     <>
       <Header />
-      <Wrapper>
+      <Wrapper position="flex-start">
         <Container>
           <ChatManagement />
         </Container>

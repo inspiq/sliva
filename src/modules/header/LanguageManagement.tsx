@@ -37,10 +37,6 @@ const MenuItemLayout = styled.div`
       background-color: transparent;
     }
   }
-
-  &:hover > ${StyledArrowIcon} {
-    transform: rotate(270deg);
-  }
 `;
 
 const Text = styled.div`

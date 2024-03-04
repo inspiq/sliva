@@ -14,7 +14,6 @@ export const MainLayout = styled.div`
   grid-template-columns: 300px auto;
   gap: 50px;
   margin: 50px 0;
-  height: calc(100vh - 146px);
 
   @media ${devices.mobileL} {
     grid-template-columns: 1fr;
@@ -25,7 +24,6 @@ export const MainLayout = styled.div`
 `;
 
 export const ChatLayout = styled.div`
-  height: calc(100vh - 146px);
   border-radius: 10px;
   box-shadow: 0px 5px 30px ${({ theme }) => theme.shadow};
   padding: 25px;
@@ -34,6 +32,7 @@ export const ChatLayout = styled.div`
   flex-direction: column;
   position: relative;
   justify-content: flex-end;
+  height: 500px;
 
   @media ${devices.mobileL} {
     padding: 15px;
