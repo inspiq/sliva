@@ -11,7 +11,7 @@ const MainLayout = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 70px);
+  min-height: calc(100vh - 146px);
 
   @media ${devices.mobileL} {
     height: 100%;
