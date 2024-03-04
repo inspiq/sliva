@@ -114,7 +114,7 @@
   "slogan": {
     "title": "Sliva – a reliable partner",
     "second_title": "for service",
-    "subtitle": "{usersCount, plural, =1 {# client trusted} other {# clients trusted}} our service",
+    "subtitle": "{usersCount, plural, one {# client trusted} other {# clients trusted} } our service",
     "button": "Find a specialist"
   },
   "categories": {

@@ -22,7 +22,7 @@ const RateReviewLayout = styled.div`
 const UserInitials = styled.div`
   font-size: 15px;
   color: ${({ theme }) => theme.secondary};
-  font-weight: ${({ theme }) => theme.w400};
+  font-weight: ${({ theme }) => theme.w500};
 `;
 
 const Date = styled.div`

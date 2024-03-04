@@ -23,8 +23,12 @@ const Row = styled.div`
 const Experience = styled.div<{ hasExperience: boolean }>`
   font-size: 15px;
   font-weight: ${({ theme }) => theme.w400};
-  color: ${({ theme, hasExperience }) =>
-    hasExperience ? theme.secondary : theme.grey};
+  color: ${({ theme }) => theme.secondary};
+
+  & > span {
+    color: ${({ theme, hasExperience }) =>
+      hasExperience ? theme.secondary : theme.grey};
+  }
 `;
 
 const Rating = styled.div`
@@ -125,7 +129,8 @@ const SpecialistDetailsElement = (props: Props): ReactElement => {
             {firstName} {lastName}
           </FullName>
           <Experience hasExperience={!!experience}>
-            Опыт работы: {experience ? `${experience} года` : 'нет информации'}
+            Опыт работы:
+            <span> {experience ? `${experience} лет` : 'нет информации'}</span>
           </Experience>
           <Row>
             <Rating>
