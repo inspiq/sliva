@@ -30,6 +30,7 @@ const Experience = styled.div<{ hasExperience: boolean }>`
 const Rating = styled.div`
   font-size: 16px;
   font-weight: ${({ theme }) => theme.w500};
+  color: ${({ theme }) => theme.secondary};
   display: flex;
   align-items: center;
   gap: 5px;
@@ -38,6 +39,7 @@ const Rating = styled.div`
 const ReviewsCount = styled.div`
   font-size: 16px;
   font-weight: ${({ theme }) => theme.w500};
+  color: ${({ theme }) => theme.secondary};
   display: flex;
   align-items: center;
   gap: 5px;
@@ -52,6 +54,7 @@ const SpecialistInfo = styled.div`
 const FullName = styled.div`
   font-size: 18px;
   font-weight: ${({ theme }) => theme.w600};
+  color: ${({ theme }) => theme.secondary};
 `;
 
 const SpecialistCard = styled.div`
