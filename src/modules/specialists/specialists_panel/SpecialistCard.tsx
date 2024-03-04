@@ -112,7 +112,6 @@ const SpecialistCardElement = (props: Props): ReactElement => {
           <FullName>
             {firstName} {lastName}
           </FullName>
-
           <Experience hasExperience={!!experience}>
             Опыт работы: {experience ? `${experience} года` : 'нет информации'}
           </Experience>
