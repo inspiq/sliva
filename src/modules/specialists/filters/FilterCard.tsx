@@ -13,8 +13,7 @@ import { Accordion, Option } from 'src/shared';
 
 const Subcategory = styled.div`
   display: flex;
-  align-items: flex-start;
-  margin-bottom: 5px;
+  align-items: center;
   gap: 3px;
 `;
 
@@ -36,7 +35,7 @@ const FilterCardElement = (props: {
 
       setSelectedFilters((prev) => {
         if (!isChecked) {
-          return prev.filter((item) => item.header != header.value);
+          return prev.filter((item) => item.header !== header.value);
         }
 
         if (isChecked) {
@@ -63,7 +62,7 @@ const FilterCardElement = (props: {
             subcategory,
           ];
 
-          return Array.from(new Set(copy));
+          return copy;
         }
 
         if (findCategoryIdx != -1 && !isChecked) {
@@ -73,7 +72,7 @@ const FilterCardElement = (props: {
             ),
           ];
 
-          return Array.from(new Set(copy));
+          return copy;
         }
 
         return prev;
