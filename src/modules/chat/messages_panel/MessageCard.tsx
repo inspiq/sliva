@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import { Message } from 'src/modules/chat/messages_panel/MessagesPanel';
 import { devices, getInitials, getTime } from 'src/shared';
 
+import { MessageImagesPanel } from './MessageImagesPanel';
+
 const MainLayout = styled.div<{ $isMyMessage: boolean }>`
   width: 100%;
   display: flex;
@@ -75,31 +77,6 @@ const UserName = styled.div`
   font-weight: ${({ theme }) => theme.w500};
 `;
 
-const StyledMessageImg = styled(Image)<{
-  $hasText: boolean;
-  $first: boolean;
-  $last: boolean;
-}>`
-  border-radius: ${({ $hasText, $first, $last }) =>
-    // eslint-disable-next-line no-nested-ternary
-    $first && $last
-      ? $hasText
-        ? '15px 15px 3px 3px'
-        : '15px 15px 3px 15px'
-      : // eslint-disable-next-line no-nested-ternary
-        $first
-        ? '15px 15px 3px 3px'
-        : // eslint-disable-next-line no-nested-ternary
-          !$first && !$last
-          ? ''
-          : $last && $hasText
-            ? ''
-            : '3px 3px 3px 15px'};
-  height: 200px;
-  width: 350px;
-  object-fit: none;
-`;
-
 interface Props {
   message: Message;
   isMyMessage: boolean;
@@ -130,19 +107,10 @@ const MessageCardElement = forwardRef(
               })}
             </UserName>
           )}
-          {images_message?.map((image, index) => (
-            <StyledMessageImg
-              $first={index == 0}
-              $last={index == images_message.length - 1}
-              key={index}
-              $hasText={!!text}
-              src={image}
-              width={350}
-              height={200}
-              quality={100}
-              alt="Image"
-            />
-          ))}
+          <MessageImagesPanel
+            images_message={images_message}
+            hasText={!!text}
+          />
           {text && <MessageText>{text}</MessageText>}
           <Time>{getTime({ ...timestamp })}</Time>
         </MessageLayout>

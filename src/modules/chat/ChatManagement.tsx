@@ -1,5 +1,11 @@
 import { ReactElement, useState } from 'react';
-import { collection, doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  FieldValue,
+  serverTimestamp,
+  setDoc,
+} from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
@@ -8,7 +14,7 @@ import { useAuthContext } from 'src/context';
 import { MessagesPanel } from 'src/modules/chat/messages_panel/MessagesPanel';
 import { ChatRoomsPanel } from 'src/modules/chat/rooms_panel/ChatRoomsPanel';
 import { SendMessagePanel } from 'src/modules/chat/SendMessagePanel';
-import { db, devices, Line, storage } from 'src/shared';
+import { db, devices, Line, storage, UserType } from 'src/shared';
 
 export const MainLayout = styled.div`
   display: grid;
@@ -80,22 +86,25 @@ const ChatManagementElement = (): ReactElement => {
       const usersCollection = collection(db, 'global_chat');
       const userDocRef = doc(usersCollection);
 
+      type DocData = {
+        chatId: string;
+        timestamp: FieldValue;
+        text: string;
+        user: UserType | null | undefined;
+        images_message?: string[];
+      };
+
+      const docData: DocData = {
+        chatId: uuidv4(),
+        timestamp: serverTimestamp(),
+        text,
+        user: currentAuthUser?.additionalInfo,
+      };
+
       if (imageUrls.length) {
-        await setDoc(userDocRef, {
-          chatId: uuidv4(),
-          timestamp: serverTimestamp(),
-          text,
-          images_message: imageUrls,
-          user: currentAuthUser?.additionalInfo,
-        });
-      } else {
-        await setDoc(userDocRef, {
-          chatId: uuidv4(),
-          timestamp: serverTimestamp(),
-          text,
-          user: currentAuthUser?.additionalInfo,
-        });
+        docData.images_message = imageUrls;
       }
+      await setDoc(userDocRef, docData);
     } catch (e) {
       /* empty */
     }
