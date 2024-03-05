@@ -15,6 +15,7 @@ export const colors = {
   hover_button_primary: '#e25d0b',
   border_ui_hover: 'rgba(0, 0, 0, 0.28)',
   border_ui: 'rgba(0, 0, 0, 0.14)',
+  transparent_white: 'rgba(255, 255, 255, 0.8)',
   disabled_button: '#c8c9ca',
   placeholder: '#a6a6a6',
   shadow: 'rgba(0, 0, 0, 0.08)',

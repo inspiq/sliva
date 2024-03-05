@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';

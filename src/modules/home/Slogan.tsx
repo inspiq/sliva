@@ -9,7 +9,7 @@ const MainLayout = styled.div`
   margin: 80px 0;
 
   @media ${devices.mobileL} {
-    margin: 40px 0;
+    margin: 50px 0;
   }
 `;
 

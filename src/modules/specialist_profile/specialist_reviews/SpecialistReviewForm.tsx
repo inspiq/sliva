@@ -159,6 +159,7 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
           type="submit"
           isSubmitting={isSubmitting}
           isStretching={false}
+          disabled={isSubmitting || !currentRating}
         >
           Оставить отзыв
         </UiButton>

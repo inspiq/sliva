@@ -2,11 +2,20 @@ import { ReactElement, useEffect, useState } from 'react';
 import { doc, onSnapshot } from 'firebase/firestore';
 import styled from 'styled-components';
 
+import { useAuthContext } from 'src/context';
 import { Header } from 'src/modules';
 import { SpecialistReviewForm } from 'src/modules/specialist_profile/specialist_reviews/SpecialistReviewForm';
 import { SpecialistReviewsPanel } from 'src/modules/specialist_profile/specialist_reviews/SpecialistReviewsPanel';
 import { SpecialistDetails } from 'src/modules/specialist_profile/SpecialistDetails';
-import { Container, db, Footer, Loader, Specialist, Wrapper } from 'src/shared';
+import {
+  BlockOverlay,
+  Container,
+  db,
+  Footer,
+  Loader,
+  Specialist,
+  Wrapper,
+} from 'src/shared';
 
 const ReviewsLayout = styled.div`
   display: flex;
@@ -20,6 +29,7 @@ const ContentLayout = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 `;
 
 const Column = styled.div`
@@ -50,6 +60,7 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
 
   const [specialist, setSpecialist] = useState<Specialist>();
   const [allReviews, setAllReviews] = useState<ReviewDocument>();
+  const { currentAuthUser } = useAuthContext();
 
   useEffect(() => {
     const docRef = doc(db, 'reviews', specialistId);
@@ -97,6 +108,9 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
                 <SpecialistReviewsPanel reviews={allReviews?.reviews} />
               </ReviewsLayout>
             </Column>
+            {!currentAuthUser && (
+              <BlockOverlay title="Авторизуйтесь, чтобы открыть доступ к просмотру специалистов" />
+            )}
           </ContentLayout>
         </Container>
       </Wrapper>

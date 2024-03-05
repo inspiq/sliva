@@ -7,7 +7,7 @@ import { useAuthContext } from 'src/context';
 import { MessagesPanel } from 'src/modules/chat/messages_panel/MessagesPanel';
 import { ChatRoomsPanel } from 'src/modules/chat/rooms_panel/ChatRoomsPanel';
 import { SendMessagePanel } from 'src/modules/chat/SendMessagePanel';
-import { db, devices, Line } from 'src/shared';
+import { BlockOverlay, db, devices, Line } from 'src/shared';
 
 export const MainLayout = styled.div`
   display: grid;
@@ -60,6 +60,10 @@ export const Header = styled.div`
   z-index: 1;
 `;
 
+export const ChatContentLayout = styled.div`
+  position: relative;
+`;
+
 const ChatManagementElement = (): ReactElement => {
   const [activeRoom, setActiveRoom] = useState('Глобальный чат');
   const { currentAuthUser } = useAuthContext();
@@ -83,14 +87,19 @@ const ChatManagementElement = (): ReactElement => {
   return (
     <MainLayout>
       <ChatRoomsPanel setActiveRoom={setActiveRoom} activeRoom={activeRoom} />
-      <ChatLayout>
-        <Header>
-          <Title>{activeRoom}</Title>
-          <Line />
-        </Header>
-        <MessagesPanel />
-        <SendMessagePanel onSendMessage={onSendMessage} />
-      </ChatLayout>
+      <ChatContentLayout>
+        <ChatLayout>
+          <Header>
+            <Title>{activeRoom}</Title>
+            <Line />
+          </Header>
+          <MessagesPanel />
+          <SendMessagePanel onSendMessage={onSendMessage} />
+        </ChatLayout>
+        {!currentAuthUser && (
+          <BlockOverlay title="Авторизуйтесь, чтобы открыть доступ к чату" />
+        )}
+      </ChatContentLayout>
     </MainLayout>
   );
 };
