@@ -63,6 +63,11 @@ const Time = styled.div`
   bottom: 5px;
 `;
 
+const UserName = styled.div`
+  font-size: 13px;
+  font-weight: ${({ theme }) => theme.w500};
+`;
+
 const StyledImage = styled(Image)`
   border-radius: 20px;
   cursor: pointer;
@@ -72,61 +77,52 @@ const StyledImage = styled(Image)`
   background-color: ${({ theme }) => theme.border};
 `;
 
-const UserName = styled.div`
-  font-size: 13px;
-  font-weight: ${({ theme }) => theme.w500};
-`;
-
 interface Props {
   message: Message;
   isMyMessage: boolean;
 }
 
-const MessageCardElement = forwardRef(
-  (props: Props, ref: Ref<HTMLDivElement>): ReactElement => {
-    const { message, isMyMessage } = props;
-    const { user, timestamp, text, images_message } = message;
+const MessageCardElement = (
+  props: Props,
+  ref: Ref<HTMLDivElement>,
+): ReactElement => {
+  const { message, isMyMessage } = props;
+  const { userInfo, timestamp, text, images_message } = message;
 
-    return (
-      <MainLayout $isMyMessage={isMyMessage} ref={ref}>
-        {!isMyMessage && (
-          <StyledImage
-            src={user?.avatarUrl ?? '/files/images/avatar.png'}
-            alt="Avatar"
-            width={30}
-            height={30}
-          />
+  return (
+    <MainLayout $isMyMessage={isMyMessage} ref={ref}>
+      {!isMyMessage && (
+        <StyledImage
+          src={userInfo?.avatarUrl ?? '/files/images/avatar.png'}
+          alt="Avatar"
+          width={30}
+          height={30}
+        />
+      )}
+
+      <MessageLayout $hasImage={!!images_message} $isMyMessage={isMyMessage}>
+        {!images_message && (
+          <UserName>
+            {getInitials({
+              firstName: userInfo?.firstName,
+              lastName: userInfo?.lastName,
+            })}
+          </UserName>
         )}
+        <MessageImagesPanel images_message={images_message} hasText={!!text} />
+        {text && <MessageText>{text}</MessageText>}
+        <Time>{getTime({ ...timestamp })}</Time>
+      </MessageLayout>
+      {isMyMessage && (
+        <StyledImage
+          src={userInfo?.avatarUrl ?? '/files/images/avatar.png'}
+          alt="Avatar"
+          width={30}
+          height={30}
+        />
+      )}
+    </MainLayout>
+  );
+};
 
-        <MessageLayout $hasImage={!!images_message} $isMyMessage={isMyMessage}>
-          {!images_message && (
-            <UserName>
-              {getInitials({
-                firstName: user?.firstName,
-                lastName: user?.lastName,
-              })}
-            </UserName>
-          )}
-          <MessageImagesPanel
-            images_message={images_message}
-            hasText={!!text}
-          />
-          {text && <MessageText>{text}</MessageText>}
-          <Time>{getTime({ ...timestamp })}</Time>
-        </MessageLayout>
-        {isMyMessage && (
-          <StyledImage
-            src={user?.avatarUrl ?? '/files/images/avatar.png'}
-            alt="Avatar"
-            width={30}
-            height={30}
-          />
-        )}
-      </MainLayout>
-    );
-  },
-);
-
-MessageCardElement.displayName = 'MessageCardElement';
-
-export const MessageCard = MessageCardElement;
+export const MessageCard = forwardRef(MessageCardElement);

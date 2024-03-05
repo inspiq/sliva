@@ -14,14 +14,13 @@ import { useAuthContext } from 'src/context';
 import { MessagesPanel } from 'src/modules/chat/messages_panel/MessagesPanel';
 import { ChatRoomsPanel } from 'src/modules/chat/rooms_panel/ChatRoomsPanel';
 import { SendMessagePanel } from 'src/modules/chat/SendMessagePanel';
-import { db, devices, Line, storage, UserType } from 'src/shared';
+import { BlockOverlay, db, devices, Line, storage, UserType } from 'src/shared';
 
 export const MainLayout = styled.div`
   display: grid;
   grid-template-columns: 300px auto;
   gap: 50px;
   margin: 50px 0;
-  height: calc(100vh - 146px);
 
   @media ${devices.mobileL} {
     grid-template-columns: 1fr;
@@ -32,7 +31,6 @@ export const MainLayout = styled.div`
 `;
 
 export const ChatLayout = styled.div`
-  height: calc(100vh - 146px);
   border-radius: 10px;
   box-shadow: 0px 5px 30px ${({ theme }) => theme.shadow};
   padding: 25px;
@@ -41,6 +39,7 @@ export const ChatLayout = styled.div`
   flex-direction: column;
   position: relative;
   justify-content: flex-end;
+  height: 500px;
 
   @media ${devices.mobileL} {
     padding: 15px;
@@ -66,6 +65,10 @@ export const Header = styled.div`
   background-color: ${({ theme }) => theme.white};
   border-radius: 10px 10px 0px 0;
   z-index: 1;
+`;
+
+export const ChatContentLayout = styled.div`
+  position: relative;
 `;
 
 const ChatManagementElement = (): ReactElement => {
@@ -113,14 +116,19 @@ const ChatManagementElement = (): ReactElement => {
   return (
     <MainLayout>
       <ChatRoomsPanel setActiveRoom={setActiveRoom} activeRoom={activeRoom} />
-      <ChatLayout>
-        <Header>
-          <Title>{activeRoom}</Title>
-          <Line />
-        </Header>
-        <MessagesPanel />
-        <SendMessagePanel onSendMessage={onSendMessage} />
-      </ChatLayout>
+      <ChatContentLayout>
+        <ChatLayout>
+          <Header>
+            <Title>{activeRoom}</Title>
+            <Line />
+          </Header>
+          <MessagesPanel />
+          <SendMessagePanel onSendMessage={onSendMessage} />
+        </ChatLayout>
+        {!currentAuthUser && (
+          <BlockOverlay title="Авторизуйтесь, чтобы открыть доступ к чату" />
+        )}
+      </ChatContentLayout>
     </MainLayout>
   );
 };

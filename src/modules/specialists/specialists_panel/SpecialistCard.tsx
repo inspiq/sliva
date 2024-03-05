@@ -1,5 +1,6 @@
 import { memo, ReactElement } from 'react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import styled, { useTheme } from 'styled-components';
 
 import { SpecialistAreasPanel } from 'src/modules/specialist_profile/specialist_areas/SpecialistAreasPanel';
@@ -24,13 +25,18 @@ const Row = styled.div`
 const Experience = styled.div<{ hasExperience: boolean }>`
   font-size: 15px;
   font-weight: ${({ theme }) => theme.w400};
-  color: ${({ theme, hasExperience }) =>
-    hasExperience ? theme.secondary : theme.grey};
+  color: ${({ theme }) => theme.secondary};
+
+  & > span {
+    color: ${({ theme, hasExperience }) =>
+      hasExperience ? theme.secondary : theme.grey};
+  }
 `;
 
 const Rating = styled.div`
   font-size: 16px;
   font-weight: ${({ theme }) => theme.w500};
+  color: ${({ theme }) => theme.secondary};
   display: flex;
   align-items: center;
   gap: 5px;
@@ -39,6 +45,7 @@ const Rating = styled.div`
 const ReviewsCount = styled.div`
   font-size: 16px;
   font-weight: ${({ theme }) => theme.w500};
+  color: ${({ theme }) => theme.secondary};
   display: flex;
   align-items: center;
   gap: 5px;
@@ -53,6 +60,7 @@ const SpecialistInfo = styled.div`
 const FullName = styled.div`
   font-size: 18px;
   font-weight: ${({ theme }) => theme.w600};
+  color: ${({ theme }) => theme.secondary};
 `;
 
 const Service = styled.div`
@@ -98,6 +106,7 @@ const SpecialistCardElement = (props: Props): ReactElement => {
   const reviewsCount = reviewDetails?.count ?? 0;
 
   const { secondary } = useTheme();
+  const t = useTranslations('SpecialistCard');
 
   return (
     <MainLayout>
@@ -113,7 +122,13 @@ const SpecialistCardElement = (props: Props): ReactElement => {
             {firstName} {lastName}
           </FullName>
           <Experience hasExperience={!!experience}>
-            Опыт работы: {experience ? `${experience} года` : 'нет информации'}
+            {t('experience.title')}
+            <span>
+              {' '}
+              {experience
+                ? t('experience.info', { experience })
+                : t('experience.no_info')}
+            </span>
           </Experience>
           <Row>
             <Rating>
@@ -122,11 +137,11 @@ const SpecialistCardElement = (props: Props): ReactElement => {
             </Rating>
             <ReviewsCount>
               <ChatIcon width={20} color={secondary} />
-              {reviewsCount} отзывов
+              {t('reviews.info', { reviewsCount })}
             </ReviewsCount>
           </Row>
-          <Service>Все отзывы ({reviewsCount})</Service>
-          <Service>Все услуги и цены</Service>
+          <Service>{t('details.title', { reviewsCount })}</Service>
+          <Service>{t('details.title_two')}</Service>
         </SpecialistInfo>
       </StyledLink>
       <SpecialistAreasPanel areas={areas} />

@@ -9,7 +9,7 @@ const MainLayout = styled.div`
   margin: 80px 0;
 
   @media ${devices.mobileL} {
-    margin: 40px 0;
+    margin: 50px 0;
   }
 `;
 
@@ -37,7 +37,14 @@ const SubTitle = styled.p`
 
 const UiButtonLayout = styled.div`
   margin-top: 25px;
+  gap: 10px;
   display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+
+  @media ${devices.mobileL} {
+    flex-direction: column;
+  }
 `;
 
 interface Props {
@@ -62,6 +69,14 @@ const SloganElement = (props: Props): ReactElement => {
           onClick={() => router.push('/specialists')}
         >
           {t('button')}
+        </UiButton>
+        <UiButton
+          size="big"
+          isStretching={false}
+          onClick={() => router.push('/sign_up')}
+          variant="outline"
+        >
+          {t('button_two')}
         </UiButton>
       </UiButtonLayout>
     </MainLayout>

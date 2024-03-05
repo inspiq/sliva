@@ -3,8 +3,8 @@
     "language_switcher": {
       "title": "Switch the language",
       "languages": {
-        "ru": "Russian",
-        "es": "Spanish",
+        "ru": "Русский",
+        "es": "Español",
         "en": "English"
       }
     },
@@ -114,8 +114,9 @@
   "slogan": {
     "title": "Sliva – a reliable partner",
     "second_title": "for service",
-    "subtitle": "{usersCount, plural, =1 {# client trusted} other {# clients trusted}} our service",
-    "button": "Find a specialist"
+    "subtitle": "{usersCount, plural, one {# client trusted} other {# clients trusted} } our service",
+    "button": "Find a specialist",
+    "button_two": "Become a specialist"
   },
   "categories": {
     "renovation": "Renovation and Construction",
@@ -128,7 +129,71 @@
     "beauty_services": "Beauty and Health",
     "fitness": "Fitness and Sports",
     "animal_services": "Animal Services",
-    "home_staff": "Domestic Staff"
+    "home_staff": "Domestic Staff",
+    "freelance_and_creative_services": "Freelance and creative services"
+  },
+  "subcategories": {
+    "laborer": "Laborer",
+    "electrician": "Electrician",
+    "plumber": "Plumber",
+    "landscaping": "Landscaping and Landscape Design",
+    "ventilation": "Ventilation and Air Conditioning",
+    "drywall": "Drywall",
+    "painting": "Painting and Decorating",
+    "roofing": "Roofing Specialist",
+    "flooring": "Flooring Specialist",
+    "carpentry": "Carpenter",
+    "other": "Other",
+    "repair": "Repair",
+    "interior_cleaning": "Interior Cleaning",
+    "car_wash": "Car Wash",
+    "home_cooked_meals": "Home-cooked Meals",
+    "world_cuisine": "World Cuisine",
+    "cooking_with_delivery": "Cooking with Delivery",
+    "events": "Events",
+    "banquets": "Banquets",
+    "moving": "Moving",
+    "delivery": "Delivery",
+    "passenger_transportation": "Passenger Transportation",
+    "cargo_transportation": "Cargo Transportation",
+    "makeup": "Makeup",
+    "manicure_pedicure": "Manicure and Pedicure",
+    "aesthetic_cosmetology": "Aesthetic Cosmetology",
+    "hairdressing_services": "Hairdressing Services",
+    "spa_procedures": "Spa Procedures",
+    "massage": "Massage",
+    "tattoo_permanent_makeup": "Tattoo, Permanent Makeup",
+    "tanning": "Tanning",
+    "training_consultations": "Training and Consultations",
+    "fitness_training": "Fitness Training",
+    "personal_trainer": "Personal Trainer",
+    "sports_equipment_rental": "Sports Equipment Rental",
+    "extreme_sports": "Extreme Sports",
+    "equipment_clothing": "Equipment and Clothing",
+    "healthy_food": "Healthy Food",
+    "veterinary": "Veterinary",
+    "dog_walking": "Dog Walking",
+    "pet_breeding": "Pet Breeding",
+    "pet_training": "Pet Training",
+    "pet_care": "Pet Care",
+    "pet_food": "Pet Food",
+    "pet_boarding": "Pet Boarding",
+    "aquarium": "Aquarium",
+    "housekeeper": "Housekeeper",
+    "caregiver": "Caregiver",
+    "household_helper": "Household Helper",
+    "nanny": "Nanny",
+    "gardener": "Gardener",
+    "cleaner": "Cleaner",
+    "cook": "Cook",
+    "culinary_specialist": "Culinary Specialist",
+    "driver": "Driver",
+    "personal_assistant": "Personal Assistant",
+    "security_guard": "Security Guard",
+    "household_management": "Household Management",
+    "web_design": "Web Design",
+    "copywriting_editing": "Copywriting and Editing",
+    "photography_videography": "Photography and Videography"
   },
   "my_profile": {
     "title": "Personal information",
@@ -157,5 +222,33 @@
       "three": "3. Let's make the service even better together."
     },
     "button": "Accept"
+  },
+  "SpecialistCard": {
+    "experience": {
+      "title": "Work Experience:",
+      "info": "{experience, plural, one {# year} few {# years} many {# years} other {# years}}",
+      "no_info": "no information"
+    },
+    "reviews": {
+      "info": "{reviewsCount, plural, one {# review} few {# reviews} many {# reviews} other {# reviews}}"
+    },
+    "details": {
+      "title": "All Reviews ({reviewsCount})",
+      "title_two": "All Services and Prices"
+    },
+    "areas": {
+      "title": "Home Visits",
+      "no_info": "no information"
+    },
+    "reviews_form": {
+      "title": "Leave a review about the specialist",
+      "textarea": {
+        "placeholder": "Review"
+      },
+      "button": "Leave a review"
+    }
+  },
+  "alts": {
+    "avatar": "Avatar"
   }
 }

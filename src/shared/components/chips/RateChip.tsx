@@ -11,7 +11,13 @@ import { StarIcon } from 'src/shared';
 
 const Container = styled.div`
   display: flex;
-  gap: 3px;
+`;
+
+const Star = styled.label`
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
@@ -20,7 +26,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   isDisabled?: boolean;
 }
 
-const RateChip = (props: Props): ReactElement => {
+const RateChipElement = (props: Props): ReactElement => {
   const { selectedRating, setSelectedRating, isDisabled = false } = props;
 
   const [hover, setHover] = useState(0);
@@ -44,7 +50,7 @@ const RateChip = (props: Props): ReactElement => {
         const starValue = index + 1;
 
         return (
-          <label key={index}>
+          <Star key={index}>
             <input
               type="radio"
               value={index}
@@ -57,11 +63,11 @@ const RateChip = (props: Props): ReactElement => {
               onMouseOver={() => onChangeHover(starValue)}
               onMouseLeave={() => setHover(0)}
             />
-          </label>
+          </Star>
         );
       })}
     </Container>
   );
 };
 
-export const Rate = RateChip;
+export const RateChip = RateChipElement;

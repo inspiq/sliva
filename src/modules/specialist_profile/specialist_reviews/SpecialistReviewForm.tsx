@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { useAuthContext } from 'src/context/AuthContext';
 import { Review } from 'src/modules/specialist_profile/SpecialistProfile';
-import { db, Rate, Specialist, UiButton, UiForm } from 'src/shared';
+import { db, RateChip, Specialist, UiButton, UiForm } from 'src/shared';
 
 const MainLayout = styled(UiForm)`
   box-shadow: 0px 5px 30px ${({ theme }) => theme.shadow};
@@ -88,58 +88,61 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
     return sortedReviews;
   }, [reviews]);
 
-  const { handleSubmit, handleChange, values, isSubmitting } = useFormik({
-    initialValues: {
-      text: '',
-    },
-    validateOnMount: true,
-    onSubmit: async ({ text }) => {
-      if (!text || !currentRating) return;
+  const { handleSubmit, handleChange, values, isSubmitting, resetForm } =
+    useFormik({
+      initialValues: {
+        text: '',
+      },
+      validateOnMount: true,
+      onSubmit: async ({ text }) => {
+        if (!text || !currentRating) return;
 
-      const newReview = {
-        reviewId: uuidv4(),
-        date: new Date().toISOString(),
-        text,
-        rating: currentRating,
-        userInfo: currentAuthUser?.additionalInfo,
-      };
+        const newReview = {
+          reviewId: uuidv4(),
+          date: new Date().toISOString(),
+          text,
+          rating: currentRating,
+          userInfo: currentAuthUser?.additionalInfo,
+        };
 
-      const updatedReviews = sortedReviews
-        ? [newReview, ...sortedReviews]
-        : [newReview];
+        const updatedReviews = sortedReviews
+          ? [newReview, ...sortedReviews]
+          : [newReview];
 
-      try {
-        const usersCollection = collection(db, 'users');
-        const userDoc = doc(usersCollection, specialist?.userId);
-        const newRating = (
-          (totalRating + currentRating) /
-          ((reviews?.length ?? 0) + 1)
-        ).toFixed(1);
+        try {
+          const usersCollection = collection(db, 'users');
+          const userDoc = doc(usersCollection, specialist?.userId);
+          const newRating = (
+            (totalRating + currentRating) /
+            ((reviews?.length ?? 0) + 1)
+          ).toFixed(1);
 
-        await updateDoc(userDoc, {
-          reviewDetails: {
-            avgRating: newRating,
-            count: updatedReviews?.length,
-          },
-        });
+          await updateDoc(userDoc, {
+            reviewDetails: {
+              avgRating: newRating,
+              count: updatedReviews?.length,
+            },
+          });
 
-        const reviewsCollection = collection(db, 'reviews');
-        const userDocRef = doc(reviewsCollection, specialist.userId);
+          const reviewsCollection = collection(db, 'reviews');
+          const userDocRef = doc(reviewsCollection, specialist.userId);
 
-        await setDoc(userDocRef, {
-          reviews: updatedReviews ?? [],
-        });
-      } catch (e) {
-        /* empty */
-      }
-    },
-  });
+          await setDoc(userDocRef, {
+            reviews: updatedReviews ?? [],
+          });
+
+          resetForm();
+        } catch (e) {
+          /* empty */
+        }
+      },
+    });
 
   return (
     <MainLayout onSubmit={handleSubmit}>
       <Header>
         <Title>Оставьте отзыв о специалисте</Title>
-        <Rate
+        <RateChip
           setSelectedRating={setCurrentRating}
           selectedRating={currentRating}
         />
@@ -156,6 +159,7 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
           type="submit"
           isSubmitting={isSubmitting}
           isStretching={false}
+          disabled={isSubmitting || !currentRating}
         >
           Оставить отзыв
         </UiButton>

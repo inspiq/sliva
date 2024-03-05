@@ -2,15 +2,17 @@ import { ReactElement, useEffect, useMemo, useState } from 'react';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import styled from 'styled-components';
 
+import { useAuthContext } from 'src/context';
 import { Filters } from 'src/modules/specialists/filters/FiltersPanel';
 import { SpecialistCard } from 'src/modules/specialists/specialists_panel/SpecialistCard';
-import { db, devices, Loader, Specialist } from 'src/shared';
+import { BlockOverlay, db, devices, Loader, Specialist } from 'src/shared';
 
 const MainLayout = styled.div`
   display: grid;
   grid-template-columns: 300px auto;
   gap: 60px;
   padding: 25px 0;
+  position: relative;
 
   @media ${devices.mobileL} {
     display: flex;
@@ -34,7 +36,7 @@ const SpecialistsPanelElement = (): ReactElement => {
   const [selectedFilters, setSelectedFilters] = useState<SpecialistFilter[]>(
     [],
   );
-
+  const { currentAuthUser } = useAuthContext();
   const filteredSpecialists = useMemo(() => {
     if (!selectedFilters.length) return specialists;
 
@@ -103,6 +105,9 @@ const SpecialistsPanelElement = (): ReactElement => {
           <SpecialistCard specialist={specialist} key={specialist.userId} />
         ))}
       </SpecialistsLayout>
+      {!currentAuthUser && (
+        <BlockOverlay title="Авторизуйтесь, чтобы открыть доступ к просмотру специалистов" />
+      )}
     </MainLayout>
   );
 };

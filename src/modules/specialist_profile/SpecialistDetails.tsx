@@ -23,13 +23,18 @@ const Row = styled.div`
 const Experience = styled.div<{ hasExperience: boolean }>`
   font-size: 15px;
   font-weight: ${({ theme }) => theme.w400};
-  color: ${({ theme, hasExperience }) =>
-    hasExperience ? theme.secondary : theme.grey};
+  color: ${({ theme }) => theme.secondary};
+
+  & > span {
+    color: ${({ theme, hasExperience }) =>
+      hasExperience ? theme.secondary : theme.grey};
+  }
 `;
 
 const Rating = styled.div`
   font-size: 16px;
   font-weight: ${({ theme }) => theme.w500};
+  color: ${({ theme }) => theme.secondary};
   display: flex;
   align-items: center;
   gap: 5px;
@@ -38,6 +43,7 @@ const Rating = styled.div`
 const ReviewsCount = styled.div`
   font-size: 16px;
   font-weight: ${({ theme }) => theme.w500};
+  color: ${({ theme }) => theme.secondary};
   display: flex;
   align-items: center;
   gap: 5px;
@@ -52,6 +58,7 @@ const SpecialistInfo = styled.div`
 const FullName = styled.div`
   font-size: 18px;
   font-weight: ${({ theme }) => theme.w600};
+  color: ${({ theme }) => theme.secondary};
 `;
 
 const SpecialistCard = styled.div`
@@ -122,7 +129,8 @@ const SpecialistDetailsElement = (props: Props): ReactElement => {
             {firstName} {lastName}
           </FullName>
           <Experience hasExperience={!!experience}>
-            Опыт работы: {experience ? `${experience} года` : 'нет информации'}
+            Опыт работы:
+            <span> {experience ? `${experience} лет` : 'нет информации'}</span>
           </Experience>
           <Row>
             <Rating>

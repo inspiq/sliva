@@ -3,9 +3,9 @@
     "language_switcher": {
       "title": "Cambiar idioma",
       "languages": {
-        "ru": "Ruso",
+        "ru": "Русский",
         "es": "Español",
-        "en": "Inglés"
+        "en": "English"
       }
     },
     "buttons": {
@@ -114,8 +114,9 @@
   "slogan": {
     "title": "Sliva – un socio confiable",
     "second_title": "para servicio",
-    "subtitle": "{usersCount, plural, =1 {# cliente confió} other {# clientes confiaron}} en nuestro servicio",
-    "button": "Encontrar un especialista"
+    "subtitle": "{usersCount, plural, one {# cliente confió} other {# clientes confiaron} } en nuestro servicio",
+    "button": "Encontrar un especialista",
+    "button_two": "Convertirse en un especialista"
   },
   "categories": {
     "renovation": "Renovación y construcción",
@@ -128,7 +129,71 @@
     "beauty_services": "Belleza y salud",
     "fitness": "Fitness y deportes",
     "animal_services": "Servicios para animales",
-    "home_staff": "Servicio doméstico"
+    "home_staff": "Servicio doméstico",
+    "freelance_and_creative_services": "Freelance y servicios creativos"
+  },
+  "subcategories": {
+    "laborer": "Obrero",
+    "electrician": "Electricista",
+    "plumber": "Fontanero",
+    "landscaping": "Paisajismo y Diseño de Jardines",
+    "ventilation": "Ventilación y Aire Acondicionado",
+    "drywall": "Tablarroca",
+    "painting": "Pintura y Decoración",
+    "roofing": "Especialista en Techos",
+    "flooring": "Especialista en Pisos",
+    "carpentry": "Carpintero",
+    "other": "Otros",
+    "repair": "Reparación",
+    "interior_cleaning": "Limpieza Interior",
+    "car_wash": "Lavado de Autos",
+    "home_cooked_meals": "Comidas Caseras",
+    "world_cuisine": "Cocinas del Mundo",
+    "cooking_with_delivery": "Cocina con Entrega",
+    "events": "Eventos",
+    "banquets": "Banquetes",
+    "moving": "Mudanza",
+    "delivery": "Entrega",
+    "passenger_transportation": "Transporte de Pasajeros",
+    "cargo_transportation": "Transporte de Carga",
+    "makeup": "Maquillaje",
+    "manicure_pedicure": "Manicura y Pedicura",
+    "aesthetic_cosmetology": "Cosmetología Estética",
+    "hairdressing_services": "Servicios de Peluquería",
+    "spa_procedures": "Procedimientos de Spa",
+    "massage": "Masaje",
+    "tattoo_permanent_makeup": "Tatuaje, Maquillaje Permanente",
+    "tanning": "Bronceado",
+    "training_consultations": "Entrenamiento y Consultas",
+    "fitness_training": "Entrenamiento Físico",
+    "personal_trainer": "Entrenador Personal",
+    "sports_equipment_rental": "Alquiler de Equipos Deportivos",
+    "extreme_sports": "Deportes Extremos",
+    "equipment_clothing": "Equipo y Ropa",
+    "healthy_food": "Comida Saludable",
+    "veterinary": "Veterinaria",
+    "dog_walking": "Paseo de Perros",
+    "pet_breeding": "Cría de Mascotas",
+    "pet_training": "Entrenamiento de Mascotas",
+    "pet_care": "Cuidado de Mascotas",
+    "pet_food": "Alimento para Mascotas",
+    "pet_boarding": "Guardería de Mascotas",
+    "aquarium": "Acuario",
+    "housekeeper": "Ama de Llaves",
+    "caregiver": "Cuidador",
+    "household_helper": "Asistente de Hogar",
+    "nanny": "Niñera",
+    "gardener": "Jardinero",
+    "cleaner": "Limpiador",
+    "cook": "Cocinero",
+    "culinary_specialist": "Especialista en Cocina",
+    "driver": "Conductor",
+    "personal_assistant": "Asistente Personal",
+    "security_guard": "Guardia de Seguridad",
+    "household_management": "Administración del Hogar",
+    "web_design": "Diseño Web",
+    "copywriting_editing": "Redacción y Edición",
+    "photography_videography": "Fotografía y Videografía"
   },
   "my_profile": {
     "title": "Información personal",
@@ -157,5 +222,33 @@
       "three": "3. Hagamos que el servicio sea aún mejor juntos."
     },
     "button": "Aceptar"
+  },
+  "SpecialistCard": {
+    "experience": {
+      "title": "Experiencia laboral:",
+      "info": "{experience, plural, one {# año} few {# años} many {# años} other {# años}}",
+      "no_info": "sin información"
+    },
+    "reviews": {
+      "info": "{reviewsCount, plural, one {# reseña} few {# reseñas} many {# reseñas} other {# reseñas}}"
+    },
+    "details": {
+      "title": "Todas las Reseñas ({reviewsCount})",
+      "title_two": "Todos los Servicios y Precios"
+    },
+    "areas": {
+      "title": "Visitas a Domicilio",
+      "no_info": "sin información"
+    },
+    "reviews_form": {
+      "title": "Deja una reseña sobre el especialista",
+      "textarea": {
+        "placeholder": "Reseña"
+      },
+      "button": "Dejar una reseña"
+    }
+  },
+  "alts": {
+    "avatar": "Avatar"
   }
 }

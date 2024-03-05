@@ -20,6 +20,7 @@ import {
   UiButton,
   UiForm,
   UiInput,
+  UserRole,
   UserWithAdditionalInfo,
 } from 'src/shared';
 
@@ -274,16 +275,18 @@ const MyProfileFormElement = (props: {
               hasError={!!errors.dayOfBirth && !!touched.dayOfBirth}
               textError={errors.dayOfBirth}
             />
-            <UiInput
-              placeholder={t('my_profile.work_input')}
-              value={values.experience}
-              name="experience"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              hasError={!!errors.experience && !!touched.experience}
-              textError={errors.experience}
-              type="number"
-            />
+            {additionalInfo?.type === UserRole.SPECIALIST && (
+              <UiInput
+                placeholder={t('my_profile.work_input')}
+                value={values.experience}
+                name="experience"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                hasError={!!errors.experience && !!touched.experience}
+                textError={errors.experience}
+                type="number"
+              />
+            )}
           </Row>
           <Row>
             <UiInput
@@ -324,74 +327,78 @@ const MyProfileFormElement = (props: {
               disabled
             />
           </Row>
-          <SelectRow>
-            <Select
-              isMulti
-              name="categories"
-              options={categories}
-              onChange={(selectedOptions) =>
-                onChangeCategories(selectedOptions as MultiValue<Option>)
-              }
-              value={values.categories}
-              placeholder={t('my_profile.categories_select')}
-              styles={styles}
-              theme={(theme) => ({
-                ...theme,
-                colors: {
-                  ...theme.colors,
-                  primary25: light,
-                  primary50: light,
-                  primary,
-                },
-              })}
-            />
-            <Select
-              isMulti
-              name="subcategories"
-              onChange={(selectedOptions) =>
-                onChangeSubcategories(selectedOptions as MultiValue<Option>)
-              }
-              options={subcategories}
-              value={values.subcategories}
-              placeholder={t('my_profile.subcategories_select')}
-              styles={styles}
-              theme={(theme) => ({
-                ...theme,
-                colors: {
-                  ...theme.colors,
-                  primary25: light,
-                  primary50: light,
-                  primary,
-                },
-              })}
-            />
-            <Select
-              isMulti
-              name="area"
-              options={areas}
-              onChange={onChangeArea as VoidFunction}
-              value={values.areas}
-              placeholder="Выберите области работы"
-              styles={styles}
-              theme={(theme) => ({
-                ...theme,
-                colors: {
-                  ...theme.colors,
-                  primary25: light,
-                  primary50: light,
-                  primary,
-                },
-              })}
-            />
-          </SelectRow>
-          <TextAreaRow>
-            <StyledTextArea
-              value={values.extendedInfo}
-              onChange={handleChange}
-              placeholder={t('my_profile.additional_information_textarea')}
-              name="extendedInfo"
-            />
-          </TextAreaRow>
+          {additionalInfo?.type === UserRole.SPECIALIST && (
+            <SelectRow>
+              <Select
+                isMulti
+                name="categories"
+                options={categories}
+                onChange={(selectedOptions) =>
+                  onChangeCategories(selectedOptions as MultiValue<Option>)
+                }
+                value={values.categories}
+                placeholder={t('my_profile.categories_select')}
+                styles={styles}
+                theme={(theme) => ({
+                  ...theme,
+                  colors: {
+                    ...theme.colors,
+                    primary25: light,
+                    primary50: light,
+                    primary,
+                  },
+                })}
+              />
+              <Select
+                isMulti
+                name="subcategories"
+                onChange={(selectedOptions) =>
+                  onChangeSubcategories(selectedOptions as MultiValue<Option>)
+                }
+                options={subcategories}
+                value={values.subcategories}
+                placeholder={t('my_profile.subcategories_select')}
+                styles={styles}
+                theme={(theme) => ({
+                  ...theme,
+                  colors: {
+                    ...theme.colors,
+                    primary25: light,
+                    primary50: light,
+                    primary,
+                  },
+                })}
+              />
+              <Select
+                isMulti
+                name="area"
+                options={areas}
+                onChange={onChangeArea as VoidFunction}
+                value={values.areas}
+                placeholder="Выберите области работы"
+                styles={styles}
+                theme={(theme) => ({
+                  ...theme,
+                  colors: {
+                    ...theme.colors,
+                    primary25: light,
+                    primary50: light,
+                    primary,
+                  },
+                })}
+              />
+            </SelectRow>
+          )}
+          {additionalInfo?.type === UserRole.SPECIALIST && (
+            <TextAreaRow>
+              <StyledTextArea
+                value={values.extendedInfo}
+                onChange={handleChange}
+                placeholder={t('my_profile.additional_information_textarea')}
+                name="extendedInfo"
+              />
+            </TextAreaRow>
+          )}
           <UiButtonLayout>
             <UiButton
               type="submit"

@@ -23,7 +23,7 @@ export interface Message {
     nanoseconds: number;
     seconds: number;
   };
-  user: UserType;
+  userInfo: UserType;
 }
 
 const MessagesPanelElement = (): ReactElement => {
@@ -62,7 +62,7 @@ const MessagesPanelElement = (): ReactElement => {
         <MessageCard
           ref={ref}
           message={message}
-          isMyMessage={message?.user?.userId === currentAuthUser?.uid}
+          isMyMessage={message?.userInfo?.userId === currentAuthUser?.uid}
           key={message.chatId}
         />
       ))}

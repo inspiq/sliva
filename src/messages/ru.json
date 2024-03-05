@@ -4,8 +4,8 @@
       "title": "Переключить язык",
       "languages": {
         "ru": "Русский",
-        "es": "Испанский",
-        "en": "Английский"
+        "es": "Español",
+        "en": "English"
       }
     },
     "buttons": {
@@ -114,8 +114,9 @@
   "slogan": {
     "title": "Sliva – надежный партнер",
     "second_title": "по обслуживанию",
-    "subtitle": "{usersCount, plural, =1 {# клиент доверился} other {# клиентов доверились}} нашему сервису",
-    "button": "Найти специалиста"
+    "subtitle": "{usersCount, plural, one {# клиент доверился} few {# клиента доверились} many {# клиентов доверились} other {# клиента доверились}} нашему сервису",
+    "button": "Найти специалиста",
+    "button_two": "Стать специалистом"
   },
   "categories": {
     "renovation": "Ремонт и строительство",
@@ -128,7 +129,71 @@
     "beauty_services": "Красота и здоровье",
     "fitness": "Фитнес и спорт",
     "animal_services": "Услуги для животных",
-    "home_staff": "Домашний персонал"
+    "home_staff": "Домашний персонал",
+    "freelance_and_creative_services": "Фриланс и креативные услуги"
+  },
+  "subcategories": {
+    "laborer": "Разнорабочий",
+    "electrician": "Электрик",
+    "plumber": "Сантехник",
+    "landscaping": "Благоустройство и ландшафтный дизайн",
+    "ventilation": "Вентиляция и кондиционирование",
+    "drywall": "Гипсокартон",
+    "painting": "Шпатлевка и покраска",
+    "roofing": "Мастер кровли",
+    "flooring": "Мастер напольных покрытий",
+    "carpentry": "Столяр",
+    "other": "Другое",
+    "repair": "Ремонт",
+    "interior_cleaning": "Чистка салона",
+    "car_wash": "Мытье авто",
+    "home_cooked_meals": "Домашняя еда",
+    "world_cuisine": "Кухни мира",
+    "cooking_with_delivery": "Готовка с выездом",
+    "events": "Мероприятия",
+    "banquets": "Банкеты",
+    "moving": "Переезд",
+    "delivery": "Доставка",
+    "passenger_transportation": "Пассажирские перевозки",
+    "cargo_transportation": "Грузоперевозки",
+    "makeup": "Визаж и макияж",
+    "manicure_pedicure": "Маникюр и педикюр",
+    "aesthetic_cosmetology": "Эстетическая косметология",
+    "hairdressing_services": "Парикмахерские услуги",
+    "spa_procedures": "Спа процедуры",
+    "massage": "Массаж",
+    "tattoo_permanent_makeup": "Тату, татуаж и перманентный макияж",
+    "tanning": "Солярий и загар",
+    "training_consultations": "Обучение и консультации",
+    "fitness_training": "Тренировки и фитнес",
+    "personal_trainer": "Тренера",
+    "sports_equipment_rental": "Прокат спортивного инвентаря",
+    "extreme_sports": "Экстремальные виды спорта",
+    "equipment_clothing": "Экипировка и одежда",
+    "healthy_food": "Здоровое питание",
+    "veterinary": "Ветеринария",
+    "dog_walking": "Выгул собак",
+    "pet_breeding": "Вязка животных",
+    "pet_training": "Дрессировка",
+    "pet_care": "Уход за животными",
+    "pet_food": "Корм",
+    "pet_boarding": "Передержка животных",
+    "aquarium": "Аквариумистика",
+    "housekeeper": "Домработница",
+    "caregiver": "Сиделка",
+    "household_helper": "Помощник по хозяйству",
+    "nanny": "Няня",
+    "gardener": "Садовник",
+    "cleaner": "Уборщик / Горничная",
+    "cook": "Повар",
+    "culinary_specialist": "Кулинарный специалист",
+    "driver": "Водитель",
+    "personal_assistant": "Личный помощник",
+    "security_guard": "Охранник",
+    "household_management": "Управление домашним хозяйством",
+    "web_design": "Веб-разработка и дизайн",
+    "copywriting_editing": "Копирайтинг и редактирование",
+    "photography_videography": "Фото и видео съемка"
   },
   "my_profile": {
     "title": "Персональная информация",
@@ -157,5 +222,33 @@
       "three": "3. Вместе сделаем сервис ещё лучше."
     },
     "button": "Принять"
+  },
+  "SpecialistCard": {
+    "experience": {
+      "title": "Опыт работы:",
+      "info": "{experience, plural, one {# год} few {# года} many {# лет} other {# лет}}",
+      "no_info": "нет информации"
+    },
+    "reviews": {
+      "info": "{reviewsCount, plural, one {# отзыв} few {# отзыва} many {# отзывов} other {# отзывов}}"
+    },
+    "details": {
+      "title": "Все отзывы ({reviewsCount})",
+      "title_two": "Все услуги и цены"
+    },
+    "areas": {
+      "title": "Выезд к клиенту",
+      "no_info": "нет информации"
+    },
+    "reviews_form": {
+      "title": "Оставьте отзыв о специалисте",
+      "textarea": {
+        "placeholder": "Отзыв"
+      },
+      "button": "Оставить отзыв"
+    }
+  },
+  "alts": {
+    "avatar": "Аватар"
   }
 }

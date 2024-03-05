@@ -4,18 +4,13 @@ import styled from 'styled-components';
 
 import { Filter } from 'src/modules/specialists/filters/FilterCard';
 import { SpecialistFilter } from 'src/modules/specialists/specialists_panel/SpecialistsPanel';
-import { devices, getSpecialistFilters } from 'src/shared';
+import { getSpecialistFilters } from 'src/shared';
 
 const MainLayout = styled.div`
   max-width: 400px;
   width: 100%;
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 70px);
-
-  @media ${devices.mobileL} {
-    height: 100%;
-  }
 `;
 
 const FiltersPanelElement = (props: {

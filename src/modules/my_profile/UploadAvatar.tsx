@@ -1,8 +1,7 @@
 import { Dispatch, FormEvent, SetStateAction, useMemo } from 'react';
-import Image from 'next/image';
 import styled from 'styled-components';
 
-import { UiInput, UserType } from 'src/shared';
+import { Avatar, UiInput, UserType } from 'src/shared';
 
 const MainLayout = styled.div`
   width: 200px;
@@ -19,11 +18,6 @@ const UiInputLayout = styled.div`
   position: absolute;
   right: -3px;
   bottom: -3px;
-`;
-
-const StyledImage = styled(Image)`
-  border-radius: 60px;
-  object-fit: cover;
 `;
 
 const UploadAvatarElement = (props: {
@@ -56,7 +50,7 @@ const UploadAvatarElement = (props: {
       <UiInputLayout>
         <UiInput type="file" onChange={onChange} />
       </UiInputLayout>
-      <StyledImage src={getAvatarPath} width={200} height={200} alt="Avatar" />
+      <Avatar avatarUrl={getAvatarPath} width={200} height={200} />
     </MainLayout>
   );
 };
