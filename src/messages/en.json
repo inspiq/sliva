@@ -3,8 +3,8 @@
     "language_switcher": {
       "title": "Switch the language",
       "languages": {
-        "ru": "Russian",
-        "es": "Spanish",
+        "ru": "Русский",
+        "es": "Español",
         "en": "English"
       }
     },
@@ -115,7 +115,8 @@
     "title": "Sliva – a reliable partner",
     "second_title": "for service",
     "subtitle": "{usersCount, plural, one {# client trusted} other {# clients trusted} } our service",
-    "button": "Find a specialist"
+    "button": "Find a specialist",
+    "button_two": "Become a specialist"
   },
   "categories": {
     "renovation": "Renovation and Construction",
@@ -221,5 +222,33 @@
       "three": "3. Let's make the service even better together."
     },
     "button": "Accept"
+  },
+  "SpecialistCard": {
+    "experience": {
+      "title": "Work Experience:",
+      "info": "{experience, plural, one {# year} few {# years} many {# years} other {# years}}",
+      "no_info": "no information"
+    },
+    "reviews": {
+      "info": "{reviewsCount, plural, one {# review} few {# reviews} many {# reviews} other {# reviews}}"
+    },
+    "details": {
+      "title": "All Reviews ({reviewsCount})",
+      "title_two": "All Services and Prices"
+    },
+    "areas": {
+      "title": "Home Visits",
+      "no_info": "no information"
+    },
+    "reviews_form": {
+      "title": "Leave a review about the specialist",
+      "textarea": {
+        "placeholder": "Review"
+      },
+      "button": "Leave a review"
+    }
+  },
+  "alts": {
+    "avatar": "Avatar"
   }
 }

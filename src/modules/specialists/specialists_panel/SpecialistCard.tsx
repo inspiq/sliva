@@ -1,5 +1,6 @@
 import { memo, ReactElement } from 'react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import styled, { useTheme } from 'styled-components';
 
 import { SpecialistAreasPanel } from 'src/modules/specialist_profile/specialist_areas/SpecialistAreasPanel';
@@ -105,6 +106,7 @@ const SpecialistCardElement = (props: Props): ReactElement => {
   const reviewsCount = reviewDetails?.count ?? 0;
 
   const { secondary } = useTheme();
+  const t = useTranslations('SpecialistCard');
 
   return (
     <MainLayout>
@@ -120,8 +122,13 @@ const SpecialistCardElement = (props: Props): ReactElement => {
             {firstName} {lastName}
           </FullName>
           <Experience hasExperience={!!experience}>
-            Опыт работы:
-            <span> {experience ? `${experience} года` : 'нет информации'}</span>
+            {t('experience.title')}
+            <span>
+              {' '}
+              {experience
+                ? t('experience.info', { experience })
+                : t('experience.no_info')}
+            </span>
           </Experience>
           <Row>
             <Rating>
@@ -130,11 +137,11 @@ const SpecialistCardElement = (props: Props): ReactElement => {
             </Rating>
             <ReviewsCount>
               <ChatIcon width={20} color={secondary} />
-              {reviewsCount} отзывов
+              {t('reviews.info', { reviewsCount })}
             </ReviewsCount>
           </Row>
-          <Service>Все отзывы ({reviewsCount})</Service>
-          <Service>Все услуги и цены</Service>
+          <Service>{t('details.title', { reviewsCount })}</Service>
+          <Service>{t('details.title_two')}</Service>
         </SpecialistInfo>
       </StyledLink>
       <SpecialistAreasPanel areas={areas} />

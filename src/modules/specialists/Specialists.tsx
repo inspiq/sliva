@@ -8,7 +8,7 @@ export const SpecialistsElement = (): ReactElement => {
   return (
     <>
       <Header />
-      <Wrapper position="flex-start">
+      <Wrapper $position="flex-start">
         <Container>
           <SpecialistsPanel />
         </Container>

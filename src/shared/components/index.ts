@@ -6,3 +6,4 @@ export * from 'src/shared/components/Footer';
 export * from 'src/shared/components/Loader';
 export * from 'src/shared/components/chips';
 export * from 'src/shared/components/Accordion';
+export * from 'src/shared/components/Avatar';

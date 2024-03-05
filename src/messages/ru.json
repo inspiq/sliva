@@ -4,8 +4,8 @@
       "title": "Переключить язык",
       "languages": {
         "ru": "Русский",
-        "es": "Испанский",
-        "en": "Английский"
+        "es": "Español",
+        "en": "English"
       }
     },
     "buttons": {
@@ -115,7 +115,8 @@
     "title": "Sliva – надежный партнер",
     "second_title": "по обслуживанию",
     "subtitle": "{usersCount, plural, one {# клиент доверился} few {# клиента доверились} many {# клиентов доверились} other {# клиента доверились}} нашему сервису",
-    "button": "Найти специалиста"
+    "button": "Найти специалиста",
+    "button_two": "Стать специалистом"
   },
   "categories": {
     "renovation": "Ремонт и строительство",
@@ -131,7 +132,7 @@
     "home_staff": "Домашний персонал",
     "freelance_and_creative_services": "Фриланс и креативные услуги"
   },
-  "subcategories":{
+  "subcategories": {
     "laborer": "Разнорабочий",
     "electrician": "Электрик",
     "plumber": "Сантехник",
@@ -221,5 +222,33 @@
       "three": "3. Вместе сделаем сервис ещё лучше."
     },
     "button": "Принять"
+  },
+  "SpecialistCard": {
+    "experience": {
+      "title": "Опыт работы:",
+      "info": "{experience, plural, one {# год} few {# года} many {# лет} other {# лет}}",
+      "no_info": "нет информации"
+    },
+    "reviews": {
+      "info": "{reviewsCount, plural, one {# отзыв} few {# отзыва} many {# отзывов} other {# отзывов}}"
+    },
+    "details": {
+      "title": "Все отзывы ({reviewsCount})",
+      "title_two": "Все услуги и цены"
+    },
+    "areas": {
+      "title": "Выезд к клиенту",
+      "no_info": "нет информации"
+    },
+    "reviews_form": {
+      "title": "Оставьте отзыв о специалисте",
+      "textarea": {
+        "placeholder": "Отзыв"
+      },
+      "button": "Оставить отзыв"
+    }
+  },
+  "alts": {
+    "avatar": "Аватар"
   }
 }

@@ -1,10 +1,9 @@
 import { memo, ReactElement } from 'react';
-import Image from 'next/image';
 import styled from 'styled-components';
 
 import { Review } from 'src/modules/specialist_profile/SpecialistProfile';
-import { getDayAndYear, getInitials, Line } from 'src/shared';
-import { Rate } from 'src/shared/components/chips/RateChip';
+import { Avatar, getDayAndYear, getInitials, Line } from 'src/shared';
+import { RateChip } from 'src/shared/components/chips/RateChip';
 
 const MainLayout = styled.div`
   padding: 15px 20px;
@@ -30,13 +29,6 @@ const Date = styled.div`
   color: ${({ theme }) => theme.grey};
   font-size: 15px;
   font-weight: ${({ theme }) => theme.w400};
-`;
-
-const StyledImage = styled(Image)`
-  object-fit: cover;
-  border-radius: 60px;
-  width: 35px;
-  height: 35px;
 `;
 
 const UserDetailsLayout = styled.div`
@@ -81,12 +73,7 @@ const SpecialistReviewCardElement = (props: {
       <MainLayout>
         <ReviewHeader>
           <UserDetailsLayout>
-            <StyledImage
-              src={userInfo?.avatarUrl ?? '/files/images/avatar.png'}
-              alt="Avatar"
-              width={35}
-              height={35}
-            />
+            <Avatar width={35} height={35} avatarUrl={userInfo.avatarUrl} />
             <Column>
               <UserInitials>
                 {getInitials({
@@ -98,7 +85,7 @@ const SpecialistReviewCardElement = (props: {
             </Column>
           </UserDetailsLayout>
           <RateReviewLayout>
-            <Rate isDisabled selectedRating={rating} />
+            <RateChip isDisabled selectedRating={rating} />
           </RateReviewLayout>
         </ReviewHeader>
         <CommentDetailsLayout>

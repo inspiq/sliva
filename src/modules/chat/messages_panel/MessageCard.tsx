@@ -1,9 +1,8 @@
 import { forwardRef, ReactElement, Ref } from 'react';
-import Image from 'next/image';
 import styled from 'styled-components';
 
 import { Message } from 'src/modules/chat/messages_panel/MessagesPanel';
-import { devices, getInitials, getTime } from 'src/shared';
+import { Avatar, devices, getInitials, getTime } from 'src/shared';
 
 const MainLayout = styled.div<{ $isMyMessage: boolean }>`
   width: 100%;
@@ -43,15 +42,6 @@ const Time = styled.div`
   bottom: 5px;
 `;
 
-const StyledImage = styled(Image)`
-  border-radius: 20px;
-  cursor: pointer;
-  object-fit: cover;
-  width: 30px;
-  height: 30px;
-  background-color: ${({ theme }) => theme.border};
-`;
-
 const UserName = styled.div`
   font-size: 13px;
   font-weight: ${({ theme }) => theme.w500};
@@ -71,44 +61,33 @@ interface Props {
   isMyMessage: boolean;
 }
 
-const MessageCardElement = forwardRef(
-  (props: Props, ref: Ref<HTMLDivElement>): ReactElement => {
-    const { message, isMyMessage } = props;
-    const { user, timestamp, text } = message;
+const MessageCardElement = (
+  props: Props,
+  ref: Ref<HTMLDivElement>,
+): ReactElement => {
+  const { message, isMyMessage } = props;
+  const { userInfo, timestamp, text } = message;
 
-    return (
-      <MainLayout $isMyMessage={isMyMessage} ref={ref}>
-        {!isMyMessage && (
-          <StyledImage
-            src={user?.avatarUrl ?? '/files/images/avatar.png'}
-            alt="Avatar"
-            width={30}
-            height={30}
-          />
-        )}
-        <MessageLayout $isMyMessage={isMyMessage}>
-          <UserName>
-            {getInitials({
-              firstName: user?.firstName,
-              lastName: user?.lastName,
-            })}
-          </UserName>
-          <MessageText>{text}</MessageText>
-          <Time>{getTime({ ...timestamp })}</Time>
-        </MessageLayout>
-        {isMyMessage && (
-          <StyledImage
-            src={user?.avatarUrl ?? '/files/images/avatar.png'}
-            alt="Avatar"
-            width={30}
-            height={30}
-          />
-        )}
-      </MainLayout>
-    );
-  },
-);
+  return (
+    <MainLayout $isMyMessage={isMyMessage} ref={ref}>
+      {!isMyMessage && (
+        <Avatar width={30} height={30} avatarUrl={userInfo?.avatarUrl} />
+      )}
+      <MessageLayout $isMyMessage={isMyMessage}>
+        <UserName>
+          {getInitials({
+            firstName: userInfo?.firstName,
+            lastName: userInfo?.lastName,
+          })}
+        </UserName>
+        <MessageText>{text}</MessageText>
+        <Time>{getTime({ ...timestamp })}</Time>
+      </MessageLayout>
+      {isMyMessage && (
+        <Avatar width={30} height={30} avatarUrl={userInfo?.avatarUrl} />
+      )}
+    </MainLayout>
+  );
+};
 
-MessageCardElement.displayName = 'MessageCardElement';
-
-export const MessageCard = MessageCardElement;
+export const MessageCard = forwardRef(MessageCardElement);

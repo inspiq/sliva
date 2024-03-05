@@ -1,4 +1,5 @@
 import { ReactElement } from 'react';
+import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
 import { SpecialistAreaCard } from 'src/modules/specialist_profile/specialist_areas/SpecialistAreaCard';
@@ -34,15 +35,17 @@ interface Props {
 const SpecialistAreasPanelElement = (props: Props): ReactElement => {
   const { areas } = props;
 
+  const t = useTranslations('SpecialistCard');
+
   return (
     <MainLayout>
-      <Title>Выезд к клиенту</Title>
+      <Title>{t('areas.title')}</Title>
       <AreasLayout hasAreas={!!areas?.length}>
         {areas?.length
           ? areas?.map((area) => (
               <SpecialistAreaCard key={area.value} area={area.label} />
             ))
-          : 'нет информации'}
+          : t('areas.no_info')}
       </AreasLayout>
     </MainLayout>
   );

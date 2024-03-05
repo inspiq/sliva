@@ -28,4 +28,5 @@ export const theme = {
     error: colors.error,
   },
   loader: { primary: colors.primary, secondary: colors.white },
+  avatar: { bg: colors.aqua },
 };

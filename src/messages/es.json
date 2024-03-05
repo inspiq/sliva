@@ -3,9 +3,9 @@
     "language_switcher": {
       "title": "Cambiar idioma",
       "languages": {
-        "ru": "Ruso",
+        "ru": "Русский",
         "es": "Español",
-        "en": "Inglés"
+        "en": "English"
       }
     },
     "buttons": {
@@ -115,7 +115,8 @@
     "title": "Sliva – un socio confiable",
     "second_title": "para servicio",
     "subtitle": "{usersCount, plural, one {# cliente confió} other {# clientes confiaron} } en nuestro servicio",
-    "button": "Encontrar un especialista"
+    "button": "Encontrar un especialista",
+    "button_two": "Convertirse en un especialista"
   },
   "categories": {
     "renovation": "Renovación y construcción",
@@ -221,5 +222,33 @@
       "three": "3. Hagamos que el servicio sea aún mejor juntos."
     },
     "button": "Aceptar"
+  },
+  "SpecialistCard": {
+    "experience": {
+      "title": "Experiencia laboral:",
+      "info": "{experience, plural, one {# año} few {# años} many {# años} other {# años}}",
+      "no_info": "sin información"
+    },
+    "reviews": {
+      "info": "{reviewsCount, plural, one {# reseña} few {# reseñas} many {# reseñas} other {# reseñas}}"
+    },
+    "details": {
+      "title": "Todas las Reseñas ({reviewsCount})",
+      "title_two": "Todos los Servicios y Precios"
+    },
+    "areas": {
+      "title": "Visitas a Domicilio",
+      "no_info": "sin información"
+    },
+    "reviews_form": {
+      "title": "Deja una reseña sobre el especialista",
+      "textarea": {
+        "placeholder": "Reseña"
+      },
+      "button": "Dejar una reseña"
+    }
+  },
+  "alts": {
+    "avatar": "Avatar"
   }
 }

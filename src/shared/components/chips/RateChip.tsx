@@ -20,7 +20,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   isDisabled?: boolean;
 }
 
-const RateChip = (props: Props): ReactElement => {
+const RateChipElement = (props: Props): ReactElement => {
   const { selectedRating, setSelectedRating, isDisabled = false } = props;
 
   const [hover, setHover] = useState(0);
@@ -64,4 +64,4 @@ const RateChip = (props: Props): ReactElement => {
   );
 };
 
-export const Rate = RateChip;
+export const RateChip = RateChipElement;
