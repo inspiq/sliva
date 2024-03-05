@@ -1,5 +1,6 @@
 import { ReactElement, useEffect, useState } from 'react';
 import { doc, onSnapshot } from 'firebase/firestore';
+import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
 import { useAuthContext } from 'src/context';
@@ -61,7 +62,7 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
   const [specialist, setSpecialist] = useState<Specialist>();
   const [allReviews, setAllReviews] = useState<ReviewDocument>();
   const { currentAuthUser } = useAuthContext();
-
+  const t = useTranslations();
   useEffect(() => {
     const docRef = doc(db, 'reviews', specialistId);
     const unsubscribe = onSnapshot(docRef, (docSnapshot) => {
@@ -109,7 +110,7 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
               </ReviewsLayout>
             </Column>
             {!currentAuthUser && (
-              <BlockOverlay title="Авторизуйтесь, чтобы открыть доступ к просмотру специалистов" />
+              <BlockOverlay title={t('block_overlay.title')} />
             )}
           </ContentLayout>
         </Container>

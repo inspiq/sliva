@@ -106,7 +106,7 @@ const SpecialistCardElement = (props: Props): ReactElement => {
   const reviewsCount = reviewDetails?.count ?? 0;
 
   const { secondary } = useTheme();
-  const t = useTranslations('SpecialistCard');
+  const t = useTranslations();
 
   return (
     <MainLayout>
@@ -122,12 +122,12 @@ const SpecialistCardElement = (props: Props): ReactElement => {
             {firstName} {lastName}
           </FullName>
           <Experience hasExperience={!!experience}>
-            {t('experience.title')}
+            {t('SpecialistCard.experience.title')}
             <span>
               {' '}
               {experience
-                ? t('experience.info', { experience })
-                : t('experience.no_info')}
+                ? t('SpecialistCard.experience.info', { experience })
+                : t('SpecialistCard.experience.no_info')}
             </span>
           </Experience>
           <Row>
@@ -137,11 +137,13 @@ const SpecialistCardElement = (props: Props): ReactElement => {
             </Rating>
             <ReviewsCount>
               <ChatIcon width={20} color={secondary} />
-              {t('reviews.info', { reviewsCount })}
+              {t('SpecialistCard.reviews.info', { reviewsCount })}
             </ReviewsCount>
           </Row>
-          <Service>{t('details.title', { reviewsCount })}</Service>
-          <Service>{t('details.title_two')}</Service>
+          <Service>
+            {t('SpecialistCard.details.title', { reviewsCount })}
+          </Service>
+          <Service>{t('SpecialistCard.details.title_two')}</Service>
         </SpecialistInfo>
       </StyledLink>
       <SpecialistAreasPanel areas={areas} />

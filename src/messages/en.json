@@ -262,9 +262,6 @@
     "information": {
       "additional_information_textarea": "Additional Information",
       "additional_information_content": "No information"
-    },
-    "alts": {
-      "avatar": "Avatar"
     }
   },
   "Chat":{
@@ -274,16 +271,13 @@
       "chat_for_locksmiths":"Chat for locksmiths"
     },
     "send_message_panel":{
-      "placeholder":"Enter a message",
-      "image_message":"Image"
-    },
-    "alts": {
-      "avatar": "Avatar"
+      "placeholder":"Enter a message"
     }
 },
-  "alts": {
-    "avatar": "Avatar"
-  },
+"alts": {
+  "avatar": "Avatar",
+  "image_message": "Image"
+},
   "block_overlay":{
     "link": "Log in",
     "title": "Log in to access the chat"

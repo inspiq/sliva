@@ -273,34 +273,27 @@
       },
       "button": "Оставить отзыв"
     },
-    "information":{
+    "information": {
       "additional_information_textarea": "Дополнительная информация",
-      "additional_information_content": "нет информации" 
-    },
-    "alts": {
-      "avatar": "Аватар"
+      "additional_information_content": "нет информации"
     }
   },
-  "Chat":{
-    "chat_room":
-    {
-      "global_chat":"Глобальный чат",
-      "chat_for_locksmiths":"Чат для слесарей"
+  "Chat": {
+    "chat_room": {
+      "global_chat": "Глобальный чат",
+      "chat_for_locksmiths": "Чат для слесарей"
     },
-    "send_message_panel":{
-      "placeholder":"Введите сообщение",
-      "image_message":"Изображение"
-    },
-    "alts": {
-      "avatar": "Аватар"
+    "send_message_panel": {
+      "placeholder": "Введите сообщение",
+      "image_message": "Изображение"
     }
   },
-
   "alts": {
-    "avatar": "Аватар"
+    "avatar": "Аватар",
+    "image_message": "Изображение"
   },
-  "block_overlay":{
+  "block_overlay": {
     "link": "Авторизолваться",
     "title": "Авторизуйтесь, чтобы открыть доступ к чату"
- }
+  }
 }

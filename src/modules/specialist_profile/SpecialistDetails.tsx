@@ -114,7 +114,7 @@ const SpecialistDetailsElement = (props: Props): ReactElement => {
   } = specialist;
   const reviewsCount = reviewDetails?.count ?? 0;
 
-  const t = useTranslations('SpecialistCard');
+  const t = useTranslations();
   const { secondary } = useTheme();
 
   return (
@@ -131,12 +131,12 @@ const SpecialistDetailsElement = (props: Props): ReactElement => {
             {firstName} {lastName}
           </FullName>
           <Experience hasExperience={!!experience}>
-            {t('experience.title')}
+            {t('SpecialistCard.experience.title')}
             <span>
               {' '}
               {experience
-                ? t('experience.info', { experience })
-                : t('experience.no_info')}
+                ? t('SpecialistCard.experience.info', { experience })
+                : t('SpecialistCard.experience.no_info')}
             </span>
           </Experience>
           <Row>
@@ -146,7 +146,7 @@ const SpecialistDetailsElement = (props: Props): ReactElement => {
             </Rating>
             <ReviewsCount>
               <ChatIcon width={20} color={secondary} />
-              {t('reviews.info', { reviewsCount })}
+              {t('SpecialistCard.reviews.info', { reviewsCount })}
             </ReviewsCount>
           </Row>
           <SpecialistAreasPanel areas={areas} />
@@ -154,12 +154,12 @@ const SpecialistDetailsElement = (props: Props): ReactElement => {
       </SpecialistCard>
       <AdditionalInfoLayout>
         <AdditionalInfoTitle>
-          {t('information.additional_information_textarea')}
+          {t('SpecialistCard.information.additional_information_textarea')}
         </AdditionalInfoTitle>
         <AdditionalInfoDescription hasExtendedInfo={!!extendedInfo}>
           {extendedInfo
             ? extendedInfo
-            : t('information.additional_information_textarea')}
+            : t('SpecialistCard.information.additional_information_content')}
         </AdditionalInfoDescription>
       </AdditionalInfoLayout>
       <LineLayout>
