@@ -1,5 +1,6 @@
 import { forwardRef, ReactElement, Ref } from 'react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
 import { Message } from 'src/modules/chat/messages_panel/MessagesPanel';
@@ -88,13 +89,14 @@ const MessageCardElement = (
 ): ReactElement => {
   const { message, isMyMessage } = props;
   const { userInfo, timestamp, text, images_message } = message;
+  const t = useTranslations('Chat');
 
   return (
     <MainLayout $isMyMessage={isMyMessage} ref={ref}>
       {!isMyMessage && (
         <StyledImage
           src={userInfo?.avatarUrl ?? '/files/images/avatar.png'}
-          alt="Avatar"
+          alt={t('alts.avatar')}
           width={30}
           height={30}
         />
@@ -116,7 +118,7 @@ const MessageCardElement = (
       {isMyMessage && (
         <StyledImage
           src={userInfo?.avatarUrl ?? '/files/images/avatar.png'}
-          alt="Avatar"
+          alt={t('alts.avatar')}
           width={30}
           height={30}
         />

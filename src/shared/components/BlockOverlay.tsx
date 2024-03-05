@@ -1,4 +1,5 @@
 import { ReactElement } from 'react';
+import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
 import { Link } from 'src/navigation';
@@ -39,11 +40,12 @@ interface Props {
 
 const BlockOverlayElement = (props: Props): ReactElement => {
   const { title } = props;
+  const t = useTranslations();
 
   return (
     <MainLayout>
       <Title>{title}</Title>
-      <StyledLink href="/log_in">Авторизоваться</StyledLink>
+      <StyledLink href="/log_in">{t('block_overlay.link')}</StyledLink>
     </MainLayout>
   );
 };

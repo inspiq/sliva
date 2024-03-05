@@ -1,6 +1,7 @@
 import { ReactElement, TextareaHTMLAttributes, useMemo, useState } from 'react';
 import { collection, doc, setDoc, updateDoc } from 'firebase/firestore';
 import { useFormik } from 'formik';
+import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -71,7 +72,7 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
 
   const [currentRating, setCurrentRating] = useState(0);
   const { currentAuthUser } = useAuthContext();
-
+  const t = useTranslations('SpecialistCard');
   const totalRating = reviews?.length
     ? reviews.reduce((sum, item) => sum + item.rating, 0)
     : 0;
@@ -141,7 +142,7 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
   return (
     <MainLayout onSubmit={handleSubmit}>
       <Header>
-        <Title>Оставьте отзыв о специалисте</Title>
+        <Title>{t('reviews_form.title')}</Title>
         <RateChip
           setSelectedRating={setCurrentRating}
           selectedRating={currentRating}
@@ -151,7 +152,7 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
         name="text"
         value={values.text}
         onChange={handleChange}
-        placeholder="Отзыв"
+        placeholder={t('reviews_form.textarea.placeholder')}
         {...props}
       />
       <ButtonLayout>
@@ -161,7 +162,7 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
           isStretching={false}
           disabled={isSubmitting || !currentRating}
         >
-          Оставить отзыв
+          {t('reviews_form.button')}
         </UiButton>
       </ButtonLayout>
     </MainLayout>

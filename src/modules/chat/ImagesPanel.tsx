@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
 const StyledImage = styled(Image)`
@@ -24,6 +25,7 @@ interface Props {
 
 const ImagesPanelElement = (props: Props): ReactElement => {
   const { images } = props;
+  const t = useTranslations('Chat');
 
   return (
     <ImageLayout>
@@ -34,7 +36,7 @@ const ImagesPanelElement = (props: Props): ReactElement => {
           width={60}
           height={60}
           quality={200}
-          alt="Image"
+          alt={t('send_message_panel.image_message')}
         />
       ))}
     </ImageLayout>

@@ -115,7 +115,7 @@ const SpecialistCardElement = (props: Props): ReactElement => {
           src={avatarUrl ?? '/files/images/avatar.png'}
           width={120}
           height={130}
-          alt="Avatar"
+          alt={t('alts.avatar')}
         />
         <SpecialistInfo>
           <FullName>

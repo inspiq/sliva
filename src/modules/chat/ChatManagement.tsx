@@ -7,6 +7,7 @@ import {
   setDoc,
 } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -72,7 +73,8 @@ export const ChatContentLayout = styled.div`
 `;
 
 const ChatManagementElement = (): ReactElement => {
-  const [activeRoom, setActiveRoom] = useState('Глобальный чат');
+  const t = useTranslations();
+  const [activeRoom, setActiveRoom] = useState(t('Chat.chat_room.global_chat'));
   const { currentAuthUser } = useAuthContext();
 
   const onSendMessage = async (text: string, fileUpload?: File[]) => {
@@ -93,7 +95,7 @@ const ChatManagementElement = (): ReactElement => {
         chatId: string;
         timestamp: FieldValue;
         text: string;
-        user: UserType | null | undefined;
+        userInfo: UserType | null | undefined;
         images_message?: string[];
       };
 
@@ -101,7 +103,7 @@ const ChatManagementElement = (): ReactElement => {
         chatId: uuidv4(),
         timestamp: serverTimestamp(),
         text,
-        user: currentAuthUser?.additionalInfo,
+        userInfo: currentAuthUser?.additionalInfo,
       };
 
       if (imageUrls.length) {
@@ -125,9 +127,7 @@ const ChatManagementElement = (): ReactElement => {
           <MessagesPanel />
           <SendMessagePanel onSendMessage={onSendMessage} />
         </ChatLayout>
-        {!currentAuthUser && (
-          <BlockOverlay title="Авторизуйтесь, чтобы открыть доступ к чату" />
-        )}
+        {!currentAuthUser && <BlockOverlay title={t('block_overlay.title')} />}
       </ChatContentLayout>
     </MainLayout>
   );

@@ -1,5 +1,6 @@
 import { ReactElement } from 'react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import styled, { useTheme } from 'styled-components';
 
 import { SpecialistAreasPanel } from 'src/modules/specialist_profile/specialist_areas/SpecialistAreasPanel';
@@ -113,6 +114,7 @@ const SpecialistDetailsElement = (props: Props): ReactElement => {
   } = specialist;
   const reviewsCount = reviewDetails?.count ?? 0;
 
+  const t = useTranslations('SpecialistCard');
   const { secondary } = useTheme();
 
   return (
@@ -122,15 +124,20 @@ const SpecialistDetailsElement = (props: Props): ReactElement => {
           src={avatarUrl ?? '/files/images/avatar.png'}
           width={140}
           height={150}
-          alt="Avatar"
+          alt={t('alts.avatar')}
         />
         <SpecialistInfo>
           <FullName>
             {firstName} {lastName}
           </FullName>
           <Experience hasExperience={!!experience}>
-            Опыт работы:
-            <span> {experience ? `${experience} лет` : 'нет информации'}</span>
+            {t('experience.title')}
+            <span>
+              {' '}
+              {experience
+                ? t('experience.info', { experience })
+                : t('experience.no_info')}
+            </span>
           </Experience>
           <Row>
             <Rating>
@@ -139,16 +146,20 @@ const SpecialistDetailsElement = (props: Props): ReactElement => {
             </Rating>
             <ReviewsCount>
               <ChatIcon width={20} color={secondary} />
-              {reviewsCount} отзывов
+              {t('reviews.info', { reviewsCount })}
             </ReviewsCount>
           </Row>
           <SpecialistAreasPanel areas={areas} />
         </SpecialistInfo>
       </SpecialistCard>
       <AdditionalInfoLayout>
-        <AdditionalInfoTitle>Дополнительная информация</AdditionalInfoTitle>
+        <AdditionalInfoTitle>
+          {t('information.additional_information_textarea')}
+        </AdditionalInfoTitle>
         <AdditionalInfoDescription hasExtendedInfo={!!extendedInfo}>
-          {extendedInfo ? extendedInfo : 'нет информации'}
+          {extendedInfo
+            ? extendedInfo
+            : t('information.additional_information_textarea')}
         </AdditionalInfoDescription>
       </AdditionalInfoLayout>
       <LineLayout>

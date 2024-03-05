@@ -1,4 +1,5 @@
 import { FormEvent, ReactElement, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
 import { UiInput } from 'src/shared';
@@ -35,6 +36,7 @@ const SendMessagePanelElement = (props: Props): ReactElement => {
   const [value, setValue] = useState('');
   const [images, setImages] = useState<File[]>();
   const { onSendMessage } = props;
+  const t = useTranslations('Chat');
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (!value && !images?.length) return;
@@ -58,7 +60,7 @@ const SendMessagePanelElement = (props: Props): ReactElement => {
     <MainLayout isImage={!!images?.length}>
       <ImagesPanel images={images} />
       <UiInput
-        placeholder="Введите сообщение"
+        placeholder={t('send_message_panel.placeholder')}
         onKeyDown={onKeyDown}
         value={value}
         onChange={(e) => setValue(e.target.value)}
