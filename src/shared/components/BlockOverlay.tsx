@@ -15,7 +15,6 @@ const MainLayout = styled.div`
   align-items: center;
   flex-direction: column;
   gap: 10px;
-
   backdrop-filter: blur(6px);
   background-color: ${({ theme }) => theme.ransparent_white};
 `;

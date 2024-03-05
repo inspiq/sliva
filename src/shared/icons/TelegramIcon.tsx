@@ -2,7 +2,7 @@ import * as React from 'react';
 import { SVGProps } from 'react';
 
 export const TelegramIcon = (props: SVGProps<SVGSVGElement>) => {
-  const { width, height } = props;
+  const { width = 24, height = 24 } = props;
 
   return (
     <svg

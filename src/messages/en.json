@@ -87,7 +87,19 @@
     }
   },
   "Footer": {
-    "text": "Copyright 2024 - 2024 Sliva, Inc. All Rights Reserved"
+    "text": "© Copyright 2024-2024 Sliva, Inc. All Rights Reserved",
+    "buttons": {
+      "title": "Support Service",
+      "second_title": "Go to Global Chat"
+    },
+    "privacy_policy": "Privacy Policy",
+    "info": "The information published on this website is intended for any audience unless otherwise specified for specific materials.",
+    "support_service": {
+      "title": "Support Service:",
+      "email": "email@gmail.com",
+      "time": "Weekdays: 6 AM - 10 PM",
+      "second_time": "Weekends: 8 AM - 10 PM"
+    }
   },
   "validations": {
     "first_name": {

@@ -33,7 +33,7 @@ const MainLayout = styled.div`
   top: 0;
 
   @media ${devices.mobileL} {
-    height: 110px;
+    height: 105px;
   }
 `;
 

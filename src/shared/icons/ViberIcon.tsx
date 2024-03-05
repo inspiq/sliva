@@ -2,7 +2,7 @@ import * as React from 'react';
 import { SVGProps } from 'react';
 
 export const ViberIcon = (props: SVGProps<SVGSVGElement>) => {
-  const { width, height } = props;
+  const { width = 24, height = 24 } = props;
 
   return (
     <svg width={width} height={height} viewBox="0 0 52 52" {...props}>

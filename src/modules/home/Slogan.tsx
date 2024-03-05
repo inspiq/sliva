@@ -18,11 +18,11 @@ const Title = styled.h1`
   color: ${({ theme }) => theme.text};
   margin-bottom: 20px;
   font-weight: 600;
-  line-height: 72px;
+  line-height: 64px;
 
   @media ${devices.mobileL} {
-    font-size: 36px;
-    line-height: 48px;
+    font-size: 34px;
+    line-height: 46px;
   }
 `;
 
@@ -41,9 +41,11 @@ const UiButtonLayout = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+  max-width: 426px;
 
   @media ${devices.mobileL} {
     flex-direction: column;
+    max-width: 250px;
   }
 `;
 
@@ -63,16 +65,11 @@ const SloganElement = (props: Props): ReactElement => {
       </Title>
       <SubTitle>{t('subtitle', { usersCount })}</SubTitle>
       <UiButtonLayout>
-        <UiButton
-          size="big"
-          isStretching={false}
-          onClick={() => router.push('/specialists')}
-        >
+        <UiButton size="big" onClick={() => router.push('/specialists')}>
           {t('button')}
         </UiButton>
         <UiButton
           size="big"
-          isStretching={false}
           onClick={() => router.push('/sign_up')}
           variant="outline"
         >
