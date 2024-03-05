@@ -258,9 +258,28 @@
         "placeholder": "Review"
       },
       "button": "Leave a review"
+    },
+    "information": {
+      "additional_information_textarea": "Additional Information",
+      "additional_information_content": "No information"
     }
   },
-  "alts": {
-    "avatar": "Avatar"
-  }
+  "Chat":{
+    "chat_room":
+    {
+      "global_chat":"Global chat",
+      "chat_for_locksmiths":"Chat for locksmiths"
+    },
+    "send_message_panel":{
+      "placeholder":"Enter a message"
+    }
+},
+"alts": {
+  "avatar": "Avatar",
+  "image_message": "Image"
+},
+  "block_overlay":{
+    "link": "Log in",
+    "title": "Log in to access the chat"
+}
 }

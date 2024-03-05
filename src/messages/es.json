@@ -258,9 +258,27 @@
         "placeholder": "Reseña"
       },
       "button": "Dejar una reseña"
+    },
+    "information": {
+      "additional_information_textarea": "Información adicional",
+      "additional_information_content": "No hay información"
+    }
+  },
+  "Chat": {
+    "chat_room": {
+      "global_chat": "Chat global",
+      "chat_for_locksmiths": "Chat para cerrajeros"
+    },
+    "send_message_panel": {
+      "placeholder": "Escriba un mensaje"
     }
   },
   "alts": {
-    "avatar": "Avatar"
+    "avatar": "Avatar",
+    "image_message": "Imagen"
+  },
+  "block_overlay": {
+    "link": "Iniciar sesión",
+    "title": "Inicie sesión para acceder al chat"
   }
 }

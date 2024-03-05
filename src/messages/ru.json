@@ -242,7 +242,21 @@
       "no_info": "нет информации"
     },
     "reviews": {
-      "info": "{reviewsCount, plural, one {# отзыв} few {# отзыва} many {# отзывов} other {# отзывов}}"
+      "info": "{reviewsCount, plural, one {# отзыв} few {# отзыва} many {# отзывов} other {# отзывов}}",
+      "mouth_name": {
+        "january": "январь",
+        "february": "февраль",
+        "march": "март",
+        "april": "апрель",
+        "may": "май",
+        "june": "июнь",
+        "july": "июль",
+        "august": "август",
+        "september": "сентябрь",
+        "october": "октябрь",
+        "november": "ноябрь",
+        "december": "декабрь"
+      }
     },
     "details": {
       "title": "Все отзывы ({reviewsCount})",
@@ -258,9 +272,28 @@
         "placeholder": "Отзыв"
       },
       "button": "Оставить отзыв"
+    },
+    "information": {
+      "additional_information_textarea": "Дополнительная информация",
+      "additional_information_content": "нет информации"
+    }
+  },
+  "Chat": {
+    "chat_room": {
+      "global_chat": "Глобальный чат",
+      "chat_for_locksmiths": "Чат для слесарей"
+    },
+    "send_message_panel": {
+      "placeholder": "Введите сообщение",
+      "image_message": "Изображение"
     }
   },
   "alts": {
-    "avatar": "Аватар"
+    "avatar": "Аватар",
+    "image_message": "Изображение"
+  },
+  "block_overlay": {
+    "link": "Авторизолваться",
+    "title": "Авторизуйтесь, чтобы открыть доступ к чату"
   }
 }

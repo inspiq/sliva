@@ -1,5 +1,6 @@
 import { ReactElement, useState } from 'react';
 import { collection, doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -65,7 +66,8 @@ export const ChatContentLayout = styled.div`
 `;
 
 const ChatManagementElement = (): ReactElement => {
-  const [activeRoom, setActiveRoom] = useState('Глобальный чат');
+  const t = useTranslations();
+  const [activeRoom, setActiveRoom] = useState(t('Chat.chat_room.global_chat'));
   const { currentAuthUser } = useAuthContext();
 
   const onSendMessage = async (text: string) => {
@@ -96,9 +98,7 @@ const ChatManagementElement = (): ReactElement => {
           <MessagesPanel />
           <SendMessagePanel onSendMessage={onSendMessage} />
         </ChatLayout>
-        {!currentAuthUser && (
-          <BlockOverlay title="Авторизуйтесь, чтобы открыть доступ к чату" />
-        )}
+        {!currentAuthUser && <BlockOverlay title={t('block_overlay.title')} />}
       </ChatContentLayout>
     </MainLayout>
   );

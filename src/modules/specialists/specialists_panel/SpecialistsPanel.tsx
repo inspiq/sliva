@@ -1,5 +1,6 @@
 import { ReactElement, useEffect, useMemo, useState } from 'react';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
 import { useAuthContext } from 'src/context';
@@ -36,6 +37,8 @@ const SpecialistsPanelElement = (): ReactElement => {
   const [selectedFilters, setSelectedFilters] = useState<SpecialistFilter[]>(
     [],
   );
+  const t = useTranslations();
+
   const { currentAuthUser } = useAuthContext();
   const filteredSpecialists = useMemo(() => {
     if (!selectedFilters.length) return specialists;
@@ -105,9 +108,7 @@ const SpecialistsPanelElement = (): ReactElement => {
           <SpecialistCard specialist={specialist} key={specialist.userId} />
         ))}
       </SpecialistsLayout>
-      {!currentAuthUser && (
-        <BlockOverlay title="Авторизуйтесь, чтобы открыть доступ к просмотру специалистов" />
-      )}
+      {!currentAuthUser && <BlockOverlay title={t('block_overlay.title')} />}
     </MainLayout>
   );
 };
