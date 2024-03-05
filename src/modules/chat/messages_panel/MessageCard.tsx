@@ -1,4 +1,9 @@
 import { forwardRef, ReactElement, Ref } from 'react';
+<<<<<<< HEAD
+=======
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
+>>>>>>> da162a1 (feat: localization)
 import styled from 'styled-components';
 
 import { Message } from 'src/modules/chat/messages_panel/MessagesPanel';
@@ -66,12 +71,26 @@ const MessageCardElement = (
   ref: Ref<HTMLDivElement>,
 ): ReactElement => {
   const { message, isMyMessage } = props;
+<<<<<<< HEAD
   const { userInfo, timestamp, text } = message;
+=======
+  const { userInfo, timestamp, text, images_message } = message;
+  const t = useTranslations('Chat');
+>>>>>>> da162a1 (feat: localization)
 
   return (
     <MainLayout $isMyMessage={isMyMessage} ref={ref}>
       {!isMyMessage && (
+<<<<<<< HEAD
         <Avatar width={30} height={30} avatarUrl={userInfo?.avatarUrl} />
+=======
+        <StyledImage
+          src={userInfo?.avatarUrl ?? '/files/images/avatar.png'}
+          alt={t('alts.avatar')}
+          width={30}
+          height={30}
+        />
+>>>>>>> da162a1 (feat: localization)
       )}
       <MessageLayout $isMyMessage={isMyMessage}>
         <UserName>
@@ -84,7 +103,16 @@ const MessageCardElement = (
         <Time>{getTime({ ...timestamp })}</Time>
       </MessageLayout>
       {isMyMessage && (
+<<<<<<< HEAD
         <Avatar width={30} height={30} avatarUrl={userInfo?.avatarUrl} />
+=======
+        <StyledImage
+          src={userInfo?.avatarUrl ?? '/files/images/avatar.png'}
+          alt={t('alts.avatar')}
+          width={30}
+          height={30}
+        />
+>>>>>>> da162a1 (feat: localization)
       )}
     </MainLayout>
   );

@@ -1,4 +1,5 @@
 import { ReactElement, useState } from 'react';
+import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
 import { UiInput } from 'src/shared';
@@ -21,6 +22,7 @@ interface Props {
 const SendMessagePanelElement = (props: Props): ReactElement => {
   const [value, setValue] = useState('');
   const { onSendMessage } = props;
+  const t = useTranslations('Chat');
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (!value) return;
@@ -34,7 +36,7 @@ const SendMessagePanelElement = (props: Props): ReactElement => {
   return (
     <MainLayout>
       <UiInput
-        placeholder="Введите сообщение"
+        placeholder={t('send_message_panel.placeholder')}
         onKeyDown={onKeyDown}
         value={value}
         onChange={(e) => setValue(e.target.value)}
