@@ -4,20 +4,35 @@ import {
   PropsWithChildren,
   ReactElement,
 } from 'react';
-import styled, { css, useTheme } from 'styled-components';
+import styled, { css, keyframes, useTheme } from 'styled-components';
 
 import { ArrowIcon, useToggle } from 'src/shared';
+
+const expandAnimation = keyframes`
+  from {
+    max-height: 0px;
+  }
+  to {
+    max-height: 1000px;
+  }
+`;
 
 const MainLayout = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-const ContentLayout = styled.div`
+const ContentLayout = styled.div<{ visible: boolean }>`
   padding: 10px 7px;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  max-height: fit-content;
+  ${({ visible }) =>
+    visible &&
+    css`
+      animation: ${expandAnimation} 0.3s ease;
+    `}
 `;
 
 const Header = styled.label<{ visible: boolean }>`
@@ -30,13 +45,14 @@ const Header = styled.label<{ visible: boolean }>`
   ${({ theme, visible }) =>
     visible &&
     css`
-      background-color: ${theme.secondary};
+      background-color: ${theme.primary};
       color: ${theme.white};
     `}
+  transition: background-color 0.3s;
 
   &:hover {
     background-color: ${({ theme, visible }) =>
-      visible ? theme.secondary : theme.light};
+      visible ? theme.primary : theme.light};
   }
 
   & > .arrow {
@@ -91,7 +107,7 @@ export const AccordionElement = (
           className={'arrow'}
         />
       </Header>
-      {visible && <ContentLayout>{children}</ContentLayout>}
+      {visible && <ContentLayout visible={visible}>{children}</ContentLayout>}
     </MainLayout>
   );
 };

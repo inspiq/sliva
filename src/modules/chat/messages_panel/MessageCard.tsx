@@ -1,4 +1,5 @@
 import { forwardRef, ReactElement, Ref } from 'react';
+import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
 import { Message } from 'src/modules/chat/messages_panel/MessagesPanel';
@@ -15,14 +16,13 @@ const MainLayout = styled.div<{ $isMyMessage: boolean }>`
 const MessageLayout = styled.p<{ $isMyMessage: boolean }>`
   color: ${({ theme }) => theme.white};
   background-color: ${({ theme, $isMyMessage }) =>
-    $isMyMessage ? theme.primary : theme.secondary};
+    $isMyMessage ? theme.primary : theme.light_orange};
   padding: 10px 55px 10px 10px;
   border-radius: ${({ $isMyMessage }) =>
     $isMyMessage ? '15px 15px 3px 15px' : '15px 15px 15px 3px'};
   max-width: 400px;
   max-height: 500px;
   word-wrap: break-word;
-  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.05);
   margin-bottom: 12px;
   position: relative;
   display: flex;
@@ -68,6 +68,8 @@ const MessageCardElement = (
   const { message, isMyMessage } = props;
   const { userInfo, timestamp, text } = message;
 
+  const t = useTranslations();
+
   return (
     <MainLayout $isMyMessage={isMyMessage} ref={ref}>
       {!isMyMessage && (
@@ -75,10 +77,12 @@ const MessageCardElement = (
       )}
       <MessageLayout $isMyMessage={isMyMessage}>
         <UserName>
-          {getInitials({
-            firstName: userInfo?.firstName,
-            lastName: userInfo?.lastName,
-          })}
+          {isMyMessage
+            ? t('Chat.message.you')
+            : getInitials({
+                firstName: userInfo?.firstName,
+                lastName: userInfo?.lastName,
+              })}
         </UserName>
         <MessageText>{text}</MessageText>
         <Time>{getTime({ ...timestamp })}</Time>

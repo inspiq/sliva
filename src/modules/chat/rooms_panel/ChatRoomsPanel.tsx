@@ -2,8 +2,9 @@ import { Dispatch, ReactElement, SetStateAction, useCallback } from 'react';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
+import { Title } from 'src/modules/chat/ChatManagement';
 import { ChatRoomCard } from 'src/modules/chat/rooms_panel/ChatRoomCard';
-import { getChatRooms } from 'src/shared';
+import { getChatRooms, Line } from 'src/shared';
 
 const MainLayout = styled.div`
   display: flex;
@@ -29,6 +30,8 @@ const ChatRoomsPanelElement = (props: Props): ReactElement => {
 
   return (
     <MainLayout>
+      <Title>Комнаты</Title>
+      <Line />
       {CHAT_ROOMS.map((room) => (
         <ChatRoomCard
           key={room.value}

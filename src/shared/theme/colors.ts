@@ -1,6 +1,7 @@
 export const colors = {
   primary: '#fa6104',
   secondary: '#09004d',
+  light_orange: '#f58b4b',
   slogan: '#333',
   white: '#fff',
   light_blue: '#59adff',

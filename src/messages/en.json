@@ -96,7 +96,7 @@
     "info": "The information published on this website is intended for any audience unless otherwise specified for specific materials.",
     "support_service": {
       "title": "Support Service:",
-      "time": "Weekdays: 6:00 AM - 10:00 PM",
+      "time": "Weekdays: 6 AM - 10 PM",
       "second_time": "Weekends: 8 AM - 10 PM"
     }
   },
@@ -138,7 +138,7 @@
     "kitchen": "Kitchen",
     "transportation_services": "Transportation services",
     "beauty_services": "Beauty and health",
-    "fitness": "Fitness and sports",
+    "fitness": "Fitness and sport",
     "animal_services": "Animal services",
     "home_staff": "Domestic staff",
     "freelance_and_creative_services": "Freelance and creative services"
@@ -264,22 +264,23 @@
       "additional_information_content": "No information"
     }
   },
-  "Chat":{
-    "chat_room":
-    {
-      "global_chat":"Global chat",
-      "chat_for_locksmiths":"Chat for locksmiths"
+  "Chat": {
+    "chat_room": {
+      "global_chat": "Global chat"
     },
-    "send_message_panel":{
-      "placeholder":"Enter a message"
+    "send_message_panel": {
+      "placeholder": "Enter a message..."
+    },
+    "message": {
+      "you": "You:"
     }
-},
-"alts": {
-  "avatar": "Avatar",
-  "image_message": "Image"
-},
-  "block_overlay":{
+  },
+  "alts": {
+    "avatar": "Avatar",
+    "image_message": "Image"
+  },
+  "block_overlay": {
     "link": "Log in",
     "title": "Log in to access the chat"
-}
+  }
 }

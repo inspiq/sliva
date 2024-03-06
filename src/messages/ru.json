@@ -280,12 +280,14 @@
   },
   "Chat": {
     "chat_room": {
-      "global_chat": "Глобальный чат",
-      "chat_for_locksmiths": "Чат для слесарей"
+      "global_chat": "Глобальный чат"
     },
     "send_message_panel": {
-      "placeholder": "Введите сообщение",
+      "placeholder": "Введите сообщение...",
       "image_message": "Изображение"
+    },
+    "message": {
+      "you": "Вы:"
     }
   },
   "alts": {

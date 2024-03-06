@@ -1,19 +1,19 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 export const useToggle = (defaultValue = false) => {
   const [visible, setVisible] = useState(defaultValue);
 
-  const open = () => {
+  const open = useCallback(() => {
     setVisible(true);
-  };
+  }, []);
 
-  const close = () => {
+  const close = useCallback(() => {
     setVisible(false);
-  };
+  }, []);
 
-  const toggle = () => {
+  const toggle = useCallback(() => {
     setVisible((prev) => !prev);
-  };
+  }, []);
 
   return {
     visible,
