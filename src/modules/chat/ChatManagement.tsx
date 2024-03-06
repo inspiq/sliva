@@ -32,10 +32,6 @@ export const ChatLayout = styled.div`
   position: relative;
   justify-content: flex-end;
   height: 550px;
-
-  @media ${devices.mobileL} {
-    padding: 15px;
-  }
 `;
 
 export const Title = styled.h3`
@@ -62,6 +58,10 @@ export const Header = styled.div`
 export const ChatContentLayout = styled.div`
   position: relative;
   border-left: 1px solid ${({ theme }) => theme.border};
+
+  @media ${devices.mobileL} {
+    border-left: none;
+  }
 `;
 
 const ChatManagementElement = (props: Props): ReactElement => {

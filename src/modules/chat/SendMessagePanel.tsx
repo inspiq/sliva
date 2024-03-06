@@ -1,4 +1,4 @@
-import { KeyboardEvent, ReactElement, useState } from 'react';
+import { FormEvent, KeyboardEvent, ReactElement, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
@@ -24,6 +24,7 @@ const Textarea = styled.textarea`
   padding: 0;
   color: ${({ theme }) => theme.text};
   height: 20px;
+  overflow: hidden;
 `;
 
 const ImagePickerLayout = styled.div`
@@ -39,12 +40,20 @@ const SendMessagePanelElement = (props: Props): ReactElement => {
   const { onSendMessage } = props;
   const t = useTranslations('Chat');
 
-  const onKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (!value) return;
+  const onKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (!value.trim()) return;
 
-    if (event.key === 'Enter') {
+    if (e.key === 'Enter') {
       onSendMessage(value);
+      setValue('');
     }
+  };
+
+  const onChange = (e: FormEvent<HTMLTextAreaElement>) => {
+    const { value, style, scrollHeight } = e.target as HTMLTextAreaElement;
+    setValue(value);
+    style.height = '20px';
+    style.height = `${scrollHeight}px`;
   };
 
   return (
@@ -56,7 +65,7 @@ const SendMessagePanelElement = (props: Props): ReactElement => {
         placeholder={t('send_message_panel.placeholder')}
         onKeyDown={onKeyDown}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={onChange}
       />
     </MainLayout>
   );

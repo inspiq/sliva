@@ -7,6 +7,8 @@ export const getTime = ({
 }) => {
   if (!seconds || !nanoseconds) return '';
   const currentDate = new Date(seconds * 1000 + nanoseconds / 1000000);
+  const hours = currentDate.getHours();
+  const minutes = currentDate.getMinutes().toString().padStart(2, '0');
 
-  return `${currentDate.getHours()}:${currentDate.getMinutes()}`;
+  return `${hours}:${minutes}`;
 };
