@@ -2,17 +2,20 @@ import { ReactElement, useEffect, useRef, useState } from 'react';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import styled from 'styled-components';
 
-import { useAuthContext } from 'src/context';
+import { Props } from 'src/modules/chat/Chat';
 import { MessageCard } from 'src/modules/chat/messages_panel/MessageCard';
 import { db, UserType } from 'src/shared';
 
 const MainLayout = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 5px;
   overflow-y: scroll;
-  padding-bottom: 70px;
-  padding-top: 65px;
+  padding-top: 80px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: ${({ theme }) => theme.white};
+  border-top-right-radius: 10px;
 `;
 
 export interface Message {
@@ -25,9 +28,9 @@ export interface Message {
   userInfo: UserType;
 }
 
-const MessagesPanelElement = (): ReactElement => {
+const MessagesPanelElement = (props: Props): ReactElement => {
   const [messages, setMessages] = useState<Message[]>([]);
-  const { currentAuthUser } = useAuthContext();
+  const { currentAuthUser } = props;
 
   const ref = useRef<HTMLDivElement | null>(null);
 

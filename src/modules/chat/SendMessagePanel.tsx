@@ -1,18 +1,33 @@
-import { ReactElement, useState } from 'react';
+import { KeyboardEvent, ReactElement, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
-import { UiInput } from 'src/shared';
+import { PaperClipIcon } from 'src/shared';
 
 const MainLayout = styled.div`
   width: 100%;
-  padding: 20px;
-  position: absolute;
-  right: 0;
-  left: 0;
-  bottom: 0;
+  padding: 15px;
   border-radius: 0px 0px 10px 10px;
   background-color: ${({ theme }) => theme.white};
+  border-top: 1px solid ${({ theme }) => theme.border};
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  height: auto;
+`;
+
+const Textarea = styled.textarea`
+  border: none;
+  width: 100%;
+  height: 100%;
+  font-size: 15px;
+  padding: 0;
+  color: ${({ theme }) => theme.text};
+  height: 20px;
+`;
+
+const ImagePickerLayout = styled.div`
+  cursor: pointer;
 `;
 
 interface Props {
@@ -24,23 +39,24 @@ const SendMessagePanelElement = (props: Props): ReactElement => {
   const { onSendMessage } = props;
   const t = useTranslations('Chat');
 
-  const onKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const onKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
     if (!value) return;
 
     if (event.key === 'Enter') {
       onSendMessage(value);
-      setValue('');
     }
   };
 
   return (
     <MainLayout>
-      <UiInput
+      <ImagePickerLayout>
+        <PaperClipIcon />
+      </ImagePickerLayout>
+      <Textarea
         placeholder={t('send_message_panel.placeholder')}
         onKeyDown={onKeyDown}
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        inputSize="medium"
       />
     </MainLayout>
   );

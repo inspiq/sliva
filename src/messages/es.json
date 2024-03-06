@@ -265,11 +265,13 @@
   },
   "Chat": {
     "chat_room": {
-      "global_chat": "Chat global",
-      "chat_for_locksmiths": "Chat para cerrajeros"
+      "global_chat": "Chat global"
     },
     "send_message_panel": {
-      "placeholder": "Escriba un mensaje"
+      "placeholder": "Escriba un mensaje..."
+    },
+    "message": {
+      "you": "Vosotros:"
     }
   },
   "alts": {

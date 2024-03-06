@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
 import { Link } from 'src/navigation';
-import { Container } from 'src/shared';
+import { Container, LockIcon } from 'src/shared';
 
 const MainLayout = styled.div`
   position: absolute;
@@ -24,7 +24,7 @@ const MainLayout = styled.div`
     display: flex;
     align-items: center;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
   }
 `;
 
@@ -33,6 +33,7 @@ const Title = styled.div`
   font-weight: ${({ theme }) => theme.w600};
   color: ${({ theme }) => theme.secondary};
   text-align: center;
+  margin-top: 5px;
 `;
 
 const StyledLink = styled(Link)`
@@ -58,6 +59,7 @@ const BlockOverlayElement = (props: Props): ReactElement => {
   return (
     <MainLayout>
       <Container>
+        <LockIcon />
         <Title>{title}</Title>
         <StyledLink href="/log_in">{t('block_overlay.link')}</StyledLink>
       </Container>

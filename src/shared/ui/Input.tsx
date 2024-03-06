@@ -1,6 +1,5 @@
 import { InputHTMLAttributes, ReactElement } from 'react';
-import styled, { css } from 'styled-components';
-import { switchProp } from 'styled-tools';
+import styled from 'styled-components';
 
 import { Error } from 'src/modules/auth/Error';
 import { CloseEyeIcon, EyeIcon, PlusIcon, useToggle } from 'src/shared';
@@ -8,7 +7,6 @@ import { CloseEyeIcon, EyeIcon, PlusIcon, useToggle } from 'src/shared';
 const Input = styled.input<{
   $hasError?: boolean;
   $hasIcon: boolean;
-  $size?: Size;
 }>`
   width: 100%;
   border: 1px solid
@@ -21,15 +19,7 @@ const Input = styled.input<{
   color: ${({ theme }) => theme.input.value};
   font-weight: ${({ theme }) => theme.w400};
   transition: border 0.3s;
-
-  ${switchProp('$size', {
-    ['big']: css`
-      height: 50px;
-    `,
-    ['medium']: css`
-      height: 40px;
-    `,
-  })}
+  height: 50px;
 
   &::placeholder {
     color: ${({ theme }) => theme.input.placeholder};
@@ -93,17 +83,14 @@ const PlusIconLayout = styled.div`
   }
 `;
 
-type Size = 'medium' | 'big';
-
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   Icon?: JSX.Element;
   hasError?: boolean;
   textError?: string;
-  inputSize?: Size;
 }
 
 const UiInputElement = (props: Props): ReactElement => {
-  const { Icon, hasError, textError, type, inputSize = 'big', ...rest } = props;
+  const { Icon, hasError, textError, type, ...rest } = props;
 
   const { visible: passVisible, toggle } = useToggle();
 
@@ -132,7 +119,6 @@ const UiInputElement = (props: Props): ReactElement => {
         <Input
           $hasError={hasError}
           $hasIcon={hasIcon}
-          $size={inputSize}
           type={hasTypePassword ? currentTypePasswordField : type}
           {...rest}
         />

@@ -2,13 +2,14 @@ import { memo, ReactElement } from 'react';
 import styled from 'styled-components';
 
 export const RoomCard = styled.div<{ $isActiveRoom: boolean }>`
-  padding: 12px 10px;
-  border-radius: 5px;
+  padding: 15px 20px;
   background-color: ${({ theme, $isActiveRoom }) =>
-    $isActiveRoom ? theme.light : 'transparent'};
+    $isActiveRoom ? theme.primary : 'transparent'};
   cursor: pointer;
   font-size: 15px;
-  font-weight: ${({ theme }) => theme.w500};
+  font-weight: ${({ theme }) => theme.w400};
+  color: ${({ theme, $isActiveRoom }) =>
+    $isActiveRoom ? theme.white : theme.text};
 `;
 
 interface Props {

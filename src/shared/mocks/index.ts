@@ -141,10 +141,7 @@ export const getAreas = (t: (key: string) => string) => {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getChatRooms = (t: (key: string) => string) => {
-  return [
-    { value: 'global_chat', label: t('chat_room.global_chat') },
-    { value: 'slesar_chat', label: t('chat_room.chat_for_locksmiths') },
-  ];
+  return [{ value: 'global_chat', label: t('chat_room.global_chat') }];
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
