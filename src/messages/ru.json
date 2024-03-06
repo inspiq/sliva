@@ -212,6 +212,7 @@
     "last_name_input": "Фамилия",
     "work_input": "Опыт работы",
     "city_input": "Город",
+    "areas_select":"Выберите область работы",
     "email_input": "Электронная почта",
     "categories_select": "Категории деятельностей",
     "subcategories_select": "Подкатегории деятельностей",

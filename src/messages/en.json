@@ -215,6 +215,7 @@
     "categories_select": "Categories of activities",
     "subcategories_select": "Subcategories of activities",
     "city_input": "City",
+    "areas_select":"Select the area of work",
     "telegram_input": "@Telegram",
     "whats_app_input": "Whats App",
     "birthday_input": "Birthday",

@@ -377,7 +377,7 @@ const MyProfileFormElement = (props: {
                   onChangeArea(selectedOptions as MultiValue<Option>)
                 }
                 value={values.areas}
-                placeholder="Выберите области работы"
+                placeholder={t('my_profile.areas_select')}
                 styles={styles}
                 theme={(theme) => ({
                   ...theme,
