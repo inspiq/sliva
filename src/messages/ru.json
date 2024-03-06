@@ -96,9 +96,8 @@
     "info": "Информация, опубликованная на данном сайте, предназначена для любой аудитории, если иное не указано дополнительно в отношении отдельных материалов.",
     "support_service": {
       "title": "Служба поддержки:",
-      "email": "email@gmail.com",
-      "time": "Будни: с 6 до 22",
-      "second_time": "Выходные: с 8 до 22"
+      "time": "Будни: с 6:00 до 22:00",
+      "second_time": "Выходные: с 8:00 до 22:00"
     }
   },
   "validations": {
@@ -135,7 +134,7 @@
     "plumbing": "Сантехника",
     "cleaning": "Уборка",
     "tutoring": "Репетиторство",
-    "auto": "Авто услуги",
+    "auto": "Автоуслуги",
     "kitchen": "Кухня",
     "transportation_services": "Транспортные услуги",
     "beauty_services": "Красота и здоровье",
@@ -216,7 +215,7 @@
     "email_input": "Электронная почта",
     "categories_select": "Категории деятельностей",
     "subcategories_select": "Подкатегории деятельностей",
-    "telegram_input": "@Телеграм",
+    "telegram_input": "@ Telegram",
     "whats_app_input": "WhatsApp",
     "birthday_input": "Дата рождения",
     "additional_information_textarea": "Дополнительная информация",
@@ -293,7 +292,7 @@
     "image_message": "Изображение"
   },
   "block_overlay": {
-    "link": "Авторизолваться",
+    "link": "Авторизоваться",
     "title": "Авторизуйтесь, чтобы открыть доступ к чату"
   }
 }

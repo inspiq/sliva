@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import { useTranslations } from 'next-intl';
-import styled, { css } from 'styled-components';
+import styled, { css, useTheme } from 'styled-components';
 
 import { Link } from 'src/navigation';
 import {
@@ -21,7 +21,7 @@ const textStylesPrimary = css`
 
 const textStylesSecondary = css`
   font-size: 15px;
-  font-weight: ${({ theme }) => theme.w600};
+  font-weight: ${({ theme }) => theme.w500};
   color: ${({ theme }) => theme.secondary};
 `;
 
@@ -69,6 +69,7 @@ const ZeroPlusInfo = styled.div`
 
 const SupportServiceTitle = styled.div`
   ${textStylesSecondary}
+  font-weight: ${({ theme }) => theme.w600};
 `;
 
 const SupportServiceEmail = styled(Link)`
@@ -85,13 +86,13 @@ const SupportServiceTime = styled.div`
   font-weight: ${({ theme }) => theme.w400};
 `;
 
-const SupportServiceSocialNetwork = styled.div`
+const SupportServiceSocialNetworks = styled.div`
   display: flex;
   flex-direction: row;
   gap: 8px;
 `;
 
-const PrivacyPolicy = styled(Link)`
+const PrivacyPolicy = styled.a`
   ${textStylesSecondary}
   font-weight: ${({ theme }) => theme.w400};
   text-decoration: underline;
@@ -103,8 +104,24 @@ const PrivacyPolicy = styled(Link)`
   }
 `;
 
+const StyledLink = styled(Link)`
+  margin-top: 3px;
+  padding: 6px;
+  background-color: ${({ theme }) => theme.secondary};
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.primary};
+  }
+`;
+
 const FooterElement = (): ReactElement => {
   const t = useTranslations('Footer');
+  const { light } = useTheme();
 
   return (
     <MainLayout>
@@ -119,25 +136,27 @@ const FooterElement = (): ReactElement => {
             <SupportServiceTitle>
               {t('support_service.title')}
             </SupportServiceTitle>
-            <SupportServiceEmail href={'/'}>
-              {t('support_service.email')}
+            <SupportServiceEmail href="mailto:email@gmail.com">
+              email@gmail.com
             </SupportServiceEmail>
             <SupportServiceTime>
-              {t('support_service.time')}{' '}
+              {t('support_service.time')}
               <p>{t('support_service.second_time')}</p>
             </SupportServiceTime>
-            <SupportServiceSocialNetwork>
-              <Link href={'/'}>
-                <WhatsAppIcon />
-              </Link>
-              <Link href={'/'}>
-                <TelegramIcon />
-              </Link>
-              <Link href={'/'}>
-                <ViberIcon />
-              </Link>
-            </SupportServiceSocialNetwork>
-            <PrivacyPolicy href={'/'}>{t('privacy_policy')}</PrivacyPolicy>
+            <SupportServiceSocialNetworks>
+              <StyledLink href={'/'}>
+                <WhatsAppIcon color={light} width={22} height={22} />
+              </StyledLink>
+              <StyledLink href={'/'}>
+                <TelegramIcon color={light} width={22} height={22} />
+              </StyledLink>
+              <StyledLink href={'/'}>
+                <ViberIcon color={light} width={22} height={22} />
+              </StyledLink>
+            </SupportServiceSocialNetworks>
+            <PrivacyPolicy href="/files/politika.docx" download>
+              {t('privacy_policy')}
+            </PrivacyPolicy>
           </ItemLayout>
           <ItemLayout>
             <ButtonsLayout>

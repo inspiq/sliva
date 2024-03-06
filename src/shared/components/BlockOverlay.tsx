@@ -3,6 +3,7 @@ import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
 import { Link } from 'src/navigation';
+import { Container } from 'src/shared';
 
 const MainLayout = styled.div`
   position: absolute;
@@ -15,15 +16,23 @@ const MainLayout = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 10px;
-  backdrop-filter: blur(6px);
   background-color: ${({ theme }) => theme.ransparent_white};
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  & > div {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+  }
 `;
 
 const Title = styled.div`
   font-size: 16px;
   font-weight: ${({ theme }) => theme.w600};
   color: ${({ theme }) => theme.secondary};
+  text-align: center;
 `;
 
 const StyledLink = styled(Link)`
@@ -31,6 +40,11 @@ const StyledLink = styled(Link)`
   font-weight: ${({ theme }) => theme.w500};
   color: ${({ theme }) => theme.secondary};
   text-decoration: underline;
+  transition: color 0.3s;
+
+  &:hover {
+    color: ${({ theme }) => theme.primary};
+  }
 `;
 
 interface Props {
@@ -43,8 +57,10 @@ const BlockOverlayElement = (props: Props): ReactElement => {
 
   return (
     <MainLayout>
-      <Title>{title}</Title>
-      <StyledLink href="/log_in">{t('block_overlay.link')}</StyledLink>
+      <Container>
+        <Title>{title}</Title>
+        <StyledLink href="/log_in">{t('block_overlay.link')}</StyledLink>
+      </Container>
     </MainLayout>
   );
 };

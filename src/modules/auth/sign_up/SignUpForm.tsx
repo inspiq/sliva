@@ -234,7 +234,7 @@ const SignUpFormElement = (): ReactElement => {
       <Tip>{t('SignUpForm.tip.input')}</Tip>
       <Tip>
         {t('privacy_policy.description')}{' '}
-        <DownloadLink href="/politika.docx" download>
+        <DownloadLink href="/files/politika.docx" download>
           {t('privacy_policy.link')}
         </DownloadLink>
       </Tip>

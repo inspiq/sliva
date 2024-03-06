@@ -100,9 +100,8 @@ const LogInFormElement = (): ReactElement => {
       <Line />
       <TextTipLayout>
         <TextTip>
-          {t('LogInForm.tip.link_description')}
+          {t('LogInForm.tip.link_description')}{' '}
           <StyledLink href="/reset_password">
-            {' '}
             {t('LogInForm.tip.link')}
           </StyledLink>
         </TextTip>

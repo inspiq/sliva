@@ -74,7 +74,7 @@ export const getSubcategories = (t: (key: string) => string) => {
 export const getCategories = (t: (key: string) => string) => {
   return [
     { value: 'repair_and_construction', label: 'Ремонт и строительство' },
-    { value: 'auto_services', label: 'Авто услуги' },
+    { value: 'auto_services', label: 'Автоуслуги' },
     { value: 'kitchen', label: 'Кухня' },
     { value: 'transport_services', label: 'Транспортные услуги' },
     { value: 'beauty_and_health', label: 'Красота и здоровье' },

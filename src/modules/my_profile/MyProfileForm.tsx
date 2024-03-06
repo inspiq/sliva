@@ -373,7 +373,9 @@ const MyProfileFormElement = (props: {
                 isMulti
                 name="area"
                 options={areas}
-                onChange={onChangeArea as VoidFunction}
+                onChange={(selectedOptions) =>
+                  onChangeArea(selectedOptions as MultiValue<Option>)
+                }
                 value={values.areas}
                 placeholder="Выберите области работы"
                 styles={styles}
