@@ -8,7 +8,7 @@ import { Container, Footer, Loader, Wrapper } from 'src/shared';
 const MyProfileElement = (): ReactElement => {
   const { currentAuthUser } = useAuthContext();
 
-  if (!currentAuthUser) {
+  if (!currentAuthUser?.additionalInfo) {
     return <Loader />;
   }
 

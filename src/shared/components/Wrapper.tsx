@@ -10,6 +10,7 @@ export const Wrapper = styled.div<{ $position?: 'center' | 'flex-start' }>`
   min-height: calc(100vh - 76px);
   padding-top: 70px;
   background-color: ${({ theme }) => theme.white};
+  position: relative;
 
   @media ${devices.mobileL} {
     padding-top: 110px;
