@@ -2,7 +2,13 @@ import { InputHTMLAttributes, ReactElement } from 'react';
 import styled from 'styled-components';
 
 import { Error } from 'src/modules/auth/Error';
-import { CloseEyeIcon, EyeIcon, PlusIcon, useToggle } from 'src/shared';
+import {
+  CloseEyeIcon,
+  EyeIcon,
+  PaperClipIcon,
+  PlusIcon,
+  useToggle,
+} from 'src/shared';
 
 const Input = styled.input<{
   $hasError?: boolean;
@@ -87,10 +93,11 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
   Icon?: JSX.Element;
   hasError?: boolean;
   textError?: string;
+  hasInChat?: boolean;
 }
 
 const UiInputElement = (props: Props): ReactElement => {
-  const { Icon, hasError, textError, type, ...rest } = props;
+  const { Icon, hasError, textError, hasInChat, type, ...rest } = props;
 
   const { visible: passVisible, toggle } = useToggle();
 
@@ -103,9 +110,13 @@ const UiInputElement = (props: Props): ReactElement => {
       <IconLayout>{Icon}</IconLayout>
       {type === 'file' && (
         <StyledLabel htmlFor="file">
-          <PlusIconLayout>
-            <PlusIcon />
-          </PlusIconLayout>
+          {hasInChat ? (
+            <PaperClipIcon />
+          ) : (
+            <PlusIconLayout>
+              <PlusIcon />
+            </PlusIconLayout>
+          )}
           <Input
             $hasError={hasError}
             $hasIcon={hasIcon}

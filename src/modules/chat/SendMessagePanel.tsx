@@ -2,7 +2,9 @@ import { FormEvent, KeyboardEvent, ReactElement, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
-import { PaperClipIcon } from 'src/shared';
+import { UiInput } from 'src/shared';
+
+import { ImagesPanel } from './ImagesPanel';
 
 const MainLayout = styled.div`
   width: 100%;
@@ -12,6 +14,7 @@ const MainLayout = styled.div`
   border-top: 1px solid ${({ theme }) => theme.border};
   display: flex;
   align-items: center;
+  align-items: flex-start;
   gap: 20px;
   height: auto;
 `;
@@ -19,7 +22,7 @@ const MainLayout = styled.div`
 const Textarea = styled.textarea`
   border: none;
   width: 100%;
-  height: 100%;
+  height: auto;
   font-size: 15px;
   padding: 0;
   color: ${({ theme }) => theme.text};
@@ -30,13 +33,20 @@ const Textarea = styled.textarea`
 const ImagePickerLayout = styled.div`
   cursor: pointer;
 `;
+const MessageContentLayout = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+`;
 
 interface Props {
-  onSendMessage: (text: string) => void;
+  onSendMessage: (text: string, fileUpload?: File[]) => void;
 }
 
 const SendMessagePanelElement = (props: Props): ReactElement => {
   const [value, setValue] = useState('');
+  const [images, setImages] = useState<File[]>();
   const { onSendMessage } = props;
   const t = useTranslations('Chat');
 
@@ -44,8 +54,9 @@ const SendMessagePanelElement = (props: Props): ReactElement => {
     if (!value.trim()) return;
 
     if (e.key === 'Enter') {
-      onSendMessage(value);
+      onSendMessage(value, images);
       setValue('');
+      setImages([]);
     }
   };
 
@@ -56,18 +67,29 @@ const SendMessagePanelElement = (props: Props): ReactElement => {
     style.height = `${scrollHeight}px`;
   };
 
+  const uploadFile = (e: FormEvent<HTMLInputElement>) => {
+    const { files } = e.target as HTMLInputElement;
+    if (!files) return;
+    setImages((prevImages) => [...(prevImages ?? []), ...Array.from(files)]);
+  };
+
   return (
-    <MainLayout>
-      <ImagePickerLayout>
-        <PaperClipIcon />
-      </ImagePickerLayout>
-      <Textarea
-        placeholder={t('send_message_panel.placeholder')}
-        onKeyDown={onKeyDown}
-        value={value}
-        onChange={onChange}
-      />
-    </MainLayout>
+    <>
+      <MainLayout>
+        <ImagePickerLayout>
+          <UiInput type="file" hasInChat={true} onChange={uploadFile} />
+        </ImagePickerLayout>
+        <MessageContentLayout>
+          <Textarea
+            placeholder={t('send_message_panel.placeholder')}
+            onKeyDown={onKeyDown}
+            value={value}
+            onChange={onChange}
+          />
+          {!!images && <ImagesPanel images={images} />}
+        </MessageContentLayout>
+      </MainLayout>
+    </>
   );
 };
 

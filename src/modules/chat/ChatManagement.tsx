@@ -1,5 +1,12 @@
 import { ReactElement, useState } from 'react';
-import { collection, doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  FieldValue,
+  serverTimestamp,
+  setDoc,
+} from 'firebase/firestore';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
@@ -8,7 +15,7 @@ import { Props } from 'src/modules/chat/Chat';
 import { MessagesPanel } from 'src/modules/chat/messages_panel/MessagesPanel';
 import { ChatRoomsPanel } from 'src/modules/chat/rooms_panel/ChatRoomsPanel';
 import { SendMessagePanel } from 'src/modules/chat/SendMessagePanel';
-import { BlockOverlay, db, devices, Line } from 'src/shared';
+import { BlockOverlay, db, devices, Line, storage, UserType } from 'src/shared';
 
 export const MainLayout = styled.div`
   display: grid;
@@ -70,17 +77,39 @@ const ChatManagementElement = (props: Props): ReactElement => {
   const t = useTranslations();
   const [activeRoom, setActiveRoom] = useState(t('Chat.chat_room.global_chat'));
 
-  const onSendMessage = async (text: string) => {
+  const onSendMessage = async (text: string, fileUpload?: File[]) => {
     try {
+      const promises = fileUpload?.map(async (file) => {
+        const filesFolderRef = ref(storage, `uploads/${file.name}`);
+        const { ref: fileRef } = await uploadBytes(filesFolderRef, file);
+        const downloadUrl = await getDownloadURL(fileRef);
+
+        return downloadUrl;
+      });
+
+      const imageUrls = await Promise.all(promises || []);
       const usersCollection = collection(db, 'global_chat');
       const userDocRef = doc(usersCollection);
 
-      await setDoc(userDocRef, {
+      type DocData = {
+        chatId: string;
+        timestamp: FieldValue;
+        text: string;
+        userInfo: UserType | null | undefined;
+        images_message?: string[];
+      };
+
+      const docData: DocData = {
         chatId: uuidv4(),
         timestamp: serverTimestamp(),
-        userInfo: currentAuthUser?.additionalInfo,
         text,
-      });
+        userInfo: currentAuthUser?.additionalInfo,
+      };
+
+      if (imageUrls.length) {
+        docData.images_message = imageUrls;
+      }
+      await setDoc(userDocRef, docData);
     } catch (e) {
       /* empty */
     }
