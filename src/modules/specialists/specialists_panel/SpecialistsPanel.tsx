@@ -1,10 +1,12 @@
 import { ReactElement, useEffect, useMemo, useState } from 'react';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
+import { useAuthContext } from 'src/context';
 import { Filters } from 'src/modules/specialists/filters/FiltersPanel';
 import { SpecialistCard } from 'src/modules/specialists/specialists_panel/SpecialistCard';
-import { db, devices, Loader, Specialist } from 'src/shared';
+import { BlockOverlay, db, devices, Loader, Specialist } from 'src/shared';
 
 const MainLayout = styled.div`
   display: grid;
@@ -35,6 +37,9 @@ const SpecialistsPanelElement = (): ReactElement => {
   const [selectedFilters, setSelectedFilters] = useState<SpecialistFilter[]>(
     [],
   );
+  const t = useTranslations();
+
+  const { currentAuthUser } = useAuthContext();
   const filteredSpecialists = useMemo(() => {
     if (!selectedFilters.length) return specialists;
 
@@ -103,6 +108,7 @@ const SpecialistsPanelElement = (): ReactElement => {
           <SpecialistCard specialist={specialist} key={specialist.userId} />
         ))}
       </SpecialistsLayout>
+      {!currentAuthUser && <BlockOverlay title={t('block_overlay.title')} />}
     </MainLayout>
   );
 };
