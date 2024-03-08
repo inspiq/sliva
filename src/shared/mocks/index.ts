@@ -169,7 +169,7 @@ export const getSpecialistFilters = (t: (key: string) => string) => {
   return [
     {
       category: {
-        value: 'repair_and_construction',
+        value: 'renovation',
         label: t('categories.renovation'),
       },
       subcategories: [
@@ -221,7 +221,7 @@ export const getSpecialistFilters = (t: (key: string) => string) => {
     },
     {
       category: {
-        value: 'auto_services',
+        value: 'auto',
         label: t('categories.auto'),
       },
       subcategories: [
@@ -269,7 +269,7 @@ export const getSpecialistFilters = (t: (key: string) => string) => {
     },
     {
       category: {
-        value: 'Mooving',
+        value: 'transportation_services',
         label: t('categories.transportation_services'),
       },
       subcategories: [
@@ -293,7 +293,7 @@ export const getSpecialistFilters = (t: (key: string) => string) => {
     },
     {
       category: {
-        value: 'beauty_and_health',
+        value: 'beauty_services',
         label: t('categories.beauty_services'),
       },
       subcategories: [
@@ -337,7 +337,7 @@ export const getSpecialistFilters = (t: (key: string) => string) => {
     },
     {
       category: {
-        value: 'fitness_and_training',
+        value: 'fitness',
         label: t('categories.fitness'),
       },
       subcategories: [
@@ -369,7 +369,7 @@ export const getSpecialistFilters = (t: (key: string) => string) => {
     },
     {
       category: {
-        value: 'home_animals',
+        value: 'animal_services',
         label: t('categories.animal_services'),
       },
       subcategories: [
