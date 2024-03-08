@@ -41,7 +41,7 @@ const MessageImagesPanelElement = (props: Props): ReactElement => {
   const [visible, setVisible] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const { images_message, hasText } = props;
+  const { images_message, hasText, text } = props;
   const t = useTranslations('Chat');
 
   return (
@@ -52,8 +52,9 @@ const MessageImagesPanelElement = (props: Props): ReactElement => {
             key={index}
             visible={visible && activeIndex === index}
             onClose={() => setVisible(false)}
-            images={images_message.map((src) => ({ src }))}
+            images={images_message.map((src) => ({ src, alt: text }))}
             noClose={false}
+            attribute={false}
           />
           <StyledMessageImg
             $first={index === 0}

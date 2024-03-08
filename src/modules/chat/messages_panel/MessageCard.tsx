@@ -98,7 +98,11 @@ const MessageCardElement = (
                 })}
           </UserName>
         )}
-        <MessageImagesPanel images_message={images_message} hasText={!!text} />
+        <MessageImagesPanel
+          images_message={images_message}
+          text={text}
+          hasText={!!text}
+        />
         <MessageText>{text}</MessageText>
         <Time>{getTime({ ...timestamp })}</Time>
       </MessageLayout>

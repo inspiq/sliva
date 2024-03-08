@@ -73,14 +73,17 @@ export const getSubcategories = (t: (key: string) => string) => {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getCategories = (t: (key: string) => string) => {
   return [
-    { value: 'repair_and_construction', label: 'Ремонт и строительство' },
-    { value: 'auto_services', label: 'Автоуслуги' },
+    { value: 'renovation', label: 'Ремонт и строительство' },
+    { value: 'plumbing', label: 'Сантехника' },
+    { value: 'cleaning', label: 'Уборка' },
+    { value: 'tutoring', label: 'tutoring' },
+    { value: 'auto', label: 'Автоуслуги' },
     { value: 'kitchen', label: 'Кухня' },
-    { value: 'transport_services', label: 'Транспортные услуги' },
-    { value: 'beauty_and_health', label: 'Красота и здоровье' },
-    { value: 'services_for_animals', label: 'Услуги для животных' },
-    { value: 'fitness_and_sports', label: 'Фитнес и спорт' },
-    { value: 'household_staff', label: 'Домашний персонал' },
+    { value: 'transportation_services', label: 'Транспортные услуги' },
+    { value: 'beauty_services', label: 'Красота и здоровье' },
+    { value: 'animal_services', label: 'Услуги для животных' },
+    { value: 'fitness', label: 'Фитнес и спорт' },
+    { value: 'home_staff', label: 'Домашний персонал' },
     {
       value: 'freelance_and_creative_services',
       label: 'Фриланс и креативные услуги',
@@ -149,7 +152,7 @@ export const getSpecialistFilters = (t: (key: string) => string) => {
   return [
     {
       category: {
-        value: 'repair_and_construction',
+        value: 'renovation',
         label: t('categories.renovation'),
       },
       subcategories: [
@@ -201,7 +204,7 @@ export const getSpecialistFilters = (t: (key: string) => string) => {
     },
     {
       category: {
-        value: 'auto_services',
+        value: 'auto',
         label: t('categories.auto'),
       },
       subcategories: [
@@ -249,7 +252,7 @@ export const getSpecialistFilters = (t: (key: string) => string) => {
     },
     {
       category: {
-        value: 'Mooving',
+        value: 'transportation_services',
         label: t('categories.transportation_services'),
       },
       subcategories: [
@@ -273,7 +276,7 @@ export const getSpecialistFilters = (t: (key: string) => string) => {
     },
     {
       category: {
-        value: 'beauty_and_health',
+        value: 'beauty_services',
         label: t('categories.beauty_services'),
       },
       subcategories: [
@@ -317,7 +320,7 @@ export const getSpecialistFilters = (t: (key: string) => string) => {
     },
     {
       category: {
-        value: 'fitness_and_training',
+        value: 'fitness',
         label: t('categories.fitness'),
       },
       subcategories: [
@@ -349,7 +352,7 @@ export const getSpecialistFilters = (t: (key: string) => string) => {
     },
     {
       category: {
-        value: 'home_animals',
+        value: 'animal_services',
         label: t('categories.animal_services'),
       },
       subcategories: [

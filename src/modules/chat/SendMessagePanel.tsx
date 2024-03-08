@@ -21,7 +21,7 @@ const MainLayout = styled.div`
 
 const Textarea = styled.textarea`
   border: none;
-  width: 100%;
+  width: 90%;
   height: auto;
   font-size: 15px;
   padding: 0;
