@@ -141,12 +141,12 @@
     "freelance_and_creative_services": "Freelance y servicios creativos"
   },
   "subcategories": {
-    "laborer": "Manitas",
+    "handyman": "Manitas",
     "electrician": "Electricista",
     "plumber": "Fontanero",
     "landscaping": "Mejora y diseño del paisaje",
     "ventilation": "Ventilación y aire acondicionado",
-    "drywall": "Paneles de yeso",
+    "plasterboard": "Paneles de yeso",
     "painting": "Masilla y pintura",
     "roofing": "Maestro de techado",
     "flooring": "Maestro de revestimiento de suelo",

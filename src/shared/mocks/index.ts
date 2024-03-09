@@ -8,18 +8,19 @@ export const getUserTypeOptions = (t: (key: string) => string) => {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getSubcategories = (t: (key: string) => string) => {
   return [
+    { value: 'handyman', label: t('subcategories.handyman') },
     { value: 'electrician', label: t('subcategories.electrician') },
     { value: 'plumber', label: t('subcategories.plumber') },
-    { value: 'landscaping_and_design', label: t('subcategories.landscaping') },
-    {
-      value: 'ventilation_and_air_conditioning',
-      label: t('subcategories.ventilation'),
-    },
-    { value: 'finishing', label: t('subcategories.finishing') },
+    { value: 'landscaping', label: t('subcategories.landscaping') },
+    { value: 'ventilation', label: t('subcategories.ventilation') },
+    { value: 'plasterboard', label: t('subcategories.plasterboard') },
+    { value: 'painting', label: t('subcategories.painting') },
     { value: 'roofing', label: t('subcategories.roofing') },
-    { value: 'flooring_master', label: t('subcategories.flooring') },
+    { value: 'flooring', label: t('subcategories.flooring') },
     { value: 'carpenter', label: t('subcategories.carpentry') },
-    { value: 'mechanic', label: t('subcategories.other') },
+    { value: 'other', label: t('subcategories.other') },
+    { value: 'repair', label: t('subcategories.repair') },
+    { value: 'interior_cleaning', label: t('subcategories.interior_cleaning') },
     { value: 'car_washer', label: t('subcategories.car_wash') },
     { value: 'cook', label: t('subcategories.cook') },
     {
@@ -81,10 +82,7 @@ export const getSubcategories = (t: (key: string) => string) => {
       label: t('subcategories.household_management'),
     },
     { value: 'web_development', label: t('subcategories.web_design') },
-    { value: 'design', label: t('subcategories.design') },
     { value: 'copywriting', label: t('subcategories.copywriting_editing') },
-    { value: 'operator', label: t('subcategories.operator') },
-    { value: 'laborer', label: t('subcategories.laborer') },
   ];
 };
 
@@ -191,8 +189,8 @@ export const getSpecialistFilters = (t: (key: string) => string) => {
           label: t('subcategories.ventilation'),
         },
         {
-          value: 'drywall',
-          label: t('subcategories.drywall'),
+          value: 'plasterboard',
+          label: t('subcategories.plasterboard'),
         },
         {
           value: 'painting',

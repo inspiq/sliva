@@ -18,9 +18,6 @@ import {
   Wrapper,
 } from 'src/shared';
 
-import { SkeletonSpecialist } from '../specialists/specialists_panel/SkeletonSpecialist';
-import { SkeletonSpecialistReviewForm } from './specialist_reviews/SkeletonSpecialistReviewForm';
-
 const ReviewsLayout = styled.div`
   display: flex;
   justify-content: flex-start;
@@ -92,6 +89,10 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
     };
   }, [specialistId]);
 
+  if (!specialist) {
+    return <Loader />;
+  }
+
   return (
     <>
       <Header />
@@ -99,11 +100,7 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
         <Container>
           <ContentLayout>
             <Column>
-              {specialist ? (
-                <SpecialistDetails specialist={specialist} />
-              ) : (
-                <SkeletonSpecialist avatarHeight={150} avatarWidth={140} />
-              )}
+              <SpecialistDetails specialist={specialist} />
               <ReviewsLayout>
                 <SpecialistReviewForm
                   specialist={specialist}
