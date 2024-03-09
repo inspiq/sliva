@@ -69,28 +69,9 @@ const SpecialistsPanelElement = (): ReactElement => {
     setIsLoading(true);
 
     const getFilters = () => {
-      if (!selectedFilters.length) return [];
-
-      const categoryFilters = selectedFilters
-        .filter(({ subcategories }) => subcategories.length === 0)
-        .flatMap(({ category }) => category.value);
-
-      const subcategoryFilters = selectedFilters
-        .filter(({ subcategories }) => subcategories.length > 0)
-        .flatMap(({ subcategories }) =>
-          subcategories.map(({ value }) => value),
-        );
-
-      const combinedFilters = categoryFilters.concat(subcategoryFilters);
-
-      if (combinedFilters.length > 0) {
-        return [where('categories', 'array-contains-any', combinedFilters)];
-      } else {
-        return [];
-      }
+      // Переделать..
+      return [];
     };
-
-    console.log(getFilters());
 
     const q = query(
       collection(db, 'users'),
@@ -114,7 +95,7 @@ const SpecialistsPanelElement = (): ReactElement => {
     return () => {
       unsubscribe();
     };
-  }, [isShowMore, selectedFilters, showMoreCount]);
+  }, [selectedFilters, showMoreCount]);
 
   const showMore = () => {
     setShowMoreCount((prev) => prev + SPECIALISTS_PAGINATION_STEP);
