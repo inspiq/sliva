@@ -6,7 +6,7 @@ import { Props } from 'src/modules/chat/Chat';
 import { MessageCard } from 'src/modules/chat/messages_panel/MessageCard';
 import { db, UserType } from 'src/shared';
 
-import { SkeletonMessageCard } from './SkeletonMessageCard';
+import { SkeletonMessagesPanel } from './skeleton_panel/SkeletonMessagesPanel';
 
 const MainLayout = styled.div`
   display: flex;
@@ -65,20 +65,18 @@ const MessagesPanelElement = (props: Props): ReactElement => {
 
   return (
     <MainLayout>
-      {!messages.length
-        ? [...Array(8)]
-            .fill(0)
-            .map((_, index) => (
-              <SkeletonMessageCard key={index} isMyMessage={false} />
-            ))
-        : messages.map((message) => (
-            <MessageCard
-              ref={ref}
-              message={message}
-              isMyMessage={message?.userInfo?.userId === currentAuthUser?.uid}
-              key={message.chatId}
-            />
-          ))}
+      {!messages.length ? (
+        <SkeletonMessagesPanel />
+      ) : (
+        messages.map((message) => (
+          <MessageCard
+            ref={ref}
+            message={message}
+            isMyMessage={message?.userInfo?.userId === currentAuthUser?.uid}
+            key={message.chatId}
+          />
+        ))
+      )}
     </MainLayout>
   );
 };
