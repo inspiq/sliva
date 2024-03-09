@@ -6,7 +6,7 @@ import {
   useState,
 } from 'react';
 import { onAuthStateChanged, User } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, onSnapshot } from 'firebase/firestore';
 
 import { auth, db, UserType, UserWithAdditionalInfo } from 'src/shared';
 
@@ -29,23 +29,19 @@ export const AuthContextProvider = (props: PropsWithChildren) => {
   );
 
   useEffect(() => {
-    const getAdditionalUserInfo = async () => {
-      if (!currentAuthUser) return;
+    if (!currentAuthUser) return;
 
-      try {
-        const docRef = doc(db, 'users', currentAuthUser?.uid);
-        const snapshot = await getDoc(docRef);
-
-        if (snapshot.exists()) {
-          const userData = snapshot.data() as UserType;
-          setAdditionalUserInfo(userData);
-        }
-      } catch (e) {
-        /* обработка ошибок */
+    const docRef = doc(db, 'users', currentAuthUser?.uid);
+    const unsubscribe = onSnapshot(docRef, (docSnapshot) => {
+      if (docSnapshot.exists()) {
+        const userData = docSnapshot.data() as UserType;
+        setAdditionalUserInfo(userData);
       }
-    };
+    });
 
-    getAdditionalUserInfo();
+    return () => {
+      unsubscribe();
+    };
   }, [currentAuthUser]);
 
   useEffect(() => onAuthStateChanged(auth, setCurrentAuthUser), []);

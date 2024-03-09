@@ -114,9 +114,7 @@ const MyProfileFormElement = (props: {
   const { currentAuthUser } = props;
   const { additionalInfo, uid, email } = currentAuthUser;
 
-  const [selectedCategories, setSelectedCategories] = useState<
-    MultiValue<Option>
-  >([]);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [fileUpload, setFileUpload] = useState<File>();
   const t = useTranslations();
   const { primary, light_grey, border_ui, border_ui_hover, grey } = useTheme();
@@ -222,7 +220,7 @@ const MyProfileFormElement = (props: {
 
   const onChangeCategories = (options: MultiValue<Option>) => {
     setFieldValue('categories', options);
-    setSelectedCategories(options);
+    setSelectedCategories(options.map((item) => item.value));
   };
 
   const onChangeSubcategories = (options: MultiValue<Option>) => {
@@ -389,7 +387,6 @@ const MyProfileFormElement = (props: {
                     primary,
                   },
                 })}
-                isDisabled={!values.categories?.length}
               />
             </SelectRow>
           )}
