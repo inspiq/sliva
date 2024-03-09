@@ -92,9 +92,6 @@ export const getSubcategories = (t: (key: string) => string) => {
 export const getCategories = (t: (key: string) => string) => {
   return [
     { value: 'renovation', label: t('categories.renovation') },
-    { value: 'plumbing', label: t('categories.plumbing') },
-    { value: 'cleaning', label: t('categories.cleaning') },
-    { value: 'tutoring', label: t('categories.tutoring') },
     { value: 'auto', label: t('categories.auto') },
     { value: 'kitchen', label: t('categories.kitchen') },
     {
@@ -174,8 +171,8 @@ export const getSpecialistFilters = (t: (key: string) => string) => {
       },
       subcategories: [
         {
-          value: 'laborer',
-          label: t('subcategories.laborer'),
+          value: 'handyman',
+          label: t('subcategories.handyman'),
         },
         {
           value: 'electrician',

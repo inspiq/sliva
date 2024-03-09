@@ -2,6 +2,7 @@
 
 import { PropsWithChildren } from 'react';
 import { CookiesProvider } from 'react-cookie';
+import { SkeletonTheme } from 'react-loading-skeleton';
 import { Montserrat } from 'next/font/google';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
@@ -91,13 +92,15 @@ export const App = (props: PropsWithChildren) => {
   const { children } = props;
 
   return (
-    <CookiesProvider>
-      <AuthContextProvider>
-        <ThemeProvider theme={theme}>
-          <GlobalStyle />
-          <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
-        </ThemeProvider>
-      </AuthContextProvider>
-    </CookiesProvider>
+    <SkeletonTheme baseColor="#202020" highlightColor="#cac5c5">
+      <CookiesProvider>
+        <AuthContextProvider>
+          <ThemeProvider theme={theme}>
+            <GlobalStyle />
+            <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+          </ThemeProvider>
+        </AuthContextProvider>
+      </CookiesProvider>
+    </SkeletonTheme>
   );
 };

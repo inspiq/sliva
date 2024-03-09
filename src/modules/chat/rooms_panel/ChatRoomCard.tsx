@@ -1,4 +1,5 @@
 import { memo, ReactElement } from 'react';
+import Skeleton from 'react-loading-skeleton';
 import styled from 'styled-components';
 
 export const RoomCard = styled.div<{ $isActiveRoom: boolean }>`
@@ -26,7 +27,7 @@ const ChatRoomCardElement = (props: Props): ReactElement => {
       onClick={() => onChangeActiveRoom(room)}
       $isActiveRoom={isActiveRoom}
     >
-      {room}
+      {room || <Skeleton />}
     </RoomCard>
   );
 };

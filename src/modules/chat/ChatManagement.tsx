@@ -1,4 +1,5 @@
 import { ReactElement, useState } from 'react';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { collection, doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';

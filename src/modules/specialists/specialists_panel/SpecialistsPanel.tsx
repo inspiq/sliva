@@ -6,7 +6,9 @@ import styled from 'styled-components';
 import { useAuthContext } from 'src/context';
 import { Filters } from 'src/modules/specialists/filters/FiltersPanel';
 import { SpecialistCard } from 'src/modules/specialists/specialists_panel/SpecialistCard';
-import { BlockOverlay, db, devices, Loader, Specialist } from 'src/shared';
+import { BlockOverlay, db, devices, Specialist } from 'src/shared';
+
+import { SkeletonSpecialist } from './SkeletonSpecialist';
 
 const MainLayout = styled.div`
   display: grid;
@@ -96,17 +98,17 @@ const SpecialistsPanelElement = (): ReactElement => {
     };
   }, []);
 
-  if (!specialists.length) {
-    return <Loader />;
-  }
-
   return (
     <MainLayout>
       <Filters setSelectedFilters={setSelectedFilters} />
       <SpecialistsLayout>
-        {(filteredSpecialists ?? specialists).map((specialist) => (
-          <SpecialistCard specialist={specialist} key={specialist.userId} />
-        ))}
+        {filteredSpecialists.length || specialists.length
+          ? (filteredSpecialists ?? specialists).map((specialist) => (
+              <SpecialistCard specialist={specialist} key={specialist.userId} />
+            ))
+          : Array(5)
+              .fill(0)
+              .map((_, index) => <SkeletonSpecialist key={index} />)}
       </SpecialistsLayout>
       {!currentAuthUser && <BlockOverlay title={t('block_overlay.title')} />}
     </MainLayout>

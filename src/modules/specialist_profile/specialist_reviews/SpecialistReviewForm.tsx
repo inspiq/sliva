@@ -63,7 +63,7 @@ const ButtonLayout = styled.div`
 `;
 
 interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  specialist: Specialist;
+  specialist?: Specialist;
   reviews?: Review[];
 }
 
@@ -126,7 +126,7 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
           });
 
           const reviewsCollection = collection(db, 'reviews');
-          const userDocRef = doc(reviewsCollection, specialist.userId);
+          const userDocRef = doc(reviewsCollection, specialist?.userId);
 
           await setDoc(userDocRef, {
             reviews: updatedReviews ?? [],
