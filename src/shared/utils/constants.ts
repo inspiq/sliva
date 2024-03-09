@@ -15,3 +15,8 @@ export const devices = {
   laptop: `(max-width: ${sizes.laptop})`,
   laptopL: `(max-width: ${sizes.laptopL})`,
 };
+
+export const SPECIALISTS_PAGINATION_STEP = 20;
+export const DEFAULT_REVIEWS_COUNT = 0;
+export const DEFAULT_AVG_RATING = 0;
+export const DEFAULT_SKELETON_SPECIALISTS_COUNT = 3;

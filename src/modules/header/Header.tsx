@@ -24,7 +24,7 @@ const MainLayout = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid ${({ theme }) => theme.light};
+  border-bottom: 1px solid ${({ theme }) => theme.light_grey};
   background-color: ${({ theme }) => theme.white};
   position: fixed;
   z-index: 99;
@@ -86,7 +86,7 @@ const StyledLink = styled(Link)`
   gap: 5px;
 
   &:hover {
-    background-color: ${({ theme }) => theme.light};
+    background-color: ${({ theme }) => theme.light_grey};
   }
 `;
 

@@ -121,7 +121,7 @@ const StyledLink = styled(Link)`
 
 const FooterElement = (): ReactElement => {
   const t = useTranslations('Footer');
-  const { light } = useTheme();
+  const { light_grey } = useTheme();
 
   return (
     <MainLayout>
@@ -145,13 +145,13 @@ const FooterElement = (): ReactElement => {
             </SupportServiceTime>
             <SupportServiceSocialNetworks>
               <StyledLink href={'/'}>
-                <WhatsAppIcon color={light} width={22} height={22} />
+                <WhatsAppIcon color={light_grey} width={22} height={22} />
               </StyledLink>
               <StyledLink href={'/'}>
-                <TelegramIcon color={light} width={22} height={22} />
+                <TelegramIcon color={light_grey} width={22} height={22} />
               </StyledLink>
               <StyledLink href={'/'}>
-                <ViberIcon color={light} width={22} height={22} />
+                <ViberIcon color={light_grey} width={22} height={22} />
               </StyledLink>
             </SupportServiceSocialNetworks>
             <PrivacyPolicy href="/files/politika.docx" download>

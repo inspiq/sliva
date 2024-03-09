@@ -3,7 +3,6 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import styled, { useTheme } from 'styled-components';
 
-import { SpecialistAreasPanel } from 'src/modules/specialist_profile/specialist_areas/SpecialistAreasPanel';
 import { ChatIcon, devices, Line, Specialist, StarIcon } from 'src/shared';
 
 const MainLayout = styled.div`
@@ -109,7 +108,6 @@ const SpecialistDetailsElement = (props: Props): ReactElement => {
     lastName,
     experience,
     reviewDetails,
-    areas,
     extendedInfo,
   } = specialist;
   const reviewsCount = reviewDetails?.count ?? 0;
@@ -149,7 +147,6 @@ const SpecialistDetailsElement = (props: Props): ReactElement => {
               {t('SpecialistCard.reviews.info', { reviewsCount })}
             </ReviewsCount>
           </Row>
-          <SpecialistAreasPanel areas={areas} />
         </SpecialistInfo>
       </SpecialistCard>
       <AdditionalInfoLayout>

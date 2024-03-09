@@ -1,12 +1,24 @@
-import { ReactElement, useEffect, useMemo, useState } from 'react';
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
-import { useTranslations } from 'next-intl';
+import { ReactElement, useEffect, useState } from 'react';
+import {
+  collection,
+  limit,
+  onSnapshot,
+  query,
+  where,
+} from 'firebase/firestore';
 import styled from 'styled-components';
 
-import { useAuthContext } from 'src/context';
 import { Filters } from 'src/modules/specialists/filters/FiltersPanel';
 import { SpecialistCard } from 'src/modules/specialists/specialists_panel/SpecialistCard';
-import { BlockOverlay, db, devices, Loader, Specialist } from 'src/shared';
+import {
+  db,
+  DEFAULT_SKELETON_SPECIALISTS_COUNT,
+  devices,
+  Option,
+  SkeletonPanel,
+  Specialist,
+  SPECIALISTS_PAGINATION_STEP,
+} from 'src/shared';
 
 const MainLayout = styled.div`
   display: grid;
@@ -14,22 +26,32 @@ const MainLayout = styled.div`
   gap: 60px;
   padding: 25px 0;
   position: relative;
+  margin-top: 25px;
+  margin-bottom: 50px;
 
   @media ${devices.mobileL} {
     display: flex;
     flex-direction: column;
-    margin: 0;
+    margin-top: 0;
   }
 `;
 
 const SpecialistsLayout = styled.div`
   display: flex;
   flex-direction: column;
+  position: relative;
+`;
+
+const ShowMoreSpecialists = styled.div`
+  font-size: 16px;
+  color: ${({ theme }) => theme.secondary};
+  text-decoration: underline;
+  cursor: pointer;
 `;
 
 export interface SpecialistFilter {
-  header: string;
-  subcategories: string[];
+  category: Option;
+  subcategories: Option[];
 }
 
 const SpecialistsPanelElement = (): ReactElement => {
@@ -37,49 +59,43 @@ const SpecialistsPanelElement = (): ReactElement => {
   const [selectedFilters, setSelectedFilters] = useState<SpecialistFilter[]>(
     [],
   );
-  const t = useTranslations();
-
-  const { currentAuthUser } = useAuthContext();
-  const filteredSpecialists = useMemo(() => {
-    if (!selectedFilters.length) return specialists;
-
-    const uniqueSpecialistIds = new Set();
-    let filteredSpecialists: Specialist[] = [];
-
-    selectedFilters.forEach((filter) => {
-      if (filter.subcategories.length) {
-        filteredSpecialists.push(
-          ...specialists.filter((specialist) =>
-            specialist?.subcategories?.some((subcategory) =>
-              filter.subcategories.includes(subcategory.value),
-            ),
-          ),
-        );
-      } else {
-        filteredSpecialists.push(
-          ...specialists.filter((specialist) =>
-            specialist.categories?.some(
-              (category) => category.value === filter.header,
-            ),
-          ),
-        );
-      }
-    });
-
-    filteredSpecialists = filteredSpecialists.filter((specialist) => {
-      if (uniqueSpecialistIds.has(specialist.userId)) {
-        return false;
-      }
-      uniqueSpecialistIds.add(specialist.userId);
-
-      return true;
-    });
-
-    return filteredSpecialists;
-  }, [selectedFilters, specialists]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [showMoreCount, setShowMoreCount] = useState(
+    SPECIALISTS_PAGINATION_STEP,
+  );
+  const [isShowMore, setIsShowMore] = useState(true);
 
   useEffect(() => {
-    const q = query(collection(db, 'users'), where('type', '==', 'specialist'));
+    setIsLoading(true);
+
+    const getFilters = () => {
+      if (!selectedFilters.length) return [];
+
+      const categoryFilters = selectedFilters
+        .filter(({ subcategories }) => subcategories.length === 0)
+        .flatMap(({ category }) => category.value);
+
+      const subcategoryFilters = selectedFilters
+        .filter(({ subcategories }) => subcategories.length > 0)
+        .flatMap(({ subcategories }) =>
+          subcategories.map(({ value }) => value),
+        );
+
+      const combinedFilters = categoryFilters.concat(subcategoryFilters);
+
+      if (combinedFilters.length > 0) {
+        return [where('categories', 'array-contains-any', combinedFilters)];
+      } else {
+        return [];
+      }
+    };
+
+    const q = query(
+      collection(db, 'users'),
+      where('type', '==', 'specialist'),
+      ...getFilters(),
+      limit(showMoreCount),
+    );
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const specialists: Specialist[] = [];
@@ -89,26 +105,39 @@ const SpecialistsPanelElement = (): ReactElement => {
       });
 
       setSpecialists(specialists);
+      setIsLoading(false);
+      setIsShowMore(specialists.length === showMoreCount);
     });
 
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [isShowMore, selectedFilters, showMoreCount]);
 
-  if (!specialists.length) {
-    return <Loader />;
-  }
+  const showMore = () => {
+    setShowMoreCount((prev) => prev + SPECIALISTS_PAGINATION_STEP);
+  };
 
   return (
     <MainLayout>
       <Filters setSelectedFilters={setSelectedFilters} />
       <SpecialistsLayout>
-        {(filteredSpecialists ?? specialists).map((specialist) => (
-          <SpecialistCard specialist={specialist} key={specialist.userId} />
-        ))}
+        {isLoading ? (
+          <SkeletonPanel
+            count={DEFAULT_SKELETON_SPECIALISTS_COUNT}
+            SkeletonCard={<SpecialistCard isLoading={isLoading} />}
+          />
+        ) : (
+          specialists.map((specialist) => (
+            <SpecialistCard specialist={specialist} key={specialist.userId} />
+          ))
+        )}
+        {isShowMore && !isLoading && (
+          <ShowMoreSpecialists onClick={showMore}>
+            Показать больше специалистов
+          </ShowMoreSpecialists>
+        )}
       </SpecialistsLayout>
-      {!currentAuthUser && <BlockOverlay title={t('block_overlay.title')} />}
     </MainLayout>
   );
 };

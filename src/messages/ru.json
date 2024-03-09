@@ -212,7 +212,6 @@
     "last_name_input": "Фамилия",
     "work_input": "Опыт работы",
     "city_input": "Город",
-    "areas_select":"Выберите область работы",
     "email_input": "Электронная почта",
     "categories_select": "Категории деятельностей",
     "subcategories_select": "Подкатегории деятельностей",
@@ -261,10 +260,6 @@
     "details": {
       "title": "Все отзывы ({reviewsCount})",
       "title_two": "Все услуги и цены"
-    },
-    "areas": {
-      "title": "Выезд к клиенту",
-      "no_info": "нет информации"
     },
     "reviews_form": {
       "title": "Оставьте отзыв о специалисте",

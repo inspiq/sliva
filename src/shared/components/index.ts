@@ -8,3 +8,4 @@ export * from 'src/shared/components/chips';
 export * from 'src/shared/components/Accordion';
 export * from 'src/shared/components/Avatar';
 export * from 'src/shared/components/BlockOverlay';
+export * from 'src/shared/components/SkeletonPanel';

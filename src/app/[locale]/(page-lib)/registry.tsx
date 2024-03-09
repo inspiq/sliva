@@ -1,9 +1,15 @@
 import { PropsWithChildren, useState } from 'react';
+import { SkeletonTheme } from 'react-loading-skeleton';
 import { useServerInsertedHTML } from 'next/navigation';
-import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
+import {
+  ServerStyleSheet,
+  StyleSheetManager,
+  useTheme,
+} from 'styled-components';
 
 const StyledComponentsRegistry = (props: PropsWithChildren) => {
   const [styledComponentsStyleSheet] = useState(() => new ServerStyleSheet());
+  const { light_grey, light } = useTheme();
 
   const { children } = props;
 
@@ -17,9 +23,11 @@ const StyledComponentsRegistry = (props: PropsWithChildren) => {
   if (typeof window !== 'undefined') return children;
 
   return (
-    <StyleSheetManager sheet={styledComponentsStyleSheet.instance}>
-      {children}
-    </StyleSheetManager>
+    <SkeletonTheme baseColor={light_grey} highlightColor={light} duration={1}>
+      <StyleSheetManager sheet={styledComponentsStyleSheet.instance}>
+        {children}
+      </StyleSheetManager>
+    </SkeletonTheme>
   );
 };
 

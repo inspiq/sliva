@@ -23,11 +23,11 @@ const Title = styled.label`
 `;
 
 const FilterCardElement = (props: {
-  header: Option;
+  category: Option;
   subcategories?: Option[];
   setSelectedFilters: Dispatch<SetStateAction<SpecialistFilter[]>>;
 }): ReactElement => {
-  const { header, subcategories, setSelectedFilters } = props;
+  const { category, subcategories, setSelectedFilters } = props;
 
   const onChangeCategoriesFilter = useMemo(
     () => (e: ChangeEvent<HTMLInputElement>) => {
@@ -35,56 +35,59 @@ const FilterCardElement = (props: {
 
       setSelectedFilters((prev) => {
         if (!isChecked) {
-          return prev.filter((item) => item.header !== header.value);
+          return prev.filter(
+            ({ category: categoryItem }) =>
+              categoryItem.value !== category.value,
+          );
         }
 
         if (isChecked) {
-          return [...prev, { header: header.value, subcategories: [] }];
+          return [...prev, { category, subcategories: [] }];
         }
 
         return prev;
       });
     },
-    [header, setSelectedFilters],
+    [category, setSelectedFilters],
   );
 
   const onChangeSubcategoriesFilter = useMemo(
-    () => (subcategory: string, isChecked: boolean) => {
+    () => (subcategory: Option, isChecked: boolean) => {
       setSelectedFilters((prev) => {
-        const copy = [...prev];
-        const findCategoryIdx = copy.findIndex(
-          (item) => item.header === header.value,
+        const copyArr = [...prev];
+        const findCategoryIdx = copyArr.findIndex(
+          ({ category: categoryItem }) => categoryItem.value === category.value,
         );
 
-        if (findCategoryIdx != -1 && isChecked) {
-          copy[findCategoryIdx].subcategories = [
-            ...copy[findCategoryIdx].subcategories,
+        if (findCategoryIdx !== -1 && isChecked) {
+          copyArr[findCategoryIdx].subcategories = [
+            ...copyArr[findCategoryIdx].subcategories,
             subcategory,
           ];
 
-          return copy;
+          return copyArr;
         }
 
-        if (findCategoryIdx != -1 && !isChecked) {
-          copy[findCategoryIdx].subcategories = [
-            ...copy[findCategoryIdx].subcategories.filter(
-              (item) => item !== subcategory,
+        if (findCategoryIdx !== -1 && !isChecked) {
+          copyArr[findCategoryIdx].subcategories = [
+            ...copyArr[findCategoryIdx].subcategories.filter(
+              ({ value }) => value !== subcategory.value,
             ),
           ];
 
-          return copy;
+          return copyArr;
         }
 
         return prev;
       });
     },
-    [header, setSelectedFilters],
+    [category.value, setSelectedFilters],
   );
 
   return (
     <Accordion
-      title={header.label}
-      id={header.label}
+      title={category.label}
+      id={category.label}
       onChange={onChangeCategoriesFilter}
     >
       {subcategories?.map((subcategory) => (
@@ -93,7 +96,7 @@ const FilterCardElement = (props: {
             type="checkbox"
             id={subcategory.label}
             onChange={(e) =>
-              onChangeSubcategoriesFilter(subcategory.value, e.target.checked)
+              onChangeSubcategoriesFilter(subcategory, e.target.checked)
             }
           />
           <Title htmlFor={subcategory.label}>{subcategory.label}</Title>

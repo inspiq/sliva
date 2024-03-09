@@ -23,10 +23,9 @@ export interface Specialist extends Client {
   dayOfBirth: string;
   experience: string;
   reviewDetails: ReviewDetails;
-  categories: Option[];
-  subcategories: Option[];
+  categories: string[];
+  subcategories: string[];
   telegram: string;
-  areas: Option[];
   whatsApp: string;
   extendedInfo: string;
 }

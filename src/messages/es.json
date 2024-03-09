@@ -215,7 +215,6 @@
     "categories_select": "Categorías de actividades",
     "subcategories_select": "Subcategorías de actividades",
     "city_input": "Ciudad",
-    "areas_select":"Seleccione un área de trabajo",
     "telegram_input": "@Telegram",
     "whats_app_input": "WhatsApp",
     "birthday_input": "Fecha de nacimiento",
@@ -247,10 +246,6 @@
     "details": {
       "title": "Todas las Reseñas ({reviewsCount})",
       "title_two": "Todos los Servicios y Precios"
-    },
-    "areas": {
-      "title": "Visitas a Domicilio",
-      "no_info": "sin información"
     },
     "reviews_form": {
       "title": "Deja una reseña sobre el especialista",

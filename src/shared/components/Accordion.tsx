@@ -52,7 +52,7 @@ const Header = styled.label<{ visible: boolean }>`
 
   &:hover {
     background-color: ${({ theme, visible }) =>
-      visible ? theme.primary : theme.light};
+      visible ? theme.primary : theme.light_grey};
   }
 
   & > .arrow {

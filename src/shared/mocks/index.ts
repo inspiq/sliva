@@ -5,7 +5,6 @@ export const getUserTypeOptions = (t: (key: string) => string) => {
   ];
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getSubcategories = (t: (key: string) => string) => {
   return [
     { value: 'electrician', label: t('subcategories.electrician') },
@@ -88,7 +87,6 @@ export const getSubcategories = (t: (key: string) => string) => {
   ];
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getCategories = (t: (key: string) => string) => {
   return [
     { value: 'renovation', label: t('categories.renovation') },
@@ -149,22 +147,10 @@ export const getMainCategories = (t: (key: string) => string) => {
   ];
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getAreas = (t: (key: string) => string) => {
-  return [
-    { value: 'British_Columbia_Kanada', label: 'British Columbia Kanada' },
-    { value: 'Washington_DS', label: 'Washington DS' },
-    { value: 'Virginia_VA', label: 'Virginia VA' },
-    { value: 'Meriland_MD', label: 'Meriland MD' },
-  ];
-};
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getChatRooms = (t: (key: string) => string) => {
   return [{ value: 'global_chat', label: t('chat_room.global_chat') }];
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getSpecialistFilters = (t: (key: string) => string) => {
   return [
     {
