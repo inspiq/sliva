@@ -245,10 +245,6 @@
       "title": "Todas las Reseñas ({reviewsCount})",
       "title_two": "Todos los Servicios y Precios"
     },
-    "areas": {
-      "title": "Visitas a Domicilio",
-      "no_info": "sin información"
-    },
     "reviews_form": {
       "title": "Deja una reseña sobre el especialista",
       "textarea": {

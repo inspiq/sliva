@@ -21,7 +21,7 @@ const MenuItemLayout = styled.div`
   cursor: pointer;
 
   &:hover {
-    background-color: ${({ theme }) => theme.light};
+    background-color: ${({ theme }) => theme.light_grey};
   }
 
   &:focus {

@@ -23,7 +23,7 @@ const FiltersPanelElement = (props: {
     <MainLayout>
       {specialistFilters.map(({ category, subcategories }) => (
         <Filter
-          header={category}
+          category={category}
           subcategories={subcategories}
           setSelectedFilters={props.setSelectedFilters}
           key={category.value}

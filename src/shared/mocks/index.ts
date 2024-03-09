@@ -5,7 +5,6 @@ export const getUserTypeOptions = (t: (key: string) => string) => {
   ];
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getSubcategories = (t: (key: string) => string) => {
   return [
     { value: 'handyman', label: t('subcategories.handyman') },
@@ -197,7 +196,6 @@ export const getChatRooms = (t: (key: string) => string) => {
   return [{ value: 'global_chat', label: t('chat_room.global_chat') }];
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getSpecialistFilters = (t: (key: string) => string) => {
   return [
     {

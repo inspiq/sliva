@@ -11,7 +11,7 @@ import { UploadAvatar } from 'src/modules/my_profile/UploadAvatar';
 import {
   db,
   devices,
-  getAreas,
+  formattedCategoriesFromBackendToSelectFormat,
   getCategories,
   getSubcategories,
   isSpecialist,
@@ -56,7 +56,7 @@ const UiButtonLayout = styled.div`
 const SelectRow = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 10px;
 
   @media ${devices.mobileL} {
@@ -116,7 +116,11 @@ const MyProfileFormElement = (props: {
 
   const [fileUpload, setFileUpload] = useState<File>();
   const t = useTranslations();
-  const { primary, light, border_ui, border_ui_hover, grey } = useTheme();
+  const { primary, light_grey, border_ui, border_ui_hover, grey } = useTheme();
+
+  const categories = getCategories(t);
+  const subcategories = getSubcategories(t);
+
   const initialValues = useMemo(
     () =>
       isSpecialist(additionalInfo)
@@ -126,13 +130,20 @@ const MyProfileFormElement = (props: {
             dayOfBirth: additionalInfo?.dayOfBirth ?? '',
             email: email ?? '',
             experience: additionalInfo?.experience ?? '',
-            city: additionalInfo?.city ?? null,
-            telegram: additionalInfo?.telegram ?? null,
-            whatsApp: additionalInfo?.whatsApp ?? null,
-            areas: additionalInfo?.areas ?? null,
-            categories: additionalInfo?.categories ?? null,
-            subcategories: additionalInfo?.subcategories ?? null,
-            extendedInfo: additionalInfo?.extendedInfo ?? null,
+            city: additionalInfo?.city ?? '',
+            telegram: additionalInfo?.telegram ?? '',
+            whatsApp: additionalInfo?.whatsApp ?? '',
+            categories:
+              formattedCategoriesFromBackendToSelectFormat(
+                categories,
+                additionalInfo.categories,
+              ) ?? null,
+            subcategories:
+              formattedCategoriesFromBackendToSelectFormat(
+                subcategories,
+                additionalInfo.subcategories,
+              ) ?? null,
+            extendedInfo: additionalInfo?.extendedInfo ?? '',
           }
         : {
             firstName: additionalInfo?.firstName ?? '',
@@ -140,7 +151,7 @@ const MyProfileFormElement = (props: {
             dayOfBirth: additionalInfo?.dayOfBirth ?? '',
             email: email ?? '',
           },
-    [additionalInfo, email],
+    [additionalInfo, categories, email, subcategories],
   );
 
   const uploadFile = async (fileUpload?: File) => {
@@ -182,7 +193,11 @@ const MyProfileFormElement = (props: {
     onSubmit: async (userDetails) => {
       try {
         const userDocRef = doc(db, 'users', uid);
-        await updateDoc(userDocRef, { ...userDetails });
+        await updateDoc(userDocRef, {
+          ...userDetails,
+          categories: values.categories?.map((item) => item?.value),
+          subcategories: values.subcategories?.map((item) => item?.value),
+        });
         await uploadFile(fileUpload!);
       } catch (e) {
         /* empty */
@@ -190,20 +205,12 @@ const MyProfileFormElement = (props: {
     },
   });
 
-  const categories = getCategories(t);
-  const subcategories = getSubcategories(t);
-  const areas = getAreas(t);
-
   const onChangeCategories = (options: MultiValue<Option>) => {
     setFieldValue('categories', options);
   };
 
   const onChangeSubcategories = (options: MultiValue<Option>) => {
     setFieldValue('subcategories', options);
-  };
-
-  const onChangeArea = (option: MultiValue<Option>) => {
-    setFieldValue('areas', option);
   };
 
   const styles: StylesConfig = {
@@ -343,8 +350,8 @@ const MyProfileFormElement = (props: {
                   ...theme,
                   colors: {
                     ...theme.colors,
-                    primary25: light,
-                    primary50: light,
+                    primary25: light_grey,
+                    primary50: light_grey,
                     primary,
                   },
                 })}
@@ -363,28 +370,8 @@ const MyProfileFormElement = (props: {
                   ...theme,
                   colors: {
                     ...theme.colors,
-                    primary25: light,
-                    primary50: light,
-                    primary,
-                  },
-                })}
-              />
-              <Select
-                isMulti
-                name="area"
-                options={areas}
-                onChange={(selectedOptions) =>
-                  onChangeArea(selectedOptions as MultiValue<Option>)
-                }
-                value={values.areas}
-                placeholder="Выберите области работы"
-                styles={styles}
-                theme={(theme) => ({
-                  ...theme,
-                  colors: {
-                    ...theme.colors,
-                    primary25: light,
-                    primary50: light,
+                    primary25: light_grey,
+                    primary50: light_grey,
                     primary,
                   },
                 })}

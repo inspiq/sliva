@@ -8,7 +8,7 @@ import { ChatIcon, devices, UiButton } from 'src/shared';
 const MainLayout = styled.div`
   display: flex;
   width: 100%;
-  background-color: ${({ theme }) => theme.light};
+  background-color: ${({ theme }) => theme.light_grey};
   margin-bottom: 100px;
   border-radius: 25px;
   display: flex;

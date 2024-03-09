@@ -43,7 +43,7 @@ const SignUpFormElement = (): ReactElement => {
   const [isRequestError, setIsRequestError] = useState(false);
   const router = useRouter();
   const t = useTranslations();
-  const { primary, light, border_ui, border_ui_hover } = useTheme();
+  const { primary, light_grey, border_ui, border_ui_hover } = useTheme();
 
   const userTypeOptions = getUserTypeOptions(t);
   const defaultUserTypeOption = userTypeOptions[0];
@@ -221,8 +221,8 @@ const SignUpFormElement = (): ReactElement => {
             ...theme,
             colors: {
               ...theme.colors,
-              primary25: light,
-              primary50: light,
+              primary25: light_grey,
+              primary50: light_grey,
               primary,
             },
           })}

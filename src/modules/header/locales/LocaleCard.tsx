@@ -18,7 +18,7 @@ const StyledLink = styled(Link)`
   gap: 5px;
 
   &:hover {
-    background-color: ${({ theme }) => theme.light};
+    background-color: ${({ theme }) => theme.light_grey};
   }
 `;
 

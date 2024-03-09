@@ -259,10 +259,6 @@
       "title": "Все отзывы ({reviewsCount})",
       "title_two": "Все услуги и цены"
     },
-    "areas": {
-      "title": "Выезд к клиенту",
-      "no_info": "нет информации"
-    },
     "reviews_form": {
       "title": "Оставьте отзыв о специалисте",
       "textarea": {

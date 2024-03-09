@@ -245,10 +245,6 @@
       "title": "All Reviews ({reviewsCount})",
       "title_two": "All Services and Prices"
     },
-    "areas": {
-      "title": "Home Visits",
-      "no_info": "no information"
-    },
     "reviews_form": {
       "title": "Leave a review about the specialist",
       "textarea": {
