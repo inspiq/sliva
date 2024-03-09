@@ -30,14 +30,14 @@ const Row = styled.div`
   }
 `;
 
-const Experience = styled.div<{ hasExperience: boolean }>`
+const Experience = styled.div<{ $hasExperience: boolean }>`
   font-size: 15px;
   font-weight: ${({ theme }) => theme.w400};
   color: ${({ theme }) => theme.secondary};
 
   & > span {
-    color: ${({ theme, hasExperience }) =>
-      hasExperience ? theme.secondary : theme.grey};
+    color: ${({ theme, $hasExperience }) =>
+      $hasExperience ? theme.secondary : theme.grey};
   }
 `;
 
@@ -136,7 +136,7 @@ const SpecialistCardElement = (props: Props): ReactElement => {
               `${specialist?.lastName} ${specialist?.firstName}`
             )}
           </FullName>
-          <Experience hasExperience={!!specialist?.experience}>
+          <Experience $hasExperience={!!specialist?.experience}>
             {isLoading ? (
               <Skeleton />
             ) : (

@@ -137,7 +137,7 @@
     "beauty_and_health": "Красота и здоровье",
     "fitness_and_sport": "Фитнес и спорт",
     "animal_services": "Услуги для животных",
-    "Domestic_staff": "Домашний персонал",
+    "domestic_staff": "Домашний персонал",
     "freelance_and_creative_services": "Фриланс и креативные услуги"
   },
   "subcategories": {
@@ -173,7 +173,7 @@
     "tattoo_and_permanent_makeup": "Татуаж и перманентный макияж",
     "solarium_and_tanning": "Солярий и загар",
     "training_and_consultations": "Обучение и консультации",
-    "fitness_training": "Тренировки и фитнес",
+    "training_and_fitness": "Тренировки и фитнес",
     "personal_trainer": "Персональный тренер",
     "sports_equipment_rental": "Прокат спортивного инвентаря",
     "extreme_sports": "Экстремальные виды спорта",

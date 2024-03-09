@@ -13,7 +13,7 @@ import {
   devices,
   formattedCategoriesFromBackendToSelectFormat,
   getCategories,
-  getSubcategories,
+  getSpecialistFilters,
   isSpecialist,
   Option,
   storage,
@@ -114,12 +114,28 @@ const MyProfileFormElement = (props: {
   const { currentAuthUser } = props;
   const { additionalInfo, uid, email } = currentAuthUser;
 
+  const [selectedCategories, setSelectedCategories] = useState<
+    MultiValue<Option>
+  >([]);
   const [fileUpload, setFileUpload] = useState<File>();
   const t = useTranslations();
   const { primary, light_grey, border_ui, border_ui_hover, grey } = useTheme();
 
   const categories = getCategories(t);
-  const subcategories = getSubcategories(t);
+  const subcategories = useMemo(
+    () =>
+      isSpecialist(additionalInfo)
+        ? [
+            ...selectedCategories,
+            ...(additionalInfo?.categories ?? []),
+          ]?.flatMap((item) =>
+            getSpecialistFilters(t)
+              .filter((filter) => filter.category.value === item)
+              .flatMap((item) => item.subcategories),
+          )
+        : [],
+    [additionalInfo, selectedCategories, t],
+  );
 
   const initialValues = useMemo(
     () =>
@@ -133,16 +149,14 @@ const MyProfileFormElement = (props: {
             city: additionalInfo?.city ?? '',
             telegram: additionalInfo?.telegram ?? '',
             whatsApp: additionalInfo?.whatsApp ?? '',
-            categories:
-              formattedCategoriesFromBackendToSelectFormat(
-                categories,
-                additionalInfo.categories,
-              ) ?? null,
-            subcategories:
-              formattedCategoriesFromBackendToSelectFormat(
-                subcategories,
-                additionalInfo.subcategories,
-              ) ?? null,
+            categories: formattedCategoriesFromBackendToSelectFormat(
+              categories,
+              additionalInfo.categories,
+            ),
+            subcategories: formattedCategoriesFromBackendToSelectFormat(
+              subcategories,
+              additionalInfo.subcategories,
+            ),
             extendedInfo: additionalInfo?.extendedInfo ?? '',
           }
         : {
@@ -195,8 +209,9 @@ const MyProfileFormElement = (props: {
         const userDocRef = doc(db, 'users', uid);
         await updateDoc(userDocRef, {
           ...userDetails,
-          categories: values.categories?.map((item) => item?.value),
-          subcategories: values.subcategories?.map((item) => item?.value),
+          categories: values.categories?.map((item) => item?.value) ?? null,
+          subcategories:
+            values.subcategories?.map((item) => item?.value) ?? null,
         });
         await uploadFile(fileUpload!);
       } catch (e) {
@@ -207,6 +222,7 @@ const MyProfileFormElement = (props: {
 
   const onChangeCategories = (options: MultiValue<Option>) => {
     setFieldValue('categories', options);
+    setSelectedCategories(options);
   };
 
   const onChangeSubcategories = (options: MultiValue<Option>) => {
@@ -294,8 +310,6 @@ const MyProfileFormElement = (props: {
                 type="number"
               />
             )}
-          </Row>
-          <Row>
             <UiInput
               placeholder={t('my_profile.city_input')}
               value={values.city}
@@ -375,6 +389,7 @@ const MyProfileFormElement = (props: {
                     primary,
                   },
                 })}
+                isDisabled={!values.categories?.length}
               />
             </SelectRow>
           )}

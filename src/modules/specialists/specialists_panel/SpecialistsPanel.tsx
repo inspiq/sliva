@@ -90,6 +90,8 @@ const SpecialistsPanelElement = (): ReactElement => {
       }
     };
 
+    console.log(getFilters());
+
     const q = query(
       collection(db, 'users'),
       where('type', '==', 'specialist'),
