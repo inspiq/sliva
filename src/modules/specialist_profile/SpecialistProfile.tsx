@@ -63,6 +63,7 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
   const [allReviews, setAllReviews] = useState<ReviewDocument>();
   const { currentAuthUser } = useAuthContext();
   const t = useTranslations();
+
   useEffect(() => {
     const docRef = doc(db, 'reviews', specialistId);
     const unsubscribe = onSnapshot(docRef, (docSnapshot) => {

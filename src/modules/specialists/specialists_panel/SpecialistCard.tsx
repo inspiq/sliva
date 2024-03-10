@@ -1,11 +1,19 @@
 import { memo, ReactElement } from 'react';
+import Skeleton from 'react-loading-skeleton';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import styled, { useTheme } from 'styled-components';
 
-import { SpecialistAreasPanel } from 'src/modules/specialist_profile/specialist_areas/SpecialistAreasPanel';
 import { Link } from 'src/navigation';
-import { ChatIcon, devices, Line, Specialist, StarIcon } from 'src/shared';
+import {
+  ChatIcon,
+  DEFAULT_AVG_RATING,
+  DEFAULT_REVIEWS_COUNT,
+  devices,
+  Line,
+  Specialist,
+  StarIcon,
+} from 'src/shared';
 
 const MainLayout = styled.div`
   display: flex;
@@ -22,14 +30,14 @@ const Row = styled.div`
   }
 `;
 
-const Experience = styled.div<{ hasExperience: boolean }>`
+const Experience = styled.div<{ $hasExperience: boolean }>`
   font-size: 15px;
   font-weight: ${({ theme }) => theme.w400};
   color: ${({ theme }) => theme.secondary};
 
   & > span {
-    color: ${({ theme, hasExperience }) =>
-      hasExperience ? theme.secondary : theme.grey};
+    color: ${({ theme, $hasExperience }) =>
+      $hasExperience ? theme.secondary : theme.grey};
   }
 `;
 
@@ -89,64 +97,83 @@ const Avatar = styled(Image)`
 `;
 
 interface Props {
-  specialist: Specialist;
+  specialist?: Specialist;
+  isLoading?: boolean;
 }
 
 const SpecialistCardElement = (props: Props): ReactElement => {
-  const { specialist } = props;
-  const {
-    avatarUrl,
-    userId,
-    firstName,
-    lastName,
-    experience,
-    reviewDetails,
-    areas,
-  } = specialist;
-  const reviewsCount = reviewDetails?.count ?? 0;
+  const { specialist, isLoading } = props;
 
   const { secondary } = useTheme();
   const t = useTranslations();
 
+  const reviewsCount =
+    specialist?.reviewDetails?.count ?? DEFAULT_REVIEWS_COUNT;
+  const experience = specialist?.experience
+    ? t('SpecialistCard.experience.info', {
+        experience: specialist?.experience,
+      })
+    : t('SpecialistCard.experience.no_info');
+
   return (
     <MainLayout>
-      <StyledLink href={`/specialists/${userId}`}>
-        <Avatar
-          src={avatarUrl ?? '/files/images/avatar.png'}
-          width={120}
-          height={130}
-          alt={t('alts.avatar')}
-        />
+      <StyledLink href={`/specialists/${specialist?.userId}`}>
+        {isLoading ? (
+          <Skeleton width={120} height={130} />
+        ) : (
+          <Avatar
+            src={specialist?.avatarUrl ?? '/files/images/avatar.png'}
+            width={120}
+            height={130}
+            alt={t('alts.avatar')}
+          />
+        )}
         <SpecialistInfo>
           <FullName>
-            {firstName} {lastName}
+            {isLoading ? (
+              <Skeleton />
+            ) : (
+              `${specialist?.lastName} ${specialist?.firstName}`
+            )}
           </FullName>
-          <Experience hasExperience={!!experience}>
-            {t('SpecialistCard.experience.title')}
-            <span>
-              {' '}
-              {experience
-                ? t('SpecialistCard.experience.info', { experience })
-                : t('SpecialistCard.experience.no_info')}
-            </span>
+          <Experience $hasExperience={!!specialist?.experience}>
+            {isLoading ? (
+              <Skeleton />
+            ) : (
+              <>
+                {t('SpecialistCard.experience.title')}
+                <span> {experience}</span>
+              </>
+            )}
           </Experience>
           <Row>
-            <Rating>
-              <StarIcon color={secondary} width={18} />
-              {reviewDetails?.avgRating ?? 0}
-            </Rating>
-            <ReviewsCount>
-              <ChatIcon width={20} color={secondary} />
-              {t('SpecialistCard.reviews.info', { reviewsCount })}
-            </ReviewsCount>
+            {isLoading ? (
+              <Skeleton width={200} height={24} />
+            ) : (
+              <>
+                <Rating>
+                  <StarIcon color={secondary} width={18} />
+                  {specialist?.reviewDetails?.avgRating ?? DEFAULT_AVG_RATING}
+                </Rating>
+                <ReviewsCount>
+                  <ChatIcon width={20} color={secondary} />
+                  {t('SpecialistCard.reviews.info', { reviewsCount })}
+                </ReviewsCount>
+              </>
+            )}
           </Row>
           <Service>
-            {t('SpecialistCard.details.title', { reviewsCount })}
+            {isLoading ? (
+              <Skeleton />
+            ) : (
+              t('SpecialistCard.details.title', { reviewsCount })
+            )}
           </Service>
-          <Service>{t('SpecialistCard.details.title_two')}</Service>
+          <Service>
+            {isLoading ? <Skeleton /> : t('SpecialistCard.details.title_two')}
+          </Service>
         </SpecialistInfo>
       </StyledLink>
-      <SpecialistAreasPanel areas={areas} />
       <LineLayout>
         <Line />
       </LineLayout>

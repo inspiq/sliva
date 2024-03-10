@@ -36,23 +36,19 @@ const MessagesPanelElement = (props: Props): ReactElement => {
   const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const getMessages = async () => {
-      try {
-        const q = query(collection(db, 'global_chat'), orderBy('timestamp'));
+    const q = query(collection(db, 'global_chat'), orderBy('timestamp'));
 
-        onSnapshot(q, (querySnapshot) => {
-          const messages: Message[] = [];
-          querySnapshot.forEach((doc) => {
-            messages.push(doc.data() as Message);
-          });
-          setMessages(messages);
-        });
-      } catch (e) {
-        /* empty */
-      }
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const messages: Message[] = [];
+      querySnapshot.forEach((doc) => {
+        messages.push(doc.data() as Message);
+      });
+      setMessages(messages);
+    });
+
+    return () => {
+      unsubscribe();
     };
-
-    getMessages();
   }, []);
 
   useEffect(() => {

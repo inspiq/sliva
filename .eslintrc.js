@@ -70,7 +70,6 @@ module.exports = {
         groups: [['^\\u0000'], ['^react', '^[^.]'], ['^src/'], ['^\\.']],
       },
     ],
-    'max-lines': ['error', 500],
     'object-shorthand': 'error',
     'no-unneeded-ternary': 'error',
     'no-nested-ternary': 'error',

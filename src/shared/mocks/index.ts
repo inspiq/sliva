@@ -5,88 +5,22 @@ export const getUserTypeOptions = (t: (key: string) => string) => {
   ];
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getSubcategories = (t: (key: string) => string) => {
-  return [
-    { value: 'laborer', label: 'Разнорабочий' },
-    { value: 'electrician', label: 'Электрик' },
-    { value: 'plumber', label: 'Сантехник' },
-    {
-      value: 'landscaping_and_design',
-      label: 'Благоустройство и ландшафтный дизайн',
-    },
-    {
-      value: 'ventilation_and_air_conditioning',
-      label: 'Вентиляция и кондиционеры',
-    },
-    { value: 'finishing', label: 'Отделка' },
-    { value: 'roofing', label: 'Кровля' },
-    { value: 'flooring_master', label: 'Мастер напольных покрытий' },
-    { value: 'carpenter', label: 'Столяр' },
-    { value: 'mechanic', label: 'Механик' },
-    { value: 'car_washer', label: 'Автомойщик' },
-    { value: 'cook', label: 'Кулинар' },
-    { value: 'on_site_cooking', label: 'Готовка с выездом' },
-    { value: 'events', label: 'Мероприятия' },
-    { value: 'moving', label: 'Переезд' },
-    { value: 'delivery', label: 'Доставка' },
-    { value: 'passenger_transport', label: 'Пассажирские перевозы' },
-    { value: 'cargo_transportation', label: 'Грузоперевозки' },
-    { value: 'makeup_artist', label: 'Визажист' },
-    { value: 'cosmetology', label: 'Косметология' },
-    { value: 'hairdresser_services', label: 'Парикмахерские услуги' },
-    { value: 'spa_procedures', label: 'Спа процедуры' },
-    { value: 'masseur', label: 'Массажист' },
-    {
-      value: 'tattoo_microblading_and_permanent_makeup',
-      label: 'Тату татуаж и перманентный макияж',
-    },
-    { value: 'solarium', label: 'Солярий' },
-    { value: 'fitness_trainer', label: 'Фитнес тренер' },
-    { value: 'sports_equipment_rental', label: 'Прокат спорт инвентаря' },
-    { value: 'equipment_and_clothing', label: 'Экипировка и одежда' },
-    { value: 'sports_nutrition', label: 'Спортивное питание' },
-    { value: 'veterinarian', label: 'Ветеринар' },
-    { value: 'dog_walking', label: 'Выгул собак' },
-    { value: 'animal_breeding', label: 'Вязка животных' },
-    { value: 'animal_training', label: 'Дрессировка животных' },
-    { value: 'pet_care', label: 'Уход за животными' },
-    { value: 'pet_food', label: 'Корм для питомцев' },
-    { value: 'animal_boarding', label: 'Передержка животных' },
-    { value: 'aquaristics', label: 'Аквариумистика' },
-    { value: 'domestic_workers', label: 'Домработники' },
-    { value: 'caregivers', label: 'Сиделки' },
-    { value: 'nannies', label: 'Няни' },
-    { value: 'gardeners', label: 'Садовники' },
-    { value: 'housekeepers', label: 'Горничные' },
-    { value: 'cooks', label: 'Повара' },
-    { value: 'personal_driver', label: 'Личный водитель' },
-    { value: 'personal_security', label: 'Личный охранник' },
-    { value: 'household_management', label: 'Управление домашним хозяйством' },
-    { value: 'web_development', label: 'Веб-разработка' },
-    { value: 'design', label: 'Дизайн' },
-    { value: 'copywriting', label: 'Копирайтинг' },
-    { value: 'operator', label: 'Оператор' },
-  ];
-};
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getCategories = (t: (key: string) => string) => {
   return [
-    { value: 'renovation', label: 'Ремонт и строительство' },
-    { value: 'plumbing', label: 'Сантехника' },
-    { value: 'cleaning', label: 'Уборка' },
-    { value: 'tutoring', label: 'tutoring' },
-    { value: 'auto', label: 'Автоуслуги' },
-    { value: 'kitchen', label: 'Кухня' },
-    { value: 'transportation_services', label: 'Транспортные услуги' },
-    { value: 'beauty_services', label: 'Красота и здоровье' },
-    { value: 'animal_services', label: 'Услуги для животных' },
-    { value: 'fitness', label: 'Фитнес и спорт' },
-    { value: 'home_staff', label: 'Домашний персонал' },
+    { value: 'renovation', label: t('categories.renovation') },
+    { value: 'auto_services', label: t('categories.auto_services') },
+    { value: 'cooks_services', label: t('categories.cooks_services') },
+    {
+      value: 'transportation_services',
+      label: t('categories.transportation_services'),
+    },
+    { value: 'beauty_and_health', label: t('categories.beauty_and_health') },
+    { value: 'fitness_and_sport', label: t('categories.fitness_and_sport') },
+    { value: 'animal_services', label: t('categories.animal_services') },
+    { value: 'domestic_staff', label: t('categories.domestic_staff') },
     {
       value: 'freelance_and_creative_services',
-      label: 'Фриланс и креативные услуги',
+      label: t('categories.freelance_and_creative_services'),
     },
   ];
 };
@@ -98,11 +32,11 @@ export const getMainCategories = (t: (key: string) => string) => {
       imgPath: '/files/images/categories/renovation.jpg',
     },
     {
-      title: t('categories.auto'),
+      title: t('categories.auto_services'),
       imgPath: '/files/images/categories/auto.jpg',
     },
     {
-      title: t('categories.kitchen'),
+      title: t('categories.cooks_services'),
       imgPath: '/files/images/categories/kitchen.jpg',
     },
     {
@@ -110,7 +44,7 @@ export const getMainCategories = (t: (key: string) => string) => {
       imgPath: '/files/images/categories/transportation_services.jpg',
     },
     {
-      title: t('categories.beauty_services'),
+      title: t('categories.beauty_and_health'),
       imgPath: '/files/images/categories/beauty_services.jpg',
     },
     {
@@ -118,36 +52,20 @@ export const getMainCategories = (t: (key: string) => string) => {
       imgPath: '/files/images/categories/animal_services.jpg',
     },
     {
-      title: t('categories.fitness'),
+      title: t('categories.fitness_and_sport'),
       imgPath: '/files/images/categories/fitness.jpg',
     },
     {
-      title: t('categories.home_staff'),
+      title: t('categories.domestic_staff'),
       imgPath: '/files/images/categories/home_staff.jpg',
     },
   ];
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const getAreas = (t: (key: string) => string) => {
-  return [
-    { value: 'Izhevsk', label: 'Ижевск' },
-    { value: 'Arkansas', label: 'Арканзас' },
-    { value: 'Texas', label: 'Техас' },
-    { value: 'Boston', label: 'Бостон' },
-    { value: 'Florida', label: 'Флорида' },
-    { value: 'Seattle', label: 'Сиэтл' },
-    { value: 'Dortmund', label: 'Дортмунд' },
-    { value: 'Catalonia', label: 'Каталония' },
-  ];
-};
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getChatRooms = (t: (key: string) => string) => {
   return [{ value: 'global_chat', label: t('chat_room.global_chat') }];
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getSpecialistFilters = (t: (key: string) => string) => {
   return [
     {
@@ -157,8 +75,8 @@ export const getSpecialistFilters = (t: (key: string) => string) => {
       },
       subcategories: [
         {
-          value: 'laborer',
-          label: t('subcategories.laborer'),
+          value: 'handyman',
+          label: t('subcategories.handyman'),
         },
         {
           value: 'electrician',
@@ -169,28 +87,28 @@ export const getSpecialistFilters = (t: (key: string) => string) => {
           label: t('subcategories.plumber'),
         },
         {
-          value: 'landscaping',
-          label: t('subcategories.landscaping'),
+          value: 'improvement_and_landscape_design',
+          label: t('subcategories.improvement_and_landscape_design'),
         },
         {
-          value: 'ventilation',
-          label: t('subcategories.ventilation'),
+          value: 'ventilation_and_air_conditioning',
+          label: t('subcategories.ventilation_and_air_conditioning'),
         },
         {
-          value: 'drywall',
-          label: t('subcategories.drywall'),
+          value: 'plasterboard',
+          label: t('subcategories.plasterboard'),
         },
         {
-          value: 'painting',
-          label: t('subcategories.painting'),
+          value: 'putty_and_painting',
+          label: t('subcategories.putty_and_painting'),
         },
         {
-          value: 'roofing',
-          label: t('subcategories.roofing'),
+          value: 'roofing_specialist',
+          label: t('subcategories.roofing_specialist'),
         },
         {
-          value: 'flooring',
-          label: t('subcategories.flooring'),
+          value: 'flooring_specialist',
+          label: t('subcategories.flooring_specialist'),
         },
         {
           value: 'carpentry',
@@ -204,8 +122,8 @@ export const getSpecialistFilters = (t: (key: string) => string) => {
     },
     {
       category: {
-        value: 'auto',
-        label: t('categories.auto'),
+        value: 'auto_services',
+        label: t('categories.auto_services'),
       },
       subcategories: [
         {
@@ -224,21 +142,21 @@ export const getSpecialistFilters = (t: (key: string) => string) => {
     },
     {
       category: {
-        value: 'kitchen',
-        label: t('categories.kitchen'),
+        value: 'cooks_services',
+        label: t('categories.cooks_services'),
       },
       subcategories: [
         {
-          value: 'home_cooked_meals',
-          label: t('subcategories.home_cooked_meals'),
+          value: 'homemade_food',
+          label: t('subcategories.homemade_food'),
         },
         {
-          value: 'world_cuisine',
-          label: t('subcategories.world_cuisine'),
+          value: 'cuisines_of_the_world',
+          label: t('subcategories.cuisines_of_the_world'),
         },
         {
-          value: 'cooking_with_delivery',
-          label: t('subcategories.cooking_with_delivery'),
+          value: 'cooking_with_departure',
+          label: t('subcategories.cooking_with_departure'),
         },
         {
           value: 'events',
@@ -276,8 +194,8 @@ export const getSpecialistFilters = (t: (key: string) => string) => {
     },
     {
       category: {
-        value: 'beauty_services',
-        label: t('categories.beauty_services'),
+        value: 'beauty_and_health',
+        label: t('categories.beauty_and_health'),
       },
       subcategories: [
         {
@@ -285,8 +203,8 @@ export const getSpecialistFilters = (t: (key: string) => string) => {
           label: t('subcategories.makeup'),
         },
         {
-          value: 'manicure_pedicure',
-          label: t('subcategories.manicure_pedicure'),
+          value: 'manicure_and_pedicure',
+          label: t('subcategories.manicure_and_pedicure'),
         },
         {
           value: 'aesthetic_cosmetology',
@@ -305,28 +223,28 @@ export const getSpecialistFilters = (t: (key: string) => string) => {
           label: t('subcategories.massage'),
         },
         {
-          value: 'tattoo_permanent_makeup',
-          label: t('subcategories.tattoo_permanent_makeup'),
+          value: 'tattoo_and_permanent_makeup',
+          label: t('subcategories.tattoo_and_permanent_makeup'),
         },
         {
-          value: 'tanning',
-          label: t('subcategories.tanning'),
+          value: 'solarium_and_tanning',
+          label: t('subcategories.solarium_and_tanning'),
         },
         {
-          value: 'training_consultations',
-          label: t('subcategories.training_consultations'),
+          value: 'training_and_consultations',
+          label: t('subcategories.training_and_consultations'),
         },
       ],
     },
     {
       category: {
-        value: 'fitness',
-        label: t('categories.fitness'),
+        value: 'fitness_and_sport',
+        label: t('categories.fitness_and_sport'),
       },
       subcategories: [
         {
-          value: 'fitness_training',
-          label: t('subcategories.fitness_training'),
+          value: 'fitness_and_training',
+          label: t('subcategories.fitness_and_training'),
         },
         {
           value: 'personal_trainer',
@@ -341,8 +259,8 @@ export const getSpecialistFilters = (t: (key: string) => string) => {
           label: t('subcategories.extreme_sports'),
         },
         {
-          value: 'equipment_clothing',
-          label: t('subcategories.equipment_clothing'),
+          value: 'equipment_and_clothing',
+          label: t('subcategories.equipment_and_clothing'),
         },
         {
           value: 'healthy_food',
@@ -365,8 +283,8 @@ export const getSpecialistFilters = (t: (key: string) => string) => {
           label: t('subcategories.dog_walking'),
         },
         {
-          value: 'pet_breeding',
-          label: t('subcategories.pet_breeding'),
+          value: 'matings_of_pets',
+          label: t('subcategories.matings_of_pets'),
         },
         {
           value: 'pet_training',
@@ -381,19 +299,19 @@ export const getSpecialistFilters = (t: (key: string) => string) => {
           label: t('subcategories.pet_food'),
         },
         {
-          value: 'pet_boarding',
-          label: t('subcategories.pet_boarding'),
+          value: 'overexposure_of_pets',
+          label: t('subcategories.overexposure_of_pets'),
         },
         {
-          value: 'aquarium',
-          label: t('subcategories.aquarium'),
+          value: 'aquaristics',
+          label: t('subcategories.aquaristics'),
         },
       ],
     },
     {
       category: {
-        value: 'home_staff',
-        label: t('categories.home_staff'),
+        value: 'domestic_staff',
+        label: t('categories.domestic_staff'),
       },
       subcategories: [
         {
@@ -428,22 +346,6 @@ export const getSpecialistFilters = (t: (key: string) => string) => {
           value: 'culinary_specialist',
           label: t('subcategories.culinary_specialist'),
         },
-        {
-          value: 'driver',
-          label: t('subcategories.driver'),
-        },
-        {
-          value: 'personal_assistant',
-          label: t('subcategories.personal_assistant'),
-        },
-        {
-          value: 'security_guard',
-          label: t('subcategories.security_guard'),
-        },
-        {
-          value: 'household_management',
-          label: t('subcategories.household_management'),
-        },
       ],
     },
     {
@@ -452,14 +354,17 @@ export const getSpecialistFilters = (t: (key: string) => string) => {
         label: t('categories.freelance_and_creative_services'),
       },
       subcategories: [
-        { value: 'web_design', label: t('subcategories.web_design') },
         {
-          value: 'copywriting_editing',
-          label: t('subcategories.copywriting_editing'),
+          value: 'web_design',
+          label: t('subcategories.web_design'),
         },
         {
-          value: 'photography_videography',
-          label: t('subcategories.photography_videography'),
+          value: 'copywriting_and_editing',
+          label: t('subcategories.copywriting_and_editing'),
+        },
+        {
+          value: 'photo_and_video_shooting',
+          label: t('subcategories.photo_and_video_shooting'),
         },
       ],
     },
