@@ -4,7 +4,12 @@ import styled from 'styled-components';
 
 import { Props } from 'src/modules/chat/Chat';
 import { MessageCard } from 'src/modules/chat/messages_panel/MessageCard';
-import { db, UserType } from 'src/shared';
+import {
+  db,
+  DEFAULT_SKELETON_CHAT_COUNT,
+  SkeletonPanel,
+  UserType,
+} from 'src/shared';
 
 const MainLayout = styled.div`
   display: flex;
@@ -30,11 +35,13 @@ export interface Message {
 
 const MessagesPanelElement = (props: Props): ReactElement => {
   const [messages, setMessages] = useState<Message[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const { currentAuthUser } = props;
 
   const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    setIsLoading(true);
     const q = query(collection(db, 'global_chat'), orderBy('timestamp'));
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -43,6 +50,7 @@ const MessagesPanelElement = (props: Props): ReactElement => {
         messages.push(doc.data() as Message);
       });
       setMessages(messages);
+      setIsLoading(false);
     });
 
     return () => {
@@ -55,18 +63,27 @@ const MessagesPanelElement = (props: Props): ReactElement => {
       behavior: 'smooth',
       block: 'end',
     });
-  }, [messages]);
+  }, [messages, isLoading]);
 
   return (
     <MainLayout>
-      {messages.map((message) => (
-        <MessageCard
-          ref={ref}
-          message={message}
-          isMyMessage={message?.userInfo?.userId === currentAuthUser?.uid}
-          key={message.chatId}
+      {isLoading ? (
+        <SkeletonPanel
+          count={DEFAULT_SKELETON_CHAT_COUNT}
+          SkeletonCard={
+            <MessageCard isMyMessage={false} ref={ref} isLoading={isLoading} />
+          }
         />
-      ))}
+      ) : (
+        messages.map((message) => (
+          <MessageCard
+            ref={ref}
+            message={message}
+            isMyMessage={message?.userInfo?.userId === currentAuthUser?.uid}
+            key={message.chatId}
+          />
+        ))
+      )}
     </MainLayout>
   );
 };

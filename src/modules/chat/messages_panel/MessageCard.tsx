@@ -1,4 +1,5 @@
 import { forwardRef, ReactElement, Ref } from 'react';
+import Skeleton from 'react-loading-skeleton';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
@@ -42,6 +43,10 @@ const Time = styled.div`
   bottom: 5px;
 `;
 
+const SkeletonMessage = styled.div`
+  margin-bottom: 12px;
+`;
+
 const UserName = styled.div`
   font-size: 13px;
   font-weight: ${({ theme }) => theme.w500};
@@ -57,39 +62,67 @@ const MessageText = styled.div`
 `;
 
 interface Props {
-  message: Message;
+  message?: Message;
   isMyMessage: boolean;
+  isLoading?: boolean;
 }
 
 const MessageCardElement = (
   props: Props,
   ref: Ref<HTMLDivElement>,
 ): ReactElement => {
-  const { message, isMyMessage } = props;
-  const { userInfo, timestamp, text } = message;
+  const { message, isMyMessage, isLoading } = props;
+  const { userInfo, timestamp, text } = message || {};
 
   const t = useTranslations();
 
   return (
     <MainLayout $isMyMessage={isMyMessage} ref={ref}>
-      {!isMyMessage && (
-        <Avatar width={30} height={30} avatarUrl={userInfo?.avatarUrl} />
+      {!isMyMessage &&
+        (isLoading ? (
+          <Skeleton width={30} height={30} circle={true} />
+        ) : (
+          <Avatar
+            width={30}
+            height={30}
+            avatarUrl={userInfo?.avatarUrl ?? '/files/images/avatar.png'}
+          />
+        ))}
+      {isLoading ? (
+        <SkeletonMessage>
+          <Skeleton
+            count={1}
+            width={100}
+            height={50}
+            borderRadius={
+              !isMyMessage ? '15px 15px 15px 3px' : '15px 15px 3px 15px'
+            }
+          />
+        </SkeletonMessage>
+      ) : (
+        <MessageLayout $isMyMessage={isMyMessage}>
+          <UserName>
+            {isMyMessage
+              ? t('Chat.message.you')
+              : getInitials({
+                  firstName: userInfo?.firstName || '',
+                  lastName: userInfo?.lastName || '',
+                })}
+          </UserName>
+          <MessageText>{text}</MessageText>
+          <Time>{timestamp && getTime({ ...timestamp })}</Time>
+        </MessageLayout>
       )}
-      <MessageLayout $isMyMessage={isMyMessage}>
-        <UserName>
-          {isMyMessage
-            ? t('Chat.message.you')
-            : getInitials({
-                firstName: userInfo?.firstName,
-                lastName: userInfo?.lastName,
-              })}
-        </UserName>
-        <MessageText>{text}</MessageText>
-        <Time>{getTime({ ...timestamp })}</Time>
-      </MessageLayout>
-      {isMyMessage && (
-        <Avatar width={30} height={30} avatarUrl={userInfo?.avatarUrl} />
-      )}
+      {isMyMessage &&
+        (isLoading ? (
+          <Skeleton width={30} height={30} circle={true} />
+        ) : (
+          <Avatar
+            width={30}
+            height={30}
+            avatarUrl={userInfo?.avatarUrl ?? '/files/images/avatar.png'}
+          />
+        ))}
     </MainLayout>
   );
 };
