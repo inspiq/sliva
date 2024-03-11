@@ -72,7 +72,7 @@ const MessageCardElement = (
   ref: Ref<HTMLDivElement>,
 ): ReactElement => {
   const { message, isMyMessage, isLoading } = props;
-  const { userInfo, timestamp, text } = message || {};
+  const { userInfo, timestamp, text } = message ?? {};
 
   const t = useTranslations();
 
@@ -80,7 +80,7 @@ const MessageCardElement = (
     <MainLayout $isMyMessage={isMyMessage} ref={ref}>
       {!isMyMessage &&
         (isLoading ? (
-          <Skeleton width={30} height={30} circle={true} />
+          <Skeleton width={30} height={30} circle />
         ) : (
           <Avatar
             width={30}
@@ -95,7 +95,7 @@ const MessageCardElement = (
             width={100}
             height={50}
             borderRadius={
-              !isMyMessage ? '15px 15px 15px 3px' : '15px 15px 3px 15px'
+              isMyMessage ? '15px 15px 3px 15px' : '15px 15px 15px 3px'
             }
           />
         </SkeletonMessage>
@@ -105,8 +105,8 @@ const MessageCardElement = (
             {isMyMessage
               ? t('Chat.message.you')
               : getInitials({
-                  firstName: userInfo?.firstName || '',
-                  lastName: userInfo?.lastName || '',
+                  firstName: userInfo?.firstName ?? '',
+                  lastName: userInfo?.lastName ?? '',
                 })}
           </UserName>
           <MessageText>{text}</MessageText>
@@ -115,7 +115,7 @@ const MessageCardElement = (
       )}
       {isMyMessage &&
         (isLoading ? (
-          <Skeleton width={30} height={30} circle={true} />
+          <Skeleton width={30} height={30} circle />
         ) : (
           <Avatar
             width={30}

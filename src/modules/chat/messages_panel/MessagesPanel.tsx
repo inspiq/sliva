@@ -6,9 +6,10 @@ import { Props } from 'src/modules/chat/Chat';
 import { MessageCard } from 'src/modules/chat/messages_panel/MessageCard';
 import {
   db,
-  DEFAULT_SKELETON_CHAT_COUNT,
+  DEFAULT_SKELETON_MESSAGES_COUNT,
   SkeletonPanel,
-  UserType,
+  type UserType,
+  useToggle,
 } from 'src/shared';
 
 const MainLayout = styled.div`
@@ -35,13 +36,12 @@ export interface Message {
 
 const MessagesPanelElement = (props: Props): ReactElement => {
   const [messages, setMessages] = useState<Message[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const { visible: isLoading, close } = useToggle(true);
   const { currentAuthUser } = props;
 
   const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    setIsLoading(true);
     const q = query(collection(db, 'global_chat'), orderBy('timestamp'));
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -50,13 +50,13 @@ const MessagesPanelElement = (props: Props): ReactElement => {
         messages.push(doc.data() as Message);
       });
       setMessages(messages);
-      setIsLoading(false);
+      close();
     });
 
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [close]);
 
   useEffect(() => {
     ref.current?.scrollIntoView({
@@ -69,7 +69,7 @@ const MessagesPanelElement = (props: Props): ReactElement => {
     <MainLayout>
       {isLoading ? (
         <SkeletonPanel
-          count={DEFAULT_SKELETON_CHAT_COUNT}
+          count={DEFAULT_SKELETON_MESSAGES_COUNT}
           SkeletonCard={
             <MessageCard isMyMessage={false} ref={ref} isLoading={isLoading} />
           }
