@@ -19,7 +19,6 @@ interface ReviewDetails {
 }
 
 export interface Specialist extends Client {
-  city: string;
   dayOfBirth: string;
   experience: string;
   reviewDetails: ReviewDetails;
@@ -28,6 +27,8 @@ export interface Specialist extends Client {
   telegram: string;
   whatsApp: string;
   extendedInfo: string;
+  zipCode: string;
+  address: string;
 }
 
 export type UserType = Client | Specialist;

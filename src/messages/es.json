@@ -22,10 +22,10 @@
   "LogInForm": {
     "title": "Iniciar sesión en Sliva",
     "email_input": {
-      "placeholder": "Correo electrónico"
+      "label": "Correo electrónico"
     },
     "password_input": {
-      "placeholder": "Contraseña"
+      "label": "Contraseña"
     },
     "button": {
       "text": "Continuar"
@@ -41,7 +41,7 @@
   "ResetPasswordForm": {
     "title": "Restablecer la contraseña de tu cuenta",
     "email_input": {
-      "placeholder": "Correo electrónico"
+      "label": "Correo electrónico"
     },
     "button": {
       "to_send": "Enviar enlace al correo",
@@ -54,19 +54,25 @@
   "SignUpForm": {
     "title": "Regístrate para el Servicio de Hogar",
     "first_name_input": {
-      "placeholder": "Nombre"
+      "label": "Nombre"
     },
     "last_name_input": {
-      "placeholder": "Apellido"
+      "label": "Apellido"
     },
     "email_input": {
-      "placeholder": "Correo electrónico"
+      "label": "Correo electrónico"
     },
     "password_input": {
-      "placeholder": "Contraseña"
+      "label": "Contraseña"
     },
     "repeat_password_input": {
-      "placeholder": "Repetir contraseña"
+      "label": "Repetir contraseña"
+    },
+    "address_input": {
+      "label": "Dirección"
+    },
+    "zip_code_input": {
+      "label": "Código postal"
     },
     "select": {
       "options": {
@@ -87,15 +93,15 @@
     }
   },
   "Footer": {
-    "text": "© Derechos de autor 2024-2024 Sliva, Inc. Todos los Derechos Reservados",
+    "text": "© Derechos de autor 2024-2024 Sliva, Inc. Todos los derechos reservados",
     "buttons": {
-      "title": "Servicio de Soporte",
-      "second_title": "Ir al Chat Global"
+      "title": "Servicio de soporte",
+      "second_title": "Ir al chat global"
     },
-    "privacy_policy": "Política de Privacidad",
+    "privacy_policy": "Política de privacidad",
     "info": "La información publicada en este sitio web está destinada a cualquier audiencia, a menos que se especifique lo contrario para materiales específicos.",
     "support_service": {
-      "title": "Servicio de Soporte:",
+      "title": "Servicio de soporte:",
       "time": "Días laborables: de 6:00 a 22:00",
       "second_time": "Fines de semana: de 8:00 a 22:00"
     }
@@ -205,17 +211,30 @@
   },
   "my_profile": {
     "title": "Información personal",
-    "first_name_input": "Nombre",
-    "last_name_input": "Apellido",
-    "work_input": "Experiencia laboral",
-    "email_input": "Correo electrónico",
+    "first_name_input": {
+      "label": "Nombre"
+    },
+    "last_name_input": {
+      "label": "Apellido"
+    },
+    "work_input": {
+      "label": "Experiencia laboral"
+    },
+    "email_input": {
+      "label": "Correo electrónico"
+    },
     "categories_select": "Categorías de actividades",
     "subcategories_select": "Subcategorías de actividades",
-    "city_input": "Ciudad",
-    "areas_select":"Seleccione un área de trabajo",
-    "telegram_input": "@Telegram",
-    "whats_app_input": "WhatsApp",
-    "birthday_input": "Fecha de nacimiento",
+    "areas_select": "Seleccione un área de trabajo",
+    "telegram_input": {
+      "label": "@Telegram"
+    },
+    "whats_app_input": {
+      "label": "WhatsApp"
+    },
+    "birthday_input": {
+      "label": "Fecha de nacimiento"
+    },
     "additional_information_textarea": "Información adicional",
     "button": "Guardar"
   },
@@ -224,7 +243,7 @@
     "button": "Unirse al chat"
   },
   "modal_test": {
-    "title": "¡Atención!",
+    "title": "Atención!",
     "tips": {
       "one": "1. Recuerda que estás utilizando la versión de prueba del sitio web.",
       "two": "2. ¡Informa sobre cualquier problema – tu opinión es importante para nosotros!",
@@ -242,8 +261,10 @@
       "info": "{reviewsCount, plural, one {# reseña} few {# reseñas} many {# reseñas} other {# reseñas}}"
     },
     "details": {
-      "title": "Todas las Reseñas ({reviewsCount})",
-      "title_two": "Todos los Servicios y Precios"
+      "title": "Todas las reseñas ({reviewsCount})",
+      "title_two": "Todos los servicios y precios",
+      "address": "Dirección: {address}",
+      "zip_code": "Codice postale: {zipCode}"
     },
     "reviews_form": {
       "title": "Deja una reseña sobre el especialista",
@@ -251,11 +272,11 @@
         "placeholder": "Reseña"
       },
       "button": "Dejar una reseña"
-    },
-    "information": {
-      "additional_information_textarea": "Información adicional",
-      "additional_information_content": "No hay información"
     }
+  },
+  "Specialists": {
+    "show_more": "Mostra più specialisti",
+    "not_found": "Desafortunadamente, no pude encontrar especialistas, intente cambiar los filtros.."
   },
   "Chat": {
     "chat_room": {

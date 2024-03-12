@@ -16,12 +16,10 @@ import { useRouter } from 'src/navigation';
 import {
   auth,
   db,
-  EmailIcon,
   getUserTypeOptions,
   Line,
   Loader,
   Option,
-  PasswordIcon,
   UiButton,
   UiInput,
 } from 'src/shared';
@@ -44,6 +42,7 @@ const SignUpFormElement = (): ReactElement => {
   const router = useRouter();
   const t = useTranslations();
   const { primary, light_grey, border_ui, border_ui_hover } = useTheme();
+  const [isAgree, setIsAgree] = useState(false);
 
   const userTypeOptions = getUserTypeOptions(t);
   const defaultUserTypeOption = userTypeOptions[0];
@@ -64,6 +63,8 @@ const SignUpFormElement = (): ReactElement => {
       email: '',
       password: '',
       repeatPassword: '',
+      zipCode: '',
+      address: '',
       userType: defaultUserTypeOption,
     },
     validationSchema: yup.object().shape({
@@ -77,6 +78,8 @@ const SignUpFormElement = (): ReactElement => {
         .required(t('validations.required'))
         .min(2, t('validations.first_name.min'))
         .matches(/^[A-Za-zА-Яа-яЁё\s-]+$/, t('validations.first_name.matches')),
+      zipCode: yup.number().required(t('validations.required')),
+      address: yup.string().required(t('validations.required')),
       email: yup
         .string()
         .email(t('validations.email'))
@@ -94,7 +97,15 @@ const SignUpFormElement = (): ReactElement => {
     }),
     validateOnMount: true,
     onSubmit: async (userDetails) => {
-      const { firstName, lastName, email, password, userType } = userDetails;
+      const {
+        firstName,
+        lastName,
+        email,
+        password,
+        userType,
+        address,
+        zipCode,
+      } = userDetails;
 
       try {
         const { user } = await createUserWithEmailAndPassword(
@@ -110,6 +121,8 @@ const SignUpFormElement = (): ReactElement => {
           firstName,
           lastName,
           type: userType.value,
+          address,
+          zipCode,
         });
 
         router.push('/');
@@ -154,6 +167,8 @@ const SignUpFormElement = (): ReactElement => {
     return <Loader />;
   }
 
+  console.log(isAgree);
+
   return (
     <FormLayout title={t('SignUpForm.title')} onSubmit={handleSubmit}>
       <Row>
@@ -161,52 +176,77 @@ const SignUpFormElement = (): ReactElement => {
           name="lastName"
           onChange={handleChange}
           value={values.lastName}
-          placeholder={t('SignUpForm.last_name_input.placeholder')}
+          label={t('SignUpForm.last_name_input.label')}
           onBlur={handleBlur}
           hasError={!!errors.lastName && !!touched.lastName}
           textError={errors.lastName}
+          id="lastName"
         />
         <UiInput
           name="firstName"
           onChange={handleChange}
           value={values.firstName}
-          placeholder={t('SignUpForm.first_name_input.placeholder')}
+          label={t('SignUpForm.first_name_input.label')}
           onBlur={handleBlur}
           hasError={!!errors.firstName && !!touched.firstName}
           textError={errors.firstName}
+          id="firstName"
+        />
+      </Row>
+      <Row>
+        <UiInput
+          name="zipCode"
+          onChange={handleChange}
+          value={values.zipCode}
+          label={t('SignUpForm.zip_code_input.label')}
+          onBlur={handleBlur}
+          hasError={!!errors.zipCode && !!touched.zipCode}
+          textError={errors.zipCode}
+          type="number"
+          id="zipCode"
+        />
+        <UiInput
+          name="address"
+          onChange={handleChange}
+          value={values.address}
+          label={t('SignUpForm.address_input.label')}
+          onBlur={handleBlur}
+          hasError={!!errors.address && !!touched.address}
+          textError={errors.address}
+          id="address"
         />
       </Row>
       <UiInput
         name="email"
         onChange={handleChange}
         value={values.email}
-        placeholder={t('SignUpForm.email_input.placeholder')}
-        Icon={<EmailIcon />}
+        label={t('SignUpForm.email_input.label')}
         onBlur={handleBlur}
         hasError={!!errors.email && !!touched.email}
         textError={errors.email}
+        id="email"
       />
       <UiInput
         type="password"
         name="password"
         onChange={handleChange}
         value={values.password}
-        placeholder={t('SignUpForm.password_input.placeholder')}
-        Icon={<PasswordIcon />}
+        label={t('SignUpForm.password_input.label')}
         onBlur={handleBlur}
         hasError={!!errors.password && !!touched.password}
         textError={errors.password}
+        id="password"
       />
       <UiInput
         type="password"
         name="repeatPassword"
         onChange={handleChange}
         value={values.repeatPassword}
-        placeholder={t('SignUpForm.repeat_password_input.placeholder')}
-        Icon={<PasswordIcon />}
+        label={t('SignUpForm.repeat_password_input.label')}
         onBlur={handleBlur}
         hasError={!!errors.repeatPassword && !!touched.repeatPassword}
         textError={errors.repeatPassword}
+        id="repeatPassword"
       />
       <SelectLayout>
         <Select
@@ -233,16 +273,23 @@ const SignUpFormElement = (): ReactElement => {
       )}
       <Tip>{t('SignUpForm.tip.input')}</Tip>
       <Tip>
-        {t('privacy_policy.description')}{' '}
-        <DownloadLink href="/files/politika.docx" download>
-          {t('privacy_policy.link')}
-        </DownloadLink>
+        <input
+          type="checkbox"
+          id="privacyPolicy"
+          onChange={(e) => setIsAgree(e.target.checked)}
+        />
+        <label htmlFor="privacyPolicy">
+          {t('privacy_policy.description')}{' '}
+          <DownloadLink href="/files/politika.docx" download>
+            {t('privacy_policy.link')}
+          </DownloadLink>
+        </label>
       </Tip>
       <UiButtonLayout>
         <UiButton
           type="submit"
           size="big"
-          disabled={isSubmitting}
+          disabled={isSubmitting || !isAgree}
           isSubmitting={isSubmitting}
         >
           {t('SignUpForm.button.text')}

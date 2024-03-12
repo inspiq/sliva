@@ -7,7 +7,7 @@ import * as yup from 'yup';
 import { UiButtonLayout } from 'src/modules/auth/ButtonLayout';
 import { FormLayout } from 'src/modules/auth/FormLayout';
 import { Tip } from 'src/modules/auth/Tip';
-import { auth, EmailIcon, UiButton, UiInput } from 'src/shared';
+import { auth, UiButton, UiInput } from 'src/shared';
 
 const ResetPasswordFormElement = (): ReactElement => {
   const [isSentLinkResetPassword, setIsSentLinkResetPassword] = useState(false);
@@ -51,11 +51,11 @@ const ResetPasswordFormElement = (): ReactElement => {
         name="email"
         onChange={handleChange}
         value={values.email}
-        placeholder={t('ResetPasswordForm.email_input.placeholder')}
-        Icon={<EmailIcon />}
+        label={t('ResetPasswordForm.email_input.label')}
         onBlur={handleBlur}
         hasError={!!errors.email && !!touched.email}
         textError={errors.email}
+        id="email"
       />
       <Tip>{t('ResetPasswordForm.tip.text')}</Tip>
       <UiButtonLayout>

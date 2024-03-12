@@ -22,10 +22,10 @@
   "LogInForm": {
     "title": "Log In to Sliva",
     "email_input": {
-      "placeholder": "Email"
+      "label": "Email"
     },
     "password_input": {
-      "placeholder": "Password"
+      "label": "Password"
     },
     "button": {
       "text": "Continue"
@@ -41,7 +41,7 @@
   "ResetPasswordForm": {
     "title": "Reset your account password",
     "email_input": {
-      "placeholder": "Email"
+      "label": "Email"
     },
     "button": {
       "to_send": "Send a link to the email",
@@ -54,19 +54,25 @@
   "SignUpForm": {
     "title": "Sign Up for Sliva",
     "first_name_input": {
-      "placeholder": "First name"
+      "label": "First name"
     },
     "last_name_input": {
-      "placeholder": "Last name"
+      "label": "Last name"
     },
     "email_input": {
-      "placeholder": "Email"
+      "label": "Email"
     },
     "password_input": {
-      "placeholder": "Password"
+      "label": "Password"
     },
     "repeat_password_input": {
-      "placeholder": "Repeat password"
+      "label": "Repeat password"
+    },
+    "address_input": {
+      "label": "Address"
+    },
+    "zip_code_input": {
+      "label": "Zip code"
     },
     "select": {
       "options": {
@@ -87,15 +93,15 @@
     }
   },
   "Footer": {
-    "text": "© Copyright 2024-2024 Sliva, Inc. All Rights Reserved",
+    "text": "© Copyright 2024-2024 Sliva, Inc. All rights reserved",
     "buttons": {
-      "title": "Support Service",
-      "second_title": "Go to Global Chat"
+      "title": "Support service",
+      "second_title": "Go to global chat"
     },
-    "privacy_policy": "Privacy Policy",
+    "privacy_policy": "Privacy policy",
     "info": "The information published on this website is intended for any audience unless otherwise specified for specific materials.",
     "support_service": {
-      "title": "Support Service:",
+      "title": "Support service:",
       "time": "Weekdays: 6 AM - 10 PM",
       "second_time": "Weekends: 8 AM - 10 PM"
     }
@@ -206,17 +212,30 @@
   },
   "my_profile": {
     "title": "Personal information",
-    "first_name_input": "First name",
-    "last_name_input": "Last name",
-    "work_input": "Work experience",
-    "email_input": "Email",
+    "first_name_input": {
+      "label": "First name"
+    },
+    "last_name_input": {
+      "label": "Last name"
+    },
+    "work_input": {
+      "label": "Work experience"
+    },
+    "email_input": {
+      "label": "Email"
+    },
     "categories_select": "Categories of activities",
     "subcategories_select": "Subcategories of activities",
-    "city_input": "City",
-    "areas_select":"Select the area of work",
-    "telegram_input": "@Telegram",
-    "whats_app_input": "Whats App",
-    "birthday_input": "Birthday",
+    "areas_select": "Select the area of work",
+    "telegram_input": {
+      "label": "@Telegram"
+    },
+    "whats_app_input": {
+      "label": "Whats App"
+    },
+    "birthday_input": {
+      "label": "Birthday"
+    },
     "additional_information_textarea": "Additional information",
     "button": "Save"
   },
@@ -235,7 +254,7 @@
   },
   "SpecialistCard": {
     "experience": {
-      "title": "Work Experience:",
+      "title": "Work experience:",
       "info": "{experience, plural, one {# year} few {# years} many {# years} other {# years}}",
       "no_info": "no information"
     },
@@ -243,8 +262,10 @@
       "info": "{reviewsCount, plural, one {# review} few {# reviews} many {# reviews} other {# reviews}}"
     },
     "details": {
-      "title": "All Reviews ({reviewsCount})",
-      "title_two": "All Services and Prices"
+      "title": "All reviews ({reviewsCount})",
+      "title_two": "All services and prices",
+      "address": "Address: {address}",
+      "zip_code": "Zip code: {zipCode}"
     },
     "reviews_form": {
       "title": "Leave a review about the specialist",
@@ -252,11 +273,11 @@
         "placeholder": "Review"
       },
       "button": "Leave a review"
-    },
-    "information": {
-      "additional_information_textarea": "Additional Information",
-      "additional_information_content": "No information"
     }
+  },
+  "Specialists": {
+    "show_more": "Show more specialists",
+    "not_found": "Unfortunately, we could not find specialists, try changing the filters.."
   },
   "Chat": {
     "chat_room": {

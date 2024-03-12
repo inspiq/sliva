@@ -13,7 +13,6 @@ const MainLayout = styled.div`
   bottom: 0;
   border-radius: 10px;
   display: flex;
-  justify-content: center;
   align-items: center;
   flex-direction: column;
   background-color: ${({ theme }) => theme.ransparent_white};
@@ -25,6 +24,7 @@ const MainLayout = styled.div`
     align-items: center;
     flex-direction: column;
     gap: 8px;
+    padding-top: 230px;
   }
 `;
 

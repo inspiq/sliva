@@ -27,7 +27,7 @@ import {
 const Row = styled.div`
   display: grid;
   grid-template-columns: repeat(4, minmax(100px, 250px));
-  gap: 10px;
+  gap: 12px;
 
   @media ${devices.mobileL} {
     grid-template-columns: repeat(2, minmax(100px, 250px));
@@ -42,14 +42,14 @@ const TextAreaRow = styled.div`
 const StyledUiForm = styled(UiForm)`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 `;
 
 const UiButtonLayout = styled.div`
   margin-top: 10px;
   margin-bottom: 25px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   width: 100%;
 `;
 
@@ -144,7 +144,6 @@ const MyProfileFormElement = (props: {
             dayOfBirth: additionalInfo?.dayOfBirth ?? '',
             email: email ?? '',
             experience: additionalInfo?.experience ?? '',
-            city: additionalInfo?.city ?? '',
             telegram: additionalInfo?.telegram ?? '',
             whatsApp: additionalInfo?.whatsApp ?? '',
             categories: formattedCategoriesFromBackendToSelectFormat(
@@ -269,25 +268,27 @@ const MyProfileFormElement = (props: {
         <StyledUiForm onSubmit={handleSubmit}>
           <Row>
             <UiInput
-              placeholder={t('my_profile.last_name_input')}
+              label={t('my_profile.last_name_input.label')}
               value={values.lastName}
               name="lastName"
               onChange={handleChange}
               onBlur={handleBlur}
               hasError={!!errors.lastName && !!touched.lastName}
               textError={errors.lastName}
+              id="lastName"
             />
             <UiInput
-              placeholder={t('my_profile.first_name_input')}
+              label={t('my_profile.first_name_input.label')}
               value={values.firstName}
               name="firstName"
               onChange={handleChange}
               onBlur={handleBlur}
               hasError={!!errors.firstName && !!touched.firstName}
               textError={errors.firstName}
+              id="firstName"
             />
             <UiInput
-              placeholder={t('my_profile.birthday_input')}
+              label={t('my_profile.birthday_input.label')}
               value={values.dayOfBirth}
               name="dayOfBirth"
               type="date"
@@ -295,10 +296,11 @@ const MyProfileFormElement = (props: {
               onBlur={handleBlur}
               hasError={!!errors.dayOfBirth && !!touched.dayOfBirth}
               textError={errors.dayOfBirth}
+              id="dayOfBirth"
             />
             {additionalInfo?.type === UserRole.SPECIALIST && (
               <UiInput
-                placeholder={t('my_profile.work_input')}
+                label={t('my_profile.work_input.label')}
                 value={values.experience}
                 name="experience"
                 onChange={handleChange}
@@ -306,37 +308,31 @@ const MyProfileFormElement = (props: {
                 hasError={!!errors.experience && !!touched.experience}
                 textError={errors.experience}
                 type="number"
+                id="experience"
               />
             )}
             <UiInput
-              placeholder={t('my_profile.city_input')}
-              value={values.city}
-              name="city"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              hasError={!!errors.city && !!touched.city}
-              textError={errors.city}
-            />
-            <UiInput
-              placeholder={t('my_profile.telegram_input')}
+              label={t('my_profile.telegram_input.label')}
               value={values.telegram}
               name="telegram"
               onChange={handleChange}
               onBlur={handleBlur}
               hasError={!!errors.telegram && !!touched.telegram}
               textError={errors.telegram}
+              id="telegram"
             />
             <UiInput
-              placeholder={t('my_profile.whats_app_input')}
+              label={t('my_profile.whats_app_input.label')}
               value={values.whatsApp}
               name="whatsApp"
               onChange={handleChange}
               onBlur={handleBlur}
               hasError={!!errors.whatsApp && !!touched.whatsApp}
               textError={errors.whatsApp}
+              id="whatsApp"
             />
             <UiInput
-              placeholder={t('my_profile.email_input')}
+              label={t('my_profile.email_input.label')}
               value={values.email}
               name="email"
               onChange={handleChange}
@@ -344,6 +340,7 @@ const MyProfileFormElement = (props: {
               hasError={!!errors.email && !!touched.email}
               textError={errors.email}
               disabled
+              id="email"
             />
           </Row>
           {additionalInfo?.type === UserRole.SPECIALIST && (

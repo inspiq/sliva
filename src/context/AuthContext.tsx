@@ -12,10 +12,12 @@ import { auth, db, UserType, UserWithAdditionalInfo } from 'src/shared';
 
 interface Values {
   currentAuthUser: UserWithAdditionalInfo | null;
+  isLoading: boolean;
 }
 
 const initialValues: Values = {
   currentAuthUser: null,
+  isLoading: true,
 };
 
 export const AuthContext = createContext(initialValues);
@@ -27,6 +29,7 @@ export const AuthContextProvider = (props: PropsWithChildren) => {
   const [additionalUserInfo, setAdditionalUserInfo] = useState<UserType | null>(
     null,
   );
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const getAdditionalUserInfo = async () => {
@@ -48,12 +51,20 @@ export const AuthContextProvider = (props: PropsWithChildren) => {
     getAdditionalUserInfo();
   }, [currentAuthUser]);
 
-  useEffect(() => onAuthStateChanged(auth, setCurrentAuthUser), []);
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentAuthUser(user);
+      setIsLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const contextValues = {
     currentAuthUser: currentAuthUser
       ? { ...currentAuthUser, additionalInfo: additionalUserInfo }
       : null,
+    isLoading,
   };
 
   return (
