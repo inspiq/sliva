@@ -4,7 +4,13 @@ import styled from 'styled-components';
 
 import { Props } from 'src/modules/chat/Chat';
 import { MessageCard } from 'src/modules/chat/messages_panel/MessageCard';
-import { db, UserType } from 'src/shared';
+import {
+  db,
+  DEFAULT_SKELETON_MESSAGES_COUNT,
+  SkeletonPanel,
+  type UserType,
+  useToggle,
+} from 'src/shared';
 
 const MainLayout = styled.div`
   display: flex;
@@ -32,6 +38,7 @@ const MessagesPanelElement = (
   props: Omit<Props, 'isLoading'>,
 ): ReactElement => {
   const [messages, setMessages] = useState<Message[]>([]);
+  const { visible: isLoading, close } = useToggle(true);
   const { currentAuthUser } = props;
 
   const ref = useRef<HTMLDivElement | null>(null);
@@ -45,30 +52,40 @@ const MessagesPanelElement = (
         messages.push(doc.data() as Message);
       });
       setMessages(messages);
+      close();
     });
 
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [close]);
 
   useEffect(() => {
     ref.current?.scrollIntoView({
       behavior: 'smooth',
       block: 'end',
     });
-  }, [messages]);
+  }, [messages, isLoading]);
 
   return (
     <MainLayout>
-      {messages.map((message) => (
-        <MessageCard
-          ref={ref}
-          message={message}
-          isMyMessage={message?.userInfo?.userId === currentAuthUser?.uid}
-          key={message.chatId}
+      {isLoading ? (
+        <SkeletonPanel
+          count={DEFAULT_SKELETON_MESSAGES_COUNT}
+          SkeletonCard={
+            <MessageCard isMyMessage={false} ref={ref} isLoading={isLoading} />
+          }
         />
-      ))}
+      ) : (
+        messages.map((message) => (
+          <MessageCard
+            ref={ref}
+            message={message}
+            isMyMessage={message?.userInfo?.userId === currentAuthUser?.uid}
+            key={message.chatId}
+          />
+        ))
+      )}
     </MainLayout>
   );
 };
