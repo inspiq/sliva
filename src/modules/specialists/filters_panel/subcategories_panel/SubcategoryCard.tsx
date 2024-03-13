@@ -1,7 +1,7 @@
 import { memo, ReactElement } from 'react';
 import styled from 'styled-components';
 
-import { type Option } from 'src/shared';
+import { type Option, UiInput } from 'src/shared';
 
 const Subcategory = styled.div`
   display: flex;
@@ -24,7 +24,7 @@ const SubcategoryCardElement = (props: Props): ReactElement => {
 
   return (
     <Subcategory key={subcategory.value}>
-      <input
+      <UiInput
         type="checkbox"
         id={subcategory.label}
         onChange={(e) => onChange(subcategory, e.target.checked)}

@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, ReactElement } from 'react';
+import { ChangeEvent, InputHTMLAttributes, ReactElement } from 'react';
 import styled from 'styled-components';
 
 import { Error } from 'src/modules/auth/Error';
@@ -100,21 +100,54 @@ const InputLayout = styled.div`
   }
 `;
 
+const Checkbox = styled.input`
+  opacity: 0;
+  position: absolute;
+  appearance: none;
+  align-self: start;
+  background-color: ${({ checked, theme }) =>
+    checked ? theme.primary : 'transparent'};
+
+  &:checked + div {
+    background-color: ${({ theme }) => theme.secondary};
+  }
+`;
+
+const CheckboxLayout = styled.label`
+  display: flex;
+  gap: 3px;
+`;
+
+const CheckBoxLayout = styled.div`
+  align-self: start;
+  position: relative;
+  height: 15px;
+  width: 15px;
+  border: 2px solid ${({ theme }) => theme.secondary};
+  border-radius: 4px;
+`;
+
 interface Props
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'placeholder'> {
   hasError?: boolean;
   textError?: string;
   label?: string;
+  Icon?: ReactElement;
 }
 
 const UiInputElement = (props: Props): ReactElement => {
-  const { hasError, textError, type, label, ...rest } = props;
+  const { hasError, textError, type, Icon, label, onChange, ...rest } = props;
 
   const { visible: passVisible, toggle } = useToggle();
-
+  const { visible: isChecked, toggle: toggleChecked } = useToggle();
   const currentTypePasswordField = passVisible ? 'text' : 'password';
   const hasTypePassword = type === 'password';
   const hasContent = !!rest.value;
+
+  const onChangeCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
+    onChange?.(e);
+    toggleChecked();
+  };
 
   return (
     <MainLayout>
@@ -131,7 +164,7 @@ const UiInputElement = (props: Props): ReactElement => {
           />
         </StyledLabel>
       )}
-      {type !== 'file' && (
+      {type !== 'file' && type !== 'checkbox' && (
         <InputLayout>
           <Label
             htmlFor={rest.id}
@@ -146,6 +179,18 @@ const UiInputElement = (props: Props): ReactElement => {
             {...rest}
           />
         </InputLayout>
+      )}
+      {type == 'checkbox' && (
+        <CheckboxLayout htmlFor={rest.id}>
+          <Checkbox
+            type={type}
+            checked={isChecked}
+            onChange={(e) => onChangeCheckbox(e)}
+            id={label}
+            {...rest}
+          />
+          <CheckBoxLayout>{Icon}</CheckBoxLayout>
+        </CheckboxLayout>
       )}
       {hasTypePassword && (
         <EyeIconLayout onClick={toggle}>
