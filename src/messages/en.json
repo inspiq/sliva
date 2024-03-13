@@ -122,7 +122,8 @@
       "matches": "Password must contain at least one uppercase letter",
       "second_matches": "Password must contain at least one digit",
       "one_of": "Passwords must match"
-    }
+    },
+    "birthday": "The date of birth cannot exceed the current date"
   },
   "privacy_policy": {
     "description": "By registering, you agree to",
@@ -224,18 +225,24 @@
     "email_input": {
       "label": "Email"
     },
-    "categories_select": "Categories of activities",
-    "subcategories_select": "Subcategories of activities",
-    "areas_select": "Select the area of work",
     "telegram_input": {
       "label": "@Telegram"
     },
-    "whats_app_input": {
-      "label": "Whats App"
+    "phone_input": {
+      "label": "Phone number"
     },
     "birthday_input": {
       "label": "Birthday"
     },
+    "zip_code_input": {
+      "label": "Zip code"
+    },
+    "address_input": {
+      "label": "Address"
+    },
+    "categories_select": "Categories of activities",
+    "subcategories_select": "Subcategories of activities",
+    "areas_select": "Select the area of work",
     "additional_information_textarea": "Additional information",
     "button": "Save"
   },

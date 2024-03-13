@@ -122,7 +122,8 @@
       "matches": "Пароль должен содержать, как минимум одну заглавную букву",
       "second_matches": "Пароль должен содержать, как минимум одну цифру",
       "one_of": "Пароли должны совпадать"
-    }
+    },
+    "birthday": "Дата рождения не может превышать текущую дату"
   },
   "privacy_policy": {
     "description": "Регистрируясь, вы соглашаетесь с",
@@ -223,18 +224,24 @@
     "email_input": {
       "label": "Электронная почта"
     },
-    "categories_select": "Категории деятельностей",
-    "subcategories_select": "Подкатегории деятельностей",
-    "areas_select": "Область выезда",
     "telegram_input": {
-      "label": "@ Telegram"
+      "label": "@Telegram"
     },
-    "whats_app_input": {
-      "label": "WhatsApp"
+    "phone_input": {
+      "label": "Номер телефона"
     },
     "birthday_input": {
       "label": "Дата рождения"
     },
+    "zip_code_input": {
+      "label": "Почтовый адрес"
+    },
+    "address_input": {
+      "label": "Адрес"
+    },
+    "categories_select": "Категории деятельностей",
+    "subcategories_select": "Подкатегории деятельностей",
+    "areas_select": "Область выезда",
     "additional_information_textarea": "Дополнительная информация",
     "button": "Сохранить"
   },

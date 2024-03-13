@@ -1,11 +1,5 @@
 import { ReactElement, useEffect, useState } from 'react';
-import {
-  collection,
-  limit,
-  onSnapshot,
-  query,
-  where,
-} from 'firebase/firestore';
+import { collection, getDocs, limit, query, where } from 'firebase/firestore';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
@@ -86,28 +80,32 @@ const SpecialistsPanelElement = (): ReactElement => {
       });
     };
 
-    const q = query(
-      collection(db, 'users'),
-      where('type', '==', 'specialist'),
-      ...getFilters(),
-      limit(showMoreCount),
-    );
+    const fetchData = async () => {
+      try {
+        const q = query(
+          collection(db, 'users'),
+          where('type', '==', 'specialist'),
+          ...getFilters(),
+          limit(showMoreCount),
+        );
 
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const specialists: Specialist[] = [];
+        const querySnapshot = await getDocs(q);
+        const specialists: Specialist[] = [];
 
-      querySnapshot.forEach((element) => {
-        specialists.push(element.data() as Specialist);
-      });
+        querySnapshot.forEach((element) => {
+          specialists.push(element.data() as Specialist);
+        });
 
-      setSpecialists(specialists);
-      setIsShowMore(specialists.length === showMoreCount);
-      close();
-    });
+        setSpecialists(specialists);
+        setIsShowMore(specialists.length === showMoreCount);
 
-    return () => {
-      unsubscribe();
+        close();
+      } catch (e) {
+        /* empty */
+      }
     };
+
+    fetchData();
   }, [close, open, selectedFilters, showMoreCount]);
 
   const showMore = () => {

@@ -7,7 +7,7 @@ export const Wrapper = styled.div<{ $position?: 'center' | 'flex-start' }>`
   justify-content: ${({ $position = 'center' }) => $position};
   align-items: center;
   flex-direction: column;
-  min-height: calc(100vh - 344px);
+  min-height: calc(100vh - 277px);
   padding-top: 70px;
   background-color: ${({ theme }) => theme.white};
   position: relative;

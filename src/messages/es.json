@@ -122,7 +122,8 @@
       "matches": "La contraseña debe contener al menos una letra mayúscula",
       "second_matches": "La contraseña debe contener al menos un dígito",
       "one_of": "Las contraseñas deben coincidir"
-    }
+    },
+    "birthday": "La fecha de nacimiento no puede exceder la fecha actual"
   },
   "privacy_policy": {
     "description": "Al registrarse, usted acepta",
@@ -223,18 +224,24 @@
     "email_input": {
       "label": "Correo electrónico"
     },
-    "categories_select": "Categorías de actividades",
-    "subcategories_select": "Subcategorías de actividades",
-    "areas_select": "Seleccione un área de trabajo",
+    "zip_code_input": {
+      "label": "Dirección postal"
+    },
+    "address_input": {
+      "label": "Dirección"
+    },
     "telegram_input": {
       "label": "@Telegram"
     },
-    "whats_app_input": {
-      "label": "WhatsApp"
+    "phone_input": {
+      "label": "Número de teléfono"
     },
     "birthday_input": {
       "label": "Fecha de nacimiento"
     },
+    "categories_select": "Categorías de actividades",
+    "subcategories_select": "Subcategorías de actividades",
+    "areas_select": "Seleccione un área de trabajo",
     "additional_information_textarea": "Información adicional",
     "button": "Guardar"
   },

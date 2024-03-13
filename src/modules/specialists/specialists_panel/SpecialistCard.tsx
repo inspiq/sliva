@@ -82,11 +82,12 @@ const LineLayout = styled.div`
 `;
 
 const Avatar = styled(Image)`
-  width: 140px;
+  width: 130px;
   height: 150px;
   border-radius: 10px;
   object-fit: cover;
   background-color: ${({ theme }) => theme.aqua};
+  image-rendering: -webkit-optimize-contrast;
 `;
 
 interface Props {
@@ -122,11 +123,11 @@ const SpecialistCardElement = (props: Props): ReactElement => {
     <MainLayout>
       <StyledLink href={`/specialists/${userId}`}>
         {isLoading ? (
-          <Skeleton width={120} height={130} borderRadius={10} />
+          <Skeleton width={130} height={150} borderRadius={10} />
         ) : (
           <Avatar
             src={avatarUrl ?? '/files/images/avatar.png'}
-            width={140}
+            width={130}
             height={150}
             alt={t('alts.avatar')}
           />

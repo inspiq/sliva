@@ -140,11 +140,11 @@ const SignUpFormElement = (): ReactElement => {
   const styles: StylesConfig = {
     option: (base) => ({
       ...base,
-      paddingLeft: 10,
-      paddingRight: 10,
+      paddingLeft: 12,
+      paddingRight: 12,
+      paddingTop: 12,
+      paddingBottom: 12,
       fontSize: 15,
-      paddingTop: 10,
-      paddingBottom: 10,
     }),
     control: (styles, { isFocused }) => ({
       ...styles,
@@ -155,6 +155,7 @@ const SignUpFormElement = (): ReactElement => {
       boxShadow: 'none',
       borderWidth: 1,
       fontSize: 15,
+      paddingLeft: 2,
       transition: '0.3s',
       ':hover': {
         ...styles[':hover'],
