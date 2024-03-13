@@ -19,5 +19,5 @@ export const devices = {
 export const SPECIALISTS_PAGINATION_STEP = 20;
 export const DEFAULT_REVIEWS_COUNT = 0;
 export const DEFAULT_AVG_RATING = 0;
-export const DEFAULT_SKELETON_SPECIALISTS_COUNT = 3;
 export const DEFAULT_SKELETON_MESSAGES_COUNT = 8;
+export const DEFAULT_SKELETON_SPECIALISTS_COUNT = 5;

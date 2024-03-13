@@ -34,7 +34,9 @@ export interface Message {
   userInfo: UserType;
 }
 
-const MessagesPanelElement = (props: Props): ReactElement => {
+const MessagesPanelElement = (
+  props: Omit<Props, 'isLoading'>,
+): ReactElement => {
   const [messages, setMessages] = useState<Message[]>([]);
   const { visible: isLoading, close } = useToggle(true);
   const { currentAuthUser } = props;

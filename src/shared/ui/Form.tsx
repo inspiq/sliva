@@ -6,7 +6,7 @@ const Form = styled.form`
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  gap: 10px;
+  gap: 12px;
   width: 100%;
   height: 100%;
 `;

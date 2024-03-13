@@ -11,7 +11,7 @@ import {
   DEFAULT_REVIEWS_COUNT,
   devices,
   Line,
-  Specialist,
+  type Specialist,
   StarIcon,
 } from 'src/shared';
 
@@ -30,7 +30,7 @@ const Row = styled.div`
   }
 `;
 
-const Experience = styled.div<{ $hasExperience: boolean }>`
+const RowDetail = styled.div<{ $hasExperience?: boolean }>`
   font-size: 15px;
   font-weight: ${({ theme }) => theme.w400};
   color: ${({ theme }) => theme.secondary};
@@ -41,7 +41,7 @@ const Experience = styled.div<{ $hasExperience: boolean }>`
   }
 `;
 
-const Rating = styled.div`
+const RatingCount = styled.div`
   font-size: 16px;
   font-weight: ${({ theme }) => theme.w500};
   color: ${({ theme }) => theme.secondary};
@@ -50,16 +50,9 @@ const Rating = styled.div`
   gap: 5px;
 `;
 
-const ReviewsCount = styled.div`
-  font-size: 16px;
-  font-weight: ${({ theme }) => theme.w500};
-  color: ${({ theme }) => theme.secondary};
-  display: flex;
-  align-items: center;
-  gap: 5px;
-`;
+const ReviewsCount = styled(RatingCount)``;
 
-const SpecialistInfo = styled.div`
+const SpecialistDetails = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -89,72 +82,93 @@ const LineLayout = styled.div`
 `;
 
 const Avatar = styled(Image)`
-  width: 120px;
-  height: 130px;
+  width: 130px;
+  height: 150px;
   border-radius: 10px;
   object-fit: cover;
   background-color: ${({ theme }) => theme.aqua};
+  image-rendering: -webkit-optimize-contrast;
 `;
 
 interface Props {
   specialist?: Specialist;
   isLoading?: boolean;
+  isProfileDetails?: boolean;
 }
 
 const SpecialistCardElement = (props: Props): ReactElement => {
-  const { specialist, isLoading } = props;
+  const { specialist, isLoading, isProfileDetails } = props;
 
   const { secondary } = useTheme();
   const t = useTranslations();
 
-  const reviewsCount =
-    specialist?.reviewDetails?.count ?? DEFAULT_REVIEWS_COUNT;
-  const experience = specialist?.experience
+  const {
+    experience,
+    avatarUrl,
+    userId,
+    reviewDetails,
+    lastName,
+    firstName,
+    address,
+    zipCode,
+  } = specialist ?? {};
+  const reviewsCount = reviewDetails?.count ?? DEFAULT_REVIEWS_COUNT;
+  const currentExperience = experience
     ? t('SpecialistCard.experience.info', {
-        experience: specialist?.experience,
+        experience,
       })
     : t('SpecialistCard.experience.no_info');
 
   return (
     <MainLayout>
-      <StyledLink href={`/specialists/${specialist?.userId}`}>
+      <StyledLink href={`/specialists/${userId}`}>
         {isLoading ? (
-          <Skeleton width={120} height={130} />
+          <Skeleton width={130} height={150} borderRadius={10} />
         ) : (
           <Avatar
-            src={specialist?.avatarUrl ?? '/files/images/avatar.png'}
-            width={120}
-            height={130}
+            src={avatarUrl ?? '/files/images/avatar.png'}
+            width={130}
+            height={150}
             alt={t('alts.avatar')}
           />
         )}
-        <SpecialistInfo>
+        <SpecialistDetails>
           <FullName>
-            {isLoading ? (
-              <Skeleton />
-            ) : (
-              `${specialist?.lastName} ${specialist?.firstName}`
-            )}
+            {isLoading ? <Skeleton /> : `${lastName} ${firstName}`}
           </FullName>
-          <Experience $hasExperience={!!specialist?.experience}>
+          <RowDetail $hasExperience={!!experience}>
             {isLoading ? (
               <Skeleton />
             ) : (
               <>
                 {t('SpecialistCard.experience.title')}
-                <span> {experience}</span>
+                <span> {currentExperience}</span>
               </>
             )}
-          </Experience>
+          </RowDetail>
+          <RowDetail>
+            {isLoading ? (
+              <Skeleton />
+            ) : (
+              t('SpecialistCard.details.address', { address })
+            )}
+          </RowDetail>
+          <RowDetail>
+            {isLoading ? (
+              <Skeleton />
+            ) : (
+              t('SpecialistCard.details.zip_code', { zipCode })
+            )}
+          </RowDetail>
           <Row>
             {isLoading ? (
-              <Skeleton width={200} height={24} />
+              <Skeleton width={200} />
             ) : (
               <>
-                <Rating>
+                <RatingCount>
                   <StarIcon color={secondary} width={18} />
-                  {specialist?.reviewDetails?.avgRating ?? DEFAULT_AVG_RATING}
-                </Rating>
+                  {reviewDetails?.avgRating ?? DEFAULT_AVG_RATING}
+                </RatingCount>
                 <ReviewsCount>
                   <ChatIcon width={20} color={secondary} />
                   {t('SpecialistCard.reviews.info', { reviewsCount })}
@@ -162,17 +176,25 @@ const SpecialistCardElement = (props: Props): ReactElement => {
               </>
             )}
           </Row>
-          <Service>
-            {isLoading ? (
-              <Skeleton />
-            ) : (
-              t('SpecialistCard.details.title', { reviewsCount })
-            )}
-          </Service>
-          <Service>
-            {isLoading ? <Skeleton /> : t('SpecialistCard.details.title_two')}
-          </Service>
-        </SpecialistInfo>
+          {!isProfileDetails && (
+            <>
+              <Service>
+                {isLoading ? (
+                  <Skeleton />
+                ) : (
+                  t('SpecialistCard.details.title', { reviewsCount })
+                )}
+              </Service>
+              <Service>
+                {isLoading ? (
+                  <Skeleton />
+                ) : (
+                  t('SpecialistCard.details.title_two')
+                )}
+              </Service>
+            </>
+          )}
+        </SpecialistDetails>
       </StyledLink>
       <LineLayout>
         <Line />

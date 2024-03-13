@@ -1,54 +1,39 @@
-import {
-  ChangeEvent,
-  Dispatch,
-  memo,
-  ReactElement,
-  SetStateAction,
-  useMemo,
-} from 'react';
-import styled from 'styled-components';
+import { Dispatch, memo, ReactElement, SetStateAction, useMemo } from 'react';
 
+import { SubcategoriesPanel } from 'src/modules/specialists/filters_panel/subcategories_panel/SubcategoriesPanel';
 import { SpecialistFilter } from 'src/modules/specialists/specialists_panel/SpecialistsPanel';
-import { Accordion, Option } from 'src/shared';
+import { Accordion, type Option } from 'src/shared';
 
-const Subcategory = styled.div`
-  display: flex;
-  align-items: flex-start;
-  gap: 3px;
-`;
-
-const Title = styled.label`
-  font-size: 15px;
-  color: ${({ theme }) => theme.secondary};
-`;
-
-const FilterCardElement = (props: {
+interface Props {
   category: Option;
   subcategories?: Option[];
+  isOpen: boolean;
   setSelectedFilters: Dispatch<SetStateAction<SpecialistFilter[]>>;
-}): ReactElement => {
-  const { category, subcategories, setSelectedFilters } = props;
+  onToggle: () => void;
+}
+
+const FilterCardElement = (props: Props): ReactElement => {
+  const { category, subcategories, isOpen, setSelectedFilters, onToggle } =
+    props;
 
   const onChangeCategoriesFilter = useMemo(
-    () => (e: ChangeEvent<HTMLInputElement>) => {
-      const isChecked = e.target.checked;
-
+    () => () => {
       setSelectedFilters((prev) => {
-        if (!isChecked) {
+        if (!isOpen) {
           return prev.filter(
             ({ category: categoryItem }) =>
               categoryItem.value !== category.value,
           );
         }
 
-        if (isChecked) {
-          return [...prev, { category, subcategories: [] }];
+        if (isOpen) {
+          return [{ category, subcategories: [] }];
         }
 
         return prev;
       });
     },
-    [category, setSelectedFilters],
+    [category, isOpen, setSelectedFilters],
   );
 
   const onChangeSubcategoriesFilter = useMemo(
@@ -88,20 +73,14 @@ const FilterCardElement = (props: {
     <Accordion
       title={category.label}
       id={category.label}
+      isOpen={isOpen}
       onChange={onChangeCategoriesFilter}
+      onToggle={onToggle}
     >
-      {subcategories?.map((subcategory) => (
-        <Subcategory key={subcategory.value}>
-          <input
-            type="checkbox"
-            id={subcategory.label}
-            onChange={(e) =>
-              onChangeSubcategoriesFilter(subcategory, e.target.checked)
-            }
-          />
-          <Title htmlFor={subcategory.label}>{subcategory.label}</Title>
-        </Subcategory>
-      ))}
+      <SubcategoriesPanel
+        subcategories={subcategories}
+        onChange={onChangeSubcategoriesFilter}
+      />
     </Accordion>
   );
 };

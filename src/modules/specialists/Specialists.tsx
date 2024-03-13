@@ -8,7 +8,7 @@ import { BlockOverlay, Container, Footer, Wrapper } from 'src/shared';
 
 export const SpecialistsElement = (): ReactElement => {
   const t = useTranslations();
-  const { currentAuthUser } = useAuthContext();
+  const { currentAuthUser, isLoading } = useAuthContext();
 
   return (
     <>
@@ -17,7 +17,9 @@ export const SpecialistsElement = (): ReactElement => {
         <Container>
           <SpecialistsPanel />
         </Container>
-        {!currentAuthUser && <BlockOverlay title={t('block_overlay.title')} />}
+        {!currentAuthUser && !isLoading && (
+          <BlockOverlay title={t('block_overlay.title')} />
+        )}
       </Wrapper>
       <Footer />
     </>

@@ -1,23 +1,20 @@
 import { ReactElement, useEffect, useState } from 'react';
-import {
-  collection,
-  limit,
-  onSnapshot,
-  query,
-  where,
-} from 'firebase/firestore';
+import { collection, getDocs, limit, query, where } from 'firebase/firestore';
+import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
-import { Filters } from 'src/modules/specialists/filters/FiltersPanel';
+import { Filters } from 'src/modules/specialists/filters_panel/FiltersPanel';
+import { NotFoundSpecialists } from 'src/modules/specialists/NotFoundSpecialists';
 import { SpecialistCard } from 'src/modules/specialists/specialists_panel/SpecialistCard';
 import {
   db,
   DEFAULT_SKELETON_SPECIALISTS_COUNT,
   devices,
-  Option,
+  type Option,
   SkeletonPanel,
-  Specialist,
+  type Specialist,
   SPECIALISTS_PAGINATION_STEP,
+  useToggle,
 } from 'src/shared';
 
 const MainLayout = styled.div`
@@ -59,43 +56,57 @@ const SpecialistsPanelElement = (): ReactElement => {
   const [selectedFilters, setSelectedFilters] = useState<SpecialistFilter[]>(
     [],
   );
-  const [isLoading, setIsLoading] = useState(true);
+  const { visible: isLoading, close, open } = useToggle(true);
   const [showMoreCount, setShowMoreCount] = useState(
     SPECIALISTS_PAGINATION_STEP,
   );
   const [isShowMore, setIsShowMore] = useState(true);
+  const t = useTranslations();
 
   useEffect(() => {
-    setIsLoading(true);
+    open();
 
     const getFilters = () => {
-      // Переделать..
-      return [];
-    };
+      return selectedFilters.map(({ category, subcategories }) => {
+        if (subcategories.length) {
+          return where(
+            'subcategories',
+            'array-contains-any',
+            subcategories.map(({ value }) => value),
+          );
+        }
 
-    const q = query(
-      collection(db, 'users'),
-      where('type', '==', 'specialist'),
-      ...getFilters(),
-      limit(showMoreCount),
-    );
-
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const specialists: Specialist[] = [];
-
-      querySnapshot.forEach((element) => {
-        specialists.push(element.data() as Specialist);
+        return where('categories', 'array-contains', category.value);
       });
-
-      setSpecialists(specialists);
-      setIsLoading(false);
-      setIsShowMore(specialists.length === showMoreCount);
-    });
-
-    return () => {
-      unsubscribe();
     };
-  }, [selectedFilters, showMoreCount]);
+
+    const fetchData = async () => {
+      try {
+        const q = query(
+          collection(db, 'users'),
+          where('type', '==', 'specialist'),
+          ...getFilters(),
+          limit(showMoreCount),
+        );
+
+        const querySnapshot = await getDocs(q);
+        const specialists: Specialist[] = [];
+
+        querySnapshot.forEach((element) => {
+          specialists.push(element.data() as Specialist);
+        });
+
+        setSpecialists(specialists);
+        setIsShowMore(specialists.length === showMoreCount);
+
+        close();
+      } catch (e) {
+        /* empty */
+      }
+    };
+
+    fetchData();
+  }, [close, open, selectedFilters, showMoreCount]);
 
   const showMore = () => {
     setShowMoreCount((prev) => prev + SPECIALISTS_PAGINATION_STEP);
@@ -105,6 +116,7 @@ const SpecialistsPanelElement = (): ReactElement => {
     <MainLayout>
       <Filters setSelectedFilters={setSelectedFilters} />
       <SpecialistsLayout>
+        {!specialists.length && !isLoading && <NotFoundSpecialists />}
         {isLoading ? (
           <SkeletonPanel
             count={DEFAULT_SKELETON_SPECIALISTS_COUNT}
@@ -117,7 +129,7 @@ const SpecialistsPanelElement = (): ReactElement => {
         )}
         {isShowMore && !isLoading && (
           <ShowMoreSpecialists onClick={showMore}>
-            Показать больше специалистов
+            {t('Specialists.show_more')}
           </ShowMoreSpecialists>
         )}
       </SpecialistsLayout>

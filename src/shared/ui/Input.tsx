@@ -6,34 +6,26 @@ import { CloseEyeIcon, EyeIcon, PlusIcon, useToggle } from 'src/shared';
 
 const Input = styled.input<{
   $hasError?: boolean;
-  $hasIcon: boolean;
+  disabled?: boolean;
 }>`
   width: 100%;
   border: 1px solid
     ${({ theme, $hasError }) =>
       $hasError ? theme.input.error : theme.input.border};
-  padding-left: ${({ $hasIcon }) => ($hasIcon ? '38px' : '12px')};
+  padding-left: 12px;
   padding-right: 5px;
   border-radius: 10px;
   font-size: 15px;
-  color: ${({ theme }) => theme.input.value};
+  color: ${({ theme, $hasError }) =>
+    $hasError ? theme.input.error : theme.input.value};
   font-weight: ${({ theme }) => theme.w400};
-  transition: border 0.3s;
   height: 50px;
-
-  &::placeholder {
-    color: ${({ theme }) => theme.input.placeholder};
-    font-weight: ${({ theme }) => theme.w400};
-  }
-
-  &:hover {
-    border-color: ${({ theme, $hasError }) =>
-      $hasError ? theme.input.error : theme.input.active};
-  }
+  background-color: ${({ theme }) => theme.white};
 
   &:focus {
-    border-color: ${({ theme, $hasError }) =>
-      $hasError ? theme.input.error : theme.input.active};
+    border: 2px solid
+      ${({ theme, $hasError }) =>
+        $hasError ? theme.input.error : theme.input.border};
   }
 `;
 
@@ -52,13 +44,6 @@ const EyeIconLayout = styled.div`
 
 const ErrorLayout = styled.div`
   padding-top: 5px;
-`;
-
-const IconLayout = styled.div`
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 26px;
-  left: 22px;
 `;
 
 const StyledLabel = styled.label`
@@ -83,24 +68,56 @@ const PlusIconLayout = styled.div`
   }
 `;
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  Icon?: JSX.Element;
+const Label = styled.label<{ $hasContent: boolean; $hasError?: boolean }>`
+  position: absolute;
+  font-size: ${({ $hasContent }) => ($hasContent ? '13px' : '15px')};
+  top: ${({ $hasContent }) => ($hasContent ? '0px' : '50%')};
+  transform: translateY(-50%);
+  left: 7px;
+  transition:
+    top 0.2s,
+    left 0.2s,
+    font-size 0.2s;
+  color: ${({ theme, $hasError }) =>
+    $hasError ? theme.input.error : theme.input.placeholder};
+  font-weight: ${({ theme }) => theme.w400};
+  background-color: ${({ theme }) => theme.white};
+  padding-left: 5px;
+  padding-right: 5px;
+  cursor: text;
+`;
+
+const InputLayout = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  position: relative;
+
+  &:focus-within > label {
+    top: 0px;
+    left: 7px;
+    font-size: 13px;
+  }
+`;
+
+interface Props
+  extends Omit<InputHTMLAttributes<HTMLInputElement>, 'placeholder'> {
   hasError?: boolean;
   textError?: string;
+  label?: string;
 }
 
 const UiInputElement = (props: Props): ReactElement => {
-  const { Icon, hasError, textError, type, ...rest } = props;
+  const { hasError, textError, type, label, ...rest } = props;
 
   const { visible: passVisible, toggle } = useToggle();
 
   const currentTypePasswordField = passVisible ? 'text' : 'password';
   const hasTypePassword = type === 'password';
-  const hasIcon = !!Icon;
+  const hasContent = !!rest.value;
 
   return (
     <MainLayout>
-      <IconLayout>{Icon}</IconLayout>
       {type === 'file' && (
         <StyledLabel htmlFor="file">
           <PlusIconLayout>
@@ -108,7 +125,6 @@ const UiInputElement = (props: Props): ReactElement => {
           </PlusIconLayout>
           <Input
             $hasError={hasError}
-            $hasIcon={hasIcon}
             type={hasTypePassword ? currentTypePasswordField : type}
             id="file"
             {...rest}
@@ -116,12 +132,20 @@ const UiInputElement = (props: Props): ReactElement => {
         </StyledLabel>
       )}
       {type !== 'file' && (
-        <Input
-          $hasError={hasError}
-          $hasIcon={hasIcon}
-          type={hasTypePassword ? currentTypePasswordField : type}
-          {...rest}
-        />
+        <InputLayout>
+          <Label
+            htmlFor={rest.id}
+            $hasContent={hasContent}
+            $hasError={hasError}
+          >
+            {label}
+          </Label>
+          <Input
+            $hasError={hasError}
+            type={hasTypePassword ? currentTypePasswordField : type}
+            {...rest}
+          />
+        </InputLayout>
       )}
       {hasTypePassword && (
         <EyeIconLayout onClick={toggle}>

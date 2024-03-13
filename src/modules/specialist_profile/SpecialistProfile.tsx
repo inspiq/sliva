@@ -7,7 +7,6 @@ import { useAuthContext } from 'src/context';
 import { Header } from 'src/modules';
 import { SpecialistReviewForm } from 'src/modules/specialist_profile/specialist_reviews/SpecialistReviewForm';
 import { SpecialistReviewsPanel } from 'src/modules/specialist_profile/specialist_reviews/SpecialistReviewsPanel';
-import { SpecialistDetails } from 'src/modules/specialist_profile/SpecialistDetails';
 import {
   BlockOverlay,
   Container,
@@ -17,6 +16,8 @@ import {
   Specialist,
   Wrapper,
 } from 'src/shared';
+
+import { SpecialistCard } from '../specialists/specialists_panel/SpecialistCard';
 
 const ReviewsLayout = styled.div`
   display: flex;
@@ -61,7 +62,7 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
 
   const [specialist, setSpecialist] = useState<Specialist>();
   const [allReviews, setAllReviews] = useState<ReviewDocument>();
-  const { currentAuthUser } = useAuthContext();
+  const { currentAuthUser, isLoading } = useAuthContext();
   const t = useTranslations();
 
   useEffect(() => {
@@ -101,7 +102,7 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
         <Container>
           <ContentLayout>
             <Column>
-              <SpecialistDetails specialist={specialist} />
+              <SpecialistCard specialist={specialist} isProfileDetails />
               <ReviewsLayout>
                 <SpecialistReviewForm
                   specialist={specialist}
@@ -110,7 +111,7 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
                 <SpecialistReviewsPanel reviews={allReviews?.reviews} />
               </ReviewsLayout>
             </Column>
-            {!currentAuthUser && (
+            {!currentAuthUser && !isLoading && (
               <BlockOverlay title={t('block_overlay.title')} />
             )}
           </ContentLayout>

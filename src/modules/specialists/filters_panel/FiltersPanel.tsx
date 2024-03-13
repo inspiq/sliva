@@ -1,8 +1,8 @@
-import { Dispatch, ReactElement, SetStateAction } from 'react';
+import { Dispatch, ReactElement, SetStateAction, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
-import { Filter } from 'src/modules/specialists/filters/FilterCard';
+import { Filter } from 'src/modules/specialists/filters_panel/FilterCard';
 import { SpecialistFilter } from 'src/modules/specialists/specialists_panel/SpecialistsPanel';
 import { getSpecialistFilters } from 'src/shared';
 
@@ -18,6 +18,11 @@ const FiltersPanelElement = (props: {
 }): ReactElement => {
   const t = useTranslations();
   const specialistFilters = getSpecialistFilters(t);
+  const [openAccordionId, setOpenAccordionId] = useState<string | null>(null);
+
+  const onAccordionToggle = (accordionId: string) => {
+    setOpenAccordionId((prev) => (prev === accordionId ? null : accordionId));
+  };
 
   return (
     <MainLayout>
@@ -27,6 +32,8 @@ const FiltersPanelElement = (props: {
           subcategories={subcategories}
           setSelectedFilters={props.setSelectedFilters}
           key={category.value}
+          onToggle={() => onAccordionToggle(category.value)}
+          isOpen={openAccordionId === category.value}
         />
       ))}
     </MainLayout>

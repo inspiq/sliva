@@ -22,10 +22,10 @@
   "LogInForm": {
     "title": "Вход в Sliva",
     "email_input": {
-      "placeholder": "Электронная почта"
+      "label": "Электронная почта"
     },
     "password_input": {
-      "placeholder": "Пароль"
+      "label": "Пароль"
     },
     "button": {
       "text": "Продолжить"
@@ -41,7 +41,7 @@
   "ResetPasswordForm": {
     "title": "Сброс пароля вашей учетной записи",
     "email_input": {
-      "placeholder": "Электронная почта"
+      "label": "Электронная почта"
     },
     "button": {
       "to_send": "Отправить ссылку на почту",
@@ -54,19 +54,25 @@
   "SignUpForm": {
     "title": "Регистрация в Sliva",
     "first_name_input": {
-      "placeholder": "Имя"
+      "label": "Имя"
     },
     "last_name_input": {
-      "placeholder": "Фамилия"
+      "label": "Фамилия"
+    },
+    "address_input": {
+      "label": "Адрес"
+    },
+    "zip_code_input": {
+      "label": "Почтовый индекс"
     },
     "email_input": {
-      "placeholder": "Электронная почта"
+      "label": "Электронная почта"
     },
     "password_input": {
-      "placeholder": "Пароль"
+      "label": "Пароль"
     },
     "repeat_password_input": {
-      "placeholder": "Повторите пароль"
+      "label": "Повторите пароль"
     },
     "select": {
       "options": {
@@ -116,7 +122,8 @@
       "matches": "Пароль должен содержать, как минимум одну заглавную букву",
       "second_matches": "Пароль должен содержать, как минимум одну цифру",
       "one_of": "Пароли должны совпадать"
-    }
+    },
+    "birthday": "Дата рождения не может превышать текущую дату"
   },
   "privacy_policy": {
     "description": "Регистрируясь, вы соглашаетесь с",
@@ -132,7 +139,7 @@
   "categories": {
     "renovation": "Ремонт и строительство",
     "auto_services": "Автосервис",
-    "cooks_services": "Услуги Повара",
+    "cooks_services": "Услуги повара",
     "transportation_services": "Транспортные услуги",
     "beauty_and_health": "Красота и здоровье",
     "fitness_and_sport": "Фитнес и спорт",
@@ -173,7 +180,7 @@
     "tattoo_and_permanent_makeup": "Татуаж и перманентный макияж",
     "solarium_and_tanning": "Солярий и загар",
     "training_and_consultations": "Обучение и консультации",
-    "training_and_fitness": "Тренировки и фитнес",
+    "fitness_and_training": "Тренировки и фитнес",
     "personal_trainer": "Персональный тренер",
     "sports_equipment_rental": "Прокат спортивного инвентаря",
     "extreme_sports": "Экстремальные виды спорта",
@@ -205,17 +212,36 @@
   },
   "my_profile": {
     "title": "Персональная информация",
-    "first_name_input": "Имя",
-    "last_name_input": "Фамилия",
-    "work_input": "Опыт работы",
-    "city_input": "Город",
-    "email_input": "Электронная почта",
+    "first_name_input": {
+      "label": "Имя"
+    },
+    "last_name_input": {
+      "label": "Фамилия"
+    },
+    "work_input": {
+      "label": "Опыт работы"
+    },
+    "email_input": {
+      "label": "Электронная почта"
+    },
+    "telegram_input": {
+      "label": "@Telegram"
+    },
+    "phone_input": {
+      "label": "Номер телефона"
+    },
+    "birthday_input": {
+      "label": "Дата рождения"
+    },
+    "zip_code_input": {
+      "label": "Почтовый адрес"
+    },
+    "address_input": {
+      "label": "Адрес"
+    },
     "categories_select": "Категории деятельностей",
     "subcategories_select": "Подкатегории деятельностей",
-    "areas_select":"Область выезда",
-    "telegram_input": "@ Telegram",
-    "whats_app_input": "WhatsApp",
-    "birthday_input": "Дата рождения",
+    "areas_select": "Область выезда",
     "additional_information_textarea": "Дополнительная информация",
     "button": "Сохранить"
   },
@@ -257,7 +283,9 @@
     },
     "details": {
       "title": "Все отзывы ({reviewsCount})",
-      "title_two": "Все услуги и цены"
+      "title_two": "Все услуги и цены",
+      "address": "Адрес: {address}",
+      "zip_code": "Почтовый индекс: {zipCode}"
     },
     "reviews_form": {
       "title": "Оставьте отзыв о специалисте",
@@ -265,11 +293,11 @@
         "placeholder": "Отзыв"
       },
       "button": "Оставить отзыв"
-    },
-    "information": {
-      "additional_information_textarea": "Дополнительная информация",
-      "additional_information_content": "нет информации"
     }
+  },
+  "Specialists": {
+    "show_more": "Показать больше специалистов",
+    "not_found": "К сожалению не удалось найти специалистов, попробуйте изменить фильтры.."
   },
   "Chat": {
     "chat_room": {

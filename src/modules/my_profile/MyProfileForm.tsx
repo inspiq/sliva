@@ -27,7 +27,7 @@ import {
 const Row = styled.div`
   display: grid;
   grid-template-columns: repeat(4, minmax(100px, 250px));
-  gap: 10px;
+  gap: 12px;
 
   @media ${devices.mobileL} {
     grid-template-columns: repeat(2, minmax(100px, 250px));
@@ -42,14 +42,14 @@ const TextAreaRow = styled.div`
 const StyledUiForm = styled(UiForm)`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 `;
 
 const UiButtonLayout = styled.div`
   margin-top: 10px;
   margin-bottom: 25px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   width: 100%;
 `;
 
@@ -64,11 +64,11 @@ const SelectRow = styled.div`
   }
 `;
 
-const StyledTextArea = styled.textarea`
+const TextArea = styled.textarea`
   height: 150px;
   width: 100%;
   border: 1px solid ${({ theme }) => theme.input.border};
-  padding: 15px 5px 0 15px;
+  padding: 12px 0 0 12px;
   border-radius: 10px;
   font-size: 15px;
   color: ${({ theme }) => theme.input.value};
@@ -112,7 +112,7 @@ const MyProfileFormElement = (props: {
   currentAuthUser: UserWithAdditionalInfo;
 }): ReactElement => {
   const { currentAuthUser } = props;
-  const { additionalInfo, uid, email } = currentAuthUser;
+  const { additionalInfo, uid } = currentAuthUser;
 
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [fileUpload, setFileUpload] = useState<File>();
@@ -141,12 +141,10 @@ const MyProfileFormElement = (props: {
         ? {
             firstName: additionalInfo?.firstName ?? '',
             lastName: additionalInfo?.lastName ?? '',
-            dayOfBirth: additionalInfo?.dayOfBirth ?? '',
-            email: email ?? '',
+            birthday: additionalInfo?.birthday ?? '',
             experience: additionalInfo?.experience ?? '',
-            city: additionalInfo?.city ?? '',
             telegram: additionalInfo?.telegram ?? '',
-            whatsApp: additionalInfo?.whatsApp ?? '',
+            phone: additionalInfo?.whatsApp ?? '',
             categories: formattedCategoriesFromBackendToSelectFormat(
               categories,
               additionalInfo.categories,
@@ -156,14 +154,14 @@ const MyProfileFormElement = (props: {
               additionalInfo.subcategories,
             ),
             extendedInfo: additionalInfo?.extendedInfo ?? '',
+            zipCode: additionalInfo.zipCode,
+            address: additionalInfo.address,
           }
         : {
             firstName: additionalInfo?.firstName ?? '',
             lastName: additionalInfo?.lastName ?? '',
-            dayOfBirth: additionalInfo?.dayOfBirth ?? '',
-            email: email ?? '',
           },
-    [additionalInfo, categories, email, subcategories],
+    [additionalInfo, categories, subcategories],
   );
 
   const uploadFile = async (fileUpload?: File) => {
@@ -199,7 +197,10 @@ const MyProfileFormElement = (props: {
     validationSchema: yup.object().shape({
       firstName: yup.string().required(t('validations.required')),
       lastName: yup.string().required(t('validations.required')),
-      dayOfBirth: yup.string().required(t('validations.required')),
+      birthday: yup
+        .date()
+        .required(t('validations.required'))
+        .max(new Date(), t('validations.birthday')),
       experience: yup.number().required(t('validations.required')),
     }),
     onSubmit: async (userDetails) => {
@@ -230,11 +231,11 @@ const MyProfileFormElement = (props: {
   const styles: StylesConfig = {
     option: (base) => ({
       ...base,
-      paddingLeft: 10,
-      paddingRight: 10,
+      paddingLeft: 12,
+      paddingRight: 12,
+      paddingTop: 12,
+      paddingBottom: 12,
       fontSize: 15,
-      paddingTop: 10,
-      paddingBottom: 10,
     }),
     control: (styles, { isFocused }) => ({
       ...styles,
@@ -245,6 +246,7 @@ const MyProfileFormElement = (props: {
       boxShadow: 'none',
       borderWidth: 1,
       fontSize: 15,
+      paddingLeft: 2,
       transition: '0.3s',
       ':hover': {
         ...styles[':hover'],
@@ -269,36 +271,39 @@ const MyProfileFormElement = (props: {
         <StyledUiForm onSubmit={handleSubmit}>
           <Row>
             <UiInput
-              placeholder={t('my_profile.last_name_input')}
+              label={t('my_profile.last_name_input.label')}
               value={values.lastName}
               name="lastName"
               onChange={handleChange}
               onBlur={handleBlur}
               hasError={!!errors.lastName && !!touched.lastName}
               textError={errors.lastName}
+              id="lastName"
             />
             <UiInput
-              placeholder={t('my_profile.first_name_input')}
+              label={t('my_profile.first_name_input.label')}
               value={values.firstName}
               name="firstName"
               onChange={handleChange}
               onBlur={handleBlur}
               hasError={!!errors.firstName && !!touched.firstName}
               textError={errors.firstName}
+              id="firstName"
             />
             <UiInput
-              placeholder={t('my_profile.birthday_input')}
-              value={values.dayOfBirth}
-              name="dayOfBirth"
+              label={t('my_profile.birthday_input.label')}
+              value={values.birthday}
+              name="birthday"
               type="date"
               onChange={handleChange}
               onBlur={handleBlur}
-              hasError={!!errors.dayOfBirth && !!touched.dayOfBirth}
-              textError={errors.dayOfBirth}
+              hasError={!!errors.birthday && !!touched.birthday}
+              textError={errors.birthday}
+              id="birthday"
             />
             {additionalInfo?.type === UserRole.SPECIALIST && (
               <UiInput
-                placeholder={t('my_profile.work_input')}
+                label={t('my_profile.work_input.label')}
                 value={values.experience}
                 name="experience"
                 onChange={handleChange}
@@ -306,44 +311,48 @@ const MyProfileFormElement = (props: {
                 hasError={!!errors.experience && !!touched.experience}
                 textError={errors.experience}
                 type="number"
+                id="experience"
               />
             )}
             <UiInput
-              placeholder={t('my_profile.city_input')}
-              value={values.city}
-              name="city"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              hasError={!!errors.city && !!touched.city}
-              textError={errors.city}
-            />
-            <UiInput
-              placeholder={t('my_profile.telegram_input')}
+              label={t('my_profile.telegram_input.label')}
               value={values.telegram}
               name="telegram"
               onChange={handleChange}
               onBlur={handleBlur}
               hasError={!!errors.telegram && !!touched.telegram}
               textError={errors.telegram}
+              id="telegram"
             />
             <UiInput
-              placeholder={t('my_profile.whats_app_input')}
-              value={values.whatsApp}
-              name="whatsApp"
+              label={t('my_profile.phone_input.label')}
+              value={values.phone}
               onChange={handleChange}
               onBlur={handleBlur}
-              hasError={!!errors.whatsApp && !!touched.whatsApp}
-              textError={errors.whatsApp}
+              hasError={!!errors.phone && !!touched.phone}
+              textError={errors.phone}
+              id="phone"
+              name="phone"
             />
             <UiInput
-              placeholder={t('my_profile.email_input')}
-              value={values.email}
-              name="email"
+              label={t('my_profile.zip_code_input.label')}
+              value={values.zipCode}
               onChange={handleChange}
               onBlur={handleBlur}
-              hasError={!!errors.email && !!touched.email}
-              textError={errors.email}
-              disabled
+              hasError={!!errors.zipCode && !!touched.zipCode}
+              textError={errors.zipCode}
+              id="zipCode"
+              name="zipCode"
+            />
+            <UiInput
+              label={t('my_profile.address_input.label')}
+              value={values.address}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              hasError={!!errors.address && !!touched.address}
+              textError={errors.address}
+              id="address"
+              name="address"
             />
           </Row>
           {additionalInfo?.type === UserRole.SPECIALIST && (
@@ -387,12 +396,13 @@ const MyProfileFormElement = (props: {
                     primary,
                   },
                 })}
+                isDisabled={!values.categories?.length}
               />
             </SelectRow>
           )}
           {additionalInfo?.type === UserRole.SPECIALIST && (
             <TextAreaRow>
-              <StyledTextArea
+              <TextArea
                 value={values.extendedInfo}
                 onChange={handleChange}
                 placeholder={t('my_profile.additional_information_textarea')}

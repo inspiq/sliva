@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { UiForm } from 'src/shared';
 
 const MainLayout = styled.div`
-  max-width: 450px;
+  max-width: 460px;
   width: 100%;
   box-shadow: 0px 5px 30px ${({ theme }) => theme.shadow};
   display: flex;

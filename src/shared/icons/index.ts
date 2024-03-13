@@ -1,6 +1,5 @@
 export * from 'src/shared/icons/EyeIcon';
 export * from 'src/shared/icons/EmailIcon';
-export * from 'src/shared/icons/PasswordIcon';
 export * from 'src/shared/icons/CloseEyeIcon';
 export * from 'src/shared/icons/ArrowIcon';
 export * from 'src/shared/icons/PlusIcon';
@@ -16,3 +15,4 @@ export * from 'src/shared/icons/ExitIcon';
 export * from 'src/shared/icons/EditIcon';
 export * from 'src/shared/icons/PaperClipIcon';
 export * from 'src/shared/icons/LockIcon';
+export * from 'src/shared/icons/NotFoundSpecialistsIcon';

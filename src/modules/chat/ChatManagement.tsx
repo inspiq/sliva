@@ -65,7 +65,7 @@ export const ChatContentLayout = styled.div`
 `;
 
 const ChatManagementElement = (props: Props): ReactElement => {
-  const { currentAuthUser } = props;
+  const { currentAuthUser, isLoading } = props;
 
   const t = useTranslations();
   const [activeRoom, setActiveRoom] = useState(t('Chat.chat_room.global_chat'));
@@ -98,7 +98,9 @@ const ChatManagementElement = (props: Props): ReactElement => {
           <MessagesPanel currentAuthUser={currentAuthUser} />
           <SendMessagePanel onSendMessage={onSendMessage} />
         </ChatLayout>
-        {!currentAuthUser && <BlockOverlay title={t('block_overlay.title')} />}
+        {!currentAuthUser && !isLoading && (
+          <BlockOverlay title={t('block_overlay.title')} />
+        )}
       </ChatContentLayout>
     </MainLayout>
   );

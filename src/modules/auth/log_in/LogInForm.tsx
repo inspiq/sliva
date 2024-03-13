@@ -10,15 +10,7 @@ import { FormLayout } from 'src/modules/auth/FormLayout';
 import { StyledLink } from 'src/modules/auth/Link';
 import { TextTip, TextTipLayout } from 'src/modules/auth/Tip';
 import { useRouter } from 'src/navigation';
-import {
-  auth,
-  EmailIcon,
-  Line,
-  Loader,
-  PasswordIcon,
-  UiButton,
-  UiInput,
-} from 'src/shared';
+import { auth, Line, Loader, UiButton, UiInput } from 'src/shared';
 
 const LogInFormElement = (): ReactElement => {
   const [isRequestError, setIsRequestError] = useState(false);
@@ -67,22 +59,22 @@ const LogInFormElement = (): ReactElement => {
         name="email"
         onChange={handleChange}
         value={values.email}
-        placeholder={t('LogInForm.email_input.placeholder')}
-        Icon={<EmailIcon />}
+        label={t('LogInForm.email_input.label')}
         onBlur={handleBlur}
         hasError={!!errors.email && !!touched.email}
         textError={errors.email}
+        id="email"
       />
       <UiInput
         type="password"
         name="password"
         onChange={handleChange}
         value={values.password}
-        placeholder={t('LogInForm.password_input.placeholder')}
-        Icon={<PasswordIcon />}
+        label={t('LogInForm.password_input.label')}
         onBlur={handleBlur}
         hasError={!!errors.password && !!touched.password}
         textError={errors.password}
+        id="password"
       />
       {isRequestError && (
         <Error>{t('LogInForm.error.invalid_email_or_password')}</Error>
