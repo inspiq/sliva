@@ -16,6 +16,18 @@ const MainLayout = styled.div`
   padding-right: 20px;
   background-color: ${({ theme }) => theme.white};
   border-top-right-radius: 10px;
+  &::-webkit-scrollbar {
+    width: 8px; /* Ширина скролл-бара */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #ece9e9; /* Цвет фона трека */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #fa6104; /* Цвет скролл-бара */
+    border-radius: 5px; /* Радиус скролл-бара */
+  }
 `;
 
 export interface Message {

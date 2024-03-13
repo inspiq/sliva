@@ -1,8 +1,10 @@
-import { InputHTMLAttributes, ReactElement } from 'react';
+import { Children, InputHTMLAttributes, ReactElement, ReactNode } from 'react';
 import styled from 'styled-components';
 
 import { Error } from 'src/modules/auth/Error';
 import { CloseEyeIcon, EyeIcon, PlusIcon, useToggle } from 'src/shared';
+
+import { CheckMarkIcon } from '../icons/CheckMarkIcon';
 
 const Input = styled.input<{
   $hasError?: boolean;
@@ -98,15 +100,44 @@ const InputLayout = styled.div`
   }
 `;
 
+const CheckboxInput = styled.input`
+  opacity: 0;
+  position: absolute;
+  appearance: none;
+  align-self: start;
+  background-color: ${({ checked, theme }) =>
+    checked ? theme.primary : 'transparent'};
+
+  &:checked + div {
+    background-color: ${({ theme }) => theme.secondary};
+  }
+`;
+
+const Subcategory = styled.label`
+  display: flex;
+  gap: 3px;
+`;
+
+const CheckBoxLayout = styled.div`
+  align-self: start;
+  position: relative;
+  height: 15px;
+  width: 15px;
+  border: 2px solid ${({ theme }) => theme.secondary};
+  border-radius: 4px;
+`;
+
 interface Props
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'placeholder'> {
   hasError?: boolean;
   textError?: string;
   label?: string;
+  children?: ReactNode;
+  Icon?: React.JSX.Element;
 }
 
 const UiInputElement = (props: Props): ReactElement => {
-  const { hasError, textError, type, label, ...rest } = props;
+  const { hasError, textError, type, children, Icon, label, ...rest } = props;
 
   const { visible: passVisible, toggle } = useToggle();
 
@@ -144,6 +175,17 @@ const UiInputElement = (props: Props): ReactElement => {
             {...rest}
           />
         </InputLayout>
+      )}
+      {type == 'checkbox' && (
+        <Subcategory htmlFor={rest.id}>
+          <CheckboxInput
+            type={hasTypePassword ? currentTypePasswordField : type}
+            id={label}
+            {...rest}
+          />
+          <CheckBoxLayout>{Icon}</CheckBoxLayout>
+          {children}
+        </Subcategory>
       )}
       {hasTypePassword && (
         <EyeIconLayout onClick={toggle}>
