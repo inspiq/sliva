@@ -1,10 +1,8 @@
-import { Children, InputHTMLAttributes, ReactElement, ReactNode } from 'react';
+import { ChangeEvent, InputHTMLAttributes, ReactElement } from 'react';
 import styled from 'styled-components';
 
 import { Error } from 'src/modules/auth/Error';
 import { CloseEyeIcon, EyeIcon, PlusIcon, useToggle } from 'src/shared';
-
-import { CheckMarkIcon } from '../icons/CheckMarkIcon';
 
 const Input = styled.input<{
   $hasError?: boolean;
@@ -102,7 +100,7 @@ const InputLayout = styled.div`
   }
 `;
 
-const CheckboxInput = styled.input`
+const Checkbox = styled.input`
   opacity: 0;
   position: absolute;
   appearance: none;
@@ -115,7 +113,7 @@ const CheckboxInput = styled.input`
   }
 `;
 
-const Subcategory = styled.label`
+const CheckboxLayout = styled.label`
   display: flex;
   gap: 3px;
 `;
@@ -134,18 +132,22 @@ interface Props
   hasError?: boolean;
   textError?: string;
   label?: string;
-  children?: ReactNode;
-  Icon?: React.JSX.Element;
+  Icon?: ReactElement;
 }
 
 const UiInputElement = (props: Props): ReactElement => {
-  const { hasError, textError, type, children, Icon, label, ...rest } = props;
+  const { hasError, textError, type, Icon, label, onChange, ...rest } = props;
 
   const { visible: passVisible, toggle } = useToggle();
-
+  const { visible: isChecked, toggle: toggleChecked } = useToggle();
   const currentTypePasswordField = passVisible ? 'text' : 'password';
   const hasTypePassword = type === 'password';
   const hasContent = !!rest.value;
+
+  const onChangeCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
+    onChange?.(e);
+    toggleChecked();
+  };
 
   return (
     <MainLayout>
@@ -162,7 +164,7 @@ const UiInputElement = (props: Props): ReactElement => {
           />
         </StyledLabel>
       )}
-      {type !== 'file' && (
+      {type !== 'file' && type !== 'checkbox' && (
         <InputLayout>
           <Label
             htmlFor={rest.id}
@@ -179,15 +181,16 @@ const UiInputElement = (props: Props): ReactElement => {
         </InputLayout>
       )}
       {type == 'checkbox' && (
-        <Subcategory htmlFor={rest.id}>
-          <CheckboxInput
-            type={hasTypePassword ? currentTypePasswordField : type}
+        <CheckboxLayout htmlFor={rest.id}>
+          <Checkbox
+            type={type}
+            checked={isChecked}
+            onChange={(e) => onChangeCheckbox(e)}
             id={label}
             {...rest}
           />
           <CheckBoxLayout>{Icon}</CheckBoxLayout>
-          {children}
-        </Subcategory>
+        </CheckboxLayout>
       )}
       {hasTypePassword && (
         <EyeIconLayout onClick={toggle}>

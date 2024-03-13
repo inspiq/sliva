@@ -1,34 +1,17 @@
-import { ChangeEvent, memo, ReactElement } from 'react';
+import { memo, ReactElement } from 'react';
 import styled from 'styled-components';
 
-import { type Option, UiInput, useToggle } from 'src/shared';
-import { CheckMarkIcon } from 'src/shared/icons/CheckMarkIcon';
+import { type Option, UiInput } from 'src/shared';
 
-const CheckboxInput = styled.input`
-  opacity: 0;
-  position: absolute;
-  appearance: none;
-  align-self: start;
-  background-color: ${({ checked, theme }) =>
-    checked ? theme.primary : 'transparent'};
-
-  &:checked + div {
-    background-color: ${({ theme }) => theme.secondary};
-  }
-`;
-
-const Subcategory = styled.label`
+const Subcategory = styled.div`
   display: flex;
+  align-items: flex-start;
   gap: 3px;
 `;
 
-const CheckBoxLayout = styled.div`
-  align-self: start;
-  position: relative;
-  height: 15px;
-  width: 15px;
-  border: 2px solid ${({ theme }) => theme.secondary};
-  border-radius: 4px;
+const Title = styled.label`
+  font-size: 15px;
+  color: ${({ theme }) => theme.secondary};
 `;
 
 interface Props {
@@ -38,25 +21,16 @@ interface Props {
 
 const SubcategoryCardElement = (props: Props): ReactElement => {
   const { onChange, subcategory } = props;
-  const { visible, toggle } = useToggle();
-
-  const onCheck = (e: ChangeEvent<HTMLInputElement>) => {
-    const { target } = e;
-    onChange(subcategory, target.checked);
-    toggle();
-  };
 
   return (
-    <div key={subcategory.value}>
+    <Subcategory key={subcategory.value}>
       <UiInput
         type="checkbox"
-        checked={visible}
-        onChange={onCheck}
-        Icon={<CheckMarkIcon visible={visible} />}
-      >
-        {subcategory.label}
-      </UiInput>
-    </div>
+        id={subcategory.label}
+        onChange={(e) => onChange(subcategory, e.target.checked)}
+      />
+      <Title htmlFor={subcategory.label}>{subcategory.label}</Title>
+    </Subcategory>
   );
 };
 
