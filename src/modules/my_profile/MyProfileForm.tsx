@@ -64,11 +64,11 @@ const SelectRow = styled.div`
   }
 `;
 
-const StyledTextArea = styled.textarea`
+const TextArea = styled.textarea`
   height: 150px;
   width: 100%;
   border: 1px solid ${({ theme }) => theme.input.border};
-  padding: 15px 5px 0 15px;
+  padding: 12px 0 0 12px;
   border-radius: 10px;
   font-size: 15px;
   color: ${({ theme }) => theme.input.value};
@@ -112,7 +112,7 @@ const MyProfileFormElement = (props: {
   currentAuthUser: UserWithAdditionalInfo;
 }): ReactElement => {
   const { currentAuthUser } = props;
-  const { additionalInfo, uid, email } = currentAuthUser;
+  const { additionalInfo, uid } = currentAuthUser;
 
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [fileUpload, setFileUpload] = useState<File>();
@@ -141,11 +141,10 @@ const MyProfileFormElement = (props: {
         ? {
             firstName: additionalInfo?.firstName ?? '',
             lastName: additionalInfo?.lastName ?? '',
-            dayOfBirth: additionalInfo?.dayOfBirth ?? '',
-            email: email ?? '',
+            birthday: additionalInfo?.birthday ?? '',
             experience: additionalInfo?.experience ?? '',
             telegram: additionalInfo?.telegram ?? '',
-            whatsApp: additionalInfo?.whatsApp ?? '',
+            phone: additionalInfo?.whatsApp ?? '',
             categories: formattedCategoriesFromBackendToSelectFormat(
               categories,
               additionalInfo.categories,
@@ -155,14 +154,14 @@ const MyProfileFormElement = (props: {
               additionalInfo.subcategories,
             ),
             extendedInfo: additionalInfo?.extendedInfo ?? '',
+            zipCode: additionalInfo.zipCode,
+            address: additionalInfo.address,
           }
         : {
             firstName: additionalInfo?.firstName ?? '',
             lastName: additionalInfo?.lastName ?? '',
-            dayOfBirth: additionalInfo?.dayOfBirth ?? '',
-            email: email ?? '',
           },
-    [additionalInfo, categories, email, subcategories],
+    [additionalInfo, categories, subcategories],
   );
 
   const uploadFile = async (fileUpload?: File) => {
@@ -198,7 +197,10 @@ const MyProfileFormElement = (props: {
     validationSchema: yup.object().shape({
       firstName: yup.string().required(t('validations.required')),
       lastName: yup.string().required(t('validations.required')),
-      dayOfBirth: yup.string().required(t('validations.required')),
+      birthday: yup
+        .date()
+        .required(t('validations.required'))
+        .max(new Date(), t('validations.birthday')),
       experience: yup.number().required(t('validations.required')),
     }),
     onSubmit: async (userDetails) => {
@@ -229,11 +231,11 @@ const MyProfileFormElement = (props: {
   const styles: StylesConfig = {
     option: (base) => ({
       ...base,
-      paddingLeft: 10,
-      paddingRight: 10,
+      paddingLeft: 12,
+      paddingRight: 12,
+      paddingTop: 12,
+      paddingBottom: 12,
       fontSize: 15,
-      paddingTop: 10,
-      paddingBottom: 10,
     }),
     control: (styles, { isFocused }) => ({
       ...styles,
@@ -244,6 +246,7 @@ const MyProfileFormElement = (props: {
       boxShadow: 'none',
       borderWidth: 1,
       fontSize: 15,
+      paddingLeft: 2,
       transition: '0.3s',
       ':hover': {
         ...styles[':hover'],
@@ -289,14 +292,14 @@ const MyProfileFormElement = (props: {
             />
             <UiInput
               label={t('my_profile.birthday_input.label')}
-              value={values.dayOfBirth}
-              name="dayOfBirth"
+              value={values.birthday}
+              name="birthday"
               type="date"
               onChange={handleChange}
               onBlur={handleBlur}
-              hasError={!!errors.dayOfBirth && !!touched.dayOfBirth}
-              textError={errors.dayOfBirth}
-              id="dayOfBirth"
+              hasError={!!errors.birthday && !!touched.birthday}
+              textError={errors.birthday}
+              id="birthday"
             />
             {additionalInfo?.type === UserRole.SPECIALIST && (
               <UiInput
@@ -322,25 +325,34 @@ const MyProfileFormElement = (props: {
               id="telegram"
             />
             <UiInput
-              label={t('my_profile.whats_app_input.label')}
-              value={values.whatsApp}
-              name="whatsApp"
+              label={t('my_profile.phone_input.label')}
+              value={values.phone}
               onChange={handleChange}
               onBlur={handleBlur}
-              hasError={!!errors.whatsApp && !!touched.whatsApp}
-              textError={errors.whatsApp}
-              id="whatsApp"
+              hasError={!!errors.phone && !!touched.phone}
+              textError={errors.phone}
+              id="phone"
+              name="phone"
             />
             <UiInput
-              label={t('my_profile.email_input.label')}
-              value={values.email}
-              name="email"
+              label={t('my_profile.zip_code_input.label')}
+              value={values.zipCode}
               onChange={handleChange}
               onBlur={handleBlur}
-              hasError={!!errors.email && !!touched.email}
-              textError={errors.email}
-              disabled
-              id="email"
+              hasError={!!errors.zipCode && !!touched.zipCode}
+              textError={errors.zipCode}
+              id="zipCode"
+              name="zipCode"
+            />
+            <UiInput
+              label={t('my_profile.address_input.label')}
+              value={values.address}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              hasError={!!errors.address && !!touched.address}
+              textError={errors.address}
+              id="address"
+              name="address"
             />
           </Row>
           {additionalInfo?.type === UserRole.SPECIALIST && (
@@ -384,12 +396,13 @@ const MyProfileFormElement = (props: {
                     primary,
                   },
                 })}
+                isDisabled={!values.categories?.length}
               />
             </SelectRow>
           )}
           {additionalInfo?.type === UserRole.SPECIALIST && (
             <TextAreaRow>
-              <StyledTextArea
+              <TextArea
                 value={values.extendedInfo}
                 onChange={handleChange}
                 placeholder={t('my_profile.additional_information_textarea')}

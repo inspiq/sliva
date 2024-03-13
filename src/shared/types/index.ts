@@ -9,7 +9,6 @@ export interface Client {
   avatarUrl: string;
   type: UserRole;
   email: string;
-  dayOfBirth: string;
   firstName: string;
   lastName: string;
 }
@@ -19,7 +18,7 @@ interface ReviewDetails {
 }
 
 export interface Specialist extends Client {
-  dayOfBirth: string;
+  birthday: string;
   experience: string;
   reviewDetails: ReviewDetails;
   categories: string[];

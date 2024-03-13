@@ -6,6 +6,7 @@ import { CloseEyeIcon, EyeIcon, PlusIcon, useToggle } from 'src/shared';
 
 const Input = styled.input<{
   $hasError?: boolean;
+  disabled?: boolean;
 }>`
   width: 100%;
   border: 1px solid
@@ -19,6 +20,7 @@ const Input = styled.input<{
     $hasError ? theme.input.error : theme.input.value};
   font-weight: ${({ theme }) => theme.w400};
   height: 50px;
+  background-color: ${({ theme }) => theme.white};
 
   &:focus {
     border: 2px solid
