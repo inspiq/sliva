@@ -144,14 +144,14 @@ const MyProfileFormElement = (props: {
             birthday: additionalInfo?.birthday ?? '',
             experience: additionalInfo?.experience ?? '',
             telegram: additionalInfo?.telegram ?? '',
-            phone: additionalInfo?.whatsApp ?? '',
+            phone: additionalInfo?.phone ?? '',
             categories: formattedCategoriesFromBackendToSelectFormat(
               categories,
-              additionalInfo.categories,
+              additionalInfo?.categories,
             ),
             subcategories: formattedCategoriesFromBackendToSelectFormat(
               subcategories,
-              additionalInfo.subcategories,
+              additionalInfo?.subcategories,
             ),
             extendedInfo: additionalInfo?.extendedInfo ?? '',
             zipCode: additionalInfo.zipCode,
