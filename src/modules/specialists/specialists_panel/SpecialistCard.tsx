@@ -22,11 +22,11 @@ const MainLayout = styled.div`
 
 const Row = styled.div`
   display: flex;
+  flex-direction: row;
   gap: 15px;
 
   @media ${devices.mobileL} {
-    flex-direction: column;
-    gap: 5px;
+    gap: 10px;
   }
 `;
 
@@ -111,6 +111,7 @@ const SpecialistCardElement = (props: Props): ReactElement => {
     firstName,
     address,
     zipCode,
+    phone,
   } = specialist ?? {};
   const reviewsCount = reviewDetails?.count ?? DEFAULT_REVIEWS_COUNT;
   const currentExperience = experience
@@ -160,6 +161,15 @@ const SpecialistCardElement = (props: Props): ReactElement => {
               t('SpecialistCard.details.zip_code', { zipCode })
             )}
           </RowDetail>
+          {isLoading ? (
+            <Skeleton />
+          ) : (
+            isProfileDetails && (
+              <RowDetail>
+                {t('SpecialistCard.details.phone', { phone })}
+              </RowDetail>
+            )
+          )}
           <Row>
             {isLoading ? (
               <Skeleton width={200} />
@@ -177,22 +187,9 @@ const SpecialistCardElement = (props: Props): ReactElement => {
             )}
           </Row>
           {!isProfileDetails && (
-            <>
-              <Service>
-                {isLoading ? (
-                  <Skeleton />
-                ) : (
-                  t('SpecialistCard.details.title', { reviewsCount })
-                )}
-              </Service>
-              <Service>
-                {isLoading ? (
-                  <Skeleton />
-                ) : (
-                  t('SpecialistCard.details.title_two')
-                )}
-              </Service>
-            </>
+            <Service>
+              {isLoading ? <Skeleton /> : t('SpecialistCard.details.services')}
+            </Service>
           )}
         </SpecialistDetails>
       </StyledLink>

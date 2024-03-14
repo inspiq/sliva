@@ -269,10 +269,10 @@
       "info": "{reviewsCount, plural, one {# review} few {# reviews} many {# reviews} other {# reviews}}"
     },
     "details": {
-      "title": "All reviews ({reviewsCount})",
-      "title_two": "All services and prices",
+      "services": "All services and prices",
       "address": "Address: {address}",
-      "zip_code": "Zip code: {zipCode}"
+      "zip_code": "Zip code: {zipCode}",
+      "phone": "Phone number: {phone}"
     },
     "reviews_form": {
       "title": "Leave a review about the specialist",

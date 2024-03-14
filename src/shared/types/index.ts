@@ -18,16 +18,16 @@ interface ReviewDetails {
 }
 
 export interface Specialist extends Client {
-  birthday: string;
-  experience: string;
-  reviewDetails: ReviewDetails;
-  categories: string[];
-  subcategories: string[];
-  telegram: string;
-  whatsApp: string;
-  extendedInfo: string;
+  birthday?: string;
+  experience?: string;
+  reviewDetails?: ReviewDetails;
+  categories?: string[];
+  subcategories?: string[];
+  telegram?: string;
+  extendedInfo?: string;
   zipCode: string;
   address: string;
+  phone?: string;
 }
 
 export type UserType = Client | Specialist;

@@ -7,3 +7,4 @@ export * from 'src/modules/chat';
 export * from 'src/modules/auth';
 export * from 'src/modules/header';
 export * from 'src/modules/specialist_profile';
+export * from 'src/modules/support';

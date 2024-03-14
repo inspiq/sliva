@@ -15,6 +15,7 @@ import { TextTip, TextTipLayout, Tip } from 'src/modules/auth/Tip';
 import { useRouter } from 'src/navigation';
 import {
   auth,
+  CheckMarkIcon,
   db,
   getUserTypeOptions,
   Line,
@@ -35,6 +36,15 @@ const Row = styled.div`
 
 const SelectLayout = styled.div`
   width: 100%;
+`;
+
+const PrivacyPolicyLayout = styled.div`
+  display: flex;
+  flex-direction: row;
+  color: ${({ theme }) => theme.grey};
+  font-size: 13px;
+  font-weight: ${({ theme }) => theme.w400};
+  gap: 6px;
 `;
 
 const SignUpFormElement = (): ReactElement => {
@@ -273,11 +283,12 @@ const SignUpFormElement = (): ReactElement => {
         <Error>{t('SignUpForm.error.user_already_exist')}</Error>
       )}
       <Tip>{t('SignUpForm.tip.input')}</Tip>
-      <Tip>
-        <input
-          type="checkbox"
-          id="privacyPolicy"
+      <PrivacyPolicyLayout>
+        <UiInput
           onChange={(e) => setIsAgree(e.target.checked)}
+          type="checkbox"
+          Icon={<CheckMarkIcon />}
+          id="privacyPolicy"
         />
         <label htmlFor="privacyPolicy">
           {t('privacy_policy.description')}{' '}
@@ -285,7 +296,7 @@ const SignUpFormElement = (): ReactElement => {
             {t('privacy_policy.link')}
           </DownloadLink>
         </label>
-      </Tip>
+      </PrivacyPolicyLayout>
       <UiButtonLayout>
         <UiButton
           type="submit"

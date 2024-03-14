@@ -160,7 +160,7 @@ const FooterElement = (): ReactElement => {
           </ItemLayout>
           <ItemLayout>
             <ButtonsLayout>
-              <Link href="/">
+              <Link href="/support">
                 <UiButton>{t('buttons.title')}</UiButton>
               </Link>
               <Link href="/chat">

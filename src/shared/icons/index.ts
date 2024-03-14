@@ -16,3 +16,4 @@ export * from 'src/shared/icons/EditIcon';
 export * from 'src/shared/icons/PaperClipIcon';
 export * from 'src/shared/icons/LockIcon';
 export * from 'src/shared/icons/NotFoundSpecialistsIcon';
+export * from 'src/shared/icons/CheckMarkIcon';

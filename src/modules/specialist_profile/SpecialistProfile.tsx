@@ -1,4 +1,5 @@
 import { ReactElement, useEffect, useState } from 'react';
+import Skeleton from 'react-loading-skeleton';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
@@ -12,8 +13,8 @@ import {
   Container,
   db,
   Footer,
-  Loader,
   Specialist,
+  useToggle,
   Wrapper,
 } from 'src/shared';
 
@@ -64,6 +65,10 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
   const [allReviews, setAllReviews] = useState<ReviewDocument>();
   const { currentAuthUser, isLoading } = useAuthContext();
   const t = useTranslations();
+  const { visible: isLoadingSpecialist, close: stopLoadingSpecialist } =
+    useToggle(true);
+  const { visible: isLoadingReviews, close: stopLoadingReviews } =
+    useToggle(true);
 
   useEffect(() => {
     const docRef = doc(db, 'reviews', specialistId);
@@ -71,12 +76,14 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
       if (docSnapshot.exists()) {
         setAllReviews(docSnapshot.data() as ReviewDocument);
       }
+
+      stopLoadingReviews();
     });
 
     return () => {
       unsubscribe();
     };
-  }, [specialistId]);
+  }, [specialistId, stopLoadingReviews]);
 
   useEffect(() => {
     const docRef = doc(db, 'users', specialistId);
@@ -84,16 +91,13 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
       if (docSnapshot.exists()) {
         setSpecialist(docSnapshot.data() as Specialist);
       }
+      stopLoadingSpecialist();
     });
 
     return () => {
       unsubscribe();
     };
-  }, [specialistId]);
-
-  if (!specialist) {
-    return <Loader />;
-  }
+  }, [stopLoadingSpecialist, specialistId]);
 
   return (
     <>
@@ -102,13 +106,25 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
         <Container>
           <ContentLayout>
             <Column>
-              <SpecialistCard specialist={specialist} isProfileDetails />
+              <SpecialistCard
+                specialist={specialist}
+                isLoading={isLoadingSpecialist}
+                isProfileDetails
+              />
               <ReviewsLayout>
-                <SpecialistReviewForm
-                  specialist={specialist}
+                {isLoadingReviews ? (
+                  <Skeleton height={259} borderRadius={15} />
+                ) : (
+                  <SpecialistReviewForm
+                    specialist={specialist}
+                    reviews={allReviews?.reviews}
+                    isLoading={isLoadingReviews}
+                  />
+                )}
+                <SpecialistReviewsPanel
                   reviews={allReviews?.reviews}
+                  isLoading={isLoadingReviews}
                 />
-                <SpecialistReviewsPanel reviews={allReviews?.reviews} />
               </ReviewsLayout>
             </Column>
             {!currentAuthUser && !isLoading && (

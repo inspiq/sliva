@@ -1,8 +1,15 @@
 import { memo, ReactElement } from 'react';
+import Skeleton from 'react-loading-skeleton';
 import styled from 'styled-components';
 
 import { Review } from 'src/modules/specialist_profile/SpecialistProfile';
-import { Avatar, getDayAndYear, getInitials, Line } from 'src/shared';
+import {
+  Avatar,
+  DEFAULT_AVG_RATING,
+  getDayAndYear,
+  getInitials,
+  Line,
+} from 'src/shared';
 import { RateChip } from 'src/shared/components/chips/RateChip';
 
 const MainLayout = styled.div`
@@ -61,38 +68,52 @@ const Column = styled.div`
   flex-direction: column;
 `;
 
-const SpecialistReviewCardElement = (props: {
-  review: Review;
-}): ReactElement => {
-  const { review } = props;
-  const { userInfo, text, rating, date } = review;
+interface Props {
+  review?: Review;
+  isLoading?: boolean;
+}
+
+const SpecialistReviewCardElement = (props: Props): ReactElement => {
+  const { review, isLoading } = props;
+  const { userInfo, text, rating, date } = review ?? {};
 
   return (
-    <>
+    <div>
       <Line />
       <MainLayout>
         <ReviewHeader>
           <UserDetailsLayout>
-            <Avatar width={35} height={35} avatarUrl={userInfo.avatarUrl} />
+            {isLoading ? (
+              <Skeleton />
+            ) : (
+              <Avatar
+                width={35}
+                height={35}
+                avatarUrl={userInfo?.avatarUrl ?? ''}
+              />
+            )}
             <Column>
               <UserInitials>
                 {getInitials({
-                  firstName: userInfo?.firstName,
-                  lastName: userInfo?.lastName,
+                  firstName: userInfo?.firstName ?? '',
+                  lastName: userInfo?.lastName ?? '',
                 })}
               </UserInitials>
               <Date>{getDayAndYear(date)}</Date>
             </Column>
           </UserDetailsLayout>
           <RateReviewLayout>
-            <RateChip isDisabled selectedRating={rating} />
+            <RateChip
+              isDisabled
+              selectedRating={rating ?? DEFAULT_AVG_RATING}
+            />
           </RateReviewLayout>
         </ReviewHeader>
         <CommentDetailsLayout>
           <TextComment>{text}</TextComment>
         </CommentDetailsLayout>
       </MainLayout>
-    </>
+    </div>
   );
 };
 
