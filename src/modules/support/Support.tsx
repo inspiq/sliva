@@ -2,7 +2,9 @@ import { ReactElement } from 'react';
 import styled from 'styled-components';
 
 import { Header } from 'src/modules';
-import { Accordion, Container, Footer, useToggle, Wrapper } from 'src/shared';
+import { QuestionsPanel } from 'src/modules/support/questions_panel/QuestionsPanel';
+import { Link } from 'src/navigation';
+import { Container, Footer, Wrapper } from 'src/shared';
 
 const SupportLayout = styled.div`
   width: 100%;
@@ -20,13 +22,14 @@ const SupportContentLayout = styled.div`
 const Title = styled.h3`
   font-size: 24px;
   font-weight: ${({ theme }) => theme.w600};
+  color: ${({ theme }) => theme.secondary};
 `;
 
 const NoteLayout = styled.div`
   padding: 20px;
   background-color: rgba(2, 123, 243, 0.08);
   border-radius: 10px;
-  margin-top: 40px;
+  margin-top: 30px;
   margin-bottom: 20px;
 `;
 
@@ -34,16 +37,34 @@ const NoteTitle = styled.div`
   font-size: 15px;
   font-weight: ${({ theme }) => theme.w600};
   margin-bottom: 15px;
+  color: ${({ theme }) => theme.secondary};
 `;
 
 const NoteDescription = styled.div`
   font-size: 15px;
   font-weight: ${({ theme }) => theme.w400};
+  color: ${({ theme }) => theme.secondary};
 `;
 
 const AdditionalDescription = styled.div`
   font-size: 15px;
   font-weight: ${({ theme }) => theme.w400};
+  color: ${({ theme }) => theme.secondary};
+`;
+
+const Tip = styled.div`
+  font-size: 15px;
+  font-weight: ${({ theme }) => theme.w400};
+  color: ${({ theme }) => theme.secondary};
+
+  > span {
+    color: ${({ theme }) => theme.primary};
+    font-weight: ${({ theme }) => theme.w600};
+  }
+
+  > a {
+    font-weight: ${({ theme }) => theme.w600};
+  }
 `;
 
 const QuestionTitle = styled.div`
@@ -53,22 +74,13 @@ const QuestionTitle = styled.div`
 `;
 
 const QuestionsLayout = styled.div`
-  margin-top: 20px;
+  margin-top: 15px;
+  margin-bottom: 30px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
 `;
 
 export const SupportElement = (): ReactElement => {
-  const QUESTIONS = [
-    {
-      question: 'Вопрос о регистрации/входе на сервис',
-      answer: 'Чтобы зарегистрироваться вам необходимо',
-    },
-  ];
-
-  const { visible, toggle } = useToggle();
-
   return (
     <>
       <Header />
@@ -92,17 +104,12 @@ export const SupportElement = (): ReactElement => {
               </AdditionalDescription>
               <QuestionTitle>Какой вопрос вас интересует?</QuestionTitle>
               <QuestionsLayout>
-                {QUESTIONS.map(({ question, answer }) => (
-                  <Accordion
-                    key={question}
-                    isOpen={visible}
-                    onToggle={toggle}
-                    title={question}
-                  >
-                    {answer}
-                  </Accordion>
-                ))}
+                <QuestionsPanel />
               </QuestionsLayout>
+              <Tip>
+                <span>Остались вопросы?</span> Напишите на почту:{' '}
+                <Link href="mailto:test@yandex.ru">test@yandex.ru</Link>
+              </Tip>
             </SupportContentLayout>
           </SupportLayout>
         </Container>
