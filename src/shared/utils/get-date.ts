@@ -1,6 +1,6 @@
 import { getMonthName } from 'src/shared';
 
-export const getDayAndYear = (dateInput: Date) => {
+export const getDayAndYear = (dateInput?: Date) => {
   if (!dateInput) return '';
 
   const convertedToDate = new Date(dateInput);

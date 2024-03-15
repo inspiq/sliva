@@ -282,10 +282,10 @@
       }
     },
     "details": {
-      "title": "Все отзывы ({reviewsCount})",
-      "title_two": "Все услуги и цены",
+      "services": "Все услуги и цены",
       "address": "Адрес: {address}",
-      "zip_code": "Почтовый индекс: {zipCode}"
+      "zip_code": "Почтовый индекс: {zipCode}",
+      "phone": "Номер телефона: {phone}"
     },
     "reviews_form": {
       "title": "Оставьте отзыв о специалисте",

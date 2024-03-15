@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { SpecialistReviewCard } from 'src/modules/specialist_profile/specialist_reviews/SpecialistReviewCard';
 import { Review } from 'src/modules/specialist_profile/SpecialistProfile';
+import { DEFAULT_SKELETON_REVIEWS_COUNT, SkeletonPanel } from 'src/shared';
 
 const MainLayout = styled.div`
   display: flex;
@@ -12,16 +13,24 @@ const MainLayout = styled.div`
 
 interface Props {
   reviews?: Review[];
+  isLoading: boolean;
 }
 
 const SpecialistReviewsPanelElement = (props: Props): ReactElement => {
-  const { reviews } = props;
+  const { reviews, isLoading } = props;
 
   return (
     <MainLayout>
-      {reviews?.map((review) => (
-        <SpecialistReviewCard review={review} key={review.reviewId} />
-      ))}
+      {isLoading ? (
+        <SkeletonPanel
+          count={DEFAULT_SKELETON_REVIEWS_COUNT}
+          SkeletonCard={<SpecialistReviewCard isLoading={isLoading} />}
+        />
+      ) : (
+        reviews?.map((review) => (
+          <SpecialistReviewCard review={review} key={review.reviewId} />
+        ))
+      )}
     </MainLayout>
   );
 };

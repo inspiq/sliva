@@ -268,10 +268,10 @@
       "info": "{reviewsCount, plural, one {# reseña} few {# reseñas} many {# reseñas} other {# reseñas}}"
     },
     "details": {
-      "title": "Todas las reseñas ({reviewsCount})",
-      "title_two": "Todos los servicios y precios",
+      "services": "Todos los servicios y precios",
       "address": "Dirección: {address}",
-      "zip_code": "Codice postale: {zipCode}"
+      "zip_code": "Codice postale: {zipCode}",
+      "phone": "Numero telefonico: {phone}"
     },
     "reviews_form": {
       "title": "Deja una reseña sobre el especialista",

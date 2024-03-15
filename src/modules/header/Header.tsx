@@ -17,7 +17,6 @@ import {
   ExitIcon,
   Logo,
   UiButton,
-  UserRole,
 } from 'src/shared';
 
 const MainLayout = styled.div`
@@ -131,12 +130,10 @@ const HeaderElement = (): ReactElement => {
             mouseEnterDelay={0}
           >
             <PopupMenuLayout>
-              {currentAuthUser.additionalInfo?.type === UserRole.SPECIALIST && (
-                <StyledLink href="/my_profile">
-                  <EditIcon width={18} />
-                  {t('account_management_menu.my_profile')}
-                </StyledLink>
-              )}
+              <StyledLink href="/my_profile">
+                <EditIcon width={18} />
+                {t('account_management_menu.my_profile')}
+              </StyledLink>
               <StyledLink href="/" onClick={onLogout}>
                 <ExitIcon width={18} />
                 {t('account_management_menu.logout')}

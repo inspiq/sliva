@@ -2,7 +2,7 @@ import { Option } from 'src/shared';
 
 export const formattedCategoriesFromBackendToSelectFormat = (
   categories: Option[],
-  categoriesFromBackend: string[],
+  categoriesFromBackend?: string[],
 ) => {
   if (!categoriesFromBackend?.length) return null;
 

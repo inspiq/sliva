@@ -1,12 +1,12 @@
 import { memo, ReactElement } from 'react';
 import styled from 'styled-components';
 
-import { type Option } from 'src/shared';
+import { CheckMarkIcon, type Option, UiInput } from 'src/shared';
 
 const Subcategory = styled.div`
   display: flex;
   align-items: flex-start;
-  gap: 3px;
+  gap: 6px;
 `;
 
 const Title = styled.label`
@@ -24,10 +24,11 @@ const SubcategoryCardElement = (props: Props): ReactElement => {
 
   return (
     <Subcategory key={subcategory.value}>
-      <input
+      <UiInput
         type="checkbox"
         id={subcategory.label}
         onChange={(e) => onChange(subcategory, e.target.checked)}
+        Icon={<CheckMarkIcon />}
       />
       <Title htmlFor={subcategory.label}>{subcategory.label}</Title>
     </Subcategory>

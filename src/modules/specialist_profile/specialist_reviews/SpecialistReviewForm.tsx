@@ -16,7 +16,7 @@ const MainLayout = styled(UiForm)`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  border-radius: 16px;
+  border-radius: 15px;
   padding: 20px;
 `;
 
@@ -63,8 +63,9 @@ const ButtonLayout = styled.div`
 `;
 
 interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  specialist: Specialist;
+  specialist?: Specialist;
   reviews?: Review[];
+  isLoading?: boolean;
 }
 
 const SpecialistReviewFormElement = (props: Props): ReactElement => {
@@ -126,7 +127,7 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
           });
 
           const reviewsCollection = collection(db, 'reviews');
-          const userDocRef = doc(reviewsCollection, specialist.userId);
+          const userDocRef = doc(reviewsCollection, specialist?.userId);
 
           await setDoc(userDocRef, {
             reviews: updatedReviews ?? [],

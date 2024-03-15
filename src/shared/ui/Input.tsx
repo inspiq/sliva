@@ -1,5 +1,5 @@
-import { InputHTMLAttributes, ReactElement } from 'react';
-import styled from 'styled-components';
+import { ChangeEvent, InputHTMLAttributes, ReactElement } from 'react';
+import styled, { css } from 'styled-components';
 
 import { Error } from 'src/modules/auth/Error';
 import { CloseEyeIcon, EyeIcon, PlusIcon, useToggle } from 'src/shared';
@@ -29,9 +29,13 @@ const Input = styled.input<{
   }
 `;
 
-const MainLayout = styled.div`
+const MainLayout = styled.div<{ isCheckbox: boolean }>`
   position: relative;
-  width: 100%;
+  ${({ isCheckbox }) =>
+    !isCheckbox &&
+    css`
+      width: 100%;
+    `};
 `;
 
 const EyeIconLayout = styled.div`
@@ -100,24 +104,57 @@ const InputLayout = styled.div`
   }
 `;
 
+const Checkbox = styled.input<{ checked: boolean }>`
+  display: none;
+
+  &:checked + div {
+    background-color: ${({ theme }) => theme.primary};
+    border: 1px solid ${({ theme }) => theme.primary};
+  }
+`;
+
+const CheckboxLayout = styled.label`
+  display: flex;
+  gap: 3px;
+`;
+
+const ContentLayout = styled.div`
+  position: relative;
+  height: 16px;
+  width: 16px;
+  border: 1px solid ${({ theme }) => theme.secondary};
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 interface Props
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'placeholder'> {
   hasError?: boolean;
   textError?: string;
   label?: string;
+  Icon?: ReactElement;
 }
 
 const UiInputElement = (props: Props): ReactElement => {
-  const { hasError, textError, type, label, ...rest } = props;
+  const { hasError, textError, type, Icon, label, onChange, ...rest } = props;
 
-  const { visible: passVisible, toggle } = useToggle();
+  const { visible: isShowPassword, toggle: onToggleShowPassword } = useToggle();
+  const { visible: isChecked, toggle: toggleChecked } = useToggle();
 
-  const currentTypePasswordField = passVisible ? 'text' : 'password';
+  const currentTypePasswordField = isShowPassword ? 'text' : 'password';
   const hasTypePassword = type === 'password';
+  const hasTypeCheckbox = type === 'checkbox';
   const hasContent = !!rest.value;
 
+  const onChangeCheckbox = (e: ChangeEvent<HTMLInputElement>) => {
+    onChange?.(e);
+    toggleChecked();
+  };
+
   return (
-    <MainLayout>
+    <MainLayout isCheckbox={hasTypeCheckbox}>
       {type === 'file' && (
         <StyledLabel htmlFor="file">
           <PlusIconLayout>
@@ -127,11 +164,12 @@ const UiInputElement = (props: Props): ReactElement => {
             $hasError={hasError}
             type={hasTypePassword ? currentTypePasswordField : type}
             id="file"
+            onChange={onChange}
             {...rest}
           />
         </StyledLabel>
       )}
-      {type !== 'file' && (
+      {type !== 'file' && !hasTypeCheckbox && (
         <InputLayout>
           <Label
             htmlFor={rest.id}
@@ -143,13 +181,26 @@ const UiInputElement = (props: Props): ReactElement => {
           <Input
             $hasError={hasError}
             type={hasTypePassword ? currentTypePasswordField : type}
+            onChange={onChange}
             {...rest}
           />
         </InputLayout>
       )}
+      {hasTypeCheckbox && (
+        <CheckboxLayout htmlFor={rest.id}>
+          <Checkbox
+            type={type}
+            checked={isChecked}
+            id={label}
+            onChange={(e) => onChangeCheckbox(e)}
+            {...rest}
+          />
+          <ContentLayout>{isChecked && Icon}</ContentLayout>
+        </CheckboxLayout>
+      )}
       {hasTypePassword && (
-        <EyeIconLayout onClick={toggle}>
-          {passVisible ? <CloseEyeIcon /> : <EyeIcon />}
+        <EyeIconLayout onClick={onToggleShowPassword}>
+          {isShowPassword ? <CloseEyeIcon /> : <EyeIcon />}
         </EyeIconLayout>
       )}
       {hasError && (
