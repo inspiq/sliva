@@ -1,4 +1,5 @@
 import { ReactElement } from 'react';
+import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
 import { Header } from 'src/modules';
@@ -57,13 +58,18 @@ const Tip = styled.div`
   font-weight: ${({ theme }) => theme.w400};
   color: ${({ theme }) => theme.secondary};
 
-  > span {
+  & > span {
     color: ${({ theme }) => theme.primary};
     font-weight: ${({ theme }) => theme.w600};
   }
 
-  > a {
+  & > a {
     font-weight: ${({ theme }) => theme.w600};
+    transition: color 0.3s;
+  }
+
+  & > a:hover {
+    color: ${({ theme }) => theme.primary};
   }
 `;
 
@@ -81,6 +87,8 @@ const QuestionsLayout = styled.div`
 `;
 
 export const SupportElement = (): ReactElement => {
+  const t = useTranslations('Support');
+
   return (
     <>
       <Header />
@@ -88,26 +96,20 @@ export const SupportElement = (): ReactElement => {
         <Container>
           <SupportLayout>
             <SupportContentLayout>
-              <Title>Служба поддержки</Title>
+              <Title>{t('title')}</Title>
               <NoteLayout>
-                <NoteTitle>Примечание</NoteTitle>
-                <NoteDescription>
-                  Поддержка Sliva работает только с письмами пользователей. Это
-                  эффективно: в письме вы можете передать нам скриншоты — так мы
-                  быстрее разберемся с проблемой и поможем вам.
-                </NoteDescription>
+                <NoteTitle>{t('note.title')}</NoteTitle>
+                <NoteDescription>{t('note.description')}</NoteDescription>
               </NoteLayout>
               <AdditionalDescription>
-                Здесь собрана актуальная информация по частым вопросам, которые
-                возникают у пользователей Sliva. Чтобы найти ответ на свой
-                вопрос, выберите необходимый пункт — под ним будет описание.
+                {t('additional_info')}
               </AdditionalDescription>
-              <QuestionTitle>Какой вопрос вас интересует?</QuestionTitle>
+              <QuestionTitle>{t('question_title')}</QuestionTitle>
               <QuestionsLayout>
                 <QuestionsPanel />
               </QuestionsLayout>
               <Tip>
-                <span>Остались вопросы?</span> Напишите на почту:{' '}
+                <span>{t('tip.title')}</span> {t('tip.second_title')}
                 <Link href="mailto:test@yandex.ru">test@yandex.ru</Link>
               </Tip>
             </SupportContentLayout>

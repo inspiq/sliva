@@ -4,18 +4,9 @@ import {
   PropsWithChildren,
   ReactElement,
 } from 'react';
-import styled, { css, keyframes, useTheme } from 'styled-components';
+import styled, { css, useTheme } from 'styled-components';
 
 import { ArrowIcon } from 'src/shared';
-
-const expandAnimation = keyframes`
-  from {
-    max-height: 0px;
-  }
-  to {
-    max-height: 1000px;
-  }
-`;
 
 const MainLayout = styled.div`
   display: flex;
@@ -27,12 +18,6 @@ const ContentLayout = styled.div<{ isOpen: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  max-height: fit-content;
-  ${({ isOpen }) =>
-    isOpen &&
-    css`
-      animation: ${expandAnimation} 0.3s ease;
-    `}
 `;
 
 const Header = styled.label<{ isOpen: boolean }>`

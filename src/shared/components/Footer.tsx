@@ -9,6 +9,7 @@ import {
   Logo,
   TelegramIcon,
   UiButton,
+  usePrivacyPolicyPath,
   ViberIcon,
   WhatsAppIcon,
 } from 'src/shared';
@@ -123,6 +124,8 @@ const FooterElement = (): ReactElement => {
   const t = useTranslations('Footer');
   const { light_grey } = useTheme();
 
+  const privacyPolicyPath = usePrivacyPolicyPath();
+
   return (
     <MainLayout>
       <Container>
@@ -154,7 +157,7 @@ const FooterElement = (): ReactElement => {
                 <ViberIcon color={light_grey} width={22} height={22} />
               </StyledLink>
             </SupportServiceSocialNetworks>
-            <PrivacyPolicy href="/files/politika.docx" download>
+            <PrivacyPolicy href={privacyPolicyPath} download>
               {t('privacy_policy')}
             </PrivacyPolicy>
           </ItemLayout>
