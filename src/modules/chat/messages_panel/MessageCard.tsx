@@ -61,6 +61,13 @@ const MessageText = styled.div`
   }
 `;
 
+const SpecialistMark = styled.div`
+  position: absolute;
+  right: 10px;
+  font-size: 13px;
+  font-weight: ${({ theme }) => theme.w500};
+`;
+
 interface Props {
   message?: Message;
   isMyMessage: boolean;
@@ -73,7 +80,6 @@ const MessageCardElement = (
 ): ReactElement => {
   const { message, isMyMessage, isLoading } = props;
   const { userInfo, timestamp, text } = message ?? {};
-
   const t = useTranslations();
 
   return (
@@ -109,6 +115,10 @@ const MessageCardElement = (
                   lastName: userInfo?.lastName ?? '',
                 })}
           </UserName>
+          {message?.userInfo.type === 'specialist' && (
+            <SpecialistMark>{t('Chat.message.specialist_mark')}</SpecialistMark>
+          )}
+
           <MessageText>{text}</MessageText>
           <Time>{timestamp && getTime({ ...timestamp })}</Time>
         </MessageLayout>

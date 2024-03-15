@@ -294,7 +294,8 @@
       "placeholder": "Enter a message..."
     },
     "message": {
-      "you": "You:"
+      "you": "You:",
+      "specialist_mark": "spec."
     }
   },
   "alts": {

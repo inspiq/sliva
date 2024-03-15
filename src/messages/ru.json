@@ -308,7 +308,8 @@
       "image_message": "Изображение"
     },
     "message": {
-      "you": "Вы:"
+      "you": "Вы:",
+      "specialist_mark": "спец."
     }
   },
   "alts": {
