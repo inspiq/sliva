@@ -50,7 +50,7 @@ export const CategoryCardElement = (props: Props): ReactElement => {
   const { imgPath, title } = props.category;
 
   return (
-    <CategoryInfoLayout href={`/specialists/`}>
+    <CategoryInfoLayout href={'/specialists'}>
       <StyledImage src={imgPath} alt={title} width="290" height="225" />
       <Title>{title}</Title>
     </CategoryInfoLayout>
