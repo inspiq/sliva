@@ -304,5 +304,38 @@
   "block_overlay": {
     "link": "Iniciar sesión",
     "title": "Inicie sesión para acceder al chat"
+  },
+  "Support": {
+    "title": "Soporte al Cliente",
+    "note": {
+      "title": "Nota",
+      "description": "El soporte de Sliva solo opera a través de correos electrónicos de usuarios. Esto es efectivo: en un correo electrónico, puede enviarnos capturas de pantalla; de esta manera, podemos abordar el problema más rápido y ayudarlo."
+    },
+    "additional_info": "Aquí se encuentra la información relevante sobre preguntas comunes que tienen los usuarios de Sliva. Para encontrar una respuesta a su pregunta, seleccione el elemento correspondiente; debajo habrá una descripción.",
+    "question_title": "¿Qué pregunta le interesa?",
+    "tip": {
+      "title": "¿Todavía tienes preguntas?",
+      "second_title": "Escribe a correo electrónico: "
+    },
+    "questions": {
+      "registation": {
+        "question": "Pregunta sobre registro/inicio de sesión en el servicio",
+        "answer": "En la esquina superior derecha de la página, haga clic en el botón (Iniciar sesión). En la ventana abierta, ingrese su correo electrónico y contraseña para iniciar sesión. Si no tiene una cuenta, regístrese. Si olvidó su contraseña, entonces al intentar autorizar, haga clic en el botón (Restablecer contraseña). En la ventana abierta, ingrese su correo electrónico y haga clic en (Enviar enlace al correo electrónico). Recibirá un correo electrónico con un enlace para restablecer su contraseña."
+      },
+      "services": {
+        "question": "Cómo pedir servicios a un especialista",
+        "answer": "En la página principal, haga clic en el botón (Buscar un especialista) o seleccione la categoría de su interés. En la ventana abierta, se muestran los especialistas disponibles, que se pueden filtrar usando las categorías y subcategorías en el lado izquierdo. Para contactar a un especialista, debe ir a su perfil. Contendrá un número de teléfono y una cuenta de Telegram."
+      },
+      "chat": {
+        "question": "Funcionamiento/reglas del chat",
+        "answer":
+          "En la parte inferior de la página principal, haga clic en el botón (Unirse al chat). El comportamiento incorrecto en el chat lleva al bloqueo del usuario en los siguientes casos: (spam, publicidad de plataformas de internet externas, disputas en temas políticos, nacionales, religiosos, mensajes con groserías e insultos, envío de imágenes inseguras para ver)."
+      },
+      "reviews": {
+        "question": "Reseñas",
+        "answer":
+          "Para dejar una reseña para un especialista, vaya a su perfil."
+      }
+    }
   }
 }

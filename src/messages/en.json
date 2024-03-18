@@ -305,5 +305,38 @@
   "block_overlay": {
     "link": "Log in",
     "title": "Log in to access the chat"
+  },
+  "Support": {
+    "title": "Customer Support",
+    "note": {
+      "title": "Note",
+      "description": "Sliva support only operates through user emails. This is effective: in an email, you can send us screenshots — this way we can address the issue faster and assist you."
+    },
+    "additional_info": "Here is the relevant information on common questions that Sliva users have. To find an answer to your question, select the appropriate item — underneath, there will be a description.",
+    "question_title": "What question interests you?",
+    "tip": {
+      "title": "Still have questions?",
+      "second_title": "Write to email: "
+    },
+    "questions": {
+      "registation": {
+        "question": "Question about registration/login to the service",
+        "answer": "In the top right corner of the page, click the (Sign in) button. In the opened window, enter your email and password to log in. If you don't have an account — register. If you forgot your password, then when trying to authorize, click on the (Reset password) button. In the opened window, enter your email and click (Send link to email). You will receive an email with a link to reset your password."
+      },
+      "services": {
+        "question": "How to order services from a specialist",
+        "answer": "On the main page, click the (Find a specialist) button or select the category you're interested in. In the opened window, available specialists are shown, which can be filtered using categories and subcategories on the left side. To contact a specialist, you need to go to their profile. It will contain a phone number and Telegram account."
+      },
+      "chat": {
+        "question": "Chat operation/rules",
+        "answer":
+          "At the bottom of the main page, click the (Join the chat) button. Incorrect behavior in the chat leads to user blocking in the following cases: (spam, advertising of external internet platforms, disputes on political, national, religious grounds, messages with profanity and insults, sending unsafe images for viewing)."
+      },
+      "reviews": {
+        "question": "Reviews",
+        "answer":
+          "To leave a review for a specialist, go to their profile."
+      }
+    }
   }
 }

@@ -389,3 +389,24 @@ export const getMonthName = (month: number) => {
 
   return months[month];
 };
+
+export const getQuestions = (t: (key: string) => string) => {
+  return [
+    {
+      question: t('Support.questions.registation.question'),
+      answer: t('Support.questions.registation.answer'),
+    },
+    {
+      question: t('Support.questions.services.question'),
+      answer: t('Support.questions.services.answer'),
+    },
+    {
+      question: t('Support.questions.chat.question'),
+      answer: t('Support.questions.chat.answer'),
+    },
+    {
+      question: t('Support.questions.reviews.question'),
+      answer: t('Support.questions.reviews.answer'),
+    },
+  ];
+};

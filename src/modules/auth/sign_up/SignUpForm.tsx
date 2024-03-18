@@ -23,6 +23,7 @@ import {
   Option,
   UiButton,
   UiInput,
+  usePrivacyPolicyPath,
 } from 'src/shared';
 
 const DownloadLink = styled.a`
@@ -53,6 +54,7 @@ const SignUpFormElement = (): ReactElement => {
   const t = useTranslations();
   const { primary, light_grey, border_ui, border_ui_hover } = useTheme();
   const [isAgree, setIsAgree] = useState(false);
+  const privacyPolicyPath = usePrivacyPolicyPath();
 
   const userTypeOptions = getUserTypeOptions(t);
   const defaultUserTypeOption = userTypeOptions[0];
@@ -178,8 +180,6 @@ const SignUpFormElement = (): ReactElement => {
     return <Loader />;
   }
 
-  console.log(isAgree);
-
   return (
     <FormLayout title={t('SignUpForm.title')} onSubmit={handleSubmit}>
       <Row>
@@ -292,7 +292,7 @@ const SignUpFormElement = (): ReactElement => {
         />
         <label htmlFor="privacyPolicy">
           {t('privacy_policy.description')}{' '}
-          <DownloadLink href="/files/politika.docx" download>
+          <DownloadLink href={privacyPolicyPath} download>
             {t('privacy_policy.link')}
           </DownloadLink>
         </label>
