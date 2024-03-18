@@ -63,8 +63,8 @@ const MessageText = styled.div`
 
 const SpecialistMark = styled.div`
   position: absolute;
-  right: 10px;
-  font-size: 13px;
+  right: 9px;
+  font-size: 10px;
   font-weight: ${({ theme }) => theme.w500};
 `;
 
@@ -115,7 +115,7 @@ const MessageCardElement = (
                   lastName: userInfo?.lastName ?? '',
                 })}
           </UserName>
-          {message?.userInfo.type === 'specialist' && (
+          {message?.userInfo.type === 'specialist' && !isMyMessage && (
             <SpecialistMark>{t('Chat.message.specialist_mark')}</SpecialistMark>
           )}
 
