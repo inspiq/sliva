@@ -4,7 +4,7 @@ export const colors = {
   slogan: '#333',
   white: '#fff',
   light_orange: '#f58b4b',
-  light: '#ebebeb',
+  highlight: '#ebebeb',
   light_blue: '#59adff',
   light_grey: '#f3f3f3',
   black: '#000',

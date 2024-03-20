@@ -1,7 +1,5 @@
 import { MyProfile } from 'src/modules';
 
-const MyProfilePage = () => {
-  return <MyProfile />;
-};
+const MyProfilePage = () => <MyProfile />;
 
 export default MyProfilePage;

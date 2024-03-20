@@ -29,4 +29,5 @@ export const theme = {
   },
   loader: { primary: colors.primary, secondary: colors.white },
   avatar: { bg: colors.aqua },
+  skeleton: { highlight: colors.highlight, base: colors.light_grey },
 };

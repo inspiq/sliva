@@ -1,7 +1,5 @@
 import { SignUp } from 'src/modules';
 
-const SignUpPage = () => {
-  return <SignUp />;
-};
+const SignUpPage = () => <SignUp />;
 
 export default SignUpPage;

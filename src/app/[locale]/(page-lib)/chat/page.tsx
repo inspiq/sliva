@@ -1,7 +1,5 @@
 import { Chat } from 'src/modules';
 
-const ChatPage = () => {
-  return <Chat />;
-};
+const ChatPage = () => <Chat />;
 
 export default ChatPage;

@@ -10,11 +10,12 @@ const nextIntlMiddleware = createMiddleware({
   localeDetection: false,
 });
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default function (req: NextRequest): NextResponse {
+const handleNextIntlMiddleware = (req: NextRequest): NextResponse => {
   return nextIntlMiddleware(req);
-}
+};
 
 export const config = {
   matcher: ['/', '/(en|ru|es)/:path*'],
 };
+
+export default handleNextIntlMiddleware;

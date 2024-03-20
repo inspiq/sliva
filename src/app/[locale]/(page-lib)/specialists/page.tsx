@@ -1,7 +1,5 @@
 import { Specialists } from 'src/modules';
 
-const SpecialistsPage = () => {
-  return <Specialists />;
-};
+const SpecialistsPage = () => <Specialists />;
 
 export default SpecialistsPage;

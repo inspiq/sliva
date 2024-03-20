@@ -4,28 +4,25 @@ import { Montserrat } from 'next/font/google';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 
 import { App } from 'src/app/[locale]/(page-lib)/app';
+import { Locales } from 'src/shared';
 
-type LocaleVariants = 'en' | 'ru' | 'es';
-
-interface Props {
-  params: { locale: LocaleVariants };
-}
-
-export const montserrat = Montserrat({ subsets: ['latin'] });
+const { className } = Montserrat({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Sliva',
   description: 'Sliva — specialist search service',
 };
 
-const RootLayout = (props: PropsWithChildren<Props>) => {
+const RootLayout = (
+  props: PropsWithChildren<{ params: { locale: Locales } }>,
+) => {
   const { children, params } = props;
 
   const messages = useMessages();
 
   return (
     <html lang={params.locale}>
-      <body className={montserrat.className}>
+      <body className={className}>
         <NextIntlClientProvider messages={messages}>
           <App>{children}</App>
         </NextIntlClientProvider>

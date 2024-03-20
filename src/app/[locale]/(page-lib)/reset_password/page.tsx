@@ -1,7 +1,5 @@
 import { ResetPassword } from 'src/modules';
 
-const ResetPasswordPage = () => {
-  return <ResetPassword />;
-};
+const ResetPasswordPage = () => <ResetPassword />;
 
 export default ResetPasswordPage;

@@ -1,9 +1,7 @@
 import { SpecialistProfile } from 'src/modules';
 
-const Specialist = (props: { params: { specialistId: string } }) => {
-  const { params } = props;
-
-  return <SpecialistProfile {...params} />;
-};
+const Specialist = (props: { params: { specialistId: string } }) => (
+  <SpecialistProfile {...props.params} />
+);
 
 export default Specialist;

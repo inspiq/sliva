@@ -1,7 +1,5 @@
 import { LogIn } from 'src/modules';
 
-const LogInPage = () => {
-  return <LogIn />;
-};
+const LogInPage = () => <LogIn />;
 
 export default LogInPage;

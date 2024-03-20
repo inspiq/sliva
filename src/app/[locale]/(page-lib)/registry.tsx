@@ -7,9 +7,11 @@ import {
   useTheme,
 } from 'styled-components';
 
+import { DEFAULT_SKELETON_DURATION } from 'src/shared';
+
 const StyledComponentsRegistry = (props: PropsWithChildren) => {
   const [styledComponentsStyleSheet] = useState(() => new ServerStyleSheet());
-  const { light_grey, light } = useTheme();
+  const { skeleton } = useTheme();
 
   const { children } = props;
 
@@ -23,7 +25,11 @@ const StyledComponentsRegistry = (props: PropsWithChildren) => {
   if (typeof window !== 'undefined') return children;
 
   return (
-    <SkeletonTheme baseColor={light_grey} highlightColor={light} duration={1}>
+    <SkeletonTheme
+      baseColor={skeleton.base}
+      highlightColor={skeleton.highlight}
+      duration={DEFAULT_SKELETON_DURATION}
+    >
       <StyleSheetManager sheet={styledComponentsStyleSheet.instance}>
         {children}
       </StyleSheetManager>
