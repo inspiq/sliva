@@ -54,7 +54,7 @@ const UiButtonLayout = styled.div`
 const SloganElement = (props: { usersCount: number }): ReactElement => {
   const { usersCount } = props;
 
-  const t = useTranslations('slogan');
+  const t = useTranslations('Slogan');
   const router = useRouter();
 
   return (

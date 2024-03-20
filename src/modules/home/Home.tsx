@@ -57,7 +57,7 @@ const HomeElement = (): ReactElement => {
   const [usersCount, setUsersCount] = useState(0);
   const { currentAuthUser } = useAuthContext();
   const [cookies, setCookie] = useCookies();
-  const t = useTranslations();
+  const t = useTranslations('modal_test');
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, 'users'), ({ size }) => {
@@ -95,15 +95,13 @@ const HomeElement = (): ReactElement => {
         modal
         lockScroll
       >
-        <Title>{t('modal_test.title')}</Title>
+        <Title>{t('title')}</Title>
         <Tip>
-          {t('modal_test.tips.one')}
-          <p>{t('modal_test.tips.two')}</p>
-          <p>{t('modal_test.tips.three')}</p>
+          {t('tips.one')}
+          <p>{t('tips.two')}</p>
+          <p>{t('tips.three')}</p>
         </Tip>
-        <UiButton onClick={onClickAgreeInformation}>
-          {t('modal_test.button')}
-        </UiButton>
+        <UiButton onClick={onClickAgreeInformation}>{t('button')}</UiButton>
       </StyledPopup>
     </>
   );

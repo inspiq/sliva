@@ -129,7 +129,7 @@
     "description": "Al registrarse, usted acepta",
     "link": "Política de privacidad"
   },
-  "slogan": {
+  "Slogan": {
     "title": "Sliva – comunidad de profesionales",
     "second_title": "para servicio",
     "subtitle": "{usersCount, plural, one {# cliente confió} other {# clientes confiaron} } en nuestro servicio",

@@ -129,7 +129,7 @@
     "description": "By registering, you agree to",
     "link": "Privacy policy"
   },
-  "slogan": {
+  "Slogan": {
     "title": "Sliva – community of professionals",
     "second_title": "for service",
     "subtitle": "{usersCount, plural, one {# client trusted} other {# clients trusted} } our service",
