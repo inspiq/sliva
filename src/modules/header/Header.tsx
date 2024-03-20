@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
 import { useAuthContext } from 'src/context';
-import { UserActions } from 'src/modules/header/AccountManagement';
+import { AccountManagement } from 'src/modules/header/AccountManagement';
 import { LanguageManagement } from 'src/modules/header/LanguageManagement';
 import { LocalesPanel } from 'src/modules/header/locales/LocalesPanel';
 import { Link } from 'src/navigation';
@@ -19,7 +19,7 @@ import {
   UiButton,
 } from 'src/shared';
 
-const MainLayout = styled.div`
+const MainLayout = styled.header`
   height: 70px;
   width: 100%;
   display: flex;
@@ -123,7 +123,7 @@ const HeaderElement = (): ReactElement => {
         </MenuLayout>
         {currentAuthUser ? (
           <Popup
-            trigger={UserActions}
+            trigger={AccountManagement}
             position="bottom right"
             on="hover"
             mouseLeaveDelay={300}

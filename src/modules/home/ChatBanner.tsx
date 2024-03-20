@@ -21,7 +21,7 @@ const MainLayout = styled.div`
   @media ${devices.mobileL} {
     padding: 25px;
     gap: 20px;
-    margin-bottom: 50px;
+    margin-bottom: 80px;
   }
 `;
 

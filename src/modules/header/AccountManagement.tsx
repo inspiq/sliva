@@ -52,7 +52,7 @@ const Text = styled.div`
   color: ${({ theme }) => theme.text};
 `;
 
-const UserActionsElement = (): ReactElement => {
+const AccountManagementElement = (): ReactElement => {
   const t = useTranslations('Header');
 
   return (
@@ -63,4 +63,4 @@ const UserActionsElement = (): ReactElement => {
   );
 };
 
-export const UserActions = UserActionsElement;
+export const AccountManagement = AccountManagementElement;

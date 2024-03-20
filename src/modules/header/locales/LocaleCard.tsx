@@ -22,11 +22,7 @@ const StyledLink = styled(Link)`
   }
 `;
 
-interface Props {
-  locale: string;
-}
-
-const LocaleCardElement = (props: Props): ReactElement => {
+const LocaleCardElement = (props: { locale: string }): ReactElement => {
   const { locale } = props;
 
   const currentPath = usePathname();

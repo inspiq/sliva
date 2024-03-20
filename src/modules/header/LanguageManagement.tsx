@@ -8,7 +8,7 @@ const StyledArrowIcon = styled(ArrowIcon)`
   transition: transform 0.3s cubic-bezier(0, 0, 0, 1);
 `;
 
-const MenuItemLayout = styled.div`
+const MainLayout = styled.div`
   transition: background-color 0.3s;
   padding: 0 20px;
   height: 40px;
@@ -51,10 +51,10 @@ const LanguageManagementElement = () => {
   const t = useTranslations('Header');
 
   return (
-    <MenuItemLayout>
+    <MainLayout>
       <Text>{t('language_switcher.title')}</Text>
       <StyledArrowIcon width="10" height="10" />
-    </MenuItemLayout>
+    </MainLayout>
   );
 };
 
