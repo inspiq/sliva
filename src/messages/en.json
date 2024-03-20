@@ -130,7 +130,7 @@
     "link": "Privacy policy"
   },
   "slogan": {
-    "title": "Sliva – a reliable partner",
+    "title": "Sliva – community of professionals",
     "second_title": "for service",
     "subtitle": "{usersCount, plural, one {# client trusted} other {# clients trusted} } our service",
     "button": "Find a specialist",
@@ -246,7 +246,7 @@
     "additional_information_textarea": "Additional information",
     "button": "Save"
   },
-  "chat_banner": {
+  "ChatBanner": {
     "title": "Get advice, solutions, and real-time support",
     "button": "Join the chat"
   },

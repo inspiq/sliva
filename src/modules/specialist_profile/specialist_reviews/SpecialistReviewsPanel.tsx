@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { SpecialistReviewCard } from 'src/modules/specialist_profile/specialist_reviews/SpecialistReviewCard';
 import { Review } from 'src/modules/specialist_profile/SpecialistProfile';
-import { DEFAULT_SKELETON_REVIEWS_COUNT, SkeletonPanel } from 'src/shared';
+import { SKELETON_REVIEWS_COUNT, SkeletonPanel } from 'src/shared';
 
 const MainLayout = styled.div`
   display: flex;
@@ -23,7 +23,7 @@ const SpecialistReviewsPanelElement = (props: Props): ReactElement => {
     <MainLayout>
       {isLoading ? (
         <SkeletonPanel
-          count={DEFAULT_SKELETON_REVIEWS_COUNT}
+          count={SKELETON_REVIEWS_COUNT}
           SkeletonCard={<SpecialistReviewCard isLoading={isLoading} />}
         />
       ) : (

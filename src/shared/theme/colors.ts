@@ -21,4 +21,5 @@ export const colors = {
   disabled_button: '#c8c9ca',
   placeholder: '#a6a6a6',
   shadow: 'rgba(0, 0, 0, 0.08)',
+  overlay: 'rgba(0, 0, 0, 0.5)',
 };

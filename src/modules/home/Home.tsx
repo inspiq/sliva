@@ -1,7 +1,7 @@
 import { ReactElement, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import Popup from 'reactjs-popup';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, onSnapshot } from 'firebase/firestore';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
@@ -10,11 +10,19 @@ import { Header } from 'src/modules';
 import { Categories } from 'src/modules/home/categories/CategoriesPanel';
 import { ChatBanner } from 'src/modules/home/ChatBanner';
 import { Slogan } from 'src/modules/home/Slogan';
-import { Container, db, Footer, Loader, UiButton, Wrapper } from 'src/shared';
+import {
+  Container,
+  db,
+  Footer,
+  Loader,
+  MODAL_COOKIE_EXPIRATION_DURATION,
+  UiButton,
+  Wrapper,
+} from 'src/shared';
 
 const StyledPopup = styled(Popup)`
   &-overlay {
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: ${({ theme }) => theme.overlay};
     padding: 0 15px;
   }
 
@@ -52,21 +60,18 @@ const HomeElement = (): ReactElement => {
   const t = useTranslations();
 
   useEffect(() => {
-    const getUserData = async () => {
-      try {
-        const { size } = await getDocs(collection(db, 'users'));
-        setUsersCount(size);
-      } catch {
-        /* empty */
-      }
-    };
+    const unsubscribe = onSnapshot(collection(db, 'users'), ({ size }) => {
+      setUsersCount(size);
+    });
 
-    getUserData();
+    return () => {
+      unsubscribe();
+    };
   }, []);
 
-  const onClick = () => {
+  const onClickAgreeInformation = () => {
     setCookie('modal_test', true, {
-      maxAge: 7 * 24 * 60 * 60,
+      maxAge: MODAL_COOKIE_EXPIRATION_DURATION,
     });
   };
 
@@ -96,7 +101,9 @@ const HomeElement = (): ReactElement => {
           <p>{t('modal_test.tips.two')}</p>
           <p>{t('modal_test.tips.three')}</p>
         </Tip>
-        <UiButton onClick={onClick}>{t('modal_test.button')}</UiButton>
+        <UiButton onClick={onClickAgreeInformation}>
+          {t('modal_test.button')}
+        </UiButton>
       </StyledPopup>
     </>
   );

@@ -7,7 +7,7 @@ import {
   useTheme,
 } from 'styled-components';
 
-import { DEFAULT_SKELETON_DURATION } from 'src/shared';
+import { SKELETON_DURATION } from 'src/shared';
 
 const StyledComponentsRegistry = (props: PropsWithChildren) => {
   const [styledComponentsStyleSheet] = useState(() => new ServerStyleSheet());
@@ -28,7 +28,7 @@ const StyledComponentsRegistry = (props: PropsWithChildren) => {
     <SkeletonTheme
       baseColor={skeleton.base}
       highlightColor={skeleton.highlight}
-      duration={DEFAULT_SKELETON_DURATION}
+      duration={SKELETON_DURATION}
     >
       <StyleSheetManager sheet={styledComponentsStyleSheet.instance}>
         {children}

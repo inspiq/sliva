@@ -130,7 +130,7 @@
     "link": "Política de privacidad"
   },
   "slogan": {
-    "title": "Sliva – un socio confiable",
+    "title": "Sliva – comunidad de profesionales",
     "second_title": "para servicio",
     "subtitle": "{usersCount, plural, one {# cliente confió} other {# clientes confiaron} } en nuestro servicio",
     "button": "Encontrar un especialista",
@@ -245,7 +245,7 @@
     "additional_information_textarea": "Información adicional",
     "button": "Guardar"
   },
-  "chat_banner": {
+  "ChatBanner": {
     "title": "Obtén consejos, soluciones y soporte en tiempo real",
     "button": "Unirse al chat"
   },

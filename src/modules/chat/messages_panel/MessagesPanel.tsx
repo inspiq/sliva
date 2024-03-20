@@ -6,7 +6,7 @@ import { Props } from 'src/modules/chat/Chat';
 import { MessageCard } from 'src/modules/chat/messages_panel/MessageCard';
 import {
   db,
-  DEFAULT_SKELETON_MESSAGES_COUNT,
+  SKELETON_MESSAGES_COUNT,
   SkeletonPanel,
   type UserType,
   useToggle,
@@ -71,7 +71,7 @@ const MessagesPanelElement = (
     <MainLayout>
       {isLoading ? (
         <SkeletonPanel
-          count={DEFAULT_SKELETON_MESSAGES_COUNT}
+          count={SKELETON_MESSAGES_COUNT}
           SkeletonCard={
             <MessageCard isMyMessage={false} ref={ref} isLoading={isLoading} />
           }

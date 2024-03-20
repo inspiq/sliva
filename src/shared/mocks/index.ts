@@ -25,7 +25,7 @@ export const getCategories = (t: (key: string) => string) => {
   ];
 };
 
-export const getMainCategories = (t: (key: string) => string) => {
+export const getCategoriesForHomePage = (t: (key: string) => string) => {
   return [
     {
       title: t('categories.renovation_and_construction'),

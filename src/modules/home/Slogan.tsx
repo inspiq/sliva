@@ -6,15 +6,17 @@ import { useRouter } from 'src/navigation';
 import { devices, UiButton } from 'src/shared';
 
 const MainLayout = styled.div`
-  margin: 80px 0;
+  margin-top: 80px;
+  margin-bottom: 100px;
 
   @media ${devices.mobileL} {
-    margin: 50px 0;
+    margin-top: 50px;
+    margin-bottom: 80px;
   }
 `;
 
 const Title = styled.h1`
-  font-size: 56px;
+  font-size: 46px;
   color: ${({ theme }) => theme.text};
   margin-bottom: 20px;
   font-weight: 600;
@@ -31,7 +33,7 @@ const SubTitle = styled.p`
   color: ${({ theme }) => theme.secondary};
 
   @media ${devices.mobileL} {
-    font-size: 15px;
+    font-size: 16px;
   }
 `;
 
@@ -41,20 +43,17 @@ const UiButtonLayout = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  max-width: 426px;
+  max-width: 450px;
 
   @media ${devices.mobileL} {
     flex-direction: column;
-    max-width: 250px;
+    max-width: 280px;
   }
 `;
 
-interface Props {
-  usersCount: number;
-}
-
-const SloganElement = (props: Props): ReactElement => {
+const SloganElement = (props: { usersCount: number }): ReactElement => {
   const { usersCount } = props;
+
   const t = useTranslations('slogan');
   const router = useRouter();
 

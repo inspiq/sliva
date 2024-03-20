@@ -37,20 +37,18 @@ const CategoryInfoLayout = styled(Link)`
   display: flex;
   flex-direction: column;
 
-  & > ${StyledImage}:hover + ${Title} {
+  & > img:hover + h6 {
     color: ${({ theme }) => theme.primary};
   }
 `;
 
-interface Props {
+export const CategoryCardElement = (props: {
   category: Category;
-}
-
-export const CategoryCardElement = (props: Props): ReactElement => {
+}): ReactElement => {
   const { imgPath, title } = props.category;
 
   return (
-    <CategoryInfoLayout href={'/specialists'}>
+    <CategoryInfoLayout href="/specialists">
       <StyledImage src={imgPath} alt={title} width="290" height="225" />
       <Title>{title}</Title>
     </CategoryInfoLayout>

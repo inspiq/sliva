@@ -39,7 +39,7 @@ const Title = styled.div`
 `;
 
 const ChatBannerElement = (): ReactElement => {
-  const t = useTranslations('chat_banner');
+  const t = useTranslations('ChatBanner');
   const { white } = useTheme();
 
   return (

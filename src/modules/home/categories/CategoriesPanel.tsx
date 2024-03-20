@@ -2,14 +2,8 @@ import { ReactElement } from 'react';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
-import { devices, getMainCategories } from 'src/shared';
-
-import { CategoryCard } from './CategoryCard';
-
-export interface Category {
-  title: string;
-  imgPath: string;
-}
+import { CategoryCard } from 'src/modules/home/categories/CategoryCard';
+import { devices, getCategoriesForHomePage } from 'src/shared';
 
 const MainLayout = styled.div`
   margin: 20px 0 100px 0;
@@ -29,9 +23,14 @@ const MainLayout = styled.div`
   }
 `;
 
+export interface Category {
+  title: string;
+  imgPath: string;
+}
+
 const CategoriesPanelElement = (): ReactElement => {
   const t = useTranslations();
-  const mainCategories = getMainCategories(t);
+  const mainCategories = getCategoriesForHomePage(t);
 
   return (
     <MainLayout>

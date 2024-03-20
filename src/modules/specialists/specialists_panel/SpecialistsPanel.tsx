@@ -8,9 +8,9 @@ import { NotFoundSpecialists } from 'src/modules/specialists/NotFoundSpecialists
 import { SpecialistCard } from 'src/modules/specialists/specialists_panel/SpecialistCard';
 import {
   db,
-  DEFAULT_SKELETON_SPECIALISTS_COUNT,
   devices,
   type Option,
+  SKELETON_SPECIALISTS_COUNT,
   SkeletonPanel,
   type Specialist,
   SPECIALISTS_PAGINATION_STEP,
@@ -119,7 +119,7 @@ const SpecialistsPanelElement = (): ReactElement => {
         {!specialists.length && !isLoading && <NotFoundSpecialists />}
         {isLoading ? (
           <SkeletonPanel
-            count={DEFAULT_SKELETON_SPECIALISTS_COUNT}
+            count={SKELETON_SPECIALISTS_COUNT}
             SkeletonCard={<SpecialistCard isLoading={isLoading} />}
           />
         ) : (
