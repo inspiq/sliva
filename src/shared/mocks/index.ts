@@ -7,7 +7,7 @@ export const getUserTypeOptions = (t: (key: string) => string) => {
 
 export const getCategories = (t: (key: string) => string) => {
   return [
-    { value: 'renovation', label: t('categories.renovation') },
+    { value: 'renovation', label: t('categories.renovation_and_construction') },
     { value: 'auto_services', label: t('categories.auto_services') },
     { value: 'cooks_services', label: t('categories.cooks_services') },
     {
@@ -28,16 +28,16 @@ export const getCategories = (t: (key: string) => string) => {
 export const getMainCategories = (t: (key: string) => string) => {
   return [
     {
-      title: t('categories.renovation'),
-      imgPath: '/files/images/categories/renovation.jpg',
+      title: t('categories.renovation_and_construction'),
+      imgPath: '/files/images/categories/renovation_and_construction.jpg',
     },
     {
       title: t('categories.auto_services'),
-      imgPath: '/files/images/categories/auto.jpg',
+      imgPath: '/files/images/categories/auto_services.jpg',
     },
     {
       title: t('categories.cooks_services'),
-      imgPath: '/files/images/categories/kitchen.jpg',
+      imgPath: '/files/images/categories/cooks_services.jpg',
     },
     {
       title: t('categories.transportation_services'),
@@ -45,7 +45,7 @@ export const getMainCategories = (t: (key: string) => string) => {
     },
     {
       title: t('categories.beauty_and_health'),
-      imgPath: '/files/images/categories/beauty_services.jpg',
+      imgPath: '/files/images/categories/beauty_and_health.jpg',
     },
     {
       title: t('categories.animal_services'),
@@ -53,11 +53,11 @@ export const getMainCategories = (t: (key: string) => string) => {
     },
     {
       title: t('categories.fitness_and_sport'),
-      imgPath: '/files/images/categories/fitness.jpg',
+      imgPath: '/files/images/categories/fitness_and_sport.jpg',
     },
     {
       title: t('categories.domestic_staff'),
-      imgPath: '/files/images/categories/home_staff.jpg',
+      imgPath: '/files/images/categories/domestic_staff.jpg',
     },
   ];
 };
@@ -71,7 +71,7 @@ export const getSpecialistFilters = (t: (key: string) => string) => {
     {
       category: {
         value: 'renovation',
-        label: t('categories.renovation'),
+        label: t('categories.renovation_and_construction'),
       },
       subcategories: [
         {

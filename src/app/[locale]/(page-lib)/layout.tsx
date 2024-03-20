@@ -6,7 +6,7 @@ import { NextIntlClientProvider, useMessages } from 'next-intl';
 import { App } from 'src/app/[locale]/(page-lib)/app';
 import { Locales } from 'src/shared';
 
-const { className } = Montserrat({ subsets: ['latin'] });
+const montserrat = Montserrat({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Sliva',
@@ -22,7 +22,7 @@ const RootLayout = (
 
   return (
     <html lang={params.locale}>
-      <body className={className}>
+      <body className={montserrat.className}>
         <NextIntlClientProvider messages={messages}>
           <App>{children}</App>
         </NextIntlClientProvider>

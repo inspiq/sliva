@@ -11,7 +11,7 @@ import StyledComponentsRegistry from 'src/app/[locale]/(page-lib)/registry';
 import { AuthContextProvider } from 'src/context';
 import { theme } from 'src/shared';
 
-const { style } = Montserrat({ subsets: ['latin'] });
+const montserrat = Montserrat({ subsets: ['latin'] });
 const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
@@ -25,7 +25,7 @@ const GlobalStyle = createGlobalStyle`
   button {
     outline: none;
     border: none;
-    font-family: ${style.fontFamily};
+    font-family: ${montserrat.style.fontFamily};
   }
 
   a {
@@ -36,7 +36,7 @@ const GlobalStyle = createGlobalStyle`
 
   input {
     outline: none;
-    font-family: ${style.fontFamily};
+    font-family: ${montserrat.style.fontFamily};
   }
 
   p {
@@ -63,7 +63,7 @@ const GlobalStyle = createGlobalStyle`
   textarea {
     resize: none;
     outline: none;
-    font-family: ${style.fontFamily};
+    font-family: ${montserrat.style.fontFamily};
   }
 
   @keyframes anvil {

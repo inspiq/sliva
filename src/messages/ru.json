@@ -137,7 +137,7 @@
     "button_two": "Стать специалистом"
   },
   "categories": {
-    "renovation": "Ремонт и строительство",
+    "renovation_and_construction": "Ремонт и строительство",
     "auto_services": "Автосервис",
     "cooks_services": "Услуги повара",
     "transportation_services": "Транспортные услуги",

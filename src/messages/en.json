@@ -137,7 +137,7 @@
     "button_two": "Become a specialist"
   },
   "categories": {
-    "renovation": "Renovation and construction",
+    "renovation_and_construction": "Renovation and construction",
     "auto_services": "Auto services",
     "cooks_services": "Cooks services",
     "transportation_services": "Transportation services",
