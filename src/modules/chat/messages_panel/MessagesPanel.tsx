@@ -16,7 +16,7 @@ const MainLayout = styled.div`
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
-  padding-top: 80px;
+  padding-top: 20px;
   padding-bottom: 20px;
   padding-left: 20px;
   padding-right: 20px;
@@ -37,10 +37,10 @@ export interface Message {
 const MessagesPanelElement = (
   props: Omit<Props, 'isLoading'>,
 ): ReactElement => {
-  const [messages, setMessages] = useState<Message[]>([]);
-  const { visible: isLoading, close } = useToggle(true);
   const { currentAuthUser } = props;
 
+  const [messages, setMessages] = useState<Message[]>([]);
+  const { visible: isLoading, close } = useToggle(true);
   const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {

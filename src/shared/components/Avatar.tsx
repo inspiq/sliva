@@ -3,6 +3,8 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
+import { DEFAULT_AVATAR_URL } from 'src/shared';
+
 const StyledImage = styled(Image)<{
   width: number;
   height: number;
@@ -27,7 +29,7 @@ const AvatarElement = (props: Props): ReactElement => {
 
   return (
     <StyledImage
-      src={avatarUrl ?? '/files/images/avatar.png'}
+      src={avatarUrl ?? DEFAULT_AVATAR_URL}
       alt={t('avatar')}
       width={width}
       height={height}

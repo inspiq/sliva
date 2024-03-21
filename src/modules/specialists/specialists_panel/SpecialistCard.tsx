@@ -7,6 +7,7 @@ import styled, { useTheme } from 'styled-components';
 import { Link } from 'src/navigation';
 import {
   ChatIcon,
+  DEFAULT_AVATAR_URL,
   DEFAULT_AVG_RATING,
   DEFAULT_REVIEWS_COUNT,
   devices,
@@ -127,7 +128,7 @@ const SpecialistCardElement = (props: Props): ReactElement => {
           <Skeleton width={130} height={150} borderRadius={10} />
         ) : (
           <Avatar
-            src={avatarUrl ?? '/files/images/avatar.png'}
+            src={avatarUrl ?? DEFAULT_AVATAR_URL}
             width={130}
             height={150}
             alt={t('alts.avatar')}

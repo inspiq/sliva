@@ -22,6 +22,12 @@ const StyledLink = styled(Link)`
   }
 `;
 
+const locales: { [key: string]: ReactElement } = {
+  ru: <RussiaIcon />,
+  en: <EnglishIcon />,
+  es: <SpanishIcon />,
+};
+
 const LocaleCardElement = (props: { locale: string }): ReactElement => {
   const { locale } = props;
 
@@ -30,9 +36,7 @@ const LocaleCardElement = (props: { locale: string }): ReactElement => {
 
   return (
     <StyledLink href={currentPath} locale={locale}>
-      {locale === 'ru' && <RussiaIcon width={18} />}
-      {locale === 'en' && <EnglishIcon width={18} />}
-      {locale === 'es' && <SpanishIcon width={18} />}
+      {locales[locale]}
       {t(`language_switcher.languages.${locale}`)}
     </StyledLink>
   );

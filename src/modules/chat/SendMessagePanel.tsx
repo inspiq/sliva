@@ -54,6 +54,10 @@ const SendMessagePanelElement = (props: Props): ReactElement => {
     setValue(value);
     style.height = '20px';
     style.height = `${scrollHeight}px`;
+
+    if (!value) {
+      style.height = '20px';
+    }
   };
 
   return (

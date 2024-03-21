@@ -12,32 +12,34 @@ const MainLayout = styled.div`
 `;
 
 interface Props {
-  activeRoom: string;
-  setActiveRoom: Dispatch<SetStateAction<string>>;
+  activeRoom: number;
+  setActiveRoom: Dispatch<SetStateAction<number>>;
 }
 
 const ChatRoomsPanelElement = (props: Props): ReactElement => {
   const { setActiveRoom, activeRoom } = props;
+
   const t = useTranslations('Chat');
   const CHAT_ROOMS = getChatRooms(t);
 
   const onChangeActiveRoom = useCallback(
-    (room: string) => {
-      setActiveRoom(room);
+    (index: number) => {
+      setActiveRoom(index);
     },
     [setActiveRoom],
   );
 
   return (
     <MainLayout>
-      <Title>Комнаты</Title>
+      <Title>{t('chat_rooms.title')}</Title>
       <Line />
-      {CHAT_ROOMS.map((room) => (
+      {CHAT_ROOMS.map((room, i) => (
         <ChatRoomCard
           key={room.value}
           room={room.label}
           onChangeActiveRoom={onChangeActiveRoom}
-          isActiveRoom={activeRoom === room.label}
+          isActiveRoom={activeRoom === i}
+          index={i}
         />
       ))}
     </MainLayout>

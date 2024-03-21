@@ -4,7 +4,13 @@ import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
 import { Message } from 'src/modules/chat/messages_panel/MessagesPanel';
-import { Avatar, devices, getInitials, getTime } from 'src/shared';
+import {
+  Avatar,
+  DEFAULT_AVATAR_URL,
+  devices,
+  getInitials,
+  getTime,
+} from 'src/shared';
 
 const MainLayout = styled.div<{ $isMyMessage: boolean }>`
   width: 100%;
@@ -14,7 +20,7 @@ const MainLayout = styled.div<{ $isMyMessage: boolean }>`
   gap: 8px;
 `;
 
-const MessageLayout = styled.p<{ $isMyMessage: boolean }>`
+const MessageLayout = styled.div<{ $isMyMessage: boolean }>`
   color: ${({ theme }) => theme.white};
   background-color: ${({ theme, $isMyMessage }) =>
     $isMyMessage ? theme.primary : theme.light_orange};
@@ -63,9 +69,9 @@ const MessageText = styled.div`
 
 const SpecialistMark = styled.div`
   position: absolute;
-  right: 9px;
-  font-size: 10px;
-  font-weight: ${({ theme }) => theme.w500};
+  right: 10px;
+  font-size: 12px;
+  font-weight: ${({ theme }) => theme.w400};
 `;
 
 interface Props {
@@ -80,6 +86,7 @@ const MessageCardElement = (
 ): ReactElement => {
   const { message, isMyMessage, isLoading } = props;
   const { userInfo, timestamp, text } = message ?? {};
+
   const t = useTranslations();
 
   return (
@@ -91,7 +98,7 @@ const MessageCardElement = (
           <Avatar
             width={30}
             height={30}
-            avatarUrl={userInfo?.avatarUrl ?? '/files/images/avatar.png'}
+            avatarUrl={userInfo?.avatarUrl ?? DEFAULT_AVATAR_URL}
           />
         ))}
       {isLoading ? (
@@ -118,7 +125,6 @@ const MessageCardElement = (
           {message?.userInfo.type === 'specialist' && !isMyMessage && (
             <SpecialistMark>{t('Chat.message.specialist_mark')}</SpecialistMark>
           )}
-
           <MessageText>{text}</MessageText>
           <Time>{timestamp && getTime({ ...timestamp })}</Time>
         </MessageLayout>
@@ -130,7 +136,7 @@ const MessageCardElement = (
           <Avatar
             width={30}
             height={30}
-            avatarUrl={userInfo?.avatarUrl ?? '/files/images/avatar.png'}
+            avatarUrl={userInfo?.avatarUrl ?? DEFAULT_AVATAR_URL}
           />
         ))}
     </MainLayout>

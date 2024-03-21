@@ -63,7 +63,7 @@ export const getCategoriesForHomePage = (t: (key: string) => string) => {
 };
 
 export const getChatRooms = (t: (key: string) => string) => {
-  return [{ value: 'global_chat', label: t('chat_room.global_chat') }];
+  return [{ value: 'global_chat', label: t('chat_rooms.global_chat') }];
 };
 
 export const getSpecialistFilters = (t: (key: string) => string) => {

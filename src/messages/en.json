@@ -287,7 +287,8 @@
     "not_found": "Unfortunately, we could not find specialists, try changing the filters.."
   },
   "Chat": {
-    "chat_room": {
+    "chat_rooms": {
+      "title": "Rooms",
       "global_chat": "Global chat"
     },
     "send_message_panel": {

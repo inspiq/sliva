@@ -1,7 +1,7 @@
 import { Dispatch, FormEvent, SetStateAction, useMemo } from 'react';
 import styled from 'styled-components';
 
-import { Avatar, UiInput, UserType } from 'src/shared';
+import { Avatar, DEFAULT_AVATAR_URL, UiInput, UserType } from 'src/shared';
 
 const MainLayout = styled.div`
   width: 200px;
@@ -42,7 +42,7 @@ const UploadAvatarElement = (props: {
       return avatarUrl;
     }
 
-    return '/files/images/avatar.png';
+    return DEFAULT_AVATAR_URL;
   }, [avatarUrl, fileUpload]);
 
   return (

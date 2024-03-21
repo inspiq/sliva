@@ -26,7 +26,7 @@ const StyledImage = styled(Image)`
   cursor: pointer;
   object-fit: cover;
   width: 100%;
-  height: 220px;
+  height: 225px;
 
   @media ${devices.mobileL} {
     height: 200px;

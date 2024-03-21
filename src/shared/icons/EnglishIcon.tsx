@@ -2,7 +2,7 @@ import * as React from 'react';
 import { SVGProps } from 'react';
 
 export const EnglishIcon = (props: SVGProps<SVGSVGElement>) => {
-  const { width, height } = props;
+  const { width = 18, height = 18 } = props;
 
   return (
     <svg

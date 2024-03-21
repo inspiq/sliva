@@ -13,17 +13,18 @@ export const RoomCard = styled.div<{ $isActiveRoom: boolean }>`
 `;
 
 interface Props {
+  index: number;
   room: string;
   isActiveRoom: boolean;
-  onChangeActiveRoom: (room: string) => void;
+  onChangeActiveRoom: (roomIdx: number) => void;
 }
 
 const ChatRoomCardElement = (props: Props): ReactElement => {
-  const { room, isActiveRoom, onChangeActiveRoom } = props;
+  const { index, room, isActiveRoom, onChangeActiveRoom } = props;
 
   return (
     <RoomCard
-      onClick={() => onChangeActiveRoom(room)}
+      onClick={() => onChangeActiveRoom(index)}
       $isActiveRoom={isActiveRoom}
     >
       {room}

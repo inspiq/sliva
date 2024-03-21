@@ -1,5 +1,5 @@
 import { ReactElement, useState } from 'react';
-import { collection, doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { collection, doc, setDoc } from 'firebase/firestore';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
@@ -46,13 +46,8 @@ export const Title = styled.h3`
 `;
 
 export const Header = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
   background-color: ${({ theme }) => theme.white};
   border-top-right-radius: 10px;
-  z-index: 1;
 `;
 
 export const ChatContentLayout = styled.div`
@@ -68,7 +63,7 @@ const ChatManagementElement = (props: Props): ReactElement => {
   const { currentAuthUser, isLoading } = props;
 
   const t = useTranslations();
-  const [activeRoom, setActiveRoom] = useState(t('Chat.chat_room.global_chat'));
+  const [activeRoom, setActiveRoom] = useState(0);
 
   const onSendMessage = async (text: string) => {
     try {
@@ -77,7 +72,7 @@ const ChatManagementElement = (props: Props): ReactElement => {
 
       await setDoc(userDocRef, {
         chatId: uuidv4(),
-        timestamp: serverTimestamp(),
+        timestamp: new Date(),
         userInfo: currentAuthUser?.additionalInfo,
         text,
       });
@@ -92,7 +87,7 @@ const ChatManagementElement = (props: Props): ReactElement => {
       <ChatContentLayout>
         <ChatLayout>
           <Header>
-            <Title>{activeRoom}</Title>
+            <Title>{t('Chat.chat_rooms.global_chat')}</Title>
             <Line />
           </Header>
           <MessagesPanel currentAuthUser={currentAuthUser} />
