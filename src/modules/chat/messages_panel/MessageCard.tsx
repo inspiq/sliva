@@ -1,8 +1,12 @@
 import { forwardRef, ReactElement, Ref } from 'react';
 import Skeleton from 'react-loading-skeleton';
+import Popup from 'reactjs-popup';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
+import { useAuthContext } from 'src/context';
+import { MessageAdminMenuIcon } from 'src/modules/chat/messages_panel/message_admin_menu/MessageAdminMenuIcon';
+import { MessageAdminPanel } from 'src/modules/chat/messages_panel/message_admin_menu/MessageAdminPanel';
 import { Message } from 'src/modules/chat/messages_panel/MessagesPanel';
 import {
   Avatar,
@@ -74,6 +78,29 @@ const SpecialistMark = styled.div`
   font-weight: ${({ theme }) => theme.w400};
 `;
 
+const AdminMenuLayout = styled.div`
+  position: absolute;
+  right: 10px;
+`;
+
+const PopupMenuLayout = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: ${({ theme }) => theme.white};
+  box-shadow: 0px 5px 30px ${({ theme }) => theme.shadow};
+  padding: 5px;
+  border-radius: 10px;
+`;
+const DeletedOverlay = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: ${({ theme }) => theme.w400};
+  font-style: italic;
+`;
+
 interface Props {
   message?: Message;
   isMyMessage: boolean;
@@ -86,7 +113,7 @@ const MessageCardElement = (
 ): ReactElement => {
   const { message, isMyMessage, isLoading } = props;
   const { userInfo, timestamp, text } = message ?? {};
-
+  const { currentAuthUser } = useAuthContext();
   const t = useTranslations();
 
   return (
@@ -122,10 +149,36 @@ const MessageCardElement = (
                   lastName: userInfo?.lastName ?? '',
                 })}
           </UserName>
-          {message?.userInfo.type === 'specialist' && !isMyMessage && (
-            <SpecialistMark>{t('Chat.message.specialist_mark')}</SpecialistMark>
+          {message?.userInfo.type === 'specialist' &&
+            !isMyMessage &&
+            !currentAuthUser?.additionalInfo?.isAdmin && (
+              <SpecialistMark>
+                {t('Chat.message.specialist_mark')}
+              </SpecialistMark>
+            )}
+          {currentAuthUser?.additionalInfo?.isAdmin && !isMyMessage && (
+            <AdminMenuLayout>
+              <Popup
+                trigger={MessageAdminMenuIcon}
+                position="top left"
+                nested
+                on="click"
+                mouseLeaveDelay={300}
+                mouseEnterDelay={0}
+                arrow={false}
+                closeOnDocumentClick
+              >
+                <PopupMenuLayout>
+                  <MessageAdminPanel message={message} />
+                </PopupMenuLayout>
+              </Popup>
+            </AdminMenuLayout>
           )}
-          <MessageText>{text}</MessageText>
+          {message?.isDeleted ? (
+            <DeletedOverlay>Сообщение удалено администратором</DeletedOverlay>
+          ) : (
+            <MessageText>{text}</MessageText>
+          )}
           <Time>{timestamp && getTime({ ...timestamp })}</Time>
         </MessageLayout>
       )}

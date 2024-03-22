@@ -2,6 +2,7 @@ import { FormEvent, KeyboardEvent, ReactElement, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
+import { useAuthContext } from 'src/context';
 import { PaperClipIcon } from 'src/shared';
 
 const MainLayout = styled.div`
@@ -27,6 +28,13 @@ const Textarea = styled.textarea`
   overflow: hidden;
 `;
 
+const BlockedOverlay = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
 const ImagePickerLayout = styled.div`
   cursor: pointer;
 `;
@@ -39,11 +47,14 @@ const SendMessagePanelElement = (props: Props): ReactElement => {
   const [value, setValue] = useState('');
   const { onSendMessage } = props;
   const t = useTranslations('Chat');
+  const { currentAuthUser } = useAuthContext();
+
+  console.log(currentAuthUser?.additionalInfo?.isBlocked);
 
   const onKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (!value.trim()) return;
 
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !currentAuthUser?.additionalInfo?.isBlocked) {
       onSendMessage(value);
       setValue('');
     }
@@ -62,15 +73,23 @@ const SendMessagePanelElement = (props: Props): ReactElement => {
 
   return (
     <MainLayout>
-      <ImagePickerLayout>
-        <PaperClipIcon />
-      </ImagePickerLayout>
-      <Textarea
-        placeholder={t('send_message_panel.placeholder')}
-        onKeyDown={onKeyDown}
-        value={value}
-        onChange={onChange}
-      />
+      {currentAuthUser?.additionalInfo?.isBlocked ? (
+        <BlockedOverlay>
+          Вы были заблокированы администратором чата.
+        </BlockedOverlay>
+      ) : (
+        <>
+          <ImagePickerLayout>
+            <PaperClipIcon />
+          </ImagePickerLayout>
+          <Textarea
+            placeholder={t('send_message_panel.placeholder')}
+            onKeyDown={onKeyDown}
+            value={value}
+            onChange={onChange}
+          />
+        </>
+      )}
     </MainLayout>
   );
 };

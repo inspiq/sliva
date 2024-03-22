@@ -26,6 +26,7 @@ const MainLayout = styled.div`
 
 export interface Message {
   chatId: string;
+  isDeleted: boolean;
   text: string;
   timestamp: {
     nanoseconds: number;
