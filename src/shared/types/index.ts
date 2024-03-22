@@ -10,6 +10,8 @@ export interface Client {
   type: UserRole;
   email: string;
   firstName: string;
+  isAdmin: boolean;
+  isBlocked: boolean;
   lastName: string;
 }
 interface ReviewDetails {
