@@ -1,5 +1,17 @@
-import { ReactElement, TextareaHTMLAttributes, useMemo, useState } from 'react';
-import { collection, doc, setDoc, updateDoc } from 'firebase/firestore';
+import {
+  ReactElement,
+  TextareaHTMLAttributes,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+import {
+  collection,
+  doc,
+  onSnapshot,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore';
 import { useFormik } from 'formik';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
@@ -7,9 +19,18 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { useAuthContext } from 'src/context/AuthContext';
 import { Review } from 'src/modules/specialist_profile/SpecialistProfile';
-import { db, RateChip, Specialist, UiButton, UiForm } from 'src/shared';
+import {
+  add24HoursToDate,
+  BlockOverlay,
+  db,
+  DEFAULT_AVG_RATING,
+  RateChip,
+  Specialist,
+  UiButton,
+  UiForm,
+} from 'src/shared';
 
-const MainLayout = styled(UiForm)`
+const StyledUiForm = styled(UiForm)`
   box-shadow: 0px 5px 30px ${({ theme }) => theme.shadow};
   display: flex;
   gap: 15px;
@@ -18,6 +39,7 @@ const MainLayout = styled(UiForm)`
   flex-direction: column;
   border-radius: 15px;
   padding: 20px;
+  position: relative;
 `;
 
 const Textarea = styled.textarea`
@@ -33,14 +55,6 @@ const Textarea = styled.textarea`
   &::placeholder {
     color: ${({ theme }) => theme.input.placeholder};
     font-weight: ${({ theme }) => theme.w400};
-  }
-
-  &:hover {
-    border-color: ${({ theme }) => theme.input.active};
-  }
-
-  &:focus {
-    border-color: ${({ theme }) => theme.input.active};
   }
 `;
 
@@ -71,24 +85,25 @@ interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
 const SpecialistReviewFormElement = (props: Props): ReactElement => {
   const { specialist, reviews } = props;
 
-  const [currentRating, setCurrentRating] = useState(0);
+  const [isBlockReview, setIsBlockReview] = useState(false);
+  const [currentRating, setCurrentRating] = useState(DEFAULT_AVG_RATING);
   const { currentAuthUser } = useAuthContext();
-  const t = useTranslations('SpecialistCard');
+  const t = useTranslations();
   const totalRating = reviews?.length
-    ? reviews.reduce((sum, item) => sum + item.rating, 0)
-    : 0;
+    ? reviews.reduce((sum, item) => sum + item.rating, DEFAULT_AVG_RATING)
+    : DEFAULT_AVG_RATING;
 
-  const sortedReviews = useMemo(() => {
-    const sortedReviews = reviews?.sort((a, b) => {
-      if (!a.date || !b.date) {
-        return 0;
-      }
+  const sortedReviews = useMemo(
+    () =>
+      reviews?.sort((a, b) => {
+        if (!a.date || !b.date) {
+          return 0;
+        }
 
-      return new Date(b.date).getTime() - new Date(a.date).getTime();
-    });
-
-    return sortedReviews;
-  }, [reviews]);
+        return new Date(b.date).getTime() - new Date(a.date).getTime();
+      }),
+    [reviews],
+  );
 
   const { handleSubmit, handleChange, values, isSubmitting, resetForm } =
     useFormik({
@@ -102,8 +117,8 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
         const newReview = {
           reviewId: uuidv4(),
           date: new Date().toISOString(),
-          text,
           rating: currentRating,
+          text,
           userInfo: currentAuthUser?.additionalInfo,
         };
 
@@ -140,10 +155,33 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
       },
     });
 
+  useEffect(() => {
+    const q = collection(db, 'reviews');
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      snapshot.forEach((item) => {
+        (item.data().reviews as Review[]).forEach((review) => {
+          if (
+            review.userInfo.userId === currentAuthUser?.uid &&
+            new Date() < add24HoursToDate(review.date)
+          ) {
+            setIsBlockReview(true);
+          }
+        });
+      });
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [currentAuthUser?.uid]);
+
+  const isDisabled =
+    isSubmitting || !currentRating || !values.text || isBlockReview;
+
   return (
-    <MainLayout onSubmit={handleSubmit}>
+    <StyledUiForm onSubmit={handleSubmit}>
       <Header>
-        <Title>{t('reviews_form.title')}</Title>
+        <Title>{t('SpecialistCard.reviews_form.title')}</Title>
         <RateChip
           setSelectedRating={setCurrentRating}
           selectedRating={currentRating}
@@ -153,7 +191,7 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
         name="text"
         value={values.text}
         onChange={handleChange}
-        placeholder={t('reviews_form.textarea.placeholder')}
+        placeholder={t('SpecialistCard.reviews_form.textarea.placeholder')}
         {...props}
       />
       <ButtonLayout>
@@ -161,12 +199,23 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
           type="submit"
           isSubmitting={isSubmitting}
           isStretching={false}
-          disabled={isSubmitting || !currentRating}
+          disabled={isDisabled}
         >
-          {t('reviews_form.button')}
+          {isBlockReview
+            ? t('SpecialistCard.reviews_form.button.title_block')
+            : t('SpecialistCard.reviews_form.button.title')}
         </UiButton>
       </ButtonLayout>
-    </MainLayout>
+      <BlockOverlay
+        title={
+          currentAuthUser?.uid === specialist?.userId
+            ? t('block.titles.self_review_disallowed')
+            : t('block.titles.only_replies_allowed')
+        }
+        isLinkVisible={false}
+        paddingTop={75}
+      />
+    </StyledUiForm>
   );
 };
 

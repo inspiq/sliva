@@ -18,7 +18,7 @@ export const SpecialistsElement = (): ReactElement => {
           <SpecialistsPanel />
         </Container>
         {!currentAuthUser && !isLoading && (
-          <BlockOverlay title={t('block_overlay.title')} />
+          <BlockOverlay title={t('block.titles.auth_to_access')} />
         )}
       </Wrapper>
       <Footer />

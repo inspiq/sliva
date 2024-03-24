@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { Link } from 'src/navigation';
 import { Container, LockIcon } from 'src/shared';
 
-const MainLayout = styled.div`
+const MainLayout = styled.div<{ $paddingTop: number }>`
   position: absolute;
   top: 0;
   left: 0;
@@ -16,15 +16,15 @@ const MainLayout = styled.div`
   align-items: center;
   flex-direction: column;
   background-color: ${({ theme }) => theme.ransparent_white};
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 
   & > div {
     display: flex;
     align-items: center;
     flex-direction: column;
     gap: 8px;
-    padding-top: 230px;
+    padding-top: ${({ $paddingTop }) => $paddingTop}px;
   }
 `;
 
@@ -50,18 +50,22 @@ const StyledLink = styled(Link)`
 
 interface Props {
   title: string;
+  isLinkVisible?: boolean;
+  paddingTop?: number;
 }
 
 const BlockOverlayElement = (props: Props): ReactElement => {
-  const { title } = props;
+  const { title, isLinkVisible = true, paddingTop = 230 } = props;
   const t = useTranslations();
 
   return (
-    <MainLayout>
+    <MainLayout $paddingTop={paddingTop}>
       <Container>
         <LockIcon />
         <Title>{title}</Title>
-        <StyledLink href="/log_in">{t('block_overlay.link')}</StyledLink>
+        {isLinkVisible && (
+          <StyledLink href="/log_in">{t('block.link')}</StyledLink>
+        )}
       </Container>
     </MainLayout>
   );

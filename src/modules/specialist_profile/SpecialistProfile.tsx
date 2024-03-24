@@ -8,6 +8,7 @@ import { useAuthContext } from 'src/context';
 import { Header } from 'src/modules';
 import { SpecialistReviewForm } from 'src/modules/specialist_profile/specialist_reviews/SpecialistReviewForm';
 import { SpecialistReviewsPanel } from 'src/modules/specialist_profile/specialist_reviews/SpecialistReviewsPanel';
+import { SpecialistCard } from 'src/modules/specialists/specialists_panel/SpecialistCard';
 import {
   BlockOverlay,
   Container,
@@ -17,8 +18,6 @@ import {
   useToggle,
   Wrapper,
 } from 'src/shared';
-
-import { SpecialistCard } from '../specialists/specialists_panel/SpecialistCard';
 
 const ReviewsLayout = styled.div`
   display: flex;
@@ -42,10 +41,6 @@ const Column = styled.div`
   flex-direction: column;
 `;
 
-interface Props {
-  specialistId: string;
-}
-
 export interface Review {
   reviewId: string;
   date: Date;
@@ -54,11 +49,13 @@ export interface Review {
   userInfo: Specialist;
 }
 
-export interface ReviewDocument {
+interface ReviewDocument {
   reviews: Review[];
 }
 
-const SpecialistAccountElement = (props: Props): ReactElement => {
+const SpecialistAccountElement = (props: {
+  specialistId: string;
+}): ReactElement => {
   const { specialistId } = props;
 
   const [specialist, setSpecialist] = useState<Specialist>();
@@ -76,7 +73,6 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
       if (docSnapshot.exists()) {
         setAllReviews(docSnapshot.data() as ReviewDocument);
       }
-
       stopLoadingReviews();
     });
 
@@ -128,7 +124,7 @@ const SpecialistAccountElement = (props: Props): ReactElement => {
               </ReviewsLayout>
             </Column>
             {!currentAuthUser && !isLoading && (
-              <BlockOverlay title={t('block_overlay.title')} />
+              <BlockOverlay title={t('block.titles.auth_to_access')} />
             )}
           </ContentLayout>
         </Container>

@@ -60,7 +60,8 @@ const HomeElement = (): ReactElement => {
   const t = useTranslations('modal_test');
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, 'users'), ({ size }) => {
+    const q = collection(db, 'users');
+    const unsubscribe = onSnapshot(q, ({ size }) => {
       setUsersCount(size);
     });
 

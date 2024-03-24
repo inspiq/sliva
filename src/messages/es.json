@@ -278,7 +278,10 @@
       "textarea": {
         "placeholder": "Reseña"
       },
-      "button": "Dejar una reseña"
+      "button": {
+        "title": "Dejar una reseña",
+        "title_block": "Puedes dejar un comentario una vez al día"
+      }
     }
   },
   "Specialists": {
@@ -302,9 +305,13 @@
     "avatar": "Avatar",
     "image_message": "Imagen"
   },
-  "block_overlay": {
+  "block": {
     "link": "Iniciar sesión",
-    "title": "Inicie sesión para acceder al chat"
+    "titles": {
+      "auth_to_access": "Inicia sesión para acceder al chat",
+      "self_review_disallowed": "No puedes dejar una reseña sobre ti mismo en tu perfil",
+      "only_replies_allowed": "A los especialistas solo se les permite responder a los comentarios de otros usuarios en su perfil"
+    }
   },
   "Support": {
     "title": "Soporte al Cliente",

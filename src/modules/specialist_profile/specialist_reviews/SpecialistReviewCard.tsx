@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { Review } from 'src/modules/specialist_profile/SpecialistProfile';
 import {
   Avatar,
+  DEFAULT_AVATAR_URL,
   DEFAULT_AVG_RATING,
   getDayAndYear,
   getInitials,
@@ -89,7 +90,7 @@ const SpecialistReviewCardElement = (props: Props): ReactElement => {
               <Avatar
                 width={35}
                 height={35}
-                avatarUrl={userInfo?.avatarUrl ?? ''}
+                avatarUrl={userInfo?.avatarUrl ?? DEFAULT_AVATAR_URL}
               />
             )}
             <Column>

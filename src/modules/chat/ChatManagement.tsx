@@ -94,7 +94,7 @@ const ChatManagementElement = (props: Props): ReactElement => {
           <SendMessagePanel onSendMessage={onSendMessage} />
         </ChatLayout>
         {!currentAuthUser && !isLoading && (
-          <BlockOverlay title={t('block_overlay.title')} />
+          <BlockOverlay title={t('block.titles.auth_to_access')} />
         )}
       </ChatContentLayout>
     </MainLayout>
