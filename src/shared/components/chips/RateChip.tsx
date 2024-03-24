@@ -30,7 +30,7 @@ const RateChipElement = (props: Props): ReactElement => {
   const { selectedRating, setSelectedRating, isDisabled = false } = props;
 
   const [hover, setHover] = useState(0);
-  const { light, yellow } = useTheme();
+  const { light_grey, yellow } = useTheme();
 
   const onChangeRating = (value: number) => {
     if (isDisabled) return;
@@ -59,7 +59,9 @@ const RateChipElement = (props: Props): ReactElement => {
               {...props}
             />
             <StarIcon
-              color={(hover || selectedRating) >= starValue ? yellow : light}
+              color={
+                (hover || selectedRating) >= starValue ? yellow : light_grey
+              }
               onMouseOver={() => onChangeHover(starValue)}
               onMouseLeave={() => setHover(0)}
             />
