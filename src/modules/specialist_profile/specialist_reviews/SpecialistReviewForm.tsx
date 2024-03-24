@@ -177,6 +177,7 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
 
   const isDisabled =
     isSubmitting || !currentRating || !values.text || isBlockReview;
+  const isYourProfile = specialist?.userId === currentAuthUser?.uid;
 
   return (
     <StyledUiForm onSubmit={handleSubmit}>
@@ -206,10 +207,10 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
             : t('SpecialistCard.reviews_form.button.title')}
         </UiButton>
       </ButtonLayout>
-      {specialist?.userId === currentAuthUser?.uid && (
+      {isYourProfile && (
         <BlockOverlay
           title={
-            currentAuthUser?.uid === specialist?.userId
+            isYourProfile
               ? t('block.titles.self_review_disallowed')
               : t('block.titles.only_replies_allowed')
           }
