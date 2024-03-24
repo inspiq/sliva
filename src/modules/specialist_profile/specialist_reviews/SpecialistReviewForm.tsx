@@ -206,15 +206,17 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
             : t('SpecialistCard.reviews_form.button.title')}
         </UiButton>
       </ButtonLayout>
-      <BlockOverlay
-        title={
-          currentAuthUser?.uid === specialist?.userId
-            ? t('block.titles.self_review_disallowed')
-            : t('block.titles.only_replies_allowed')
-        }
-        isLinkVisible={false}
-        paddingTop={75}
-      />
+      {specialist?.userId === currentAuthUser?.uid && (
+        <BlockOverlay
+          title={
+            currentAuthUser?.uid === specialist?.userId
+              ? t('block.titles.self_review_disallowed')
+              : t('block.titles.only_replies_allowed')
+          }
+          isLinkVisible={false}
+          paddingTop={75}
+        />
+      )}
     </StyledUiForm>
   );
 };

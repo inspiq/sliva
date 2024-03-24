@@ -122,7 +122,7 @@ const ContentLayout = styled.div`
   position: relative;
   height: 16px;
   width: 16px;
-  border: 1px solid ${({ theme }) => theme.secondary};
+  border: 1px solid ${({ theme }) => theme.grey};
   border-radius: 3px;
   display: flex;
   align-items: center;
