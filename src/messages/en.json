@@ -301,12 +301,12 @@
       "global_chat": "Global chat"
     },
     "send_message_panel": {
-      "block_msg_panel":"You have been blocked by the chat administrator.",
+      "block_message_panel": "You have been blocked by the chat administrator.",
       "placeholder": "Enter a message..."
     },
     "message": {
       "you": "You:",
-      "del_message":"Message deleted by the administrator",
+      "delete_message": "Message deleted by the administrator",
       "specialist_mark": "spec."
     }
   },

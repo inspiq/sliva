@@ -62,19 +62,8 @@ const SendMessagePanelElement = (props: Props): ReactElement => {
     const { target } = e;
 
     if (target instanceof HTMLTextAreaElement) {
-      target.style.height = 'auto';
-      target.style.height = `${target.scrollHeight - 18}px`;
-    }
-  };
-
-  const onChange = (e: FormEvent<HTMLTextAreaElement>) => {
-    const { value, style, scrollHeight } = e.target as HTMLTextAreaElement;
-    setValue(value);
-    style.height = '20px';
-    style.height = `${scrollHeight}px`;
-
-    if (!value) {
-      style.height = '20px';
+      target.style.height = '20px';
+      target.style.height = `${target.scrollHeight}px`;
     }
   };
 
@@ -82,7 +71,7 @@ const SendMessagePanelElement = (props: Props): ReactElement => {
     <MainLayout>
       {currentAuthUser?.additionalInfo?.isBlocked ? (
         <BlockedOverlay>
-          {t('send_message_panel.block_msg_panel')}
+          {t('send_message_panel.block_message_panel')}
         </BlockedOverlay>
       ) : (
         <>
@@ -94,7 +83,7 @@ const SendMessagePanelElement = (props: Props): ReactElement => {
             placeholder={t('send_message_panel.placeholder')}
             onKeyDown={onKeyDown}
             value={value}
-            onChange={onChange}
+            onChange={(event) => setValue(event.target.value)}
           />
         </>
       )}

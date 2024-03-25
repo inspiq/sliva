@@ -10,6 +10,7 @@ import {
 import styled from 'styled-components';
 
 import { Message } from 'src/modules/chat/messages_panel/MessagesPanel';
+import { AdminMenuValues } from 'src/shared';
 import { db, type Option } from 'src/shared';
 
 const MainLayout = styled.div`
@@ -39,10 +40,8 @@ const MessageAdminCardElement = (props: Props): ReactElement => {
   const { item, message } = props;
   const { label, value } = item;
 
-  const menuItem = label;
-
   const utils: { [key: string]: VoidFunction } = {
-    block: async () => {
+    [AdminMenuValues.BLOCK]: async () => {
       const usersCollection = collection(db, 'users');
       const userDoc = doc(usersCollection, message?.userInfo.userId);
 
@@ -64,7 +63,7 @@ const MessageAdminCardElement = (props: Props): ReactElement => {
         } catch (error) {}
       });
     },
-    delete: async () => {
+    [AdminMenuValues.DELETE]: async () => {
       const charRef = collection(db, 'global_chat');
       const q = query(charRef, where('chatId', '==', message?.chatId));
       const querySnapshot = await getDocs(q);
@@ -78,7 +77,7 @@ const MessageAdminCardElement = (props: Props): ReactElement => {
         } catch (error) {}
       });
     },
-    recover: async () => {
+    [AdminMenuValues.RECOVER]: async () => {
       const charRef = collection(db, 'global_chat');
       const q = query(charRef, where('chatId', '==', message?.chatId));
       const querySnapshot = await getDocs(q);
@@ -92,7 +91,7 @@ const MessageAdminCardElement = (props: Props): ReactElement => {
         } catch (error) {}
       });
     },
-    unblock: async () => {
+    [AdminMenuValues.UNBLOCK]: async () => {
       const usersCollection = collection(db, 'users');
       const userDoc = doc(usersCollection, message?.userInfo.userId);
       await updateDoc(userDoc, {
@@ -115,7 +114,7 @@ const MessageAdminCardElement = (props: Props): ReactElement => {
     },
   };
 
-  return <MainLayout onClick={utils[value]}>{menuItem}</MainLayout>;
+  return <MainLayout onClick={utils[value]}>{label}</MainLayout>;
 };
 
 export const MessageAdminCard = memo(MessageAdminCardElement);

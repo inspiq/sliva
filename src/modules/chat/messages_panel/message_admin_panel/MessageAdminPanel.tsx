@@ -1,7 +1,7 @@
 import { ReactElement } from 'react';
 import { useTranslations } from 'next-intl';
 
-import { MessageAdminCard } from 'src/modules/chat/messages_panel/message_admin_menu/MessageAdminCard';
+import { MessageAdminCard } from 'src/modules/chat/messages_panel/message_admin_panel/MessageAdminCard';
 import { Message } from 'src/modules/chat/messages_panel/MessagesPanel';
 import { AdminMenuValues, getChatAdminMenu } from 'src/shared';
 
@@ -9,6 +9,7 @@ const MessageAdminPanelElement = (props: {
   message?: Message;
 }): ReactElement => {
   const { message } = props;
+
   const t = useTranslations();
   const menu = getChatAdminMenu(t);
 
@@ -23,9 +24,11 @@ const MessageAdminPanelElement = (props: {
           (item.value === AdminMenuValues.UNBLOCK &&
             message?.userInfo.isBlocked);
 
-        return shouldRender ? (
-          <MessageAdminCard message={message} item={item} key={item.value} />
-        ) : null;
+        return (
+          shouldRender && (
+            <MessageAdminCard message={message} item={item} key={item.value} />
+          )
+        );
       })}
     </>
   );
