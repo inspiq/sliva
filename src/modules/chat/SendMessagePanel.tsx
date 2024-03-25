@@ -58,13 +58,23 @@ const SendMessagePanelElement = (props: Props): ReactElement => {
     }
   };
 
-  const onInput = (e: FormEvent<HTMLTextAreaElement>) => {
-    const { target } = e;
+  const onChange = (e: FormEvent<HTMLTextAreaElement>) => {
+    const target = e.currentTarget;
 
-    if (target instanceof HTMLTextAreaElement) {
+    if (!target.value.trim()) {
+      setValue(target.value.trim());
       target.style.height = '20px';
-      target.style.height = `${target.scrollHeight}px`;
+
+      return;
     }
+
+    setValue(target.value);
+
+    target.style.height = '20px';
+
+    requestAnimationFrame(() => {
+      target.style.height = `${target.scrollHeight}px`;
+    });
   };
 
   return (
@@ -79,11 +89,10 @@ const SendMessagePanelElement = (props: Props): ReactElement => {
             <PaperClipIcon />
           </ImagePickerLayout>
           <Textarea
-            onInput={onInput}
             placeholder={t('send_message_panel.placeholder')}
             onKeyDown={onKeyDown}
             value={value}
-            onChange={(event) => setValue(event.target.value)}
+            onChange={onChange}
           />
         </>
       )}

@@ -28,20 +28,11 @@ const MainLayout = styled.div`
   }
 
   &::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-
-  &::-webkit-scrollbar-track-piece:end {
-    background: transparent;
+    background-color: ${({ theme }) => theme.light_grey};
   }
 
   &::-webkit-scrollbar-thumb {
     background: ${({ theme }) => theme.primary};
-    border-radius: 4px;
-  }
-
-  &::-webkit-scrollbar-thumb:hover {
-    background: #555;
   }
 `;
 
