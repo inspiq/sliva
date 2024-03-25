@@ -2,7 +2,7 @@ import { SVGProps } from 'react';
 import { useTheme } from 'styled-components';
 
 export const EyeIcon = (props: SVGProps<SVGSVGElement>) => {
-  const { width = 20, height = 20, color } = props;
+  const { width = 20, height = 20, color, ...rest } = props;
 
   const { grey } = useTheme();
 
@@ -12,7 +12,7 @@ export const EyeIcon = (props: SVGProps<SVGSVGElement>) => {
       height={height}
       fill={color ?? grey}
       viewBox="0 0 24 24"
-      {...props}
+      {...rest}
     >
       <g fillRule="evenodd" clipRule="evenodd">
         <path d="M12 9.75A2.247 2.247 0 0 0 9.75 12 2.247 2.247 0 0 0 12 14.25 2.247 2.247 0 0 0 14.25 12 2.247 2.247 0 0 0 12 9.75ZM8.25 12A3.747 3.747 0 0 1 12 8.25 3.747 3.747 0 0 1 15.75 12 3.747 3.747 0 0 1 12 15.75 3.747 3.747 0 0 1 8.25 12Z" />

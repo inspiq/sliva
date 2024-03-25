@@ -2,7 +2,7 @@ import { SVGProps } from 'react';
 import { useTheme } from 'styled-components';
 
 export const PlusIcon = (props: SVGProps<SVGSVGElement>) => {
-  const { width = 28, height = 28 } = props;
+  const { width = 28, height = 28, ...rest } = props;
   const { white } = useTheme();
 
   return (
@@ -12,7 +12,7 @@ export const PlusIcon = (props: SVGProps<SVGSVGElement>) => {
       color={white}
       fill="none"
       viewBox="0 0 24 24"
-      {...props}
+      {...rest}
     >
       <path
         stroke={white}

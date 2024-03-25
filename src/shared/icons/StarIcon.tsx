@@ -5,7 +5,7 @@ interface StarIconProps extends SVGProps<SVGSVGElement> {
 }
 
 export const StarIcon = (props: StarIconProps) => {
-  const { width = 24, height = 24, color } = props;
+  const { width = 24, height = 24, color, ...rest } = props;
 
   return (
     <svg
@@ -14,7 +14,7 @@ export const StarIcon = (props: StarIconProps) => {
       fill={color}
       strokeWidth={0}
       viewBox="0 0 24 24"
-      {...props}
+      {...rest}
     >
       <path
         stroke="none"

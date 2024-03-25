@@ -2,7 +2,7 @@ import { SVGProps } from 'react';
 import { useTheme } from 'styled-components';
 
 export const EditIcon = (props: SVGProps<SVGSVGElement>) => {
-  const { width, height } = props;
+  const { width, height, ...rest } = props;
   const { secondary } = useTheme();
 
   return (
@@ -13,7 +13,7 @@ export const EditIcon = (props: SVGProps<SVGSVGElement>) => {
       stroke={secondary}
       strokeWidth={1.68}
       viewBox="0 0 24 24"
-      {...props}
+      {...rest}
     >
       <path
         stroke={secondary}

@@ -2,12 +2,12 @@ import { SVGProps } from 'react';
 import { useTheme } from 'styled-components';
 
 export const ArrowIcon = (props: SVGProps<SVGSVGElement>) => {
-  const { width = 18, height = 18, color } = props;
+  const { width = 18, height = 18, color, ...rest } = props;
 
   const { secondary } = useTheme();
 
   return (
-    <svg width={width} height={height} viewBox="-4.5 0 20 20" {...props}>
+    <svg width={width} height={height} viewBox="-4.5 0 20 20" {...rest}>
       <path
         fill={color ?? secondary}
         fillRule="evenodd"

@@ -2,7 +2,7 @@ import { SVGProps } from 'react';
 import { useTheme } from 'styled-components';
 
 export const ExitIcon = (props: SVGProps<SVGSVGElement>) => {
-  const { width, height } = props;
+  const { width, height, ...rest } = props;
   const { secondary } = useTheme();
 
   return (
@@ -11,7 +11,7 @@ export const ExitIcon = (props: SVGProps<SVGSVGElement>) => {
       height={height}
       fill="none"
       viewBox="0 0 24 24"
-      {...props}
+      {...rest}
     >
       <g
         stroke={secondary}
