@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
 import { useAuthContext } from 'src/context';
-import { MessageAdminPanel } from 'src/modules/chat/messages_panel/message_admin_menu/MessageAdminPanel';
+import { MessageAdminPanel } from 'src/modules/chat/messages_panel/message_admin_panel/MessageAdminPanel';
 import { Message } from 'src/modules/chat/messages_panel/MessagesPanel';
 import {
   Avatar,
@@ -120,10 +120,12 @@ const MessageCardElement = (
 ): ReactElement => {
   const { message, isMyMessage, isLoading } = props;
   const { userInfo, timestamp, text } = message ?? {};
+
   const { currentAuthUser } = useAuthContext();
   const t = useTranslations();
-  const authAdmin = currentAuthUser?.additionalInfo?.type === 'admin';
-  const specialistMsg = message?.userInfo.type === 'specialist';
+
+  const isAdmin = currentAuthUser?.additionalInfo?.type === 'admin';
+  const isSpecialistSendMessage = message?.userInfo?.type === 'specialist';
 
   return (
     <MainLayout $isMyMessage={isMyMessage} ref={ref}>
@@ -158,10 +160,10 @@ const MessageCardElement = (
                   lastName: userInfo?.lastName ?? '',
                 })}
           </UserName>
-          {specialistMsg && !isMyMessage && !authAdmin && (
+          {isSpecialistSendMessage && !isMyMessage && !isAdmin && (
             <SpecialistMark>{t('Chat.message.specialist_mark')}</SpecialistMark>
           )}
-          {authAdmin && !isMyMessage && (
+          {isAdmin && !isMyMessage && (
             <AdminMenuLayout>
               <Popup
                 trigger={
@@ -184,7 +186,7 @@ const MessageCardElement = (
             </AdminMenuLayout>
           )}
           {message?.isDeleted ? (
-            <DeletedOverlay>{t('Chat.message.del_message')}</DeletedOverlay>
+            <DeletedOverlay>{t('Chat.message.delete_message')}</DeletedOverlay>
           ) : (
             <MessageText>{text}</MessageText>
           )}

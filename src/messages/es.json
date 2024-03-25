@@ -301,12 +301,12 @@
     },
     "send_message_panel": {
       "placeholder": "Escriba un mensaje...",
-      "block_msg_panel":"Usted ha sido bloqueado por el administrador del chat."
+      "block_message_panel": "Usted ha sido bloqueado por el administrador del chat."
 
     },
     "message": {
       "you": "Vosotros:",
-      "del_message":"Mensaje eliminado por el administrador",
+      "delete_message": "Mensaje eliminado por el administrador",
       "specialist_mark": "esp."
     }
   },
