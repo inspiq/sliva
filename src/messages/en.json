@@ -250,6 +250,12 @@
     "title": "Get advice, solutions, and real-time support",
     "button": "Join the chat"
   },
+  "chat_admin_panel": {
+      "delete": "Delete",
+      "block": "Block",
+      "recover": "Recover",
+      "unblock": "Unblock"
+    },
   "modal_test": {
     "title": "Attention!",
     "tips": {
@@ -295,10 +301,12 @@
       "global_chat": "Global chat"
     },
     "send_message_panel": {
+      "block_msg_panel":"You have been blocked by the chat administrator.",
       "placeholder": "Enter a message..."
     },
     "message": {
       "you": "You:",
+      "del_message":"Message deleted by the administrator",
       "specialist_mark": "spec."
     }
   },

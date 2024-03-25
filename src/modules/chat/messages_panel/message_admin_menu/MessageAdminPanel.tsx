@@ -1,25 +1,27 @@
 import { ReactElement } from 'react';
+import { useTranslations } from 'next-intl';
 
 import { MessageAdminCard } from 'src/modules/chat/messages_panel/message_admin_menu/MessageAdminCard';
-import { MENU_ELEMENTS } from 'src/shared';
+import { Message } from 'src/modules/chat/messages_panel/MessagesPanel';
+import { AdminMenuValues, getChatAdminMenu } from 'src/shared';
 
-import { Message } from '../MessagesPanel';
-
-interface Props {
+const MessageAdminPanelElement = (props: {
   message?: Message;
-}
-
-const MessageAdminPanelElement = (props: Props): ReactElement => {
+}): ReactElement => {
   const { message } = props;
+  const t = useTranslations();
+  const menu = getChatAdminMenu(t);
 
   return (
     <>
-      {MENU_ELEMENTS.map((item) => {
+      {menu.map((item) => {
         const shouldRender =
-          (item.value === 'delete' && !message?.isDeleted) ||
-          (item.value === 'block' && !message?.userInfo.isBlocked) ||
-          (item.value === 'recover' && message?.isDeleted) ||
-          (item.value === 'unlock' && message?.userInfo.isBlocked);
+          (item.value === AdminMenuValues.DELETE && !message?.isDeleted) ||
+          (item.value === AdminMenuValues.BLOCK &&
+            !message?.userInfo.isBlocked) ||
+          (item.value === AdminMenuValues.RECOVER && message?.isDeleted) ||
+          (item.value === AdminMenuValues.UNBLOCK &&
+            message?.userInfo.isBlocked);
 
         return shouldRender ? (
           <MessageAdminCard message={message} item={item} key={item.value} />

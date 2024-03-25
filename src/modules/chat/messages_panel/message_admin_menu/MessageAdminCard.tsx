@@ -9,9 +9,8 @@ import {
 } from 'firebase/firestore';
 import styled from 'styled-components';
 
-import { db, Option } from 'src/shared';
-
-import { Message } from '../MessagesPanel';
+import { Message } from 'src/modules/chat/messages_panel/MessagesPanel';
+import { db, type Option } from 'src/shared';
 
 const MainLayout = styled.div`
   font-size: 15px;
@@ -37,15 +36,16 @@ interface Props {
 }
 
 const MessageAdminCardElement = (props: Props): ReactElement => {
-  const { item } = props;
-  const { message } = props;
-
+  const { item, message } = props;
   const { label, value } = item;
+
+  const menuItem = label;
 
   const utils: { [key: string]: VoidFunction } = {
     block: async () => {
       const usersCollection = collection(db, 'users');
       const userDoc = doc(usersCollection, message?.userInfo.userId);
+
       await updateDoc(userDoc, {
         isBlocked: true,
       });
@@ -64,7 +64,6 @@ const MessageAdminCardElement = (props: Props): ReactElement => {
         } catch (error) {}
       });
     },
-
     delete: async () => {
       const charRef = collection(db, 'global_chat');
       const q = query(charRef, where('chatId', '==', message?.chatId));
@@ -79,7 +78,6 @@ const MessageAdminCardElement = (props: Props): ReactElement => {
         } catch (error) {}
       });
     },
-
     recover: async () => {
       const charRef = collection(db, 'global_chat');
       const q = query(charRef, where('chatId', '==', message?.chatId));
@@ -94,8 +92,7 @@ const MessageAdminCardElement = (props: Props): ReactElement => {
         } catch (error) {}
       });
     },
-
-    unlock: async () => {
+    unblock: async () => {
       const usersCollection = collection(db, 'users');
       const userDoc = doc(usersCollection, message?.userInfo.userId);
       await updateDoc(userDoc, {
@@ -118,7 +115,7 @@ const MessageAdminCardElement = (props: Props): ReactElement => {
     },
   };
 
-  return <MainLayout onClick={utils[value]}>{label}</MainLayout>;
+  return <MainLayout onClick={utils[value]}>{menuItem}</MainLayout>;
 };
 
 export const MessageAdminCard = memo(MessageAdminCardElement);

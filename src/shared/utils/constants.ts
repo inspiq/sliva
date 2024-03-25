@@ -25,9 +25,3 @@ export const SKELETON_REVIEWS_COUNT = 3;
 export const SKELETON_DURATION = 1;
 export const MODAL_COOKIE_EXPIRATION_DURATION = 7 * 24 * 60 * 60;
 export const DEFAULT_AVATAR_URL = '/files/images/avatar.png';
-export const MENU_ELEMENTS = [
-  { value: 'delete', label: 'Удалить' },
-  { value: 'block', label: 'Заблокировать' },
-  { value: 'recover', label: 'Восстановить' },
-  { value: 'unlock', label: 'Разблокировать' },
-];

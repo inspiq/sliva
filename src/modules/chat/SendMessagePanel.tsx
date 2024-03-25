@@ -49,12 +49,10 @@ const SendMessagePanelElement = (props: Props): ReactElement => {
   const t = useTranslations('Chat');
   const { currentAuthUser } = useAuthContext();
 
-  console.log(currentAuthUser?.additionalInfo?.isBlocked);
-
   const onKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (!value.trim()) return;
 
-    if (e.key === 'Enter' && !currentAuthUser?.additionalInfo?.isBlocked) {
+    if (e.key === 'Enter') {
       onSendMessage(value);
       setValue('');
     }
@@ -75,7 +73,7 @@ const SendMessagePanelElement = (props: Props): ReactElement => {
     <MainLayout>
       {currentAuthUser?.additionalInfo?.isBlocked ? (
         <BlockedOverlay>
-          Вы были заблокированы администратором чата.
+          {t('send_message_panel.block_msg_panel')}
         </BlockedOverlay>
       ) : (
         <>
