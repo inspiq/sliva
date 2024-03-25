@@ -5,7 +5,6 @@ import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
 import { useAuthContext } from 'src/context';
-import { MessageAdminMenuIcon } from 'src/modules/chat/messages_panel/message_admin_menu/MessageAdminMenuIcon';
 import { MessageAdminPanel } from 'src/modules/chat/messages_panel/message_admin_menu/MessageAdminPanel';
 import { Message } from 'src/modules/chat/messages_panel/MessagesPanel';
 import {
@@ -15,6 +14,7 @@ import {
   getInitials,
   getTime,
 } from 'src/shared';
+import { MenuIcon } from 'src/shared/icons/MenuIcon';
 
 const MainLayout = styled.div<{ $isMyMessage: boolean }>`
   width: 100%;
@@ -91,6 +91,7 @@ const PopupMenuLayout = styled.div`
   padding: 5px;
   border-radius: 10px;
 `;
+
 const DeletedOverlay = styled.div`
   display: flex;
   width: 100%;
@@ -115,6 +116,8 @@ const MessageCardElement = (
   const { userInfo, timestamp, text } = message ?? {};
   const { currentAuthUser } = useAuthContext();
   const t = useTranslations();
+  const authAdmin = currentAuthUser?.additionalInfo?.type === 'admin';
+  const specialistMsg = message?.userInfo.type === 'specialist';
 
   return (
     <MainLayout $isMyMessage={isMyMessage} ref={ref}>
@@ -149,17 +152,17 @@ const MessageCardElement = (
                   lastName: userInfo?.lastName ?? '',
                 })}
           </UserName>
-          {message?.userInfo.type === 'specialist' &&
-            !isMyMessage &&
-            !currentAuthUser?.additionalInfo?.isAdmin && (
-              <SpecialistMark>
-                {t('Chat.message.specialist_mark')}
-              </SpecialistMark>
-            )}
-          {currentAuthUser?.additionalInfo?.isAdmin && !isMyMessage && (
+          {specialistMsg && !isMyMessage && !authAdmin && (
+            <SpecialistMark>{t('Chat.message.specialist_mark')}</SpecialistMark>
+          )}
+          {authAdmin && !isMyMessage && (
             <AdminMenuLayout>
               <Popup
-                trigger={MessageAdminMenuIcon}
+                trigger={
+                  <div>
+                    <MenuIcon />
+                  </div>
+                }
                 position="top left"
                 nested
                 on="click"
@@ -175,7 +178,7 @@ const MessageCardElement = (
             </AdminMenuLayout>
           )}
           {message?.isDeleted ? (
-            <DeletedOverlay>Сообщение удалено администратором</DeletedOverlay>
+            <DeletedOverlay>{t('Chat.message.del_message')}</DeletedOverlay>
           ) : (
             <MessageText>{text}</MessageText>
           )}
