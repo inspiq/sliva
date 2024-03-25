@@ -1,7 +1,7 @@
 import { SVGProps } from 'react';
 
 export const MenuIcon = (props: SVGProps<SVGSVGElement>) => {
-  const { width = 18, height = 18 } = props;
+  const { width = 25, height = 25 } = props;
 
   return (
     <svg
@@ -10,9 +10,9 @@ export const MenuIcon = (props: SVGProps<SVGSVGElement>) => {
       height={height}
       fill="white"
     >
-      <circle cx="5" cy="10" r="2" fill="white" />
-      <circle cx="10" cy="10" r="2" fill="white" />
-      <circle cx="15" cy="10" r="2" fill="white" />
+      <circle cx="5" cy="10" r="3" fill="white" />
+      <circle cx="13" cy="10" r="3" fill="white" />
+      <circle cx="21" cy="10" r="3" fill="white" />
     </svg>
   );
 };

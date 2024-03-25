@@ -20,7 +20,7 @@ const MainLayout = styled.div`
 const Textarea = styled.textarea`
   border: none;
   width: 100%;
-  height: 100%;
+  height: auto;
   font-size: 15px;
   padding: 0;
   color: ${({ theme }) => theme.text};
@@ -58,6 +58,15 @@ const SendMessagePanelElement = (props: Props): ReactElement => {
     }
   };
 
+  const onInput = (e: FormEvent<HTMLTextAreaElement>) => {
+    const { target } = e;
+
+    if (target instanceof HTMLTextAreaElement) {
+      target.style.height = 'auto';
+      target.style.height = `${target.scrollHeight - 18}px`;
+    }
+  };
+
   const onChange = (e: FormEvent<HTMLTextAreaElement>) => {
     const { value, style, scrollHeight } = e.target as HTMLTextAreaElement;
     setValue(value);
@@ -81,6 +90,7 @@ const SendMessagePanelElement = (props: Props): ReactElement => {
             <PaperClipIcon />
           </ImagePickerLayout>
           <Textarea
+            onInput={onInput}
             placeholder={t('send_message_panel.placeholder')}
             onKeyDown={onKeyDown}
             value={value}

@@ -22,6 +22,27 @@ const MainLayout = styled.div`
   padding-right: 20px;
   background-color: ${({ theme }) => theme.white};
   border-top-right-radius: 10px;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  &::-webkit-scrollbar-track-piece:end {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.primary};
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 `;
 
 export interface Message {

@@ -102,6 +102,12 @@ const DeletedOverlay = styled.div`
   font-style: italic;
 `;
 
+const IconLayout = styled.div`
+  cursor: pointer;
+  margin-top: -3px;
+  margin-right: 3px;
+`;
+
 interface Props {
   message?: Message;
   isMyMessage: boolean;
@@ -159,9 +165,9 @@ const MessageCardElement = (
             <AdminMenuLayout>
               <Popup
                 trigger={
-                  <div>
+                  <IconLayout>
                     <MenuIcon />
-                  </div>
+                  </IconLayout>
                 }
                 position="top left"
                 nested
