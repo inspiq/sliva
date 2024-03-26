@@ -1,7 +1,7 @@
 import { SVGProps } from 'react';
 
 export const MenuIcon = (props: SVGProps<SVGSVGElement>) => {
-  const { width = 25, height = 25, ...rest } = props;
+  const { width = 20, height = 20, ...rest } = props;
 
   return (
     <svg width={width} height={height} fill="white" {...rest}>

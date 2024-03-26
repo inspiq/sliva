@@ -90,15 +90,12 @@ const SpecialistsPanelElement = (): ReactElement => {
         );
 
         const querySnapshot = await getDocs(q);
-        const specialists: Specialist[] = [];
+        const specialistsFromDb = querySnapshot.docs.map(
+          (element) => element.data() as Specialist,
+        );
 
-        querySnapshot.forEach((element) => {
-          specialists.push(element.data() as Specialist);
-        });
-
-        setSpecialists(specialists);
+        setSpecialists(specialistsFromDb);
         setIsShowMore(specialists.length === showMoreCount);
-
         close();
       } catch (e) {
         /* empty */
@@ -106,7 +103,7 @@ const SpecialistsPanelElement = (): ReactElement => {
     };
 
     fetchData();
-  }, [close, open, selectedFilters, showMoreCount]);
+  }, [close, open, selectedFilters, showMoreCount, specialists.length]);
 
   const showMore = () => {
     setShowMoreCount((prev) => prev + SPECIALISTS_PAGINATION_STEP);

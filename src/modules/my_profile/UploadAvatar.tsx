@@ -29,7 +29,7 @@ const UploadAvatarElement = (props: {
   const avatarUrl = additionalInfo?.avatarUrl;
 
   const onChange = (e: FormEvent<HTMLInputElement>) => {
-    const { files } = e.currentTarget;
+    const { files } = e.target as HTMLInputElement;
     setFileUpload(files?.[0]);
   };
 

@@ -27,7 +27,7 @@ const SubcategoryCardElement = (props: Props): ReactElement => {
       <UiInput
         type="checkbox"
         id={subcategory.label}
-        onChange={(e) => onChange(subcategory, e.currentTarget.checked)}
+        onChange={(e) => onChange(subcategory, e.target.checked)}
         Icon={<CheckMarkIcon />}
       />
       <Title htmlFor={subcategory.label}>{subcategory.label}</Title>
