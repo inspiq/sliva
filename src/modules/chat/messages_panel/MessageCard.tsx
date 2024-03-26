@@ -13,6 +13,7 @@ import {
   devices,
   getInitials,
   getTime,
+  useToggle,
 } from 'src/shared';
 import { MenuIcon } from 'src/shared/icons/MenuIcon';
 
@@ -122,6 +123,8 @@ const MessageCardElement = (
   const { userInfo, timestamp, text } = message ?? {};
 
   const { currentAuthUser } = useAuthContext();
+  const { visible: isOpen, open, close } = useToggle();
+  console.log(isOpen);
   const t = useTranslations();
 
   const isAdmin = currentAuthUser?.additionalInfo?.type === 'admin';
@@ -168,7 +171,7 @@ const MessageCardElement = (
               <Popup
                 trigger={
                   <IconLayout>
-                    <MenuIcon />
+                    <MenuIcon onClick={open} />
                   </IconLayout>
                 }
                 position="top left"
@@ -177,10 +180,10 @@ const MessageCardElement = (
                 mouseLeaveDelay={300}
                 mouseEnterDelay={0}
                 arrow={false}
-                closeOnDocumentClick
+                open={isOpen}
               >
                 <PopupMenuLayout>
-                  <MessageAdminPanel message={message} />
+                  <MessageAdminPanel close={close} message={message} />
                 </PopupMenuLayout>
               </Popup>
             </AdminMenuLayout>
