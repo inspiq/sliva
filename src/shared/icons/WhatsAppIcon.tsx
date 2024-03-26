@@ -1,10 +1,10 @@
 import { SVGProps } from 'react';
 
 export const WhatsAppIcon = (props: SVGProps<SVGSVGElement>) => {
-  const { width = 24, height = 24, color } = props;
+  const { width = 24, height = 24, color, ...rest } = props;
 
   return (
-    <svg width={width} height={height} viewBox="0 0 48 48" {...props}>
+    <svg width={width} height={height} viewBox="0 0 48 48" {...rest}>
       <path
         fill={color ?? '#67C15E'}
         fillRule="evenodd"

@@ -2,7 +2,7 @@ import { SVGProps } from 'react';
 import { useTheme } from 'styled-components';
 
 export const NotFoundSpecialistsIcon = (props: SVGProps<SVGSVGElement>) => {
-  const { width = 24, height = 24 } = props;
+  const { width = 24, height = 24, ...rest } = props;
 
   const { grey } = useTheme();
 
@@ -12,7 +12,7 @@ export const NotFoundSpecialistsIcon = (props: SVGProps<SVGSVGElement>) => {
       height={height}
       fill="none"
       viewBox="0 0 24 24"
-      {...props}
+      {...rest}
     >
       <path
         stroke={grey}

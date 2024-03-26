@@ -1,7 +1,7 @@
 import { SVGProps } from 'react';
 
 export const SpanishIcon = (props: SVGProps<SVGSVGElement>) => {
-  const { width = 18, height = 18 } = props;
+  const { width = 18, height = 18, ...rest } = props;
 
   return (
     <svg
@@ -9,7 +9,7 @@ export const SpanishIcon = (props: SVGProps<SVGSVGElement>) => {
       height={height}
       fill="none"
       viewBox="0 -4 28 28"
-      {...props}
+      {...rest}
     >
       <g clipPath="url(#a)">
         <rect width={28} height={20} fill="#fff" rx={2} />

@@ -1,10 +1,10 @@
 import { SVGProps } from 'react';
 
 export const ViberIcon = (props: SVGProps<SVGSVGElement>) => {
-  const { width = 24, height = 24, color } = props;
+  const { width = 24, height = 24, color, ...rest } = props;
 
   return (
-    <svg width={width} height={height} viewBox="0 0 52 52" {...props}>
+    <svg width={width} height={height} viewBox="0 0 52 52" {...rest}>
       <path
         fill={color ?? '#7F4DA0'}
         fillRule="evenodd"
