@@ -288,7 +288,7 @@ const SignUpFormElement = (): ReactElement => {
       <Tip>{t('SignUpForm.tip.input')}</Tip>
       <PrivacyPolicyLayout>
         <UiInput
-          onChange={(e) => setIsAgree(e.currentTarget.checked)}
+          onChange={(e) => setIsAgree(e.target.checked)}
           type="checkbox"
           Icon={<CheckMarkIcon />}
           id="privacyPolicy"

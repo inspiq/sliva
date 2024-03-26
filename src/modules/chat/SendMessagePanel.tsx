@@ -39,13 +39,12 @@ const ImagePickerLayout = styled.div`
   cursor: pointer;
 `;
 
-interface Props {
+const SendMessagePanelElement = (props: {
   onSendMessage: (text: string) => void;
-}
-
-const SendMessagePanelElement = (props: Props): ReactElement => {
-  const [value, setValue] = useState('');
+}): ReactElement => {
   const { onSendMessage } = props;
+
+  const [value, setValue] = useState('');
   const t = useTranslations('Chat');
   const { currentAuthUser } = useAuthContext();
 
@@ -59,7 +58,7 @@ const SendMessagePanelElement = (props: Props): ReactElement => {
   };
 
   const onChange = (e: FormEvent<HTMLTextAreaElement>) => {
-    const target = e.currentTarget;
+    const target = e.target as HTMLTextAreaElement;
 
     if (!target.value.trim()) {
       setValue(target.value.trim());
