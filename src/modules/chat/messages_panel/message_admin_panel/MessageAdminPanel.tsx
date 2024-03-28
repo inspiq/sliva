@@ -16,14 +16,16 @@ import { AdminMenuValues, db, getChatAdminMenu } from 'src/shared';
 
 const MessageAdminPanelElement = (props: {
   message?: Message;
+  close: VoidFunction;
 }): ReactElement => {
-  const { message } = props;
+  const { message, close } = props;
 
   const t = useTranslations();
   const menu = getChatAdminMenu(t);
 
   const updateUserBlockStatus = async (isBlocked: boolean) => {
     try {
+      close();
       const usersRef = collection(db, 'users');
       const userDoc = doc(usersRef, message?.userInfo.userId);
       await updateDoc(userDoc, {
@@ -53,6 +55,7 @@ const MessageAdminPanelElement = (props: {
 
   const updateMessageDeleteStatus = async (isDeleted: boolean) => {
     try {
+      close();
       const charRef = collection(db, 'global_chat');
       const q = query(charRef, where('chatId', '==', message?.chatId));
       const { docs } = await getDocs(q);
