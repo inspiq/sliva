@@ -72,16 +72,16 @@ const MessageAdminPanelElement = (props: {
   };
 
   const adminActions: { [key: string]: VoidFunction } = {
-    [AdminMenuValues.BLOCK]: () => updateUserBlockStatus(true),
     [AdminMenuValues.DELETE]: () => updateMessageDeleteStatus(true),
     [AdminMenuValues.RECOVER]: () => updateMessageDeleteStatus(false),
+    [AdminMenuValues.BLOCK]: () => updateUserBlockStatus(true),
     [AdminMenuValues.UNBLOCK]: () => updateUserBlockStatus(false),
   };
 
   return (
     <>
       {menu.map((item) => {
-        const shouldRender =
+        const shouldRenderCard =
           (item.value === AdminMenuValues.DELETE && !message?.isDeleted) ||
           (item.value === AdminMenuValues.BLOCK &&
             !message?.userInfo.isBlocked) ||
@@ -90,7 +90,7 @@ const MessageAdminPanelElement = (props: {
             message?.userInfo.isBlocked);
 
         return (
-          shouldRender && (
+          shouldRenderCard && (
             <MessageAdminCard
               item={item}
               adminActions={adminActions}

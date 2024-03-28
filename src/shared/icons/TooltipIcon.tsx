@@ -1,6 +1,6 @@
 import { SVGProps } from 'react';
 
-export const MenuIcon = (props: SVGProps<SVGSVGElement>) => {
+export const TooltipIcon = (props: SVGProps<SVGSVGElement>) => {
   const { width = 20, height = 20, ...rest } = props;
 
   return (

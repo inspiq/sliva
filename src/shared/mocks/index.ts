@@ -28,8 +28,8 @@ export const getCategories = (t: (key: string) => string) => {
 export const getChatAdminMenu = (t: (key: string) => string) => {
   return [
     { value: 'delete', label: t('chat_admin_panel.delete') },
-    { value: 'block', label: t('chat_admin_panel.block') },
     { value: 'recover', label: t('chat_admin_panel.recover') },
+    { value: 'block', label: t('chat_admin_panel.block') },
     { value: 'unblock', label: t('chat_admin_panel.unblock') },
   ];
 };

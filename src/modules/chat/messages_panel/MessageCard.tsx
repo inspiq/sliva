@@ -13,9 +13,9 @@ import {
   devices,
   getInitials,
   getTime,
+  TooltipIcon,
   useToggle,
 } from 'src/shared';
-import { MenuIcon } from 'src/shared/icons/MenuIcon';
 
 const MainLayout = styled.div<{ $isMyMessage: boolean }>`
   width: 100%;
@@ -170,7 +170,7 @@ const MessageCardElement = (
               <Popup
                 trigger={
                   <IconLayout>
-                    <MenuIcon onClick={open} />
+                    <TooltipIcon onClick={open} />
                   </IconLayout>
                 }
                 position="top left"
