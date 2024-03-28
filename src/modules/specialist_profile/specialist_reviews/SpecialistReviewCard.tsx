@@ -10,8 +10,8 @@ import {
   getDayAndYear,
   getInitials,
   Line,
+  RateChip,
 } from 'src/shared';
-import { RateChip } from 'src/shared/components/chips/RateChip';
 
 const MainLayout = styled.div`
   padding: 15px 20px;
