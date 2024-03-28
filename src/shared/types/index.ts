@@ -1,5 +1,6 @@
 import { User } from 'firebase/auth';
 
+import Specialist from 'src/app/[locale]/(page-lib)/specialists/[specialistId]/page';
 import { UserRole } from 'src/shared';
 
 export * from 'src/shared/types/type-guards';
@@ -10,6 +11,7 @@ export interface Client {
   type: UserRole;
   email: string;
   firstName: string;
+  isBlocked: boolean;
   lastName: string;
 }
 interface ReviewDetails {

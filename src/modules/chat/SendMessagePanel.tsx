@@ -2,6 +2,7 @@ import { FormEvent, KeyboardEvent, ReactElement, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
+import { useAuthContext } from 'src/context';
 import { PaperClipIcon } from 'src/shared';
 
 const MainLayout = styled.div`
@@ -19,7 +20,7 @@ const MainLayout = styled.div`
 const Textarea = styled.textarea`
   border: none;
   width: 100%;
-  height: 100%;
+  height: auto;
   font-size: 15px;
   padding: 0;
   color: ${({ theme }) => theme.text};
@@ -27,18 +28,25 @@ const Textarea = styled.textarea`
   overflow: hidden;
 `;
 
+const BlockedOverlay = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
 const ImagePickerLayout = styled.div`
   cursor: pointer;
 `;
 
-interface Props {
+const SendMessagePanelElement = (props: {
   onSendMessage: (text: string) => void;
-}
-
-const SendMessagePanelElement = (props: Props): ReactElement => {
-  const [value, setValue] = useState('');
+}): ReactElement => {
   const { onSendMessage } = props;
+
+  const [value, setValue] = useState('');
   const t = useTranslations('Chat');
+  const { currentAuthUser } = useAuthContext();
 
   const onKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (!value.trim()) return;
@@ -50,27 +58,43 @@ const SendMessagePanelElement = (props: Props): ReactElement => {
   };
 
   const onChange = (e: FormEvent<HTMLTextAreaElement>) => {
-    const { value, style, scrollHeight } = e.target as HTMLTextAreaElement;
-    setValue(value);
-    style.height = '20px';
-    style.height = `${scrollHeight}px`;
+    const target = e.target as HTMLTextAreaElement;
 
-    if (!value) {
-      style.height = '20px';
+    if (!target.value.trim()) {
+      setValue(target.value.trim());
+      target.style.height = '20px';
+
+      return;
     }
+
+    setValue(target.value);
+
+    target.style.height = '20px';
+
+    requestAnimationFrame(() => {
+      target.style.height = `${target.scrollHeight}px`;
+    });
   };
 
   return (
     <MainLayout>
-      <ImagePickerLayout>
-        <PaperClipIcon />
-      </ImagePickerLayout>
-      <Textarea
-        placeholder={t('send_message_panel.placeholder')}
-        onKeyDown={onKeyDown}
-        value={value}
-        onChange={onChange}
-      />
+      {currentAuthUser?.additionalInfo?.isBlocked ? (
+        <BlockedOverlay>
+          {t('send_message_panel.block_message_panel')}
+        </BlockedOverlay>
+      ) : (
+        <>
+          <ImagePickerLayout>
+            <PaperClipIcon />
+          </ImagePickerLayout>
+          <Textarea
+            placeholder={t('send_message_panel.placeholder')}
+            onKeyDown={onKeyDown}
+            value={value}
+            onChange={onChange}
+          />
+        </>
+      )}
     </MainLayout>
   );
 };

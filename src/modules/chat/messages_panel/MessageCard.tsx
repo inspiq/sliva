@@ -1,8 +1,11 @@
 import { forwardRef, ReactElement, Ref } from 'react';
 import Skeleton from 'react-loading-skeleton';
+import Popup from 'reactjs-popup';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
+import { useAuthContext } from 'src/context';
+import { MessageAdminPanel } from 'src/modules/chat/messages_panel/message_admin_panel/MessageAdminPanel';
 import { Message } from 'src/modules/chat/messages_panel/MessagesPanel';
 import {
   Avatar,
@@ -10,6 +13,8 @@ import {
   devices,
   getInitials,
   getTime,
+  TooltipIcon,
+  useToggle,
 } from 'src/shared';
 
 const MainLayout = styled.div<{ $isMyMessage: boolean }>`
@@ -74,6 +79,36 @@ const SpecialistMark = styled.div`
   font-weight: ${({ theme }) => theme.w400};
 `;
 
+const AdminMenuLayout = styled.div`
+  position: absolute;
+  right: 10px;
+`;
+
+const PopupMenuLayout = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: ${({ theme }) => theme.white};
+  box-shadow: 0px 5px 30px ${({ theme }) => theme.shadow};
+  padding: 5px;
+  border-radius: 10px;
+`;
+
+const DeletedOverlay = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: ${({ theme }) => theme.w400};
+  font-style: italic;
+`;
+
+const IconLayout = styled.div`
+  cursor: pointer;
+  margin-top: -3px;
+  margin-right: 3px;
+`;
+
 interface Props {
   message?: Message;
   isMyMessage: boolean;
@@ -87,7 +122,12 @@ const MessageCardElement = (
   const { message, isMyMessage, isLoading } = props;
   const { userInfo, timestamp, text } = message ?? {};
 
+  const { currentAuthUser } = useAuthContext();
+  const { visible: isOpen, open, close } = useToggle();
   const t = useTranslations();
+
+  const isAdmin = currentAuthUser?.additionalInfo?.type === 'admin';
+  const isSpecialistSendMessage = message?.userInfo?.type === 'specialist';
 
   return (
     <MainLayout $isMyMessage={isMyMessage} ref={ref}>
@@ -122,10 +162,36 @@ const MessageCardElement = (
                   lastName: userInfo?.lastName ?? '',
                 })}
           </UserName>
-          {message?.userInfo.type === 'specialist' && !isMyMessage && (
+          {isSpecialistSendMessage && !isMyMessage && !isAdmin && (
             <SpecialistMark>{t('Chat.message.specialist_mark')}</SpecialistMark>
           )}
-          <MessageText>{text}</MessageText>
+          {isAdmin && !isMyMessage && (
+            <AdminMenuLayout>
+              <Popup
+                trigger={
+                  <IconLayout>
+                    <TooltipIcon onClick={open} />
+                  </IconLayout>
+                }
+                position="top left"
+                nested
+                on="click"
+                mouseLeaveDelay={300}
+                mouseEnterDelay={0}
+                arrow={false}
+                open={isOpen}
+              >
+                <PopupMenuLayout>
+                  <MessageAdminPanel close={close} message={message} />
+                </PopupMenuLayout>
+              </Popup>
+            </AdminMenuLayout>
+          )}
+          {message?.isDeleted ? (
+            <DeletedOverlay>{t('Chat.message.delete_message')}</DeletedOverlay>
+          ) : (
+            <MessageText>{text}</MessageText>
+          )}
           <Time>{timestamp && getTime({ ...timestamp })}</Time>
         </MessageLayout>
       )}

@@ -22,10 +22,23 @@ const MainLayout = styled.div`
   padding-right: 20px;
   background-color: ${({ theme }) => theme.white};
   border-top-right-radius: 10px;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: ${({ theme }) => theme.light_grey};
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.primary};
+  }
 `;
 
 export interface Message {
   chatId: string;
+  isDeleted: boolean;
   text: string;
   timestamp: {
     nanoseconds: number;
@@ -42,16 +55,16 @@ const MessagesPanelElement = (
   const [messages, setMessages] = useState<Message[]>([]);
   const { visible: isLoading, close } = useToggle(true);
   const ref = useRef<HTMLDivElement | null>(null);
+  const firstRender = useRef(true);
 
   useEffect(() => {
     const q = query(collection(db, 'global_chat'), orderBy('timestamp'));
 
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const messages: Message[] = [];
-      querySnapshot.forEach((doc) => {
-        messages.push(doc.data() as Message);
-      });
-      setMessages(messages);
+      const messagesFromDb = querySnapshot.docs.map(
+        (doc) => doc.data() as Message,
+      );
+      setMessages(messagesFromDb);
       close();
     });
 
@@ -61,11 +74,17 @@ const MessagesPanelElement = (
   }, [close]);
 
   useEffect(() => {
-    ref.current?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'end',
-    });
-  }, [messages, isLoading]);
+    const isYourLastMessage =
+      messages[messages.length - 1]?.userInfo.userId === currentAuthUser?.uid;
+
+    if (!firstRender.current || isYourLastMessage) {
+      ref.current?.scrollIntoView({
+        block: 'end',
+      });
+
+      firstRender.current = false;
+    }
+  }, [messages, isLoading, currentAuthUser?.uid]);
 
   return (
     <MainLayout>

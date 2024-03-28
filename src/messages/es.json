@@ -249,6 +249,12 @@
     "title": "Obtén consejos, soluciones y soporte en tiempo real",
     "button": "Unirse al chat"
   },
+  "chat_admin_panel": {
+    "delete": "Eliminar",
+    "block": "Bloquear",
+    "recover": "Recuperar",
+    "unblock": "Desbloquear"
+  },
   "modal_test": {
     "title": "Atención!",
     "tips": {
@@ -294,10 +300,13 @@
       "global_chat": "Chat global"
     },
     "send_message_panel": {
-      "placeholder": "Escriba un mensaje..."
+      "placeholder": "Escriba un mensaje...",
+      "block_message_panel": "Usted ha sido bloqueado por el administrador del chat."
+
     },
     "message": {
       "you": "Vosotros:",
+      "delete_message": "Mensaje eliminado por el administrador",
       "specialist_mark": "esp."
     }
   },

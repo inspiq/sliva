@@ -78,6 +78,7 @@ const SignUpFormElement = (): ReactElement => {
       zipCode: '',
       address: '',
       userType: defaultUserTypeOption,
+      isBlocked: false,
     },
     validationSchema: yup.object().shape({
       lastName: yup
@@ -116,6 +117,7 @@ const SignUpFormElement = (): ReactElement => {
         password,
         userType,
         address,
+        isBlocked,
         zipCode,
       } = userDetails;
 
@@ -134,6 +136,7 @@ const SignUpFormElement = (): ReactElement => {
           lastName,
           type: userType.value,
           address,
+          isBlocked,
           zipCode,
         });
 
