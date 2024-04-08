@@ -1,5 +1,6 @@
 import { memo, ReactElement } from 'react';
 import Skeleton from 'react-loading-skeleton';
+import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
 import { Review } from 'src/modules/specialist_profile/SpecialistProfile';
@@ -53,7 +54,10 @@ const ReviewHeader = styled.div`
 `;
 
 const CommentDetailsLayout = styled.div`
-  margin-top: 15px;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 `;
 
 const TextComment = styled.div`
@@ -61,12 +65,17 @@ const TextComment = styled.div`
   font-weight: ${({ theme }) => theme.w400};
   font-size: 15px;
   color: ${({ theme }) => theme.secondary};
-  font-weight: ${({ theme }) => theme.w400};
 `;
 
 const Column = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const Title = styled.div`
+  font-weight: ${({ theme }) => theme.w600};
+  color: ${({ theme }) => theme.secondary};
+  font-size: 15px;
 `;
 
 interface Props {
@@ -77,6 +86,7 @@ interface Props {
 const SpecialistReviewCardElement = (props: Props): ReactElement => {
   const { review, isLoading } = props;
   const { userInfo, text, rating, date } = review ?? {};
+  const t = useTranslations('SpecialistReviewCard');
 
   return (
     <div>
@@ -85,7 +95,7 @@ const SpecialistReviewCardElement = (props: Props): ReactElement => {
         <ReviewHeader>
           <UserDetailsLayout>
             {isLoading ? (
-              <Skeleton />
+              <Skeleton width={35} height={35} borderRadius={50} />
             ) : (
               <Avatar
                 width={35}
@@ -94,13 +104,21 @@ const SpecialistReviewCardElement = (props: Props): ReactElement => {
               />
             )}
             <Column>
-              <UserInitials>
-                {getInitials({
-                  firstName: userInfo?.firstName ?? '',
-                  lastName: userInfo?.lastName ?? '',
-                })}
-              </UserInitials>
-              <Date>{getDayAndYear(date)}</Date>
+              {isLoading ? (
+                <Skeleton width={110} />
+              ) : (
+                <UserInitials>
+                  {getInitials({
+                    firstName: userInfo?.firstName ?? '',
+                    lastName: userInfo?.lastName ?? '',
+                  })}
+                </UserInitials>
+              )}
+              {isLoading ? (
+                <Skeleton width={110} />
+              ) : (
+                <Date>{getDayAndYear(date)}</Date>
+              )}
             </Column>
           </UserDetailsLayout>
           <RateReviewLayout>
@@ -111,7 +129,12 @@ const SpecialistReviewCardElement = (props: Props): ReactElement => {
           </RateReviewLayout>
         </ReviewHeader>
         <CommentDetailsLayout>
-          <TextComment>{text}</TextComment>
+          {isLoading ? <Skeleton /> : <Title>{t('title')}</Title>}
+          {isLoading ? (
+            <Skeleton height={100} />
+          ) : (
+            <TextComment>{text}</TextComment>
+          )}
         </CommentDetailsLayout>
       </MainLayout>
     </div>

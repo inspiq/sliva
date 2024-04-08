@@ -5,6 +5,11 @@ import { UserRole } from 'src/shared';
 
 export * from 'src/shared/types/type-guards';
 
+interface ReviewDetails {
+  avgRating: string;
+  count: number;
+}
+
 export interface Client {
   userId: string;
   avatarUrl: string;
@@ -13,10 +18,6 @@ export interface Client {
   firstName: string;
   isBlocked: boolean;
   lastName: string;
-}
-interface ReviewDetails {
-  avgRating: string;
-  count: number;
 }
 
 export interface Specialist extends Client {

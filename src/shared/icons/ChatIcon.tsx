@@ -12,7 +12,7 @@ export const ChatIcon = (props: SVGProps<SVGSVGElement>) => {
       height={height}
       stroke={color ?? black}
       fill={color ?? black}
-      strokeWidth={10}
+      strokeWidth={24}
       viewBox="0 0 1024 1024"
       {...rest}
     >

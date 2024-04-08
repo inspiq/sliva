@@ -69,9 +69,9 @@ const SpecialistAccountElement = (props: {
 
   useEffect(() => {
     const docRef = doc(db, 'reviews', specialistId);
-    const unsubscribe = onSnapshot(docRef, (docSnapshot) => {
-      if (docSnapshot.exists()) {
-        setAllReviews(docSnapshot.data() as ReviewDocument);
+    const unsubscribe = onSnapshot(docRef, (documentSnapshot) => {
+      if (documentSnapshot.exists()) {
+        setAllReviews(documentSnapshot.data() as ReviewDocument);
       }
       stopLoadingReviews();
     });
@@ -83,9 +83,9 @@ const SpecialistAccountElement = (props: {
 
   useEffect(() => {
     const docRef = doc(db, 'users', specialistId);
-    const unsubscribe = onSnapshot(docRef, (docSnapshot) => {
-      if (docSnapshot.exists()) {
-        setSpecialist(docSnapshot.data() as Specialist);
+    const unsubscribe = onSnapshot(docRef, (documentSnapshot) => {
+      if (documentSnapshot.exists()) {
+        setSpecialist(documentSnapshot.data() as Specialist);
       }
       stopLoadingSpecialist();
     });
@@ -105,7 +105,7 @@ const SpecialistAccountElement = (props: {
               <SpecialistCard
                 specialist={specialist}
                 isLoading={isLoadingSpecialist}
-                isProfileDetails
+                showExtendedInfo
               />
               <ReviewsLayout>
                 {isLoadingReviews ? (

@@ -210,8 +210,9 @@
     "copywriting_and_editing": "Redacción y edición",
     "photo_and_video_shooting": "Fotografía y videografía"
   },
-  "my_profile": {
+  "MyProfileForm": {
     "title": "Información personal",
+    "avatar_tip": "Recomendamos subir imágenes de Tamaño (200x200 píxeles)",
     "first_name_input": {
       "label": "Nombre"
     },
@@ -237,7 +238,7 @@
       "label": "Número de teléfono"
     },
     "birthday_input": {
-      "label": "Fecha de nacimiento"
+      "label": "Cumpleaños"
     },
     "categories_select": "Categorías de actividades",
     "subcategories_select": "Subcategorías de actividades",
@@ -264,21 +265,7 @@
     },
     "button": "Aceptar"
   },
-  "SpecialistCard": {
-    "experience": {
-      "title": "Experiencia laboral:",
-      "info": "{experience, plural, one {# año} few {# años} many {# años} other {# años}}",
-      "no_info": "sin información"
-    },
-    "reviews": {
-      "info": "{reviewsCount, plural, one {# reseña} few {# reseñas} many {# reseñas} other {# reseñas}}"
-    },
-    "details": {
-      "services": "Todos los servicios y precios",
-      "address": "Dirección: {address}",
-      "zip_code": "Codice postale: {zipCode}",
-      "phone": "Numero telefonico: {phone}"
-    },
+  "SpecialistProfile": {
     "reviews_form": {
       "title": "Deja una reseña sobre el especialista",
       "textarea": {
@@ -286,9 +273,33 @@
       },
       "button": {
         "title": "Dejar una reseña",
-        "title_block": "Puedes dejar un comentario una vez al día"
+        "title_block": "Se permite una revisión por día"
       }
     }
+  },
+  "SpecialistCard": {
+    "experience": {
+      "title": "Experiencia laboral:",
+      "info": "{experience, plural, one {# año} few {# años} many {# años} other {# años}}",
+      "no_info": "no especificado"
+    },
+    "reviews": {
+      "info": "{reviewsCount, plural, one {# reseña} few {# reseñas} many {# reseñas} other {# reseñas}}"
+    },
+    "phone": {
+      "title": "Numero telefonico:",
+      "no_info": "no especificado"
+    },
+    "services": "Todos los servicios y precios",
+    "address": "Dirección: {address}",
+    "zip_code": "Codice postale: {zipCode}",
+    "extended_info": {
+      "title": "Información complementaria",
+      "no_info": "no especificado"
+    }
+  },
+  "SpecialistReviewCard": {
+    "title": "Comentario"
   },
   "Specialists": {
     "show_more": "Mostra più specialisti",
@@ -302,7 +313,6 @@
     "send_message_panel": {
       "placeholder": "Escriba un mensaje...",
       "block_message_panel": "Usted ha sido bloqueado por el administrador del chat."
-
     },
     "message": {
       "you": "Vosotros:",
@@ -345,13 +355,11 @@
       },
       "chat": {
         "question": "Funcionamiento/reglas del chat",
-        "answer":
-          "En la parte inferior de la página principal, haga clic en el botón (Unirse al chat). El comportamiento incorrecto en el chat lleva al bloqueo del usuario en los siguientes casos: (spam, publicidad de plataformas de internet externas, disputas en temas políticos, nacionales, religiosos, mensajes con groserías e insultos, envío de imágenes inseguras para ver)."
+        "answer": "En la parte inferior de la página principal, haga clic en el botón (Unirse al chat). El comportamiento incorrecto en el chat lleva al bloqueo del usuario en los siguientes casos: (spam, publicidad de plataformas de internet externas, disputas en temas políticos, nacionales, religiosos, mensajes con groserías e insultos, envío de imágenes inseguras para ver)."
       },
       "reviews": {
         "question": "Reseñas",
-        "answer":
-          "Para dejar una reseña para un especialista, vaya a su perfil."
+        "answer": "Para dejar una reseña para un especialista, vaya a su perfil."
       }
     }
   }

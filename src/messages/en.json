@@ -211,8 +211,9 @@
     "copywriting_and_editing": "Copywriting and editing",
     "photo_and_video_shooting": "Photo and video shooting"
   },
-  "my_profile": {
+  "MyProfileForm": {
     "title": "Personal information",
+    "avatar_tip": "We recommend uploading images in size (200x200 pixels)",
     "first_name_input": {
       "label": "First name"
     },
@@ -232,7 +233,7 @@
       "label": "Phone number"
     },
     "birthday_input": {
-      "label": "Birthday"
+      "label": "Day of birth"
     },
     "zip_code_input": {
       "label": "Zip code"
@@ -251,11 +252,11 @@
     "button": "Join the chat"
   },
   "chat_admin_panel": {
-      "delete": "Delete",
-      "block": "Block",
-      "recover": "Recover",
-      "unblock": "Unblock"
-    },
+    "delete": "Delete",
+    "block": "Block",
+    "recover": "Recover",
+    "unblock": "Unblock"
+  },
   "modal_test": {
     "title": "Attention!",
     "tips": {
@@ -265,21 +266,7 @@
     },
     "button": "Accept"
   },
-  "SpecialistCard": {
-    "experience": {
-      "title": "Work experience:",
-      "info": "{experience, plural, one {# year} few {# years} many {# years} other {# years}}",
-      "no_info": "no information"
-    },
-    "reviews": {
-      "info": "{reviewsCount, plural, one {# review} few {# reviews} many {# reviews} other {# reviews}}"
-    },
-    "details": {
-      "services": "All services and prices",
-      "address": "Address: {address}",
-      "zip_code": "Zip code: {zipCode}",
-      "phone": "Phone number: {phone}"
-    },
+  "SpecialistProfile": {
     "reviews_form": {
       "title": "Leave a review about the specialist",
       "textarea": {
@@ -287,13 +274,37 @@
       },
       "button": {
         "title": "Leave a review",
-        "title_block": "You can leave a review once a day"
+        "title_block": "One review per day is allowed"
       }
+    }
+  },
+  "SpecialistCard": {
+    "experience": {
+      "title": "Work experience:",
+      "info": "{experience, plural, one {# year} few {# years} many {# years} other {# years}}",
+      "no_info": "not specified"
+    },
+    "reviews": {
+      "info": "{reviewsCount, plural, one {# review} few {# reviews} many {# reviews} other {# reviews}}"
+    },
+    "phone": {
+      "title": "Phone number:",
+      "no_info": "not specified"
+    },
+    "services": "All services and prices",
+    "address": "Address: {address}",
+    "zip_code": "Zip code: {zipCode}",
+    "extended_info": {
+      "title": "Additional information",
+      "no_info": "not specified"
     }
   },
   "Specialists": {
     "show_more": "Show more specialists",
     "not_found": "Unfortunately, we could not find specialists, try changing the filters.."
+  },
+  "SpecialistReviewCard": {
+    "title": "Comment"
   },
   "Chat": {
     "chat_rooms": {

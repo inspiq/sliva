@@ -28,6 +28,7 @@ import {
   Specialist,
   UiButton,
   UiForm,
+  UserRole,
 } from 'src/shared';
 
 const StyledUiForm = styled(UiForm)`
@@ -45,16 +46,19 @@ const StyledUiForm = styled(UiForm)`
 const Textarea = styled.textarea`
   width: 100%;
   min-height: 125px;
-  padding: 15px;
+  padding: 12px;
   border: 1px solid ${({ theme }) => theme.border};
   border-radius: 8px;
   font-size: 16px;
-  transition: border 0.3s;
   color: ${({ theme }) => theme.secondary};
 
   &::placeholder {
     color: ${({ theme }) => theme.input.placeholder};
     font-weight: ${({ theme }) => theme.w400};
+  }
+
+  &:focus {
+    border: 2px solid ${({ theme }) => theme.input.border};
   }
 `;
 
@@ -92,6 +96,8 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
   const totalRating = reviews?.length
     ? reviews.reduce((sum, item) => sum + item.rating, DEFAULT_AVG_RATING)
     : DEFAULT_AVG_RATING;
+  const isSpecialist =
+    currentAuthUser?.additionalInfo?.type === UserRole.SPECIALIST;
 
   const sortedReviews = useMemo(
     () =>
@@ -157,9 +163,9 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
 
   useEffect(() => {
     const q = collection(db, 'reviews');
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      snapshot.forEach((item) => {
-        (item.data().reviews as Review[]).forEach((review) => {
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      querySnapshot.forEach((documentSnapshot) => {
+        (documentSnapshot.data().reviews as Review[]).forEach((review) => {
           if (
             review.userInfo.userId === currentAuthUser?.uid &&
             new Date() < add24HoursToDate(review.date)
@@ -182,7 +188,7 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
   return (
     <StyledUiForm onSubmit={handleSubmit}>
       <Header>
-        <Title>{t('SpecialistCard.reviews_form.title')}</Title>
+        <Title>{t('SpecialistProfile.reviews_form.title')}</Title>
         <RateChip
           setSelectedRating={setCurrentRating}
           selectedRating={currentRating}
@@ -192,7 +198,7 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
         name="text"
         value={values.text}
         onChange={handleChange}
-        placeholder={t('SpecialistCard.reviews_form.textarea.placeholder')}
+        placeholder={t('SpecialistProfile.reviews_form.textarea.placeholder')}
         {...props}
       />
       <ButtonLayout>
@@ -203,11 +209,11 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
           disabled={isDisabled}
         >
           {isBlockReview
-            ? t('SpecialistCard.reviews_form.button.title_block')
-            : t('SpecialistCard.reviews_form.button.title')}
+            ? t('SpecialistProfile.reviews_form.button.title_block')
+            : t('SpecialistProfile.reviews_form.button.title')}
         </UiButton>
       </ButtonLayout>
-      {isYourProfile && (
+      {(isYourProfile || isSpecialist) && (
         <BlockOverlay
           title={
             isYourProfile

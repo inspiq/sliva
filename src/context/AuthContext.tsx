@@ -35,9 +35,9 @@ export const AuthContextProvider = (props: PropsWithChildren) => {
     if (!currentAuthUser) return;
 
     const docRef = doc(db, 'users', currentAuthUser?.uid);
-    const unsubscribe = onSnapshot(docRef, (snapshot) => {
-      if (snapshot.exists()) {
-        const userData = snapshot.data() as UserType;
+    const unsubscribe = onSnapshot(docRef, (documentSnapshot) => {
+      if (documentSnapshot.exists()) {
+        const userData = documentSnapshot.data() as UserType;
         setAdditionalUserInfo(userData);
       }
     });

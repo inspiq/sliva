@@ -15,13 +15,13 @@ import {
   getCategories,
   getSpecialistFilters,
   isSpecialist,
-  Option,
+  type Option,
   storage,
   UiButton,
   UiForm,
   UiInput,
   UserRole,
-  UserWithAdditionalInfo,
+  type UserWithAdditionalInfo,
 } from 'src/shared';
 
 const Row = styled.div`
@@ -65,7 +65,7 @@ const SelectRow = styled.div`
 `;
 
 const TextArea = styled.textarea`
-  height: 150px;
+  height: 200px;
   width: 100%;
   border: 1px solid ${({ theme }) => theme.input.border};
   padding: 12px 0 0 12px;
@@ -73,19 +73,14 @@ const TextArea = styled.textarea`
   font-size: 15px;
   color: ${({ theme }) => theme.input.value};
   font-weight: ${({ theme }) => theme.w400};
-  transition: border 0.3s;
 
   &::placeholder {
     color: ${({ theme }) => theme.input.placeholder};
     font-weight: ${({ theme }) => theme.w400};
   }
 
-  &:hover {
-    border-color: ${({ theme }) => theme.input.active};
-  }
-
   &:focus {
-    border-color: ${({ theme }) => theme.input.active};
+    border: 2px solid ${({ theme }) => theme.input.border};
   }
 `;
 
@@ -106,6 +101,19 @@ const Title = styled.h6`
   color: ${({ theme }) => theme.secondary};
   margin-bottom: 40px;
   margin-top: 50px;
+`;
+
+const AvatarLayout = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+`;
+
+const AvatarTip = styled.div`
+  max-width: 200px;
+  font-size: 13px;
+  color: ${({ theme }) => theme.grey};
+  font-weight: ${({ theme }) => theme.w400};
 `;
 
 const MyProfileFormElement = (props: {
@@ -206,6 +214,7 @@ const MyProfileFormElement = (props: {
     onSubmit: async (userDetails) => {
       try {
         const userDocRef = doc(db, 'users', uid);
+
         await updateDoc(userDocRef, {
           ...userDetails,
           categories: values.categories?.map((item) => item?.value) ?? null,
@@ -261,17 +270,20 @@ const MyProfileFormElement = (props: {
 
   return (
     <>
-      <Title>{t('my_profile.title')}</Title>
+      <Title>{t('MyProfileForm.title')}</Title>
       <FormLayout>
-        <UploadAvatar
-          fileUpload={fileUpload}
-          setFileUpload={setFileUpload}
-          additionalInfo={additionalInfo}
-        />
+        <AvatarLayout>
+          <UploadAvatar
+            fileUpload={fileUpload}
+            setFileUpload={setFileUpload}
+            additionalInfo={additionalInfo}
+          />
+          <AvatarTip>{t('MyProfileForm.avatar_tip')}</AvatarTip>
+        </AvatarLayout>
         <StyledUiForm onSubmit={handleSubmit}>
           <Row>
             <UiInput
-              label={t('my_profile.last_name_input.label')}
+              label={t('MyProfileForm.last_name_input.label')}
               value={values.lastName}
               name="lastName"
               onChange={handleChange}
@@ -281,7 +293,7 @@ const MyProfileFormElement = (props: {
               id="lastName"
             />
             <UiInput
-              label={t('my_profile.first_name_input.label')}
+              label={t('MyProfileForm.first_name_input.label')}
               value={values.firstName}
               name="firstName"
               onChange={handleChange}
@@ -291,7 +303,7 @@ const MyProfileFormElement = (props: {
               id="firstName"
             />
             <UiInput
-              label={t('my_profile.birthday_input.label')}
+              label={t('MyProfileForm.birthday_input.label')}
               value={values.birthday}
               name="birthday"
               type="date"
@@ -303,7 +315,7 @@ const MyProfileFormElement = (props: {
             />
             {additionalInfo?.type === UserRole.SPECIALIST && (
               <UiInput
-                label={t('my_profile.work_input.label')}
+                label={t('MyProfileForm.work_input.label')}
                 value={values.experience}
                 name="experience"
                 onChange={handleChange}
@@ -315,7 +327,7 @@ const MyProfileFormElement = (props: {
               />
             )}
             <UiInput
-              label={t('my_profile.telegram_input.label')}
+              label={t('MyProfileForm.telegram_input.label')}
               value={values.telegram}
               name="telegram"
               onChange={handleChange}
@@ -325,7 +337,7 @@ const MyProfileFormElement = (props: {
               id="telegram"
             />
             <UiInput
-              label={t('my_profile.phone_input.label')}
+              label={t('MyProfileForm.phone_input.label')}
               value={values.phone}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -335,7 +347,7 @@ const MyProfileFormElement = (props: {
               name="phone"
             />
             <UiInput
-              label={t('my_profile.zip_code_input.label')}
+              label={t('MyProfileForm.zip_code_input.label')}
               value={values.zipCode}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -345,7 +357,7 @@ const MyProfileFormElement = (props: {
               name="zipCode"
             />
             <UiInput
-              label={t('my_profile.address_input.label')}
+              label={t('MyProfileForm.address_input.label')}
               value={values.address}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -365,7 +377,7 @@ const MyProfileFormElement = (props: {
                   onChangeCategories(selectedOptions as MultiValue<Option>)
                 }
                 value={values.categories}
-                placeholder={t('my_profile.categories_select')}
+                placeholder={t('MyProfileForm.categories_select')}
                 styles={styles}
                 theme={(theme) => ({
                   ...theme,
@@ -385,7 +397,7 @@ const MyProfileFormElement = (props: {
                 }
                 options={subcategories}
                 value={values.subcategories}
-                placeholder={t('my_profile.subcategories_select')}
+                placeholder={t('MyProfileForm.subcategories_select')}
                 styles={styles}
                 theme={(theme) => ({
                   ...theme,
@@ -405,7 +417,7 @@ const MyProfileFormElement = (props: {
               <TextArea
                 value={values.extendedInfo}
                 onChange={handleChange}
-                placeholder={t('my_profile.additional_information_textarea')}
+                placeholder={t('MyProfileForm.additional_information_textarea')}
                 name="extendedInfo"
               />
             </TextAreaRow>
@@ -418,7 +430,7 @@ const MyProfileFormElement = (props: {
               isSubmitting={isSubmitting}
               isStretching={false}
             >
-              {t('my_profile.button')}
+              {t('MyProfileForm.button')}
             </UiButton>
           </UiButtonLayout>
         </StyledUiForm>
@@ -427,4 +439,4 @@ const MyProfileFormElement = (props: {
   );
 };
 
-export const PersonalInfoForm = MyProfileFormElement;
+export const MyProfileForm = MyProfileFormElement;

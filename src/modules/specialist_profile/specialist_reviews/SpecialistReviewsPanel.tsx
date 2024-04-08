@@ -8,7 +8,6 @@ import { SKELETON_REVIEWS_COUNT, SkeletonPanel } from 'src/shared';
 const MainLayout = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 5px;
 `;
 
 interface Props {
@@ -28,7 +27,11 @@ const SpecialistReviewsPanelElement = (props: Props): ReactElement => {
         />
       ) : (
         reviews?.map((review) => (
-          <SpecialistReviewCard review={review} key={review.reviewId} />
+          <SpecialistReviewCard
+            review={review}
+            key={review.reviewId}
+            isLoading={isLoading}
+          />
         ))
       )}
     </MainLayout>

@@ -14,10 +14,12 @@ import { MessageAdminCard } from 'src/modules/chat/messages_panel/message_admin_
 import { Message } from 'src/modules/chat/messages_panel/MessagesPanel';
 import { AdminMenuValues, db, getChatAdminMenu } from 'src/shared';
 
-const MessageAdminPanelElement = (props: {
+interface Props {
   message?: Message;
   close: VoidFunction;
-}): ReactElement => {
+}
+
+const MessageAdminPanelElement = (props: Props): ReactElement => {
   const { message, close } = props;
 
   const t = useTranslations();
@@ -26,6 +28,7 @@ const MessageAdminPanelElement = (props: {
   const updateUserBlockStatus = async (isBlocked: boolean) => {
     try {
       close();
+
       const usersRef = collection(db, 'users');
       const userDoc = doc(usersRef, message?.userInfo.userId);
       await updateDoc(userDoc, {
@@ -56,6 +59,7 @@ const MessageAdminPanelElement = (props: {
   const updateMessageDeleteStatus = async (isDeleted: boolean) => {
     try {
       close();
+
       const charRef = collection(db, 'global_chat');
       const q = query(charRef, where('chatId', '==', message?.chatId));
       const { docs } = await getDocs(q);
@@ -71,34 +75,33 @@ const MessageAdminPanelElement = (props: {
     }
   };
 
+  const messageDeleted = message?.isDeleted ?? false;
+  const messageBlocked = message?.userInfo.isBlocked ?? false;
   const adminActions: { [key: string]: VoidFunction } = {
     [AdminMenuValues.DELETE]: () => updateMessageDeleteStatus(true),
     [AdminMenuValues.RECOVER]: () => updateMessageDeleteStatus(false),
     [AdminMenuValues.BLOCK]: () => updateUserBlockStatus(true),
     [AdminMenuValues.UNBLOCK]: () => updateUserBlockStatus(false),
   };
+  const renderCardOptions: { [key: string]: boolean } = {
+    [AdminMenuValues.DELETE]: !messageDeleted,
+    [AdminMenuValues.BLOCK]: !messageBlocked,
+    [AdminMenuValues.RECOVER]: messageDeleted,
+    [AdminMenuValues.UNBLOCK]: messageBlocked,
+  };
 
   return (
     <>
-      {menu.map((item) => {
-        const shouldRenderCard =
-          (item.value === AdminMenuValues.DELETE && !message?.isDeleted) ||
-          (item.value === AdminMenuValues.BLOCK &&
-            !message?.userInfo.isBlocked) ||
-          (item.value === AdminMenuValues.RECOVER && message?.isDeleted) ||
-          (item.value === AdminMenuValues.UNBLOCK &&
-            message?.userInfo.isBlocked);
-
-        return (
-          shouldRenderCard && (
+      {menu.map(
+        (item) =>
+          renderCardOptions[item.value] && (
             <MessageAdminCard
               item={item}
               adminActions={adminActions}
               key={item.value}
             />
-          )
-        );
-      })}
+          ),
+      )}
     </>
   );
 };

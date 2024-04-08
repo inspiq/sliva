@@ -55,7 +55,7 @@ const MessagesPanelElement = (
   const [messages, setMessages] = useState<Message[]>([]);
   const { visible: isLoading, close } = useToggle(true);
   const ref = useRef<HTMLDivElement | null>(null);
-  const firstRender = useRef(true);
+  const isInitialRender = useRef(true);
 
   useEffect(() => {
     const q = query(collection(db, 'global_chat'), orderBy('timestamp'));
@@ -74,15 +74,16 @@ const MessagesPanelElement = (
   }, [close]);
 
   useEffect(() => {
-    const isYourLastMessage =
-      messages[messages.length - 1]?.userInfo.userId === currentAuthUser?.uid;
+    if (messages.length) {
+      const isYourLastMessage =
+        messages[messages.length - 1]?.userInfo.userId === currentAuthUser?.uid;
 
-    if (!firstRender.current || isYourLastMessage) {
-      ref.current?.scrollIntoView({
-        block: 'end',
-      });
-
-      firstRender.current = false;
+      if (isInitialRender.current || isYourLastMessage) {
+        ref.current?.scrollIntoView({
+          block: 'end',
+        });
+        isInitialRender.current = false;
+      }
     }
   }, [messages, isLoading, currentAuthUser?.uid]);
 

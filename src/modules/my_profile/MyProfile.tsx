@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 
 import { useAuthContext } from 'src/context';
 import { Header } from 'src/modules';
-import { PersonalInfoForm } from 'src/modules/my_profile/MyProfileForm';
+import { MyProfileForm } from 'src/modules/my_profile/MyProfileForm';
 import { Container, Footer, Loader, Wrapper } from 'src/shared';
 
 const MyProfileElement = (): ReactElement => {
@@ -17,7 +17,7 @@ const MyProfileElement = (): ReactElement => {
       <Header />
       <Wrapper>
         <Container>
-          <PersonalInfoForm currentAuthUser={currentAuthUser} />
+          <MyProfileForm currentAuthUser={currentAuthUser} />
         </Container>
       </Wrapper>
       <Footer />
