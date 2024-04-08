@@ -86,7 +86,7 @@ interface Props {
 const SpecialistReviewCardElement = (props: Props): ReactElement => {
   const { review, isLoading } = props;
   const { userInfo, text, rating, date } = review ?? {};
-  const t = useTranslations('SpecialistReviewCard');
+  const t = useTranslations();
 
   return (
     <div>
@@ -117,7 +117,7 @@ const SpecialistReviewCardElement = (props: Props): ReactElement => {
               {isLoading ? (
                 <Skeleton width={110} />
               ) : (
-                <Date>{getDayAndYear(date)}</Date>
+                <Date>{getDayAndYear(t, date)}</Date>
               )}
             </Column>
           </UserDetailsLayout>
@@ -129,7 +129,11 @@ const SpecialistReviewCardElement = (props: Props): ReactElement => {
           </RateReviewLayout>
         </ReviewHeader>
         <CommentDetailsLayout>
-          {isLoading ? <Skeleton /> : <Title>{t('title')}</Title>}
+          {isLoading ? (
+            <Skeleton />
+          ) : (
+            <Title>{t('SpecialistReviewCard.title')}</Title>
+          )}
           {isLoading ? (
             <Skeleton height={100} />
           ) : (

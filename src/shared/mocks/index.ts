@@ -380,20 +380,20 @@ export const getSpecialistFilters = (t: (key: string) => string) => {
   ];
 };
 
-export const getMonthName = (month: number) => {
+export const getMonthName = (t: (key: string) => string, month: number) => {
   const months = [
-    'январь',
-    'февраль',
-    'март',
-    'апрель',
-    'май',
-    'июнь',
-    'июль',
-    'август',
-    'сентябрь',
-    'октябрь',
-    'ноябрь',
-    'декабрь',
+    t('months.january'),
+    t('months.february'),
+    t('months.march'),
+    t('months.april'),
+    t('months.may'),
+    t('months.june'),
+    t('months.july'),
+    t('months.august'),
+    t('months.september'),
+    t('months.october'),
+    t('months.november'),
+    t('months.december'),
   ];
 
   return months[month];

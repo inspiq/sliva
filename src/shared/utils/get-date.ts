@@ -1,13 +1,13 @@
 import { getMonthName } from 'src/shared';
 
-export const getDayAndYear = (dateInput?: Date) => {
+export const getDayAndYear = (t: (key: string) => string, dateInput?: Date) => {
   if (!dateInput) return '';
 
   const convertedToDate = new Date(dateInput);
   const date = convertedToDate.getDate();
   const month = convertedToDate.getMonth();
   const year = convertedToDate.getFullYear();
-  const monthName = getMonthName(month);
+  const monthName = getMonthName(t, month);
 
   return `${date} ${monthName} ${year}`;
 };
