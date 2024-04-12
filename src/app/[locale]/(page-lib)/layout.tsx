@@ -1,4 +1,4 @@
-import { PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 import type { Metadata } from 'next';
 import { Montserrat } from 'next/font/google';
 import { NextIntlClientProvider, useMessages } from 'next-intl';

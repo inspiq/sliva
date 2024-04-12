@@ -2,7 +2,7 @@
 
 import 'react-loading-skeleton/dist/skeleton.css';
 
-import { PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 import { CookiesProvider } from 'react-cookie';
 import { Montserrat } from 'next/font/google';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
