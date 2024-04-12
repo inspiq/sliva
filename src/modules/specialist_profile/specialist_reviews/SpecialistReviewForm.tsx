@@ -91,13 +91,12 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
 
   const [isBlockReview, setIsBlockReview] = useState(false);
   const [currentRating, setCurrentRating] = useState(DEFAULT_AVG_RATING);
-  const { currentAuthUser } = useAuthContext();
+  const { authUser } = useAuthContext();
   const t = useTranslations();
   const totalRating = reviews?.length
     ? reviews.reduce((sum, item) => sum + item.rating, DEFAULT_AVG_RATING)
     : DEFAULT_AVG_RATING;
-  const isSpecialist =
-    currentAuthUser?.additionalInfo?.type === UserRole.SPECIALIST;
+  const isSpecialist = authUser?.additionalInfo?.type === UserRole.SPECIALIST;
 
   const sortedReviews = useMemo(
     () =>
@@ -125,7 +124,7 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
           date: new Date().toISOString(),
           rating: currentRating,
           text,
-          user: currentAuthUser?.additionalInfo,
+          user: authUser?.additionalInfo,
         };
 
         const updatedReviews = sortedReviews
@@ -167,7 +166,7 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
       querySnapshot.forEach((documentSnapshot) => {
         (documentSnapshot.data().reviews as Review[]).forEach((review) => {
           if (
-            review.user.id === currentAuthUser?.uid &&
+            review.user.id === authUser?.uid &&
             new Date() < add24HoursToDate(review.date)
           ) {
             setIsBlockReview(true);
@@ -179,11 +178,11 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
     return () => {
       unsubscribe();
     };
-  }, [currentAuthUser?.uid]);
+  }, [authUser?.uid]);
 
   const isDisabled =
     isSubmitting || !currentRating || !values.text || isBlockReview;
-  const isYourProfile = specialist?.id === currentAuthUser?.uid;
+  const isYourProfile = specialist?.id === authUser?.uid;
 
   return (
     <StyledUiForm onSubmit={handleSubmit}>

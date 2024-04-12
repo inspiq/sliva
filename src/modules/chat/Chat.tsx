@@ -7,22 +7,19 @@ import { Container, Footer, Wrapper } from 'src/shared';
 import type { UserWithAdditionalInfo } from 'src/types';
 
 export interface Props {
-  currentAuthUser: UserWithAdditionalInfo | null;
+  authUser: UserWithAdditionalInfo | null;
   isLoading: boolean;
 }
 
 export const ChatElement = (): ReactElement => {
-  const { currentAuthUser, isLoading } = useAuthContext();
+  const { authUser, isLoading } = useAuthContext();
 
   return (
     <>
       <Header />
       <Wrapper $position="flex-start">
         <Container>
-          <ChatManagement
-            currentAuthUser={currentAuthUser}
-            isLoading={isLoading}
-          />
+          <ChatManagement authUser={authUser} isLoading={isLoading} />
         </Container>
       </Wrapper>
       <Footer />

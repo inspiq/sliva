@@ -122,11 +122,11 @@ const MessageCardElement = (
   const { message, isMyMessage, isLoading } = props;
   const { user, timestamp, text } = message ?? {};
 
-  const { currentAuthUser } = useAuthContext();
+  const { authUser } = useAuthContext();
   const { visible: isOpen, open, close } = useToggle();
   const t = useTranslations();
 
-  const isAdmin = currentAuthUser?.additionalInfo?.type === 'admin';
+  const isAdmin = authUser?.additionalInfo?.type === 'admin';
   const isSpecialistSendMessage = message?.user?.type === 'specialist';
 
   return (

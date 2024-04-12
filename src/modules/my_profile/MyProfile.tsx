@@ -6,9 +6,9 @@ import { MyProfileForm } from 'src/modules/my_profile/MyProfileForm';
 import { Container, Footer, Loader, Wrapper } from 'src/shared';
 
 const MyProfileElement = (): ReactElement => {
-  const { currentAuthUser } = useAuthContext();
+  const { authUser } = useAuthContext();
 
-  if (!currentAuthUser?.additionalInfo) {
+  if (!authUser?.additionalInfo) {
     return <Loader />;
   }
 
@@ -17,7 +17,7 @@ const MyProfileElement = (): ReactElement => {
       <Header />
       <Wrapper>
         <Container>
-          <MyProfileForm currentAuthUser={currentAuthUser} />
+          <MyProfileForm authUser={authUser} />
         </Container>
       </Wrapper>
       <Footer />

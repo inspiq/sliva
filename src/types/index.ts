@@ -38,4 +38,6 @@ export interface ValueLabelPair {
 }
 
 export type UserType = Client | Specialist;
-export type UserWithAdditionalInfo = User & { additionalInfo: UserType | null };
+export type UserWithAdditionalInfo =
+  | (User & { additionalInfo: UserType | null })
+  | null;

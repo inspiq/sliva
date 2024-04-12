@@ -60,7 +60,7 @@ export const ChatContentLayout = styled.div`
 `;
 
 const ChatManagementElement = (props: Props): ReactElement => {
-  const { currentAuthUser, isLoading } = props;
+  const { authUser, isLoading } = props;
 
   const t = useTranslations();
   const [activeRoom, setActiveRoom] = useState(0);
@@ -73,7 +73,7 @@ const ChatManagementElement = (props: Props): ReactElement => {
       await setDoc(userDocRef, {
         chatId: uuidv4(),
         timestamp: new Date(),
-        user: currentAuthUser?.additionalInfo,
+        user: authUser?.additionalInfo,
         text,
       });
     } catch (e) {
@@ -90,10 +90,10 @@ const ChatManagementElement = (props: Props): ReactElement => {
             <Title>{t('Chat.chat_rooms.global_chat')}</Title>
             <Line />
           </Header>
-          <MessagesPanel currentAuthUser={currentAuthUser} />
+          <MessagesPanel authUser={authUser} />
           <SendMessagePanel onSendMessage={onSendMessage} />
         </ChatLayout>
-        {!currentAuthUser && !isLoading && (
+        {!authUser && !isLoading && (
           <BlockOverlay title={t('block.titles.auth_to_access')} />
         )}
       </ChatContentLayout>

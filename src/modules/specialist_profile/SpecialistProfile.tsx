@@ -60,7 +60,7 @@ const SpecialistAccountElement = (props: {
 
   const [specialist, setSpecialist] = useState<Specialist>();
   const [allReviews, setAllReviews] = useState<ReviewDocument>();
-  const { currentAuthUser, isLoading } = useAuthContext();
+  const { authUser, isLoading } = useAuthContext();
   const t = useTranslations();
   const { visible: isLoadingSpecialist, close: stopLoadingSpecialist } =
     useToggle(true);
@@ -123,7 +123,7 @@ const SpecialistAccountElement = (props: {
                 />
               </ReviewsLayout>
             </Column>
-            {!currentAuthUser && !isLoading && (
+            {!authUser && !isLoading && (
               <BlockOverlay title={t('block.titles.auth_to_access')} />
             )}
           </ContentLayout>

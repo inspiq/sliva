@@ -119,10 +119,10 @@ const AvatarTip = styled.div`
 `;
 
 const MyProfileFormElement = (props: {
-  currentAuthUser: UserWithAdditionalInfo;
+  authUser: UserWithAdditionalInfo;
 }): ReactElement => {
-  const { currentAuthUser } = props;
-  const { additionalInfo, uid } = currentAuthUser;
+  const { authUser } = props;
+  const { additionalInfo, uid } = authUser;
 
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [fileUpload, setFileUpload] = useState<File>();

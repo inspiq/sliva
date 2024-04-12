@@ -12,12 +12,12 @@ import { auth, db } from 'src/shared';
 import type { UserType, UserWithAdditionalInfo } from 'src/types';
 
 interface Values {
-  currentAuthUser: UserWithAdditionalInfo | null;
+  authUser: UserWithAdditionalInfo | null;
   isLoading: boolean;
 }
 
 const initialValues: Values = {
-  currentAuthUser: null,
+  authUser: null,
   isLoading: true,
 };
 
@@ -26,27 +26,27 @@ export const AuthContext = createContext(initialValues);
 export const AuthContextProvider = (props: PropsWithChildren) => {
   const { children } = props;
 
-  const [currentAuthUser, setCurrentAuthUser] = useState<User | null>(null);
-  const [user, setUser] = useState<UserType | null>(null);
+  const [authUser, setAuthUser] = useState<User | null>(null);
+  const [authUserDetails, setAuthUserDetails] = useState<UserType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!currentAuthUser) return;
+    if (!authUser) return;
 
-    const docRef = doc(db, 'users', currentAuthUser?.uid);
+    const docRef = doc(db, 'users', authUser?.uid);
     const unsubscribe = onSnapshot(docRef, (documentSnapshot) => {
       if (documentSnapshot.exists()) {
         const user = documentSnapshot.data() as UserType;
-        setUser(user);
+        setAuthUserDetails(user);
       }
     });
 
     return () => unsubscribe();
-  }, [currentAuthUser]);
+  }, [authUser]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentAuthUser(user);
+      setAuthUser(user);
       setIsLoading(false);
     });
 
@@ -54,8 +54,8 @@ export const AuthContextProvider = (props: PropsWithChildren) => {
   }, []);
 
   const contextValues = {
-    currentAuthUser: currentAuthUser
-      ? { ...currentAuthUser, additionalInfo: user }
+    authUser: authUser
+      ? { ...authUser, additionalInfo: authUserDetails }
       : null,
     isLoading,
   };

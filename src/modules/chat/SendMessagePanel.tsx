@@ -51,7 +51,7 @@ const SendMessagePanelElement = (props: {
 
   const [value, setValue] = useState('');
   const t = useTranslations('Chat');
-  const { currentAuthUser } = useAuthContext();
+  const { authUser } = useAuthContext();
 
   const onKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (!value.trim()) return;
@@ -83,7 +83,7 @@ const SendMessagePanelElement = (props: {
 
   return (
     <MainLayout>
-      {currentAuthUser?.additionalInfo?.isBlocked ? (
+      {authUser?.additionalInfo?.isBlocked ? (
         <BlockedOverlay>
           {t('send_message_panel.block_message_panel')}
         </BlockedOverlay>

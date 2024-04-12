@@ -50,7 +50,7 @@ export interface Message {
 const MessagesPanelElement = (
   props: Omit<Props, 'isLoading'>,
 ): ReactElement => {
-  const { currentAuthUser } = props;
+  const { authUser } = props;
 
   const [messages, setMessages] = useState<Message[]>([]);
   const { visible: isLoading, close } = useToggle(true);
@@ -76,7 +76,7 @@ const MessagesPanelElement = (
   useEffect(() => {
     if (messages.length) {
       const isYourLastMessage =
-        messages[messages.length - 1]?.user.id === currentAuthUser?.uid;
+        messages[messages.length - 1]?.user.id === authUser?.uid;
 
       if (isInitialRender.current || isYourLastMessage) {
         ref.current?.scrollIntoView({
@@ -85,7 +85,7 @@ const MessagesPanelElement = (
         isInitialRender.current = false;
       }
     }
-  }, [messages, isLoading, currentAuthUser?.uid]);
+  }, [messages, isLoading, authUser?.uid]);
 
   return (
     <MainLayout>
@@ -101,7 +101,7 @@ const MessagesPanelElement = (
           <MessageCard
             ref={ref}
             message={message}
-            isMyMessage={message?.user?.id === currentAuthUser?.uid}
+            isMyMessage={message?.user?.id === authUser?.uid}
             key={message.chatId}
           />
         ))
