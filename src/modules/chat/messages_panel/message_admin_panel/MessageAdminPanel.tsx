@@ -10,9 +10,10 @@ import {
 } from 'firebase/firestore';
 import { useTranslations } from 'next-intl';
 
+import { AdminMenuValues } from 'src/enums';
 import { MessageAdminCard } from 'src/modules/chat/messages_panel/message_admin_panel/MessageAdminCard';
 import { Message } from 'src/modules/chat/messages_panel/MessagesPanel';
-import { AdminMenuValues, db, getChatAdminMenu } from 'src/shared';
+import { db, getChatAdminMenu } from 'src/shared';
 
 interface Props {
   message?: Message;
@@ -30,23 +31,20 @@ const MessageAdminPanelElement = (props: Props): ReactElement => {
       close();
 
       const usersRef = collection(db, 'users');
-      const userDoc = doc(usersRef, message?.userInfo.userId);
+      const userDoc = doc(usersRef, message?.user.id);
       await updateDoc(userDoc, {
         isBlocked,
       });
 
       const chatRef = collection(db, 'global_chat');
-      const q = query(
-        chatRef,
-        where('userInfo.userId', '==', message?.userInfo.userId),
-      );
+      const q = query(chatRef, where('user.id', '==', message?.user.id));
 
       const batch = writeBatch(db);
       const { docs } = await getDocs(q);
 
       for (const doc of docs) {
         batch.update(doc.ref, {
-          'userInfo.isBlocked': isBlocked,
+          'user.isBlocked': isBlocked,
         });
       }
 
@@ -76,7 +74,7 @@ const MessageAdminPanelElement = (props: Props): ReactElement => {
   };
 
   const messageDeleted = message?.isDeleted ?? false;
-  const messageBlocked = message?.userInfo.isBlocked ?? false;
+  const messageBlocked = message?.user.isBlocked ?? false;
   const adminActions: { [key: string]: VoidFunction } = {
     [AdminMenuValues.DELETE]: () => updateMessageDeleteStatus(true),
     [AdminMenuValues.RECOVER]: () => updateMessageDeleteStatus(false),

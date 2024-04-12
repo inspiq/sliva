@@ -73,7 +73,7 @@ const ChatManagementElement = (props: Props): ReactElement => {
       await setDoc(userDocRef, {
         chatId: uuidv4(),
         timestamp: new Date(),
-        userInfo: currentAuthUser?.additionalInfo,
+        user: currentAuthUser?.additionalInfo,
         text,
       });
     } catch (e) {

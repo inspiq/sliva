@@ -4,7 +4,7 @@ import { Montserrat } from 'next/font/google';
 import { NextIntlClientProvider, useMessages } from 'next-intl';
 
 import { App } from 'src/app/[locale]/(page-lib)/app';
-import { Locales } from 'src/shared';
+import type { Locales } from 'src/enums';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 

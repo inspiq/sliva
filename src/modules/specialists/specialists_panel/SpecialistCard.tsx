@@ -12,9 +12,9 @@ import {
   DEFAULT_REVIEWS_COUNT,
   devices,
   Line,
-  type Specialist,
   StarIcon,
 } from 'src/shared';
+import type { Specialist } from 'src/types';
 
 const MainLayout = styled.div`
   display: flex;
@@ -129,7 +129,7 @@ const SpecialistCardElement = (props: Props): ReactElement => {
   const {
     experience,
     avatarUrl,
-    userId,
+    id,
     reviewDetails,
     lastName,
     firstName,
@@ -150,7 +150,7 @@ const SpecialistCardElement = (props: Props): ReactElement => {
 
   return (
     <MainLayout>
-      <StyledLink href={`/specialists/${userId}`}>
+      <StyledLink href={`/specialists/${id}`}>
         {isLoading ? (
           <Skeleton width={130} height={150} borderRadius={10} />
         ) : (

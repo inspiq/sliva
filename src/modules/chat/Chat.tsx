@@ -3,7 +3,8 @@ import { ReactElement } from 'react';
 import { useAuthContext } from 'src/context';
 import { Header } from 'src/modules';
 import { ChatManagement } from 'src/modules/chat/ChatManagement';
-import { Container, Footer, UserWithAdditionalInfo, Wrapper } from 'src/shared';
+import { Container, Footer, Wrapper } from 'src/shared';
+import type { UserWithAdditionalInfo } from 'src/types';
 
 export interface Props {
   currentAuthUser: UserWithAdditionalInfo | null;

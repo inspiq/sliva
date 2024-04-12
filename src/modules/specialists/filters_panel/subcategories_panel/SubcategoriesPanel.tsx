@@ -1,11 +1,11 @@
 import { ReactElement } from 'react';
 
 import { SubcategoryCard } from 'src/modules/specialists/filters_panel/subcategories_panel/SubcategoryCard';
-import { type Option } from 'src/shared';
+import type { ValueLabelPair } from 'src/types';
 
 interface Props {
-  subcategories?: Option[];
-  onChange: (subcategory: Option, isChecked: boolean) => void;
+  subcategories?: ValueLabelPair[];
+  onChange: (subcategory: ValueLabelPair, isChecked: boolean) => void;
 }
 
 const SubcategoriesPanelElement = (props: Props): ReactElement => {

@@ -85,7 +85,7 @@ interface Props {
 
 const SpecialistReviewCardElement = (props: Props): ReactElement => {
   const { review, isLoading } = props;
-  const { userInfo, text, rating, date } = review ?? {};
+  const { user, text, rating, date } = review ?? {};
   const t = useTranslations();
 
   return (
@@ -100,7 +100,7 @@ const SpecialistReviewCardElement = (props: Props): ReactElement => {
               <Avatar
                 width={35}
                 height={35}
-                avatarUrl={userInfo?.avatarUrl ?? DEFAULT_AVATAR_URL}
+                avatarUrl={user?.avatarUrl ?? DEFAULT_AVATAR_URL}
               />
             )}
             <Column>
@@ -109,8 +109,8 @@ const SpecialistReviewCardElement = (props: Props): ReactElement => {
               ) : (
                 <UserInitials>
                   {getInitials({
-                    firstName: userInfo?.firstName ?? '',
-                    lastName: userInfo?.lastName ?? '',
+                    firstName: user?.firstName ?? '',
+                    lastName: user?.lastName ?? '',
                   })}
                 </UserInitials>
               )}

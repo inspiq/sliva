@@ -4,7 +4,6 @@ const sizes = {
   mobileL: '425px',
   tablet: '768px',
   laptop: '1024px',
-  laptopL: '1440px',
 };
 
 export const devices = {
@@ -13,7 +12,6 @@ export const devices = {
   mobileL: `(max-width: ${sizes.mobileL})`,
   tablet: `(max-width: ${sizes.tablet})`,
   laptop: `(max-width: ${sizes.laptop})`,
-  laptopL: `(max-width: ${sizes.laptopL})`,
 };
 
 export const SPECIALISTS_PAGINATION_STEP = 20;

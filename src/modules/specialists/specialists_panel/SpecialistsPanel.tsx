@@ -9,13 +9,12 @@ import { SpecialistCard } from 'src/modules/specialists/specialists_panel/Specia
 import {
   db,
   devices,
-  type Option,
   SKELETON_SPECIALISTS_COUNT,
   SkeletonPanel,
-  type Specialist,
   SPECIALISTS_PAGINATION_STEP,
   useToggle,
 } from 'src/shared';
+import type { Specialist, ValueLabelPair } from 'src/types';
 
 const MainLayout = styled.div`
   display: grid;
@@ -47,8 +46,8 @@ const ShowMoreSpecialists = styled.div`
 `;
 
 export interface SpecialistFilter {
-  category: Option;
-  subcategories: Option[];
+  category: ValueLabelPair;
+  subcategories: ValueLabelPair[];
 }
 
 const SpecialistsPanelElement = (): ReactElement => {
@@ -80,7 +79,7 @@ const SpecialistsPanelElement = (): ReactElement => {
       });
     };
 
-    const fetchData = async () => {
+    const loadSpecialists = async () => {
       try {
         const q = query(
           collection(db, 'users'),
@@ -102,7 +101,7 @@ const SpecialistsPanelElement = (): ReactElement => {
       }
     };
 
-    fetchData();
+    loadSpecialists();
   }, [close, open, selectedFilters, showMoreCount, specialists.length]);
 
   const showMore = () => {
@@ -121,7 +120,7 @@ const SpecialistsPanelElement = (): ReactElement => {
           />
         ) : (
           specialists.map((specialist) => (
-            <SpecialistCard specialist={specialist} key={specialist.userId} />
+            <SpecialistCard specialist={specialist} key={specialist.id} />
           ))
         )}
         {isShowMore && !isLoading && (

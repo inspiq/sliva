@@ -1,7 +1,7 @@
-import { Option } from 'src/shared';
+import type { ValueLabelPair } from 'src/types';
 
 export const formattedCategoriesFromBackendToSelectFormat = (
-  categories: Option[],
+  categories: ValueLabelPair[],
   categoriesFromBackend?: string[],
 ) => {
   if (!categoriesFromBackend?.length) return null;

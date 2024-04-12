@@ -120,14 +120,14 @@ const MessageCardElement = (
   ref: Ref<HTMLDivElement>,
 ): ReactElement => {
   const { message, isMyMessage, isLoading } = props;
-  const { userInfo, timestamp, text } = message ?? {};
+  const { user, timestamp, text } = message ?? {};
 
   const { currentAuthUser } = useAuthContext();
   const { visible: isOpen, open, close } = useToggle();
   const t = useTranslations();
 
   const isAdmin = currentAuthUser?.additionalInfo?.type === 'admin';
-  const isSpecialistSendMessage = message?.userInfo?.type === 'specialist';
+  const isSpecialistSendMessage = message?.user?.type === 'specialist';
 
   return (
     <MainLayout $isMyMessage={isMyMessage} ref={ref}>
@@ -138,7 +138,7 @@ const MessageCardElement = (
           <Avatar
             width={30}
             height={30}
-            avatarUrl={userInfo?.avatarUrl ?? DEFAULT_AVATAR_URL}
+            avatarUrl={user?.avatarUrl ?? DEFAULT_AVATAR_URL}
           />
         ))}
       {isLoading ? (
@@ -158,8 +158,8 @@ const MessageCardElement = (
             {isMyMessage
               ? t('Chat.message.you')
               : getInitials({
-                  firstName: userInfo?.firstName ?? '',
-                  lastName: userInfo?.lastName ?? '',
+                  firstName: user?.firstName ?? '',
+                  lastName: user?.lastName ?? '',
                 })}
           </UserName>
           {isSpecialistSendMessage && !isMyMessage && !isAdmin && (
@@ -202,7 +202,7 @@ const MessageCardElement = (
           <Avatar
             width={30}
             height={30}
-            avatarUrl={userInfo?.avatarUrl ?? DEFAULT_AVATAR_URL}
+            avatarUrl={user?.avatarUrl ?? DEFAULT_AVATAR_URL}
           />
         ))}
     </MainLayout>

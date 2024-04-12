@@ -1,9 +1,8 @@
+export * from 'src/types/type-guards';
+
 import { User } from 'firebase/auth';
 
-import Specialist from 'src/app/[locale]/(page-lib)/specialists/[specialistId]/page';
-import { UserRole } from 'src/shared';
-
-export * from 'src/shared/types/type-guards';
+import { UserRole } from 'src/enums';
 
 interface ReviewDetails {
   avgRating: string;
@@ -11,7 +10,7 @@ interface ReviewDetails {
 }
 
 export interface Client {
-  userId: string;
+  id: string;
   avatarUrl: string;
   type: UserRole;
   email: string;
@@ -33,9 +32,10 @@ export interface Specialist extends Client {
   phone?: string;
 }
 
-export type UserType = Client | Specialist;
-export type UserWithAdditionalInfo = User & { additionalInfo: UserType | null };
-export interface Option {
+export interface ValueLabelPair {
   value: string;
   label: string;
 }
+
+export type UserType = Client | Specialist;
+export type UserWithAdditionalInfo = User & { additionalInfo: UserType | null };

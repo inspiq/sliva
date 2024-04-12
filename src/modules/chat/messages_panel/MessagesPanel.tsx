@@ -8,9 +8,9 @@ import {
   db,
   SKELETON_MESSAGES_COUNT,
   SkeletonPanel,
-  type UserType,
   useToggle,
 } from 'src/shared';
+import type { UserType } from 'src/types';
 
 const MainLayout = styled.div`
   display: flex;
@@ -44,7 +44,7 @@ export interface Message {
     nanoseconds: number;
     seconds: number;
   };
-  userInfo: UserType;
+  user: UserType;
 }
 
 const MessagesPanelElement = (
@@ -76,7 +76,7 @@ const MessagesPanelElement = (
   useEffect(() => {
     if (messages.length) {
       const isYourLastMessage =
-        messages[messages.length - 1]?.userInfo.userId === currentAuthUser?.uid;
+        messages[messages.length - 1]?.user.id === currentAuthUser?.uid;
 
       if (isInitialRender.current || isYourLastMessage) {
         ref.current?.scrollIntoView({
@@ -101,7 +101,7 @@ const MessagesPanelElement = (
           <MessageCard
             ref={ref}
             message={message}
-            isMyMessage={message?.userInfo?.userId === currentAuthUser?.uid}
+            isMyMessage={message?.user?.id === currentAuthUser?.uid}
             key={message.chatId}
           />
         ))

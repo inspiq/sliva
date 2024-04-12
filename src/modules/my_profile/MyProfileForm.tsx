@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import styled, { useTheme } from 'styled-components';
 import * as yup from 'yup';
 
+import { UserRole } from 'src/enums';
 import { UploadAvatar } from 'src/modules/my_profile/UploadAvatar';
 import {
   db,
@@ -14,15 +15,16 @@ import {
   formattedCategoriesFromBackendToSelectFormat,
   getCategories,
   getSpecialistFilters,
-  isSpecialist,
-  type Option,
   storage,
   UiButton,
   UiForm,
   UiInput,
-  UserRole,
-  type UserWithAdditionalInfo,
 } from 'src/shared';
+import {
+  isSpecialist,
+  type UserWithAdditionalInfo,
+  type ValueLabelPair,
+} from 'src/types';
 
 const Row = styled.div`
   display: grid;
@@ -228,12 +230,12 @@ const MyProfileFormElement = (props: {
     },
   });
 
-  const onChangeCategories = (options: MultiValue<Option>) => {
+  const onChangeCategories = (options: MultiValue<ValueLabelPair>) => {
     setFieldValue('categories', options);
     setSelectedCategories(options.map((item) => item.value));
   };
 
-  const onChangeSubcategories = (options: MultiValue<Option>) => {
+  const onChangeSubcategories = (options: MultiValue<ValueLabelPair>) => {
     setFieldValue('subcategories', options);
   };
 
@@ -374,7 +376,9 @@ const MyProfileFormElement = (props: {
                 name="categories"
                 options={categories}
                 onChange={(selectedOptions) =>
-                  onChangeCategories(selectedOptions as MultiValue<Option>)
+                  onChangeCategories(
+                    selectedOptions as MultiValue<ValueLabelPair>,
+                  )
                 }
                 value={values.categories}
                 placeholder={t('MyProfileForm.categories_select')}
@@ -393,7 +397,9 @@ const MyProfileFormElement = (props: {
                 isMulti
                 name="subcategories"
                 onChange={(selectedOptions) =>
-                  onChangeSubcategories(selectedOptions as MultiValue<Option>)
+                  onChangeSubcategories(
+                    selectedOptions as MultiValue<ValueLabelPair>,
+                  )
                 }
                 options={subcategories}
                 value={values.subcategories}

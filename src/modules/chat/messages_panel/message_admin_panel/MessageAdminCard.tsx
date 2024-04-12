@@ -1,7 +1,7 @@
 import { memo, ReactElement } from 'react';
 import styled from 'styled-components';
 
-import { type Option } from 'src/shared';
+import type { ValueLabelPair } from 'src/types';
 
 const MainLayout = styled.div`
   font-size: 15px;
@@ -22,7 +22,7 @@ const MainLayout = styled.div`
 `;
 
 interface Props {
-  item: Option;
+  item: ValueLabelPair;
   adminActions: { [key: string]: VoidFunction };
 }
 

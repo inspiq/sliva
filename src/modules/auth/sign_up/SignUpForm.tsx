@@ -20,11 +20,11 @@ import {
   getUserTypeOptions,
   Line,
   Loader,
-  Option,
   UiButton,
   UiInput,
   usePrivacyPolicyPath,
 } from 'src/shared';
+import type { ValueLabelPair } from 'src/types';
 
 const DownloadLink = styled.a`
   color: ${({ theme }) => theme.primary};
@@ -131,7 +131,7 @@ const SignUpFormElement = (): ReactElement => {
         const userDocRef = doc(usersCollection, user.uid);
 
         await setDoc(userDocRef, {
-          userId: user.uid,
+          id: user.uid,
           firstName,
           lastName,
           type: userType.value,
@@ -148,7 +148,7 @@ const SignUpFormElement = (): ReactElement => {
     },
   });
 
-  const onChangeUserType = (option: Option) => {
+  const onChangeUserType = (option: ValueLabelPair) => {
     setFieldValue('userType', option);
   };
 
@@ -266,7 +266,7 @@ const SignUpFormElement = (): ReactElement => {
         <Select
           value={values.userType}
           onChange={(selectedUserType) =>
-            onChangeUserType(selectedUserType as Option)
+            onChangeUserType(selectedUserType as ValueLabelPair)
           }
           options={userTypeOptions}
           defaultValue={defaultUserTypeOption}

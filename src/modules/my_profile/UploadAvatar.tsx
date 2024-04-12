@@ -1,7 +1,8 @@
 import { Dispatch, FormEvent, SetStateAction, useMemo } from 'react';
 import styled from 'styled-components';
 
-import { Avatar, DEFAULT_AVATAR_URL, UiInput, UserType } from 'src/shared';
+import { Avatar, DEFAULT_AVATAR_URL, UiInput } from 'src/shared';
+import type { UserType } from 'src/types';
 
 const MainLayout = styled.div`
   width: 200px;

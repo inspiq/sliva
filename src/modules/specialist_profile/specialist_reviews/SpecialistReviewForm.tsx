@@ -18,6 +18,7 @@ import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 
 import { useAuthContext } from 'src/context/AuthContext';
+import { UserRole } from 'src/enums';
 import { Review } from 'src/modules/specialist_profile/SpecialistProfile';
 import {
   add24HoursToDate,
@@ -25,11 +26,10 @@ import {
   db,
   DEFAULT_AVG_RATING,
   RateChip,
-  Specialist,
   UiButton,
   UiForm,
-  UserRole,
 } from 'src/shared';
+import type { Specialist } from 'src/types';
 
 const StyledUiForm = styled(UiForm)`
   box-shadow: 0px 5px 30px ${({ theme }) => theme.shadow};
@@ -125,7 +125,7 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
           date: new Date().toISOString(),
           rating: currentRating,
           text,
-          userInfo: currentAuthUser?.additionalInfo,
+          user: currentAuthUser?.additionalInfo,
         };
 
         const updatedReviews = sortedReviews
@@ -134,7 +134,7 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
 
         try {
           const usersCollection = collection(db, 'users');
-          const userDoc = doc(usersCollection, specialist?.userId);
+          const userDoc = doc(usersCollection, specialist?.id);
           const newRating = (
             (totalRating + currentRating) /
             ((reviews?.length ?? 0) + 1)
@@ -148,7 +148,7 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
           });
 
           const reviewsCollection = collection(db, 'reviews');
-          const userDocRef = doc(reviewsCollection, specialist?.userId);
+          const userDocRef = doc(reviewsCollection, specialist?.id);
 
           await setDoc(userDocRef, {
             reviews: updatedReviews ?? [],
@@ -167,7 +167,7 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
       querySnapshot.forEach((documentSnapshot) => {
         (documentSnapshot.data().reviews as Review[]).forEach((review) => {
           if (
-            review.userInfo.userId === currentAuthUser?.uid &&
+            review.user.id === currentAuthUser?.uid &&
             new Date() < add24HoursToDate(review.date)
           ) {
             setIsBlockReview(true);
@@ -183,7 +183,7 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
 
   const isDisabled =
     isSubmitting || !currentRating || !values.text || isBlockReview;
-  const isYourProfile = specialist?.userId === currentAuthUser?.uid;
+  const isYourProfile = specialist?.id === currentAuthUser?.uid;
 
   return (
     <StyledUiForm onSubmit={handleSubmit}>

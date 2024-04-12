@@ -2,11 +2,12 @@ import { Dispatch, memo, ReactElement, SetStateAction, useMemo } from 'react';
 
 import { SubcategoriesPanel } from 'src/modules/specialists/filters_panel/subcategories_panel/SubcategoriesPanel';
 import { SpecialistFilter } from 'src/modules/specialists/specialists_panel/SpecialistsPanel';
-import { Accordion, type Option } from 'src/shared';
+import { Accordion } from 'src/shared';
+import type { ValueLabelPair } from 'src/types';
 
 interface Props {
-  category: Option;
-  subcategories?: Option[];
+  category: ValueLabelPair;
+  subcategories?: ValueLabelPair[];
   isOpen: boolean;
   setSelectedFilters: Dispatch<SetStateAction<SpecialistFilter[]>>;
   onToggle: () => void;
@@ -37,7 +38,7 @@ const FilterCardElement = (props: Props): ReactElement => {
   );
 
   const onChangeSubcategoriesFilter = useMemo(
-    () => (subcategory: Option, isChecked: boolean) => {
+    () => (subcategory: ValueLabelPair, isChecked: boolean) => {
       setSelectedFilters((prev) => {
         const copyArr = [...prev];
         const findCategoryIdx = copyArr.findIndex(

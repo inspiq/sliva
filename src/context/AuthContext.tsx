@@ -8,7 +8,8 @@ import {
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { doc, onSnapshot } from 'firebase/firestore';
 
-import { auth, db, UserType, UserWithAdditionalInfo } from 'src/shared';
+import { auth, db } from 'src/shared';
+import type { UserType, UserWithAdditionalInfo } from 'src/types';
 
 interface Values {
   currentAuthUser: UserWithAdditionalInfo | null;
@@ -26,9 +27,7 @@ export const AuthContextProvider = (props: PropsWithChildren) => {
   const { children } = props;
 
   const [currentAuthUser, setCurrentAuthUser] = useState<User | null>(null);
-  const [additionalUserInfo, setAdditionalUserInfo] = useState<UserType | null>(
-    null,
-  );
+  const [user, setUser] = useState<UserType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -37,8 +36,8 @@ export const AuthContextProvider = (props: PropsWithChildren) => {
     const docRef = doc(db, 'users', currentAuthUser?.uid);
     const unsubscribe = onSnapshot(docRef, (documentSnapshot) => {
       if (documentSnapshot.exists()) {
-        const userData = documentSnapshot.data() as UserType;
-        setAdditionalUserInfo(userData);
+        const user = documentSnapshot.data() as UserType;
+        setUser(user);
       }
     });
 
@@ -56,7 +55,7 @@ export const AuthContextProvider = (props: PropsWithChildren) => {
 
   const contextValues = {
     currentAuthUser: currentAuthUser
-      ? { ...currentAuthUser, additionalInfo: additionalUserInfo }
+      ? { ...currentAuthUser, additionalInfo: user }
       : null,
     isLoading,
   };

@@ -14,10 +14,10 @@ import {
   Container,
   db,
   Footer,
-  Specialist,
   useToggle,
   Wrapper,
 } from 'src/shared';
+import type { Specialist } from 'src/types';
 
 const ReviewsLayout = styled.div`
   display: flex;
@@ -46,7 +46,7 @@ export interface Review {
   date: Date;
   rating: number;
   text: string;
-  userInfo: Specialist;
+  user: Specialist;
 }
 
 interface ReviewDocument {

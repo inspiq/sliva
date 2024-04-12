@@ -1,7 +1,8 @@
 import { memo, ReactElement } from 'react';
 import styled from 'styled-components';
 
-import { CheckMarkIcon, type Option, UiInput } from 'src/shared';
+import { CheckMarkIcon, UiInput } from 'src/shared';
+import type { ValueLabelPair } from 'src/types';
 
 const Subcategory = styled.div`
   display: flex;
@@ -15,8 +16,8 @@ const Title = styled.label`
 `;
 
 interface Props {
-  onChange: (subcategory: Option, isChecked: boolean) => void;
-  subcategory: Option;
+  onChange: (subcategory: ValueLabelPair, isChecked: boolean) => void;
+  subcategory: ValueLabelPair;
 }
 
 const SubcategoryCardElement = (props: Props): ReactElement => {
