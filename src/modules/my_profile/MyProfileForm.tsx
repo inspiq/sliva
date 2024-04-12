@@ -1,5 +1,5 @@
-import { ReactElement, useMemo, useState } from 'react';
-import Select, { MultiValue, StylesConfig } from 'react-select';
+import { type ReactElement, useMemo, useState } from 'react';
+import Select, { type MultiValue, type StylesConfig } from 'react-select';
 import { doc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { useFormik } from 'formik';

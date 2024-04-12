@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState } from 'react';
+import { type ReactElement, useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { useTranslations } from 'next-intl';

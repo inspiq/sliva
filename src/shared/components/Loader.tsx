@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import type { ReactElement } from 'react';
 import { PuffLoader } from 'react-spinners';
 import styled, { useTheme } from 'styled-components';
 

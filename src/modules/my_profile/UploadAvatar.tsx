@@ -1,4 +1,9 @@
-import { Dispatch, FormEvent, SetStateAction, useMemo } from 'react';
+import {
+  type Dispatch,
+  type FormEvent,
+  type SetStateAction,
+  useMemo,
+} from 'react';
 import styled from 'styled-components';
 
 import { Avatar, DEFAULT_AVATAR_URL, UiInput } from 'src/shared';

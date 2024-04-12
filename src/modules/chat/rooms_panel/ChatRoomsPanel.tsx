@@ -1,4 +1,9 @@
-import { Dispatch, ReactElement, SetStateAction, useCallback } from 'react';
+import {
+  type Dispatch,
+  type ReactElement,
+  type SetStateAction,
+  useCallback,
+} from 'react';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 

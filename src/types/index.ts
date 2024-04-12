@@ -1,6 +1,6 @@
 export * from 'src/types/type-guards';
 
-import { User } from 'firebase/auth';
+import type { User } from 'firebase/auth';
 
 import { UserRole } from 'src/enums';
 

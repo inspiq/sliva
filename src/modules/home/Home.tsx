@@ -1,4 +1,4 @@
-import { ReactElement, useEffect, useState } from 'react';
+import { type ReactElement, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import Popup from 'reactjs-popup';
 import { collection, onSnapshot } from 'firebase/firestore';

@@ -1,4 +1,4 @@
-import { forwardRef, ReactElement, Ref } from 'react';
+import { forwardRef, type ReactElement, type Ref } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import Popup from 'reactjs-popup';
 import { useTranslations } from 'next-intl';
@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 import { useAuthContext } from 'src/context';
 import { MessageAdminPanel } from 'src/modules/chat/messages_panel/message_admin_panel/MessageAdminPanel';
-import { Message } from 'src/modules/chat/messages_panel/MessagesPanel';
+import type { Message } from 'src/modules/chat/messages_panel/MessagesPanel';
 import {
   Avatar,
   DEFAULT_AVATAR_URL,

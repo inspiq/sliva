@@ -1,4 +1,8 @@
-import { FormHTMLAttributes, PropsWithChildren, ReactElement } from 'react';
+import type {
+  FormHTMLAttributes,
+  PropsWithChildren,
+  ReactElement,
+} from 'react';
 import styled from 'styled-components';
 
 const Form = styled.form`

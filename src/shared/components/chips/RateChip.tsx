@@ -1,8 +1,8 @@
 import {
-  Dispatch,
-  InputHTMLAttributes,
-  ReactElement,
-  SetStateAction,
+  type Dispatch,
+  type InputHTMLAttributes,
+  type ReactElement,
+  type SetStateAction,
   useState,
 } from 'react';
 import styled, { useTheme } from 'styled-components';

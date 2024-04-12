@@ -1,10 +1,10 @@
-import { ReactElement, useState } from 'react';
+import { type ReactElement, useState } from 'react';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 
-import { Props } from 'src/modules/chat/Chat';
+import type { Props } from 'src/modules/chat/Chat';
 import { MessagesPanel } from 'src/modules/chat/messages_panel/MessagesPanel';
 import { ChatRoomsPanel } from 'src/modules/chat/rooms_panel/ChatRoomsPanel';
 import { SendMessagePanel } from 'src/modules/chat/SendMessagePanel';

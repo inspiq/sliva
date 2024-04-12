@@ -1,4 +1,4 @@
-import { SVGProps } from 'react';
+import type { SVGProps } from 'react';
 
 export const WhatsAppIcon = (props: SVGProps<SVGSVGElement>) => {
   const { width = 24, height = 24, color, ...rest } = props;

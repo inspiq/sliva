@@ -1,4 +1,4 @@
-import { SVGProps } from 'react';
+import type { SVGProps } from 'react';
 
 export const TooltipIcon = (props: SVGProps<SVGSVGElement>) => {
   const { width = 20, height = 20, ...rest } = props;

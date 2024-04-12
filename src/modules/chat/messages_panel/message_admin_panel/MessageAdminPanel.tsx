@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import type { ReactElement } from 'react';
 import {
   collection,
   doc,
@@ -12,7 +12,7 @@ import { useTranslations } from 'next-intl';
 
 import { AdminMenuValues } from 'src/enums';
 import { MessageAdminCard } from 'src/modules/chat/messages_panel/message_admin_panel/MessageAdminCard';
-import { Message } from 'src/modules/chat/messages_panel/MessagesPanel';
+import type { Message } from 'src/modules/chat/messages_panel/MessagesPanel';
 import { db, getChatAdminMenu } from 'src/shared';
 
 interface Props {

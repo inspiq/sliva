@@ -1,4 +1,4 @@
-import { Fragment, ReactElement } from 'react';
+import { Fragment, type ReactElement } from 'react';
 
 interface Props {
   count: number;

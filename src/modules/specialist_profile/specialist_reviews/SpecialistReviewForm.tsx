@@ -1,6 +1,6 @@
 import {
-  ReactElement,
-  TextareaHTMLAttributes,
+  type ReactElement,
+  type TextareaHTMLAttributes,
   useEffect,
   useMemo,
   useState,
@@ -19,7 +19,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { useAuthContext } from 'src/context/AuthContext';
 import { UserRole } from 'src/enums';
-import { Review } from 'src/modules/specialist_profile/SpecialistProfile';
+import type { Review } from 'src/modules/specialist_profile/SpecialistProfile';
 import {
   add24HoursToDate,
   BlockOverlay,

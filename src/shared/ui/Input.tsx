@@ -1,4 +1,4 @@
-import { ChangeEvent, InputHTMLAttributes, ReactElement } from 'react';
+import type { ChangeEvent, InputHTMLAttributes, ReactElement } from 'react';
 import styled, { css } from 'styled-components';
 
 import { Error } from 'src/modules/auth/Error';

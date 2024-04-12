@@ -1,4 +1,4 @@
-import { SVGProps } from 'react';
+import type { SVGProps } from 'react';
 
 export const SpanishIcon = (props: SVGProps<SVGSVGElement>) => {
   const { width = 18, height = 18, ...rest } = props;

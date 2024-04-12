@@ -1,7 +1,13 @@
-import { Dispatch, memo, ReactElement, SetStateAction, useMemo } from 'react';
+import {
+  type Dispatch,
+  memo,
+  type ReactElement,
+  type SetStateAction,
+  useMemo,
+} from 'react';
 
 import { SubcategoriesPanel } from 'src/modules/specialists/filters_panel/subcategories_panel/SubcategoriesPanel';
-import { SpecialistFilter } from 'src/modules/specialists/specialists_panel/SpecialistsPanel';
+import type { SpecialistFilter } from 'src/modules/specialists/specialists_panel/SpecialistsPanel';
 import { Accordion } from 'src/shared';
 import type { ValueLabelPair } from 'src/types';
 

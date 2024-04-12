@@ -1,8 +1,8 @@
-import { ReactElement } from 'react';
+import type { ReactElement } from 'react';
 import styled from 'styled-components';
 
 import { SpecialistReviewCard } from 'src/modules/specialist_profile/specialist_reviews/SpecialistReviewCard';
-import { Review } from 'src/modules/specialist_profile/SpecialistProfile';
+import type { Review } from 'src/modules/specialist_profile/SpecialistProfile';
 import { SKELETON_REVIEWS_COUNT, SkeletonPanel } from 'src/shared';
 
 const MainLayout = styled.div`

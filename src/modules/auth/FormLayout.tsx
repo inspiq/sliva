@@ -1,4 +1,4 @@
-import { FormEventHandler, PropsWithChildren, ReactElement } from 'react';
+import type { FormEventHandler, PropsWithChildren, ReactElement } from 'react';
 import styled from 'styled-components';
 
 import { UiForm } from 'src/shared';

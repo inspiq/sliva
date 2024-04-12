@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import type { ReactElement } from 'react';
 
 import { LocaleCard } from 'src/modules/header/locales/LocaleCard';
 import { locales } from 'src/navigation';

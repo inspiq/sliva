@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import { type ReactElement, useState } from 'react';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { useFormik } from 'formik';
 import { useTranslations } from 'next-intl';

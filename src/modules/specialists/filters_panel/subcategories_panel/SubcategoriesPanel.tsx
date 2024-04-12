@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import type { ReactElement } from 'react';
 
 import { SubcategoryCard } from 'src/modules/specialists/filters_panel/subcategories_panel/SubcategoryCard';
 import type { ValueLabelPair } from 'src/types';

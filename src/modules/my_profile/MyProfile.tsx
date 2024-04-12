@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import type { ReactElement } from 'react';
 
 import { useAuthContext } from 'src/context';
 import { Header } from 'src/modules';

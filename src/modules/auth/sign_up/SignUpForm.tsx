@@ -1,5 +1,5 @@
-import { ReactElement, useState } from 'react';
-import Select, { StylesConfig } from 'react-select';
+import { type ReactElement, useState } from 'react';
+import Select, { type StylesConfig } from 'react-select';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { collection, doc, setDoc } from 'firebase/firestore';
 import { useFormik } from 'formik';

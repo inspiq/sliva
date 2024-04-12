@@ -1,4 +1,4 @@
-import { memo, ReactElement } from 'react';
+import { memo, type ReactElement } from 'react';
 import styled from 'styled-components';
 
 export const RoomCard = styled.div<{ $isActiveRoom: boolean }>`

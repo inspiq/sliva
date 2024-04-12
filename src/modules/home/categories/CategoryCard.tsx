@@ -1,8 +1,8 @@
-import { memo, ReactElement } from 'react';
+import { memo, type ReactElement } from 'react';
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import { Category } from 'src/modules/home/categories/CategoriesPanel';
+import type { Category } from 'src/modules/home/categories/CategoriesPanel';
 import { Link } from 'src/navigation';
 import { devices } from 'src/shared';
 

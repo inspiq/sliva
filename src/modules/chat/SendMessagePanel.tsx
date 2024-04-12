@@ -1,4 +1,9 @@
-import { FormEvent, KeyboardEvent, ReactElement, useState } from 'react';
+import {
+  type FormEvent,
+  type KeyboardEvent,
+  type ReactElement,
+  useState,
+} from 'react';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 

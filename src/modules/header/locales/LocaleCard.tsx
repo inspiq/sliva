@@ -1,4 +1,4 @@
-import { memo, ReactElement } from 'react';
+import { memo, type ReactElement } from 'react';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 

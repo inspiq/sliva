@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import type { ReactElement } from 'react';
 import Popup from 'reactjs-popup';
 import { signOut } from 'firebase/auth';
 import { useTranslations } from 'next-intl';

@@ -1,9 +1,14 @@
-import { Dispatch, ReactElement, SetStateAction, useState } from 'react';
+import {
+  type Dispatch,
+  type ReactElement,
+  type SetStateAction,
+  useState,
+} from 'react';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
 import { Filter } from 'src/modules/specialists/filters_panel/FilterCard';
-import { SpecialistFilter } from 'src/modules/specialists/specialists_panel/SpecialistsPanel';
+import type { SpecialistFilter } from 'src/modules/specialists/specialists_panel/SpecialistsPanel';
 import { getSpecialistFilters } from 'src/shared';
 
 const MainLayout = styled.div`

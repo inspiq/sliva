@@ -1,4 +1,8 @@
-import { ButtonHTMLAttributes, PropsWithChildren, ReactElement } from 'react';
+import type {
+  ButtonHTMLAttributes,
+  PropsWithChildren,
+  ReactElement,
+} from 'react';
 import { PulseLoader } from 'react-spinners';
 import styled, { css, useTheme } from 'styled-components';
 import { switchProp } from 'styled-tools';

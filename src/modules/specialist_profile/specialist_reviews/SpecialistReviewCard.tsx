@@ -1,9 +1,9 @@
-import { memo, ReactElement } from 'react';
+import { memo, type ReactElement } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
-import { Review } from 'src/modules/specialist_profile/SpecialistProfile';
+import type { Review } from 'src/modules/specialist_profile/SpecialistProfile';
 import {
   Avatar,
   DEFAULT_AVATAR_URL,

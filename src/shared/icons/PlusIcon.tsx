@@ -1,4 +1,4 @@
-import { SVGProps } from 'react';
+import type { SVGProps } from 'react';
 import { useTheme } from 'styled-components';
 
 export const PlusIcon = (props: SVGProps<SVGSVGElement>) => {
