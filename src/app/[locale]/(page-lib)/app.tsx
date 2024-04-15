@@ -96,8 +96,10 @@ export const App = (props: PropsWithChildren) => {
     <CookiesProvider>
       <AuthContextProvider>
         <ThemeProvider theme={theme}>
-          <GlobalStyle />
-          <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+          <StyledComponentsRegistry>
+            <GlobalStyle />
+            {children}
+          </StyledComponentsRegistry>
         </ThemeProvider>
       </AuthContextProvider>
     </CookiesProvider>
