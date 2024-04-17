@@ -1,20 +1,19 @@
-import { type ReactElement, useEffect, useState } from 'react';
-import { collection, getDocs, limit, query, where } from 'firebase/firestore';
+import { type ReactElement } from 'react';
+import { observer } from 'mobx-react-lite';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
 import { Filters } from 'src/modules/specialists/filters_panel/FiltersPanel';
 import { NotFoundSpecialists } from 'src/modules/specialists/NotFoundSpecialists';
 import { SpecialistCard } from 'src/modules/specialists/specialists_panel/SpecialistCard';
+import { SpecialistsPanelVm } from 'src/modules/specialists/specialists_panel/SpecialistsPanelVm';
 import {
-  db,
   devices,
   SKELETON_SPECIALISTS_COUNT,
   SkeletonPanel,
-  SPECIALISTS_PAGINATION_STEP,
-  useToggle,
+  useLocalVm,
 } from 'src/shared';
-import type { Specialist, ValueLabelPair } from 'src/types';
+import type { ValueLabelPair } from 'src/types';
 
 const MainLayout = styled.div`
   display: grid;
@@ -51,81 +50,32 @@ export interface SpecialistFilter {
 }
 
 const SpecialistsPanelElement = (): ReactElement => {
-  const [specialists, setSpecialists] = useState<Specialist[]>([]);
-  const [selectedFilters, setSelectedFilters] = useState<SpecialistFilter[]>(
-    [],
-  );
-  const { visible: isLoading, close, open } = useToggle(true);
-  const [showMoreCount, setShowMoreCount] = useState(
-    SPECIALISTS_PAGINATION_STEP,
-  );
-  const [isShowMore, setIsShowMore] = useState(true);
-  const t = useTranslations();
-
-  useEffect(() => {
-    open();
-
-    const getFilters = () => {
-      return selectedFilters.map(({ category, subcategories }) => {
-        if (subcategories.length) {
-          return where(
-            'subcategories',
-            'array-contains-any',
-            subcategories.map(({ value }) => value),
-          );
-        }
-
-        return where('categories', 'array-contains', category.value);
-      });
-    };
-
-    const loadSpecialists = async () => {
-      try {
-        const q = query(
-          collection(db, 'users'),
-          where('type', '==', 'specialist'),
-          ...getFilters(),
-          limit(showMoreCount),
-        );
-
-        const querySnapshot = await getDocs(q);
-        const specialistsFromDb = querySnapshot.docs.map(
-          (element) => element.data() as Specialist,
-        );
-
-        setSpecialists(specialistsFromDb);
-        setIsShowMore(specialists.length === showMoreCount);
-        close();
-      } catch (e) {
-        /* empty */
-      }
-    };
-
-    loadSpecialists();
-  }, [close, open, selectedFilters, showMoreCount, specialists.length]);
-
-  const showMore = () => {
-    setShowMoreCount((prev) => prev + SPECIALISTS_PAGINATION_STEP);
-  };
+  const vm = useLocalVm(SpecialistsPanelVm);
+  const t = useTranslations('Specialists');
 
   return (
     <MainLayout>
-      <Filters setSelectedFilters={setSelectedFilters} />
+      <Filters
+        onChangeCategoriesFilter={vm.onChangeCategoriesFilter}
+        onChangeSubcategoriesFilter={vm.onChangeSubcategoriesFilter}
+      />
       <SpecialistsLayout>
-        {!specialists.length && !isLoading && <NotFoundSpecialists />}
-        {isLoading ? (
+        {!vm.specialists.length && !vm.lockState.progress && (
+          <NotFoundSpecialists />
+        )}
+        {vm.lockState.progress ? (
           <SkeletonPanel
             count={SKELETON_SPECIALISTS_COUNT}
-            SkeletonCard={<SpecialistCard isLoading={isLoading} />}
+            SkeletonCard={<SpecialistCard isLoading={vm.lockState.progress} />}
           />
         ) : (
-          specialists.map((specialist) => (
+          vm.specialists.map((specialist) => (
             <SpecialistCard specialist={specialist} key={specialist.id} />
           ))
         )}
-        {isShowMore && !isLoading && (
-          <ShowMoreSpecialists onClick={showMore}>
-            {t('Specialists.show_more')}
+        {vm.showMoreSpecialists && !vm.lockState.progress && (
+          <ShowMoreSpecialists onClick={vm.onShowMoreSpecialists}>
+            {t('show_more')}
           </ShowMoreSpecialists>
         )}
       </SpecialistsLayout>
@@ -133,4 +83,4 @@ const SpecialistsPanelElement = (): ReactElement => {
   );
 };
 
-export const SpecialistsPanel = SpecialistsPanelElement;
+export const SpecialistsPanel = observer(SpecialistsPanelElement);

@@ -13,22 +13,22 @@ const MainLayout = styled.div`
   flex-direction: column;
 `;
 
-const ContentLayout = styled.div<{ isOpen: boolean }>`
+const ContentLayout = styled.div`
   padding: 10px 7px;
   display: flex;
   flex-direction: column;
   gap: 8px;
 `;
 
-const Header = styled.label<{ isOpen: boolean }>`
+const Header = styled.label<{ $isOpen: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 12px 10px;
   border-bottom: 1px solid ${({ theme }) => theme.border};
   cursor: pointer;
-  ${({ theme, isOpen }) =>
-    isOpen &&
+  ${({ theme, $isOpen }) =>
+    $isOpen &&
     css`
       background-color: ${theme.primary};
       color: ${theme.white};
@@ -36,23 +36,24 @@ const Header = styled.label<{ isOpen: boolean }>`
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: ${({ theme, isOpen }) =>
-      isOpen ? theme.primary : theme.light_grey};
+    background-color: ${({ theme, $isOpen }) =>
+      $isOpen ? theme.primary : theme.light_grey};
   }
 
   & > .arrow {
     transition: transform 0.3s cubic-bezier(0, 0, 0, 1);
-    transform: ${({ isOpen }) => (isOpen ? 'rotate(270deg)' : 'rotate(90deg)')};
+    transform: ${({ $isOpen }) =>
+      $isOpen ? 'rotate(270deg)' : 'rotate(90deg)'};
   }
 `;
 
-const Title = styled.div<{ isOpen: boolean }>`
+const Title = styled.div<{ $isOpen: boolean }>`
   font-size: 15px;
   font-weight: ${({ theme }) => theme.w400};
   color: ${({ theme }) => theme.secondary};
 
-  ${({ isOpen, theme }) =>
-    isOpen &&
+  ${({ $isOpen, theme }) =>
+    $isOpen &&
     css`
       color: ${theme.white};
     `}
@@ -83,8 +84,8 @@ export const AccordionElement = (
         hidden
         {...rest}
       />
-      <Header htmlFor={rest.id} isOpen={isOpen} onClick={onToggle}>
-        <Title isOpen={isOpen}>{title}</Title>
+      <Header htmlFor={rest.id} $isOpen={isOpen} onClick={onToggle}>
+        <Title $isOpen={isOpen}>{title}</Title>
         <ArrowIcon
           width={12}
           height={12}
@@ -92,7 +93,7 @@ export const AccordionElement = (
           className="arrow"
         />
       </Header>
-      {isOpen && <ContentLayout isOpen={isOpen}>{children}</ContentLayout>}
+      {isOpen && <ContentLayout>{children}</ContentLayout>}
     </MainLayout>
   );
 };

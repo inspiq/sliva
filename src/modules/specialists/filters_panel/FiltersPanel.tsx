@@ -1,15 +1,11 @@
-import {
-  type Dispatch,
-  type ReactElement,
-  type SetStateAction,
-  useState,
-} from 'react';
-import { useTranslations } from 'next-intl';
+import { type ReactElement } from 'react';
+import { observer } from 'mobx-react-lite';
 import styled from 'styled-components';
 
 import { Filter } from 'src/modules/specialists/filters_panel/FilterCard';
-import type { SpecialistFilter } from 'src/modules/specialists/specialists_panel/SpecialistsPanel';
-import { getSpecialistFilters } from 'src/shared';
+import { FiltersPanelVm } from 'src/modules/specialists/filters_panel/FiltersPanelVm';
+import { useLocalVm } from 'src/shared';
+import type { ValueLabelPair } from 'src/types';
 
 const MainLayout = styled.div`
   max-width: 400px;
@@ -18,31 +14,42 @@ const MainLayout = styled.div`
   flex-direction: column;
 `;
 
-const FiltersPanelElement = (props: {
-  setSelectedFilters: Dispatch<SetStateAction<SpecialistFilter[]>>;
-}): ReactElement => {
-  const t = useTranslations();
-  const specialistFilters = getSpecialistFilters(t);
-  const [openAccordionId, setOpenAccordionId] = useState<string | null>(null);
+interface Props {
+  onChangeCategoriesFilter(isOpen: boolean, category: ValueLabelPair): void;
+  onChangeSubcategoriesFilter({
+    category,
+    subcategory,
+    isChecked,
+  }: {
+    category: ValueLabelPair;
+    subcategory: ValueLabelPair;
+    isChecked: boolean;
+  }): void;
+}
 
-  const onAccordionToggle = (accordionId: string) => {
-    setOpenAccordionId((prev) => (prev === accordionId ? null : accordionId));
-  };
+const FiltersPanelElement = (props: Props): ReactElement => {
+  const { onChangeCategoriesFilter, onChangeSubcategoriesFilter } = props;
+  const vm = useLocalVm(FiltersPanelVm);
 
   return (
     <MainLayout>
-      {specialistFilters.map(({ category, subcategories }) => (
+      {FiltersPanelVm.getFilters.map(({ category, subcategories }) => (
         <Filter
+          key={category.value}
           category={category}
           subcategories={subcategories}
-          setSelectedFilters={props.setSelectedFilters}
-          key={category.value}
-          onToggle={() => onAccordionToggle(category.value)}
-          isOpen={openAccordionId === category.value}
+          onToggle={() => vm.onCurrentOpenAccordionIdToggle(category.value)}
+          isOpen={vm.currentOpenAccordionId === category.value}
+          onChangeCategoriesFilter={(isOpen: boolean) =>
+            onChangeCategoriesFilter(isOpen, category)
+          }
+          onChangeSubcategoriesFilter={({ subcategory, isChecked }) =>
+            onChangeSubcategoriesFilter({ category, subcategory, isChecked })
+          }
         />
       ))}
     </MainLayout>
   );
 };
 
-export const Filters = FiltersPanelElement;
+export const Filters = observer(FiltersPanelElement);

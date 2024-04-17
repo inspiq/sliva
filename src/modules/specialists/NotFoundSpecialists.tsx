@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { devices, NotFoundSpecialistsIcon } from 'src/shared';
 
 const MainLayout = styled.div`
-  padding-top: 150px;
+  padding-top: 140px;
   width: 100%;
   display: flex;
   align-items: center;

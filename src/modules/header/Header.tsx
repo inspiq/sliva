@@ -4,7 +4,6 @@ import { signOut } from 'firebase/auth';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
-import { useAuthContext } from 'src/context';
 import { AccountManagement } from 'src/modules/header/AccountManagement';
 import { LanguageManagement } from 'src/modules/header/LanguageManagement';
 import { LocalesPanel } from 'src/modules/header/locales/LocalesPanel';
@@ -91,7 +90,6 @@ const StyledLink = styled(Link)`
 `;
 
 const HeaderElement = (): ReactElement => {
-  const { authUser } = useAuthContext();
   const t = useTranslations('Header');
 
   const onLogout = async () => {
@@ -121,7 +119,7 @@ const HeaderElement = (): ReactElement => {
             </PopupMenuLayout>
           </Popup>
         </MenuLayout>
-        {authUser ? (
+        {localStorage.getItem('userId') ? (
           <Popup
             trigger={AccountManagement}
             position="bottom right"

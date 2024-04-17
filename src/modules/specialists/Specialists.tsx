@@ -1,4 +1,5 @@
 import type { ReactElement } from 'react';
+import { observer } from 'mobx-react-lite';
 import { useTranslations } from 'next-intl';
 
 import { useAuthContext } from 'src/context';
@@ -26,4 +27,4 @@ export const SpecialistsElement = (): ReactElement => {
   );
 };
 
-export const Specialists = SpecialistsElement;
+export const Specialists = observer(SpecialistsElement);

@@ -29,10 +29,10 @@ const Input = styled.input<{
   }
 `;
 
-const MainLayout = styled.div<{ isCheckbox: boolean }>`
+const MainLayout = styled.div<{ $isCheckbox: boolean }>`
   position: relative;
-  ${({ isCheckbox }) =>
-    !isCheckbox &&
+  ${({ $isCheckbox }) =>
+    !$isCheckbox &&
     css`
       width: 100%;
     `};
@@ -154,7 +154,7 @@ const UiInputElement = (props: Props): ReactElement => {
   };
 
   return (
-    <MainLayout isCheckbox={hasTypeCheckbox}>
+    <MainLayout $isCheckbox={hasTypeCheckbox}>
       {type === 'file' && (
         <StyledLabel htmlFor="file">
           <PlusIconLayout>

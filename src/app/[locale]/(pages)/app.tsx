@@ -7,7 +7,7 @@ import { CookiesProvider } from 'react-cookie';
 import { Montserrat } from 'next/font/google';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
-import StyledComponentsRegistry from 'src/app/[locale]/(page-lib)/registry';
+import StyledComponentsRegistry from 'src/app/[locale]/(pages)/registry';
 import { AuthContextProvider } from 'src/context';
 import { theme } from 'src/shared';
 

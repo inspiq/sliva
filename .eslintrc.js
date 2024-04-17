@@ -40,6 +40,7 @@ module.exports = {
       },
     ],
     'react/jsx-no-literals': 'off',
+    'react-hooks/rules-of-hooks': 'off',
     'padding-line-between-statements': [
       'error',
       {

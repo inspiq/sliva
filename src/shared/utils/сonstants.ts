@@ -14,7 +14,6 @@ export const devices = {
   laptop: `(max-width: ${sizes.laptop})`,
 };
 
-export const SPECIALISTS_PAGINATION_STEP = 20;
 export const DEFAULT_REVIEWS_COUNT = 0;
 export const DEFAULT_AVG_RATING = 0;
 export const SKELETON_MESSAGES_COUNT = 8;

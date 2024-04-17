@@ -16,7 +16,13 @@ const Title = styled.label`
 `;
 
 interface Props {
-  onChange: (subcategory: ValueLabelPair, isChecked: boolean) => void;
+  onChange: ({
+    subcategory,
+    isChecked,
+  }: {
+    subcategory: ValueLabelPair;
+    isChecked: boolean;
+  }) => void;
   subcategory: ValueLabelPair;
 }
 
@@ -28,7 +34,7 @@ const SubcategoryCardElement = (props: Props): ReactElement => {
       <UiInput
         type="checkbox"
         id={subcategory.label}
-        onChange={(e) => onChange(subcategory, e.target.checked)}
+        onChange={(e) => onChange({ subcategory, isChecked: e.target.checked })}
         Icon={<CheckMarkIcon />}
       />
       <Title htmlFor={subcategory.label}>{subcategory.label}</Title>

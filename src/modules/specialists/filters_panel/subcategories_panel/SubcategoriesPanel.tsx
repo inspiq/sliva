@@ -5,7 +5,13 @@ import type { ValueLabelPair } from 'src/types';
 
 interface Props {
   subcategories?: ValueLabelPair[];
-  onChange: (subcategory: ValueLabelPair, isChecked: boolean) => void;
+  onChange: ({
+    subcategory,
+    isChecked,
+  }: {
+    subcategory: ValueLabelPair;
+    isChecked: boolean;
+  }) => void;
 }
 
 const SubcategoriesPanelElement = (props: Props): ReactElement => {
@@ -16,8 +22,8 @@ const SubcategoriesPanelElement = (props: Props): ReactElement => {
       {subcategories?.map((subcategory) => (
         <SubcategoryCard
           key={subcategory.value}
-          onChange={onChange}
           subcategory={subcategory}
+          onChange={onChange}
         />
       ))}
     </>

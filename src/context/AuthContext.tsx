@@ -46,6 +46,11 @@ export const AuthContextProvider = (props: PropsWithChildren) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        localStorage.setItem('userId', user?.uid);
+      } else {
+        localStorage.removeItem('userId');
+      }
       setAuthUser(user);
       setIsLoading(false);
     });
