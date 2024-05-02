@@ -122,10 +122,7 @@ const SpecialistReviewCardElement = (props: Props): ReactElement => {
             </Column>
           </UserDetailsLayout>
           <RateReviewLayout>
-            <RateChip
-              isDisabled
-              selectedRating={rating ?? DEFAULT_AVG_RATING}
-            />
+            <RateChip disabled selectedRating={rating ?? DEFAULT_AVG_RATING} />
           </RateReviewLayout>
         </ReviewHeader>
         <CommentDetailsLayout>

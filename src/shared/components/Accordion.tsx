@@ -1,5 +1,4 @@
 import type {
-  FormEvent,
   FormHTMLAttributes,
   PropsWithChildren,
   ReactElement,
@@ -71,16 +70,12 @@ export const AccordionElement = (
 
   const { secondary, white } = useTheme();
 
-  const onChangeAccordionOpen = (e: FormEvent<HTMLInputElement>) => {
-    onChange?.(e);
-  };
-
   return (
     <MainLayout>
       <input
         type="checkbox"
         checked={isOpen}
-        onChange={onChangeAccordionOpen}
+        onChange={onChange}
         hidden
         {...rest}
       />

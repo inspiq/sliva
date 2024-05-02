@@ -1,1 +1,1 @@
-export * from 'src/shared/components/chips/RateChip';
+export * from 'src/shared/components/chips/rate/RateChip';

@@ -7,7 +7,13 @@ import {
   QueryFieldFilterConstraint,
   where,
 } from 'firebase/firestore';
-import { action, makeObservable, observable, runInAction } from 'mobx';
+import {
+  action,
+  makeObservable,
+  observable,
+  reaction,
+  runInAction,
+} from 'mobx';
 
 import type { SpecialistFilter } from 'src/modules/specialists/specialists_panel/SpecialistsPanel';
 import { db, type LocalVm, Lock, type LockState } from 'src/shared';
@@ -23,50 +29,31 @@ export class SpecialistsPanelVm implements LocalVm {
   private _showMoreSpecialists = false;
 
   constructor() {
-    makeObservable<SpecialistsPanelVm, '_specialists' | '_specialistsCount'>(
-      this,
-      {
-        _specialists: observable,
-        _specialistsCount: observable,
-        onShowMoreSpecialists: action.bound,
-        onChangeCategoriesFilter: action.bound,
-        onChangeSubcategoriesFilter: action.bound,
-      },
+    makeObservable<
+      SpecialistsPanelVm,
+      '_specialists' | '_specialistsCount' | '_selectedFilters'
+    >(this, {
+      _specialists: observable,
+      _specialistsCount: observable,
+      _selectedFilters: observable,
+      onShowMoreSpecialists: action.bound,
+      onChangeCategoriesFilter: action.bound,
+      onChangeSubcategoriesFilter: action.bound,
+    });
+
+    reaction(
+      () => ({
+        selectedFilters: this._selectedFilters,
+        selectedSubcategoriesFilter: this._selectedFilters?.[0]?.subcategories,
+        specialistsCount: this._specialistsCount,
+      }),
+      () => this.loadSpecialists(),
     );
-  }
-
-  public async loadSpecialists(): Promise<void> {
-    this._lock.start();
-
-    try {
-      const q = query(
-        collection(db, 'users'),
-        where('type', '==', 'specialist'),
-        ...this.getFilters(),
-        limit(this._specialistsCount),
-      );
-
-      const querySnapshot = await getDocs(q);
-      const specialistsFromFirebase = querySnapshot.docs.map(
-        (element) => element.data() as Specialist,
-      );
-
-      runInAction(() => {
-        this._specialists = specialistsFromFirebase;
-        this._showMoreSpecialists =
-          specialistsFromFirebase.length === this._specialistsCount;
-      });
-
-      this._lock.end();
-    } catch (e) {
-      this._lock.fail();
-    }
   }
 
   public onShowMoreSpecialists(): void {
     this._specialistsCount =
       this._specialistsCount + SPECIALISTS_PAGINATION_STEP;
-    this.loadSpecialists();
   }
 
   public onChangeCategoriesFilter = (
@@ -82,8 +69,6 @@ export class SpecialistsPanelVm implements LocalVm {
     if (isOpen) {
       this._selectedFilters = [{ category, subcategories: [] }];
     }
-
-    this.loadSpecialists();
   };
 
   public onChangeSubcategoriesFilter = ({
@@ -113,8 +98,6 @@ export class SpecialistsPanelVm implements LocalVm {
         ),
       ];
     }
-
-    this.loadSpecialists();
   };
 
   public get specialists(): Specialist[] {
@@ -141,6 +124,34 @@ export class SpecialistsPanelVm implements LocalVm {
 
       return where('categories', 'array-contains', category.value);
     });
+  }
+
+  private async loadSpecialists(): Promise<void> {
+    this._lock.start();
+
+    try {
+      const q = query(
+        collection(db, 'users'),
+        where('type', '==', 'specialist'),
+        ...this.getFilters(),
+        limit(this._specialistsCount),
+      );
+
+      const querySnapshot = await getDocs(q);
+      const specialistsFromFirebase = querySnapshot.docs.map(
+        (element) => element.data() as Specialist,
+      );
+
+      runInAction(() => {
+        this._specialists = specialistsFromFirebase;
+        this._showMoreSpecialists =
+          specialistsFromFirebase.length === this._specialistsCount;
+      });
+
+      this._lock.end();
+    } catch (e) {
+      this._lock.fail();
+    }
   }
 
   onRender(): void {

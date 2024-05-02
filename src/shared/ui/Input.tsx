@@ -156,14 +156,13 @@ const UiInputElement = (props: Props): ReactElement => {
   return (
     <MainLayout $isCheckbox={hasTypeCheckbox}>
       {type === 'file' && (
-        <StyledLabel htmlFor="file">
+        <StyledLabel>
           <PlusIconLayout>
             <PlusIcon />
           </PlusIconLayout>
           <Input
             $hasError={hasError}
             type={hasTypePassword ? currentTypePasswordField : type}
-            id="file"
             onChange={onChange}
             {...rest}
           />
@@ -187,11 +186,10 @@ const UiInputElement = (props: Props): ReactElement => {
         </InputLayout>
       )}
       {hasTypeCheckbox && (
-        <CheckboxLayout htmlFor={rest.id}>
+        <CheckboxLayout>
           <Checkbox
             type={type}
             checked={isChecked}
-            id={label}
             onChange={(e) => onChangeCheckbox(e)}
             {...rest}
           />
