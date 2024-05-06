@@ -4,7 +4,6 @@ import { signOut } from 'firebase/auth';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
-import { sessionStore } from 'src/app_store';
 import { AccountManagement } from 'src/modules/header/AccountManagement';
 import { LanguageManagement } from 'src/modules/header/LanguageManagement';
 import { LocalesPanel } from 'src/modules/header/locales/LocalesPanel';
