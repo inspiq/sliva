@@ -5,7 +5,7 @@ import { collection, onSnapshot } from 'firebase/firestore';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
-import { useAuthContext } from 'src/context';
+import { sessionStore } from 'src/app_store';
 import { Header } from 'src/modules';
 import { Categories } from 'src/modules/home/categories/CategoriesPanel';
 import { ChatBanner } from 'src/modules/home/ChatBanner';
@@ -55,7 +55,6 @@ const Title = styled.p`
 
 const HomeElement = (): ReactElement => {
   const [usersCount, setUsersCount] = useState(0);
-  const { authUser } = useAuthContext();
   const [cookies, setCookie] = useCookies();
   const t = useTranslations('modal_test');
 
@@ -91,7 +90,11 @@ const HomeElement = (): ReactElement => {
         </Container>
       </Wrapper>
       <Footer />
-      <StyledPopup open={!authUser && !cookies.modal_test} modal lockScroll>
+      <StyledPopup
+        open={!sessionStore.authUser && !cookies.modal_test}
+        modal
+        lockScroll
+      >
         <Title>{t('title')}</Title>
         <Tip>
           {t('tips.one')}

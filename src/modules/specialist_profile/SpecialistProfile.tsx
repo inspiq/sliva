@@ -4,7 +4,7 @@ import { doc, onSnapshot } from 'firebase/firestore';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
-import { useAuthContext } from 'src/context';
+import { sessionStore } from 'src/app_store';
 import { Header } from 'src/modules';
 import { SpecialistReviewForm } from 'src/modules/specialist_profile/specialist_reviews/SpecialistReviewForm';
 import { SpecialistReviewsPanel } from 'src/modules/specialist_profile/specialist_reviews/SpecialistReviewsPanel';
@@ -60,7 +60,6 @@ const SpecialistAccountElement = (props: {
 
   const [specialist, setSpecialist] = useState<Specialist>();
   const [allReviews, setAllReviews] = useState<ReviewDocument>();
-  const { authUser, isLoading } = useAuthContext();
   const t = useTranslations();
   const { visible: isLoadingSpecialist, close: stopLoadingSpecialist } =
     useToggle(true);
@@ -123,7 +122,7 @@ const SpecialistAccountElement = (props: {
                 />
               </ReviewsLayout>
             </Column>
-            {!authUser && !isLoading && (
+            {!sessionStore.authUser && !sessionStore.lockState.progress && (
               <BlockOverlay title={t('block.titles.auth_to_access')} />
             )}
           </ContentLayout>

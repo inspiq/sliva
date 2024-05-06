@@ -2,14 +2,13 @@ import type { ReactElement } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useTranslations } from 'next-intl';
 
-import { useAuthContext } from 'src/context';
+import { sessionStore } from 'src/app_store';
 import { Header } from 'src/modules';
 import { SpecialistsPanel } from 'src/modules/specialists/specialists_panel/SpecialistsPanel';
 import { BlockOverlay, Container, Footer, Wrapper } from 'src/shared';
 
 export const SpecialistsElement = (): ReactElement => {
   const t = useTranslations();
-  const { authUser, isLoading } = useAuthContext();
 
   return (
     <>
@@ -18,7 +17,7 @@ export const SpecialistsElement = (): ReactElement => {
         <Container>
           <SpecialistsPanel />
         </Container>
-        {!authUser && !isLoading && (
+        {!sessionStore.authUser && !sessionStore.lockState.progress && (
           <BlockOverlay title={t('block.titles.auth_to_access')} />
         )}
       </Wrapper>

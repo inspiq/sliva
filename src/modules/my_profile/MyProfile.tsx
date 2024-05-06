@@ -1,14 +1,12 @@
 import type { ReactElement } from 'react';
 
-import { useAuthContext } from 'src/context';
+import { sessionStore } from 'src/app_store';
 import { Header } from 'src/modules';
 import { MyProfileForm } from 'src/modules/my_profile/MyProfileForm';
 import { Container, Footer, Loader, Wrapper } from 'src/shared';
 
 const MyProfileElement = (): ReactElement => {
-  const { authUser } = useAuthContext();
-
-  if (!authUser?.additionalInfo) {
+  if (!sessionStore.authUser?.additionalInfo) {
     return <Loader />;
   }
 
@@ -17,7 +15,7 @@ const MyProfileElement = (): ReactElement => {
       <Header />
       <Wrapper>
         <Container>
-          <MyProfileForm authUser={authUser} />
+          <MyProfileForm authUser={sessionStore.authUser} />
         </Container>
       </Wrapper>
       <Footer />

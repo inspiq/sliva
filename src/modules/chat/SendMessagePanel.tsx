@@ -7,7 +7,7 @@ import {
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
-import { useAuthContext } from 'src/context';
+import { sessionStore } from 'src/app_store';
 import { PaperClipIcon } from 'src/shared';
 
 const MainLayout = styled.div`
@@ -51,7 +51,6 @@ const SendMessagePanelElement = (props: {
 
   const [value, setValue] = useState('');
   const t = useTranslations('Chat');
-  const { authUser } = useAuthContext();
 
   const onKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (!value.trim()) return;
@@ -83,7 +82,7 @@ const SendMessagePanelElement = (props: {
 
   return (
     <MainLayout>
-      {authUser?.additionalInfo?.isBlocked ? (
+      {sessionStore.authUser?.additionalInfo?.isBlocked ? (
         <BlockedOverlay>
           {t('send_message_panel.block_message_panel')}
         </BlockedOverlay>

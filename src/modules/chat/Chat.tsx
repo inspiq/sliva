@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react';
 
-import { useAuthContext } from 'src/context';
+import { sessionStore } from 'src/app_store';
 import { Header } from 'src/modules';
 import { ChatManagement } from 'src/modules/chat/ChatManagement';
 import { Container, Footer, Wrapper } from 'src/shared';
@@ -12,14 +12,15 @@ export interface Props {
 }
 
 export const ChatElement = (): ReactElement => {
-  const { authUser, isLoading } = useAuthContext();
-
   return (
     <>
       <Header />
       <Wrapper $position="flex-start">
         <Container>
-          <ChatManagement authUser={authUser} isLoading={isLoading} />
+          <ChatManagement
+            authUser={sessionStore.authUser}
+            isLoading={sessionStore.lockState.progress}
+          />
         </Container>
       </Wrapper>
       <Footer />

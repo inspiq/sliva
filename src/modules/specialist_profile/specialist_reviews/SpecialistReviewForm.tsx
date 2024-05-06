@@ -17,7 +17,7 @@ import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 
-import { useAuthContext } from 'src/context/AuthContext';
+import { sessionStore } from 'src/app_store';
 import { UserRole } from 'src/enums';
 import type { Review } from 'src/modules/specialist_profile/SpecialistProfile';
 import {
@@ -91,12 +91,12 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
 
   const [isBlockReview, setIsBlockReview] = useState(false);
   const [currentRating, setCurrentRating] = useState(DEFAULT_AVG_RATING);
-  const { authUser } = useAuthContext();
   const t = useTranslations();
   const totalRating = reviews?.length
     ? reviews.reduce((sum, item) => sum + item.rating, DEFAULT_AVG_RATING)
     : DEFAULT_AVG_RATING;
-  const isSpecialist = authUser?.additionalInfo?.type === UserRole.SPECIALIST;
+  const isSpecialist =
+    sessionStore.authUser?.additionalInfo?.type === UserRole.SPECIALIST;
 
   const sortedReviews = useMemo(
     () =>
@@ -124,7 +124,7 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
           date: new Date().toISOString(),
           rating: currentRating,
           text,
-          user: authUser?.additionalInfo,
+          user: sessionStore.authUser?.additionalInfo,
         };
 
         const updatedReviews = sortedReviews
@@ -166,7 +166,7 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
       querySnapshot.forEach((documentSnapshot) => {
         (documentSnapshot.data().reviews as Review[]).forEach((review) => {
           if (
-            review.user.id === authUser?.uid &&
+            review.user.id === sessionStore.authUser?.uid &&
             new Date() < add24HoursToDate(review.date)
           ) {
             setIsBlockReview(true);
@@ -178,11 +178,11 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
     return () => {
       unsubscribe();
     };
-  }, [authUser?.uid]);
+  }, [sessionStore.authUser?.uid]);
 
   const isDisabled =
     isSubmitting || !currentRating || !values.text || isBlockReview;
-  const isYourProfile = specialist?.id === authUser?.uid;
+  const isYourProfile = specialist?.id === sessionStore.authUser?.uid;
 
   return (
     <StyledUiForm onSubmit={handleSubmit}>

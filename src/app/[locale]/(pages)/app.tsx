@@ -4,11 +4,12 @@ import 'react-loading-skeleton/dist/skeleton.css';
 
 import type { PropsWithChildren } from 'react';
 import { CookiesProvider } from 'react-cookie';
+import { observer } from 'mobx-react-lite';
 import { Montserrat } from 'next/font/google';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
 import StyledComponentsRegistry from 'src/app/[locale]/(pages)/registry';
-import { AuthContextProvider } from 'src/context';
+import { sessionStore } from 'src/app_store';
 import { theme } from 'src/shared';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
@@ -89,19 +90,17 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export const App = (props: PropsWithChildren) => {
-  const { children } = props;
+export const App = observer((props: PropsWithChildren) => {
+  sessionStore.onRender();
 
   return (
     <CookiesProvider>
-      <AuthContextProvider>
-        <ThemeProvider theme={theme}>
-          <StyledComponentsRegistry>
-            <GlobalStyle />
-            {children}
-          </StyledComponentsRegistry>
-        </ThemeProvider>
-      </AuthContextProvider>
+      <ThemeProvider theme={theme}>
+        <StyledComponentsRegistry>
+          <GlobalStyle />
+          {props.children}
+        </StyledComponentsRegistry>
+      </ThemeProvider>
     </CookiesProvider>
   );
-};
+});

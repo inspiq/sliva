@@ -4,7 +4,7 @@ import Popup from 'reactjs-popup';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
-import { useAuthContext } from 'src/context';
+import { sessionStore } from 'src/app_store';
 import { MessageAdminPanel } from 'src/modules/chat/messages_panel/message_admin_panel/MessageAdminPanel';
 import type { Message } from 'src/modules/chat/messages_panel/MessagesPanel';
 import {
@@ -122,11 +122,10 @@ const MessageCardElement = (
   const { message, isMyMessage, isLoading } = props;
   const { user, timestamp, text } = message ?? {};
 
-  const { authUser } = useAuthContext();
   const { visible: isOpen, open, close } = useToggle();
   const t = useTranslations();
 
-  const isAdmin = authUser?.additionalInfo?.type === 'admin';
+  const isAdmin = sessionStore.authUser?.additionalInfo?.type === 'admin';
   const isSpecialistSendMessage = message?.user?.type === 'specialist';
 
   return (
