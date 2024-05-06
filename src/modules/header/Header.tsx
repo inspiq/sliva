@@ -101,8 +101,6 @@ const HeaderElement = (): ReactElement => {
     }
   };
 
-  console.log(sessionStore.authUser);
-
   return (
     <MainLayout>
       <StyledContainer>
