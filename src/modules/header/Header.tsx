@@ -17,6 +17,7 @@ import {
   Logo,
   UiButton,
 } from 'src/shared';
+import { sessionStore } from 'src/store';
 
 const MainLayout = styled.header`
   height: 70px;
@@ -119,7 +120,7 @@ const HeaderElement = (): ReactElement => {
             </PopupMenuLayout>
           </Popup>
         </MenuLayout>
-        {localStorage.getItem('userId') ? (
+        {sessionStore.authUser ? (
           <Popup
             trigger={AccountManagement}
             position="bottom right"

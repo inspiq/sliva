@@ -35,14 +35,7 @@ export class SessionStore {
     this._lock.start();
 
     onAuthStateChanged(auth, (user) => {
-      if (user) {
-        localStorage.setItem('userId', user.uid);
-      } else {
-        localStorage.removeItem('userId');
-      }
-
       runInAction(() => (this._authUser = user));
-
       this._lock.end();
     });
   }
