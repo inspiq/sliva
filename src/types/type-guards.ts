@@ -1,4 +1,4 @@
-import type { UserType } from 'src/app_store/AppSessionStore';
+import type { UserType } from 'src/store/SessionStore';
 import { UserRole } from 'src/enums';
 import type { Specialist } from 'src/types';
 

@@ -14,13 +14,13 @@ import type { Client, Specialist } from 'src/types';
 export type UserWithAdditionalInfo = User & { additionalInfo: UserType | null };
 export type UserType = Client | Specialist;
 
-export class AppSessionStore {
+export class SessionStore {
   private readonly _lock = new Lock();
   private _authUser: User | null = null;
   private _authUserDetails: UserType | null = null;
 
   constructor() {
-    makeObservable<AppSessionStore, '_authUser' | '_authUserDetails'>(this, {
+    makeObservable<SessionStore, '_authUser' | '_authUserDetails'>(this, {
       _authUser: observable,
       _authUserDetails: observable,
     });

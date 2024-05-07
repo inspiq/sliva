@@ -18,7 +18,7 @@ import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 
-import { sessionStore } from 'src/app_store';
+import { sessionStore } from 'src/store';
 import { UserRole } from 'src/enums';
 import type { Review } from 'src/modules/specialist_profile/SpecialistProfile';
 import {

@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
-import { sessionStore } from 'src/app_store';
+import { sessionStore } from 'src/store';
 import { MessageAdminPanel } from 'src/modules/chat/messages_panel/message_admin_panel/MessageAdminPanel';
 import type { Message } from 'src/modules/chat/messages_panel/MessagesPanel';
 import {

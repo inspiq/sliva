@@ -6,7 +6,7 @@ import {
 } from 'react';
 import styled from 'styled-components';
 
-import type { UserType } from 'src/app_store/AppSessionStore';
+import type { UserType } from 'src/store/SessionStore';
 import { Avatar, DEFAULT_AVATAR_URL, UiInput } from 'src/shared';
 
 const MainLayout = styled.div`

@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import styled, { useTheme } from 'styled-components';
 import * as yup from 'yup';
 
-import type { UserWithAdditionalInfo } from 'src/app_store/AppSessionStore';
+import type { UserWithAdditionalInfo } from 'src/store/SessionStore';
 import { UserRole } from 'src/enums';
 import { UploadAvatar } from 'src/modules/my_profile/UploadAvatar';
 import {
