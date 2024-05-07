@@ -1,4 +1,4 @@
-export const getInitials = ({
+export const getUserInitials = ({
   firstName,
   lastName,
 }: {

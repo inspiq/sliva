@@ -12,8 +12,8 @@ import {
   Avatar,
   DEFAULT_AVATAR_URL,
   devices,
-  getInitials,
   getTime,
+  getUserInitials,
   TooltipIcon,
   useToggle,
 } from 'src/shared';
@@ -157,7 +157,7 @@ const MessageCardElement = (
           <UserName>
             {isMyMessage
               ? t('Chat.message.you')
-              : getInitials({
+              : getUserInitials({
                   firstName: user?.firstName ?? '',
                   lastName: user?.lastName ?? '',
                 })}

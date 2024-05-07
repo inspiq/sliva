@@ -9,7 +9,7 @@ import {
   DEFAULT_AVATAR_URL,
   DEFAULT_AVG_RATING,
   getDayAndYear,
-  getInitials,
+  getUserInitials,
   Line,
   RateChip,
 } from 'src/shared';
@@ -108,7 +108,7 @@ const SpecialistReviewCardElement = (props: Props): ReactElement => {
                 <Skeleton width={110} />
               ) : (
                 <UserInitials>
-                  {getInitials({
+                  {getUserInitials({
                     firstName: user?.firstName ?? '',
                     lastName: user?.lastName ?? '',
                   })}
