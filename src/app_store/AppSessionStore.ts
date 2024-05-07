@@ -1,12 +1,20 @@
-import { useEffect } from 'react';
 import { onAuthStateChanged, type User } from 'firebase/auth';
 import { doc, onSnapshot } from 'firebase/firestore';
-import { makeObservable, observable, runInAction } from 'mobx';
+import {
+  autorun,
+  makeObservable,
+  observable,
+  reaction,
+  runInAction,
+} from 'mobx';
 
-import { auth, db, type LocalVm, Lock, type LockState } from 'src/shared';
-import type { UserType } from 'src/types';
+import { auth, db, Lock, type LockState } from 'src/shared';
+import type { Client, Specialist } from 'src/types';
 
-export class AppSessionStore implements LocalVm {
+export type UserWithAdditionalInfo = User & { additionalInfo: UserType | null };
+export type UserType = Client | Specialist;
+
+export class AppSessionStore {
   private readonly _lock = new Lock();
   private _authUser: User | null = null;
   private _authUserDetails: UserType | null = null;
@@ -16,9 +24,45 @@ export class AppSessionStore implements LocalVm {
       _authUser: observable,
       _authUserDetails: observable,
     });
+    autorun(() => this.initAuthStateListener());
+    reaction(
+      () => this._authUser?.uid,
+      (userId) => this.subscribeToAuthUser(userId),
+    );
   }
 
-  public get authUser() {
+  private initAuthStateListener(): void {
+    this._lock.start();
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        localStorage.setItem('userId', user.uid);
+      } else {
+        localStorage.removeItem('userId');
+      }
+
+      runInAction(() => (this._authUser = user));
+
+      this._lock.end();
+    });
+  }
+
+  private subscribeToAuthUser(userId?: string): void {
+    if (!userId) return;
+
+    const docRef = doc(db, 'users', userId);
+    onSnapshot(docRef, (documentSnapshot) => {
+      if (documentSnapshot.exists()) {
+        const user = documentSnapshot.data() as UserType;
+
+        runInAction(() => {
+          this._authUserDetails = user;
+        });
+      }
+    });
+  }
+
+  public get authUser(): UserWithAdditionalInfo | null {
     return this._authUser
       ? { ...this._authUser, additionalInfo: this._authUserDetails }
       : null;
@@ -26,38 +70,5 @@ export class AppSessionStore implements LocalVm {
 
   public get lockState(): LockState {
     return this._lock.state;
-  }
-
-  onRender() {
-    useEffect(() => {
-      this._lock.start();
-
-      const unsubscribe = onAuthStateChanged(auth, (user) => {
-        if (user) {
-          localStorage.setItem('userId', user?.uid);
-        } else {
-          localStorage.removeItem('userId');
-        }
-        runInAction(() => (this._authUser = user));
-        this._lock.end();
-      });
-
-      return () => unsubscribe();
-    }, []);
-
-    useEffect(() => {
-      const userId = this._authUser?.uid;
-      if (!userId) return;
-
-      const docRef = doc(db, 'users', userId);
-      const unsubscribe = onSnapshot(docRef, (documentSnapshot) => {
-        if (documentSnapshot.exists()) {
-          const user = documentSnapshot.data() as UserType;
-          runInAction(() => (this._authUserDetails = user));
-        }
-      });
-
-      return () => unsubscribe();
-    }, [this._authUser?.uid]);
   }
 }

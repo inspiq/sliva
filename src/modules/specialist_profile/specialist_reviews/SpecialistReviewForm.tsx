@@ -13,6 +13,7 @@ import {
   updateDoc,
 } from 'firebase/firestore';
 import { useFormik } from 'formik';
+import { observer } from 'mobx-react-lite';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
@@ -227,4 +228,4 @@ const SpecialistReviewFormElement = (props: Props): ReactElement => {
   );
 };
 
-export const SpecialistReviewForm = SpecialistReviewFormElement;
+export const SpecialistReviewForm = observer(SpecialistReviewFormElement);

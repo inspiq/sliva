@@ -4,6 +4,7 @@ import {
   type ReactElement,
   useState,
 } from 'react';
+import { observer } from 'mobx-react-lite';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
@@ -103,4 +104,4 @@ const SendMessagePanelElement = (props: {
   );
 };
 
-export const SendMessagePanel = SendMessagePanelElement;
+export const SendMessagePanel = observer(SendMessagePanelElement);

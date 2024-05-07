@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import styled, { useTheme } from 'styled-components';
 import * as yup from 'yup';
 
+import type { UserWithAdditionalInfo } from 'src/app_store/AppSessionStore';
 import { UserRole } from 'src/enums';
 import { UploadAvatar } from 'src/modules/my_profile/UploadAvatar';
 import {
@@ -20,11 +21,7 @@ import {
   UiForm,
   UiInput,
 } from 'src/shared';
-import {
-  isSpecialist,
-  type UserWithAdditionalInfo,
-  type ValueLabelPair,
-} from 'src/types';
+import { isSpecialist, type ValueLabelPair } from 'src/types';
 
 const Row = styled.div`
   display: grid;

@@ -1,10 +1,11 @@
 import type { ReactElement } from 'react';
+import { observer } from 'mobx-react-lite';
 
 import { sessionStore } from 'src/app_store';
+import type { UserWithAdditionalInfo } from 'src/app_store/AppSessionStore';
 import { Header } from 'src/modules';
 import { ChatManagement } from 'src/modules/chat/ChatManagement';
 import { Container, Footer, Wrapper } from 'src/shared';
-import type { UserWithAdditionalInfo } from 'src/types';
 
 export interface Props {
   authUser: UserWithAdditionalInfo | null;
@@ -28,4 +29,4 @@ export const ChatElement = (): ReactElement => {
   );
 };
 
-export const Chat = ChatElement;
+export const Chat = observer(ChatElement);

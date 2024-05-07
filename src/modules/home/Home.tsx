@@ -2,6 +2,7 @@ import { type ReactElement, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import Popup from 'reactjs-popup';
 import { collection, onSnapshot } from 'firebase/firestore';
+import { observer } from 'mobx-react-lite';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
@@ -107,4 +108,4 @@ const HomeElement = (): ReactElement => {
   );
 };
 
-export const Home = HomeElement;
+export const Home = observer(HomeElement);

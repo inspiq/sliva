@@ -1,4 +1,5 @@
 import type { ReactElement } from 'react';
+import { observer } from 'mobx-react-lite';
 
 import { sessionStore } from 'src/app_store';
 import { Header } from 'src/modules';
@@ -23,4 +24,4 @@ const MyProfileElement = (): ReactElement => {
   );
 };
 
-export const MyProfile = MyProfileElement;
+export const MyProfile = observer(MyProfileElement);

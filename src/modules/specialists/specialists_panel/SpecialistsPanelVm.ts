@@ -40,7 +40,6 @@ export class SpecialistsPanelVm implements LocalVm {
       onChangeCategoriesFilter: action.bound,
       onChangeSubcategoriesFilter: action.bound,
     });
-
     reaction(
       () => ({
         selectedFilters: this._selectedFilters,
@@ -136,7 +135,6 @@ export class SpecialistsPanelVm implements LocalVm {
         ...this.getFilters(),
         limit(this._specialistsCount),
       );
-
       const querySnapshot = await getDocs(q);
       const specialistsFromFirebase = querySnapshot.docs.map(
         (element) => element.data() as Specialist,

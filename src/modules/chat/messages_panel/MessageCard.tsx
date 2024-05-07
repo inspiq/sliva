@@ -1,6 +1,7 @@
 import { forwardRef, type ReactElement, type Ref } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import Popup from 'reactjs-popup';
+import { observer } from 'mobx-react-lite';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
@@ -208,4 +209,4 @@ const MessageCardElement = (
   );
 };
 
-export const MessageCard = forwardRef(MessageCardElement);
+export const MessageCard = observer(forwardRef(MessageCardElement));

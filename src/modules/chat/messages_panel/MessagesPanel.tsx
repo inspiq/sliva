@@ -2,6 +2,7 @@ import { type ReactElement, useEffect, useRef, useState } from 'react';
 import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import styled from 'styled-components';
 
+import type { UserType } from 'src/app_store/AppSessionStore';
 import type { Props } from 'src/modules/chat/Chat';
 import { MessageCard } from 'src/modules/chat/messages_panel/MessageCard';
 import {
@@ -10,7 +11,6 @@ import {
   SkeletonPanel,
   useToggle,
 } from 'src/shared';
-import type { UserType } from 'src/types';
 
 const MainLayout = styled.div`
   display: flex;

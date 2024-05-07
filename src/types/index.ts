@@ -1,7 +1,5 @@
 export * from 'src/types/type-guards';
 
-import type { User } from 'firebase/auth';
-
 import { UserRole } from 'src/enums';
 
 interface ReviewDetails {
@@ -36,6 +34,3 @@ export interface ValueLabelPair {
   value: string;
   label: string;
 }
-
-export type UserType = Client | Specialist;
-export type UserWithAdditionalInfo = User & { additionalInfo: UserType | null };

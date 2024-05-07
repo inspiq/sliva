@@ -25,13 +25,11 @@ export class RateChipVm implements LocalVm {
 
   public onChangeHoveredStar(value: number): void {
     if (this._isDisabled) return;
-
     this._hoveredStar = value;
   }
 
   public onChangeSelectedRating(value: number): void {
     if (this._isDisabled) return;
-
     this.setSelectedRating?.(value);
   }
 

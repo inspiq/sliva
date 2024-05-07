@@ -1,6 +1,7 @@
 import { type ReactElement, useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { doc, onSnapshot } from 'firebase/firestore';
+import { observer } from 'mobx-react-lite';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
@@ -133,4 +134,4 @@ const SpecialistAccountElement = (props: {
   );
 };
 
-export const SpecialistProfile = SpecialistAccountElement;
+export const SpecialistProfile = observer(SpecialistAccountElement);
