@@ -2,7 +2,7 @@ import { type ReactElement } from 'react';
 import { observer } from 'mobx-react-lite';
 import styled from 'styled-components';
 
-import { Filter } from 'src/modules/specialists/filters_panel/FilterCard';
+import { FilterCard } from 'src/modules/specialists/filters_panel/FilterCard';
 import { FiltersPanelVm } from 'src/modules/specialists/filters_panel/FiltersPanelVm';
 import { useLocalVm } from 'src/shared';
 import type { ValueLabelPair } from 'src/types';
@@ -34,22 +34,24 @@ const FiltersPanelElement = (props: Props): ReactElement => {
   return (
     <MainLayout>
       {FiltersPanelVm.getFilters.map(({ category, subcategories }) => (
-        <Filter
+        <FilterCard
           key={category.value}
           category={category}
           subcategories={subcategories}
-          onToggle={() => vm.onCurrentOpenAccordionIdToggle(category.value)}
-          isOpen={vm.currentOpenAccordionId === category.value}
+          onCurrentOpenAccordionIdToggle={() =>
+            vm.onCurrentOpenAccordionIdToggle(category.value)
+          }
           onChangeCategoriesFilter={(isOpen: boolean) =>
             onChangeCategoriesFilter(isOpen, category)
           }
           onChangeSubcategoriesFilter={({ subcategory, isChecked }) =>
             onChangeSubcategoriesFilter({ category, subcategory, isChecked })
           }
+          isOpen={vm.currentOpenAccordionId === category.value}
         />
       ))}
     </MainLayout>
   );
 };
 
-export const Filters = observer(FiltersPanelElement);
+export const FiltersPanel = observer(FiltersPanelElement);

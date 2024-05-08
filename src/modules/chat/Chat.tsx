@@ -1,11 +1,11 @@
 import type { ReactElement } from 'react';
 import { observer } from 'mobx-react-lite';
 
-import { sessionStore } from 'src/store';
-import type { UserWithAdditionalInfo } from 'src/store/SessionStore';
 import { Header } from 'src/modules';
 import { ChatManagement } from 'src/modules/chat/ChatManagement';
 import { Container, Footer, Wrapper } from 'src/shared';
+import { sessionStore } from 'src/store';
+import type { UserWithAdditionalInfo } from 'src/store/SessionStore';
 
 export interface Props {
   authUser: UserWithAdditionalInfo | null;

@@ -46,7 +46,9 @@ export class SpecialistsPanelVm implements LocalVm {
         selectedSubcategoriesFilter: this._selectedFilters?.[0]?.subcategories,
         specialistsCount: this._specialistsCount,
       }),
-      () => this.loadSpecialists(),
+      () => {
+        this.loadSpecialists();
+      },
     );
   }
 

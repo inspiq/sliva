@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
-import { Filters } from 'src/modules/specialists/filters_panel/FiltersPanel';
+import { FiltersPanel } from 'src/modules/specialists/filters_panel/FiltersPanel';
 import { NotFoundSpecialists } from 'src/modules/specialists/NotFoundSpecialists';
 import { SpecialistCard } from 'src/modules/specialists/specialists_panel/SpecialistCard';
 import { SpecialistsPanelVm } from 'src/modules/specialists/specialists_panel/SpecialistsPanelVm';
@@ -55,7 +55,7 @@ const SpecialistsPanelElement = (): ReactElement => {
 
   return (
     <MainLayout>
-      <Filters
+      <FiltersPanel
         onChangeCategoriesFilter={vm.onChangeCategoriesFilter}
         onChangeSubcategoriesFilter={vm.onChangeSubcategoriesFilter}
       />

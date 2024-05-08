@@ -2,10 +2,10 @@ import type { ReactElement } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useTranslations } from 'next-intl';
 
-import { sessionStore } from 'src/store';
 import { Header } from 'src/modules';
 import { SpecialistsPanel } from 'src/modules/specialists/specialists_panel/SpecialistsPanel';
 import { BlockOverlay, Container, Footer, Wrapper } from 'src/shared';
+import { sessionStore } from 'src/store';
 
 export const SpecialistsElement = (): ReactElement => {
   const t = useTranslations();

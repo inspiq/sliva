@@ -33,6 +33,7 @@ const AvatarElement = (props: Props): ReactElement => {
       alt={t('avatar')}
       width={width}
       height={height}
+      priority
     />
   );
 };

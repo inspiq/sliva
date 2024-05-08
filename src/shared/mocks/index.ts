@@ -402,19 +402,19 @@ export const getMonthName = (t: (key: string) => string, month: number) => {
 export const getQuestions = (t: (key: string) => string) => {
   return [
     {
-      question: t('Support.questions.registation.question'),
+      prompt: t('Support.questions.registation.prompt'),
       answer: t('Support.questions.registation.answer'),
     },
     {
-      question: t('Support.questions.services.question'),
+      prompt: t('Support.questions.services.prompt'),
       answer: t('Support.questions.services.answer'),
     },
     {
-      question: t('Support.questions.chat.question'),
+      prompt: t('Support.questions.chat.prompt'),
       answer: t('Support.questions.chat.answer'),
     },
     {
-      question: t('Support.questions.reviews.question'),
+      prompt: t('Support.questions.reviews.prompt'),
       answer: t('Support.questions.reviews.answer'),
     },
   ];

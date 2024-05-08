@@ -8,7 +8,6 @@ interface Props {
   category: ValueLabelPair;
   subcategories?: ValueLabelPair[];
   isOpen: boolean;
-  onToggle: () => void;
   onChangeCategoriesFilter(isOpen: boolean): void;
   onChangeSubcategoriesFilter({
     subcategory,
@@ -17,6 +16,7 @@ interface Props {
     subcategory: ValueLabelPair;
     isChecked: boolean;
   }): void;
+  onCurrentOpenAccordionIdToggle(): void;
 }
 
 const FilterCardElement = (props: Props): ReactElement => {
@@ -24,9 +24,9 @@ const FilterCardElement = (props: Props): ReactElement => {
     category,
     subcategories,
     isOpen,
-    onToggle,
     onChangeCategoriesFilter,
     onChangeSubcategoriesFilter,
+    onCurrentOpenAccordionIdToggle,
   } = props;
 
   return (
@@ -34,8 +34,10 @@ const FilterCardElement = (props: Props): ReactElement => {
       title={category.label}
       id={category.label}
       isOpen={isOpen}
-      onChange={() => onChangeCategoriesFilter(isOpen)}
-      onToggle={onToggle}
+      onChange={() => {
+        onChangeCategoriesFilter(!isOpen);
+        onCurrentOpenAccordionIdToggle();
+      }}
     >
       <SubcategoriesPanel
         subcategories={subcategories}
@@ -45,4 +47,4 @@ const FilterCardElement = (props: Props): ReactElement => {
   );
 };
 
-export const Filter = memo(FilterCardElement);
+export const FilterCard = memo(FilterCardElement);

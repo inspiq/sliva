@@ -8,8 +8,8 @@ import { observer } from 'mobx-react-lite';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
-import { sessionStore } from 'src/store';
 import { PaperClipIcon } from 'src/shared';
+import { sessionStore } from 'src/store';
 
 const MainLayout = styled.div`
   width: 100%;
@@ -73,7 +73,6 @@ const SendMessagePanelElement = (props: {
     }
 
     setValue(target.value);
-
     target.style.height = '20px';
 
     requestAnimationFrame(() => {

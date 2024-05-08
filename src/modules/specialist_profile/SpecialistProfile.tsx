@@ -5,7 +5,6 @@ import { observer } from 'mobx-react-lite';
 import { useTranslations } from 'next-intl';
 import styled from 'styled-components';
 
-import { sessionStore } from 'src/store';
 import { Header } from 'src/modules';
 import { SpecialistReviewForm } from 'src/modules/specialist_profile/specialist_reviews/SpecialistReviewForm';
 import { SpecialistReviewsPanel } from 'src/modules/specialist_profile/specialist_reviews/SpecialistReviewsPanel';
@@ -18,6 +17,7 @@ import {
   useToggle,
   Wrapper,
 } from 'src/shared';
+import { sessionStore } from 'src/store';
 import type { Specialist } from 'src/types';
 
 const ReviewsLayout = styled.div`

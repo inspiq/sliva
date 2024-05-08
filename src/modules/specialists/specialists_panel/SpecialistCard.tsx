@@ -159,6 +159,7 @@ const SpecialistCardElement = (props: Props): ReactElement => {
             width={130}
             height={150}
             alt={t('alts.avatar')}
+            priority
           />
         )}
         <SpecialistDetails>

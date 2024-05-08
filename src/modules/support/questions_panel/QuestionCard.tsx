@@ -8,19 +8,18 @@ const Answer = styled.div`
   font-weight: ${({ theme }) => theme.w400};
 `;
 
-export const QuestionCard = (props: {
-  question: { question: string; answer: string };
-}) => {
+interface Props {
+  question: { prompt: string; answer: string };
+  id: string;
+}
+
+export const QuestionCard = (props: Props) => {
   const { visible, toggle } = useToggle();
-  const { question, answer } = props.question;
+  const { id, question } = props;
+  const { prompt, answer } = question;
 
   return (
-    <Accordion
-      key={question}
-      isOpen={visible}
-      onToggle={toggle}
-      title={question}
-    >
+    <Accordion isOpen={visible} onChange={toggle} title={prompt} id={id}>
       <Answer>{answer}</Answer>
     </Accordion>
   );

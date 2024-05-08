@@ -59,14 +59,13 @@ const Title = styled.div<{ $isOpen: boolean }>`
 `;
 
 interface Props extends FormHTMLAttributes<HTMLInputElement> {
-  onToggle: () => void;
   isOpen: boolean;
 }
 
 export const AccordionElement = (
   props: PropsWithChildren<Props>,
 ): ReactElement => {
-  const { children, title, onChange, onToggle, isOpen, ...rest } = props;
+  const { children, title, isOpen, onChange, ...rest } = props;
 
   const { secondary, white } = useTheme();
 
@@ -79,7 +78,7 @@ export const AccordionElement = (
         hidden
         {...rest}
       />
-      <Header htmlFor={rest.id} $isOpen={isOpen} onClick={onToggle}>
+      <Header htmlFor={rest.id} $isOpen={isOpen}>
         <Title $isOpen={isOpen}>{title}</Title>
         <ArrowIcon
           width={12}

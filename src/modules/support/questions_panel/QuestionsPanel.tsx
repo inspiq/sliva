@@ -8,6 +8,6 @@ export const QuestionsPanel = () => {
   const questions = getQuestions(t);
 
   return questions.map((question, i) => (
-    <QuestionCard question={question} key={i} />
+    <QuestionCard question={question} id={i.toString()} key={i} />
   ));
 };

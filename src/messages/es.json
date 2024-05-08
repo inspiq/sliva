@@ -346,19 +346,19 @@
     },
     "questions": {
       "registation": {
-        "question": "Pregunta sobre registro/inicio de sesión en el servicio",
+        "prompt": "Pregunta sobre registro/inicio de sesión en el servicio",
         "answer": "En la esquina superior derecha de la página, haga clic en el botón (Iniciar sesión). En la ventana abierta, ingrese su correo electrónico y contraseña para iniciar sesión. Si no tiene una cuenta, regístrese. Si olvidó su contraseña, entonces al intentar autorizar, haga clic en el botón (Restablecer contraseña). En la ventana abierta, ingrese su correo electrónico y haga clic en (Enviar enlace al correo electrónico). Recibirá un correo electrónico con un enlace para restablecer su contraseña."
       },
       "services": {
-        "question": "Cómo pedir servicios a un especialista",
+        "prompt": "Cómo pedir servicios a un especialista",
         "answer": "En la página principal, haga clic en el botón (Buscar un especialista) o seleccione la categoría de su interés. En la ventana abierta, se muestran los especialistas disponibles, que se pueden filtrar usando las categorías y subcategorías en el lado izquierdo. Para contactar a un especialista, debe ir a su perfil. Contendrá un número de teléfono y una cuenta de Telegram."
       },
       "chat": {
-        "question": "Funcionamiento/reglas del chat",
+        "prompt": "Funcionamiento/reglas del chat",
         "answer": "En la parte inferior de la página principal, haga clic en el botón (Unirse al chat). El comportamiento incorrecto en el chat lleva al bloqueo del usuario en los siguientes casos: (spam, publicidad de plataformas de internet externas, disputas en temas políticos, nacionales, religiosos, mensajes con groserías e insultos, envío de imágenes inseguras para ver)."
       },
       "reviews": {
-        "question": "Reseñas",
+        "prompt": "Reseñas",
         "answer": "Para dejar una reseña para un especialista, vaya a su perfil."
       }
     }
